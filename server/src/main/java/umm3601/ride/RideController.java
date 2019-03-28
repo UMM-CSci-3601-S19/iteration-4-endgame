@@ -51,6 +51,11 @@ public class RideController {
       filterDoc = filterDoc.append("driver", contentRegQuery);
     }
 
+    if (queryParams.containsKey("driving")) {
+      Boolean targetBool = Boolean.parseBoolean(queryParams.get("driving")[0]);
+      filterDoc = filterDoc.append("driving", targetBool);
+    }
+
     //FindIterable comes from mongo, Document comes from Gson
     FindIterable<Document> matchingRides = rideCollection.find(filterDoc);
 
