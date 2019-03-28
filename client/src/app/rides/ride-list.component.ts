@@ -21,6 +21,7 @@ export class RideListComponent implements OnInit {
   public filteredRides: Ride[];
 
   public rideDestination: string;
+  public rideDriving: string;
 
   private highlightedDestination: string = '';
 
@@ -122,6 +123,16 @@ export class RideListComponent implements OnInit {
 
     this.filteredRides = this.rides;
 
+    /*if (searchDriving != null) {
+      this.filteredRides = this.filteredRides.filter((ride: Ride) => {
+        console.log("toString Value: ", ride.driving.toString());
+        console.log("searchDriving Value: ", searchDriving.toString());
+        console.log("Comparison Value: ", ride.driving.toString().indexOf(searchDriving.toString()) !== -1);
+        //  return !searchDriving || ride.driving.toString().toLowerCase().indexOf(searchDriving) !== 1;
+        return !searchDriving || ride.driving.toString().indexOf(searchDriving.toString()) !== -1;
+      });
+    }*/
+
     if (searchDestination != null) {
       searchDestination = searchDestination.toLocaleLowerCase();
 
@@ -129,7 +140,6 @@ export class RideListComponent implements OnInit {
         return !searchDestination || ride.destination.toLowerCase().indexOf(searchDestination) !== -1;
       });
     }
-
 
     return this.filteredRides;
   }
@@ -147,6 +157,18 @@ export class RideListComponent implements OnInit {
         console.log(err);
       });
     return rides;
+  }
+
+  loadService(): void {
+    this.rideListService.getRides(this.rideDestination, this.rideDriving).subscribe(
+      rides => {
+        this.rides = rides;
+        this.filteredRides = this.rides;
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
 
