@@ -29,4 +29,5 @@ before_script:
 
 
 notifications:
-  slack: umm-3601-s19:V6IJykM9nfM0gm8M4S9YWwKB
+  slack: umm-3601-s19:TscVUyhHSkjhxmAQMhXUW3lb
+
