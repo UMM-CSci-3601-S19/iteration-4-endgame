@@ -1,5 +1,6 @@
 package umm3601.ride;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import spark.Request;
@@ -57,6 +58,8 @@ public class RideRequestHandler {
    */
   public String getRides(Request req, Response res) {
     res.type("application/json");
+    System.out.println("***");
+    System.out.println(rideController.getRides(req.queryMap().toMap()));
     return rideController.getRides(req.queryMap().toMap());
   }
 

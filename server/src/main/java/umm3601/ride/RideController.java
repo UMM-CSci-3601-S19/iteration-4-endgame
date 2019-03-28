@@ -42,7 +42,7 @@ public class RideController {
   String getRides(Map<String, String[]> queryParams) {
 
     Document filterDoc = new Document();
-
+    /*
     if (queryParams.containsKey("driver")) {
       String targetContent = (queryParams.get("driver")[0]);
       Document contentRegQuery = new Document();
@@ -50,10 +50,11 @@ public class RideController {
       contentRegQuery.append("$options", "i");
       filterDoc = filterDoc.append("driver", contentRegQuery);
     }
-
+    */
     //FindIterable comes from mongo, Document comes from Gson
     FindIterable<Document> matchingRides = rideCollection.find(filterDoc);
-
+    System.out.println("Got all of the rides!");
+    System.out.println(matchingRides);
     return serializeIterable(matchingRides);
   }
 

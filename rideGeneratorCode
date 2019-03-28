@@ -1,20 +1,23 @@
 Code for Generating random rides:
 
 [
+  '{{repeat(75)}}',
   {
-    'repeat(100)': {
-      driver: '{{firstName()}} {{surname()}}',
-      riders: "{{random('5c817c356e1e7c3c544638fd', '5c817c35f51d7f2cf6a6ec44', '5c817c358f1702ea7c5f4ee3', '5c817c35004535b2c6789e1a')}}",
-       destination: "{{random('Willies', 'Alexandria', 'Duluth', 'Maplegrove', 'Family Dollar', 'St.Paul')}}",
-      origin:'{{street()}}',
-      roundTrip: '{{bool()}}',
-      departureTime: '{{date(new Date(2017, 0, 1), new Date(2024, 0, 1))}}',
-      driving: '{{bool()}}',
-      notes: "{{random('Im driving and I like to eat at the same time', 'I love to crank the volume up to 11', 'I like to drive with no air conditioning', 'No room in the trunk of my car', 'No pet allowed', 'I will pay for lunch for anyone who is riding with me and I am a cool guy')}}",
+    driver: "Nic McPhee",
+
+    owner: {
+      $ref: 'users',
+      id: '{{random("5c9d13c340262bc93466cd64", "5c9d13c396b99c23b368ab9e", "5c9d13c33b4389d5ee29f9f8", "5c9d13c34c8e5815f230dccc", "5c9d13c3e1e4d32f39b6b295", "5c9d13c33f04076672fb1087", "5c9d13c38dd9668345048e10", "5c9d13c3a49163a4dbb49208", "5c9d13c319475d016bc18637", "5c9d13c32296ddd415701449", "5c9d13c324a125961dea39ec", "5c9d13c3d9c7628e6bef5302", "5c9d13c358eb0eb36e0311bf", "5c9d13c3c9d5bd601405a22d", "5c9d13c3c1512e128c8cee01", "5c9d13c3a86a775cd1a7c935", "5c9d13c3de4469950c71767b", "5c9d13c3f1300a020266c199", "5c9d13c3aae18d1330d19af7", "5c9d13c355979ab563c99b06", "5c9d13c391bf6eff4f2ebfbb", "5c9d13c3ada927b7db8d2677", "5c9d13c31b37a417515eb485", "5c9d13c3e4e03fe39e7d11aa", "5c9d13c3bfd610b52aa9836f")}}',
+      $db: 'dev'
     },
+    destination: "{{random('Willies', 'Alexandria', 'Duluth', 'Maplegrove', 'Family Dollar', 'St.Paul')}}",
+    origin:'{{street()}}',
+    roundTrip: '{{bool()}}',
+    departureTime: '{{date(new Date(2017, 0, 1), new Date(2024, 0, 1))}}',
+    driving: '{{bool()}}',
+    notes: "{{random('Im driving and I like to eat at the same time', 'I love to crank the volume up to 11', 'I like to drive with no air conditioning', 'No room in the trunk of my car', 'No pet allowed', 'I will pay for lunch for anyone who is riding with me and I am a cool guy')}}"
   }
 ]
-
 
 
 Additional Notes:
