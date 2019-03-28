@@ -47,7 +47,6 @@ export class RidePage {
   getUniqueRide(destination: string) {
     const ride = element(by.id(destination)).getText();
     this.highlightElement(by.id(destination));
-
     return ride;
   }
 

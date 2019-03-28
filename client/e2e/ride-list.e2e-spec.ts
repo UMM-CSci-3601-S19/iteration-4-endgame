@@ -32,10 +32,10 @@ describe('Ride List', () => {
 
   it('should type something in Filter by Destination box and check that it returned correct element', () => {
     page.typeADestination('d');
-    expect(page.getUniqueRide('Duluth')).toEqual('Duluth');
+    expect(page.getUniqueRide('Duluth')).toMatch('Oliver Street.*');
     page.backspace();
     page.typeADestination('Alexandria');
-    expect(page.getUniqueRide('Alexandria')).toEqual('Alexandria');
+    expect(page.getUniqueRide('Alexandria')).toMatch('Kings Place.*');
   });
 
   it('Should have an add ride button', () => {
