@@ -8,7 +8,8 @@ import spark.Route;
 import spark.utils.IOUtils;
 import umm3601.ride.RideController;
 import umm3601.ride.RideRequestHandler;
-
+import umm3601.user.UserController;
+import umm3601.user.UserRequestHandler;
 
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
@@ -19,17 +20,18 @@ public class Server {
 
   private static final int serverPort = 4567;
 
-  private static final String rideDatabaseName = "dev";
+  private static final String databaseName = "dev";
 
   public static void main(String[] args) {
 
     MongoClient mongoClient = new MongoClient();
-    MongoDatabase rideDatabase = mongoClient.getDatabase(rideDatabaseName);
+    MongoDatabase database = mongoClient.getDatabase(databaseName);
 
-    RideController rideController = new RideController(rideDatabase);
-
-
+    RideController rideController = new RideController(database);
     RideRequestHandler rideRequestHandler = new RideRequestHandler(rideController);
+    UserController userController = new UserController(database);
+    UserRequestHandler userRequestHandler = new UserRequestHandler(userController);
+
 
     //Configure Spark
     port(serverPort);
@@ -69,10 +71,16 @@ public class Server {
     /////////////////////////////////////////////
 
     get("api/rides", rideRequestHandler::getRides);
-//  get("api/rides/:destination", rideRequestHandler::getRideJSON);
+    //get("api/rides/:destination", rideRequestHandler::getRideJSON);
     post("api/rides/new", rideRequestHandler::addNewRide);
     post("api/rides/update", rideRequestHandler::updateRide);
     post("api/rides/remove", rideRequestHandler::deleteRide);
+
+    // User Endpoints ///////////////////////////////////
+    /////////////////////////////////////////////////////
+    get("api/users", userRequestHandler::getUsers);
+    get("api/user/:id", userRequestHandler::getUserJSON);
+
 
     // An example of throwing an unhandled exception so you can see how the
     // Java Spark debugger displays errors like this.
