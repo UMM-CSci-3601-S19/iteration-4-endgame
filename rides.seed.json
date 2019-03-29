@@ -3,13 +3,27 @@
     "driver": "Nic McPhee",
     "owner": {
       "$ref": "users",
-      "$id": "5c9d13c358eb0eb36e0311bf",
+      "$id": "5c9e516466d50cf1fa15c847",
       "$db": "dev"
     },
     "destination": "Duluth",
-    "origin": "Tech Place",
-    "roundTrip": false,
-    "departureTime": "Tue Dec 28 2021 06:40:56 GMT-0600 (Central Standard Time)",
+    "origin": "Fillmore Avenue",
+    "roundTrip": true,
+    "departureTime": "Tue Jan 07 2020 03:06:30 GMT-0600 (Central Standard Time)",
+    "driving": false,
+    "notes": "No pet allowed"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c84f",
+      "$db": "dev"
+    },
+    "destination": "Family Dollar",
+    "origin": "Main Street",
+    "roundTrip": true,
+    "departureTime": "Fri Dec 01 2023 00:22:08 GMT-0600 (Central Standard Time)",
     "driving": false,
     "notes": "Im driving and I like to eat at the same time"
   },
@@ -17,97 +31,13 @@
     "driver": "Nic McPhee",
     "owner": {
       "$ref": "users",
-      "$id": "5c9d13c32296ddd415701449",
+      "$id": "5c9e516466d50cf1fa15c84a",
       "$db": "dev"
     },
-    "destination": "Willies",
-    "origin": "Sharon Street",
+    "destination": "Duluth",
+    "origin": "Lake Place",
     "roundTrip": true,
-    "departureTime": "Mon Feb 22 2021 17:11:32 GMT-0600 (Central Standard Time)",
-    "driving": true,
-    "notes": "No pet allowed"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c32296ddd415701449",
-      "$db": "dev"
-    },
-    "destination": "Alexandria",
-    "origin": "Highland Place",
-    "roundTrip": true,
-    "departureTime": "Fri Nov 02 2018 06:52:49 GMT-0500 (Central Daylight Time)",
-    "driving": false,
-    "notes": "No room in the trunk of my car"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c34c8e5815f230dccc",
-      "$db": "dev"
-    },
-    "destination": "Willies",
-    "origin": "Nova Court",
-    "roundTrip": true,
-    "departureTime": "Wed Jul 01 2020 12:56:20 GMT-0500 (Central Daylight Time)",
-    "driving": true,
-    "notes": "I like to drive with no air conditioning"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c324a125961dea39ec",
-      "$db": "dev"
-    },
-    "destination": "Maplegrove",
-    "origin": "McKibbin Street",
-    "roundTrip": false,
-    "departureTime": "Sat Nov 11 2017 23:05:26 GMT-0600 (Central Standard Time)",
-    "driving": true,
-    "notes": "No pet allowed"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c391bf6eff4f2ebfbb",
-      "$db": "dev"
-    },
-    "destination": "Willies",
-    "origin": "Cameron Court",
-    "roundTrip": false,
-    "departureTime": "Fri Jul 02 2021 19:50:40 GMT-0500 (Central Daylight Time)",
-    "driving": false,
-    "notes": "No pet allowed"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c396b99c23b368ab9e",
-      "$db": "dev"
-    },
-    "destination": "Willies",
-    "origin": "Tudor Terrace",
-    "roundTrip": true,
-    "departureTime": "Sun Aug 28 2022 12:26:36 GMT-0500 (Central Daylight Time)",
-    "driving": false,
-    "notes": "I like to drive with no air conditioning"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3c1512e128c8cee01",
-      "$db": "dev"
-    },
-    "destination": "Willies",
-    "origin": "Vernon Avenue",
-    "roundTrip": false,
-    "departureTime": "Sat Sep 02 2023 10:50:04 GMT-0500 (Central Daylight Time)",
+    "departureTime": "Wed Jan 09 2019 16:20:11 GMT-0600 (Central Standard Time)",
     "driving": true,
     "notes": "No room in the trunk of my car"
   },
@@ -115,13 +45,13 @@
     "driver": "Nic McPhee",
     "owner": {
       "$ref": "users",
-      "$id": "5c9d13c38dd9668345048e10",
+      "$id": "5c9e516466d50cf1fa15c84d",
       "$db": "dev"
     },
-    "destination": "St.Paul",
-    "origin": "Cropsey Avenue",
+    "destination": "Maplegrove",
+    "origin": "Ludlam Place",
     "roundTrip": true,
-    "departureTime": "Thu Aug 11 2022 22:55:51 GMT-0500 (Central Daylight Time)",
+    "departureTime": "Tue Mar 22 2022 18:14:35 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "I love to crank the volume up to 11"
   },
@@ -129,139 +59,111 @@
     "driver": "Nic McPhee",
     "owner": {
       "$ref": "users",
-      "$id": "5c9d13c3c1512e128c8cee01",
+      "$id": "5c9e516466d50cf1fa15c85d",
       "$db": "dev"
     },
-    "destination": "Maplegrove",
-    "origin": "Arkansas Drive",
-    "roundTrip": false,
-    "departureTime": "Sun Apr 05 2020 02:19:10 GMT-0500 (Central Daylight Time)",
-    "driving": false,
-    "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3d9c7628e6bef5302",
-      "$db": "dev"
-    },
-    "destination": "Willies",
-    "origin": "Verona Place",
-    "roundTrip": false,
-    "departureTime": "Fri Oct 27 2017 21:45:06 GMT-0500 (Central Daylight Time)",
-    "driving": false,
+    "destination": "Duluth",
+    "origin": "Bayview Place",
+    "roundTrip": true,
+    "departureTime": "Sat Aug 25 2018 03:14:43 GMT-0500 (Central Daylight Time)",
+    "driving": true,
     "notes": "I like to drive with no air conditioning"
   },
   {
     "driver": "Nic McPhee",
     "owner": {
       "$ref": "users",
-      "$id": "5c9d13c355979ab563c99b06",
+      "$id": "5c9e516466d50cf1fa15c84d",
       "$db": "dev"
     },
-    "destination": "Maplegrove",
-    "origin": "Stratford Road",
+    "destination": "Alexandria",
+    "origin": "Nichols Avenue",
     "roundTrip": false,
-    "departureTime": "Tue Dec 10 2019 01:54:24 GMT-0600 (Central Standard Time)",
-    "driving": false,
-    "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy"
+    "departureTime": "Wed Jun 28 2023 00:25:02 GMT-0500 (Central Daylight Time)",
+    "driving": true,
+    "notes": "No room in the trunk of my car"
   },
   {
     "driver": "Nic McPhee",
     "owner": {
       "$ref": "users",
-      "$id": "5c9d13c33f04076672fb1087",
+      "$id": "5c9e516466d50cf1fa15c850",
       "$db": "dev"
     },
     "destination": "St.Paul",
-    "origin": "Prospect Place",
-    "roundTrip": true,
-    "departureTime": "Mon Jul 01 2019 12:07:44 GMT-0500 (Central Daylight Time)",
-    "driving": true,
-    "notes": "No pet allowed"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3c1512e128c8cee01",
-      "$db": "dev"
-    },
-    "destination": "St.Paul",
-    "origin": "Plymouth Street",
+    "origin": "Clay Street",
     "roundTrip": false,
-    "departureTime": "Tue Apr 30 2019 04:58:10 GMT-0500 (Central Daylight Time)",
-    "driving": false,
-    "notes": "Im driving and I like to eat at the same time"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3aae18d1330d19af7",
-      "$db": "dev"
-    },
-    "destination": "St.Paul",
-    "origin": "Utica Avenue",
-    "roundTrip": false,
-    "departureTime": "Thu Aug 31 2017 19:28:21 GMT-0500 (Central Daylight Time)",
-    "driving": false,
-    "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c32296ddd415701449",
-      "$db": "dev"
-    },
-    "destination": "Duluth",
-    "origin": "Ryerson Street",
-    "roundTrip": true,
-    "departureTime": "Fri Mar 03 2023 23:12:20 GMT-0600 (Central Standard Time)",
+    "departureTime": "Thu Oct 29 2020 22:41:18 GMT-0500 (Central Daylight Time)",
     "driving": true,
-    "notes": "No pet allowed"
+    "notes": "I like to drive with no air conditioning"
   },
   {
     "driver": "Nic McPhee",
     "owner": {
       "$ref": "users",
-      "$id": "5c9d13c319475d016bc18637",
-      "$db": "dev"
-    },
-    "destination": "Family Dollar",
-    "origin": "Hart Place",
-    "roundTrip": true,
-    "departureTime": "Mon Apr 08 2019 20:00:37 GMT-0500 (Central Daylight Time)",
-    "driving": false,
-    "notes": "I love to crank the volume up to 11"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c396b99c23b368ab9e",
-      "$db": "dev"
-    },
-    "destination": "Maplegrove",
-    "origin": "Ashland Place",
-    "roundTrip": false,
-    "departureTime": "Tue Feb 20 2018 09:24:06 GMT-0600 (Central Standard Time)",
-    "driving": true,
-    "notes": "No pet allowed"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3ada927b7db8d2677",
+      "$id": "5c9e516466d50cf1fa15c84e",
       "$db": "dev"
     },
     "destination": "Willies",
-    "origin": "Beverley Road",
+    "origin": "Pershing Loop",
     "roundTrip": true,
-    "departureTime": "Mon Feb 19 2018 16:52:23 GMT-0600 (Central Standard Time)",
+    "departureTime": "Fri Mar 22 2019 10:52:48 GMT-0500 (Central Daylight Time)",
+    "driving": false,
+    "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c855",
+      "$db": "dev"
+    },
+    "destination": "Duluth",
+    "origin": "Ford Street",
+    "roundTrip": false,
+    "departureTime": "Fri Mar 12 2021 00:17:33 GMT-0600 (Central Standard Time)",
+    "driving": true,
+    "notes": "No room in the trunk of my car"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c851",
+      "$db": "dev"
+    },
+    "destination": "Alexandria",
+    "origin": "Montana Place",
+    "roundTrip": false,
+    "departureTime": "Tue May 02 2023 13:36:29 GMT-0500 (Central Daylight Time)",
+    "driving": false,
+    "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c856",
+      "$db": "dev"
+    },
+    "destination": "Family Dollar",
+    "origin": "Calyer Street",
+    "roundTrip": true,
+    "departureTime": "Wed Apr 01 2020 15:24:45 GMT-0500 (Central Daylight Time)",
+    "driving": true,
+    "notes": "No pet allowed"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c84a",
+      "$db": "dev"
+    },
+    "destination": "Alexandria",
+    "origin": "Columbia Place",
+    "roundTrip": true,
+    "departureTime": "Tue Aug 22 2023 05:20:26 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "No room in the trunk of my car"
   },
@@ -269,727 +171,573 @@
     "driver": "Nic McPhee",
     "owner": {
       "$ref": "users",
-      "$id": "5c9d13c32296ddd415701449",
-      "$db": "dev"
-    },
-    "destination": "St.Paul",
-    "origin": "Amersfort Place",
-    "roundTrip": true,
-    "departureTime": "Sun Aug 06 2017 14:11:57 GMT-0500 (Central Daylight Time)",
-    "driving": false,
-    "notes": "No room in the trunk of my car"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c319475d016bc18637",
+      "$id": "5c9e516466d50cf1fa15c854",
       "$db": "dev"
     },
     "destination": "Willies",
-    "origin": "Guernsey Street",
-    "roundTrip": true,
-    "departureTime": "Fri Jul 08 2022 21:22:31 GMT-0500 (Central Daylight Time)",
-    "driving": false,
-    "notes": "No pet allowed"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c34c8e5815f230dccc",
-      "$db": "dev"
-    },
-    "destination": "Willies",
-    "origin": "Delmonico Place",
-    "roundTrip": false,
-    "departureTime": "Tue Jul 18 2017 22:11:44 GMT-0500 (Central Daylight Time)",
-    "driving": true,
-    "notes": "I love to crank the volume up to 11"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3bfd610b52aa9836f",
-      "$db": "dev"
-    },
-    "destination": "St.Paul",
-    "origin": "Garnet Street",
-    "roundTrip": false,
-    "departureTime": "Thu Aug 17 2023 23:33:47 GMT-0500 (Central Daylight Time)",
-    "driving": false,
-    "notes": "No pet allowed"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c33b4389d5ee29f9f8",
-      "$db": "dev"
-    },
-    "destination": "St.Paul",
-    "origin": "Harway Avenue",
-    "roundTrip": false,
-    "departureTime": "Tue Jun 20 2023 02:17:13 GMT-0500 (Central Daylight Time)",
-    "driving": true,
-    "notes": "No pet allowed"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c324a125961dea39ec",
-      "$db": "dev"
-    },
-    "destination": "Alexandria",
-    "origin": "Wyckoff Street",
-    "roundTrip": false,
-    "departureTime": "Tue May 15 2018 17:36:32 GMT-0500 (Central Daylight Time)",
-    "driving": true,
-    "notes": "I love to crank the volume up to 11"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3d9c7628e6bef5302",
-      "$db": "dev"
-    },
-    "destination": "Family Dollar",
-    "origin": "Fair Street",
-    "roundTrip": false,
-    "departureTime": "Tue Apr 04 2017 13:16:49 GMT-0500 (Central Daylight Time)",
-    "driving": true,
-    "notes": "I love to crank the volume up to 11"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c319475d016bc18637",
-      "$db": "dev"
-    },
-    "destination": "Family Dollar",
-    "origin": "Sedgwick Place",
-    "roundTrip": false,
-    "departureTime": "Sat Mar 25 2017 05:02:06 GMT-0500 (Central Daylight Time)",
-    "driving": false,
-    "notes": "No pet allowed"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3aae18d1330d19af7",
-      "$db": "dev"
-    },
-    "destination": "Willies",
-    "origin": "Gold Street",
-    "roundTrip": false,
-    "departureTime": "Mon Oct 14 2019 05:49:20 GMT-0500 (Central Daylight Time)",
-    "driving": true,
-    "notes": "I like to drive with no air conditioning"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3aae18d1330d19af7",
-      "$db": "dev"
-    },
-    "destination": "Duluth",
-    "origin": "Thornton Street",
-    "roundTrip": true,
-    "departureTime": "Sat Feb 25 2023 07:10:55 GMT-0600 (Central Standard Time)",
-    "driving": true,
-    "notes": "Im driving and I like to eat at the same time"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3bfd610b52aa9836f",
-      "$db": "dev"
-    },
-    "destination": "Alexandria",
-    "origin": "Chestnut Avenue",
-    "roundTrip": true,
-    "departureTime": "Thu Dec 01 2022 05:24:32 GMT-0600 (Central Standard Time)",
-    "driving": true,
-    "notes": "I love to crank the volume up to 11"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3bfd610b52aa9836f",
-      "$db": "dev"
-    },
-    "destination": "Family Dollar",
-    "origin": "Chester Avenue",
-    "roundTrip": false,
-    "departureTime": "Mon May 01 2017 00:12:50 GMT-0500 (Central Daylight Time)",
-    "driving": true,
-    "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3d9c7628e6bef5302",
-      "$db": "dev"
-    },
-    "destination": "Duluth",
-    "origin": "Exeter Street",
-    "roundTrip": false,
-    "departureTime": "Thu Jul 18 2019 21:17:35 GMT-0500 (Central Daylight Time)",
-    "driving": true,
-    "notes": "I like to drive with no air conditioning"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3a49163a4dbb49208",
-      "$db": "dev"
-    },
-    "destination": "Family Dollar",
-    "origin": "Lexington Avenue",
-    "roundTrip": true,
-    "departureTime": "Thu Jan 05 2023 08:10:18 GMT-0600 (Central Standard Time)",
-    "driving": false,
-    "notes": "I like to drive with no air conditioning"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c391bf6eff4f2ebfbb",
-      "$db": "dev"
-    },
-    "destination": "St.Paul",
-    "origin": "Elizabeth Place",
-    "roundTrip": true,
-    "departureTime": "Sun Mar 14 2021 19:14:42 GMT-0500 (Central Daylight Time)",
-    "driving": true,
-    "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c34c8e5815f230dccc",
-      "$db": "dev"
-    },
-    "destination": "Family Dollar",
-    "origin": "Landis Court",
-    "roundTrip": false,
-    "departureTime": "Sat May 13 2023 13:30:32 GMT-0500 (Central Daylight Time)",
-    "driving": true,
-    "notes": "No pet allowed"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c355979ab563c99b06",
-      "$db": "dev"
-    },
-    "destination": "Willies",
-    "origin": "Henderson Walk",
-    "roundTrip": false,
-    "departureTime": "Mon Oct 09 2017 10:41:10 GMT-0500 (Central Daylight Time)",
-    "driving": false,
-    "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3f1300a020266c199",
-      "$db": "dev"
-    },
-    "destination": "Willies",
-    "origin": "Kane Place",
-    "roundTrip": true,
-    "departureTime": "Tue May 23 2017 12:07:44 GMT-0500 (Central Daylight Time)",
-    "driving": true,
-    "notes": "No pet allowed"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3a86a775cd1a7c935",
-      "$db": "dev"
-    },
-    "destination": "Alexandria",
-    "origin": "Ferris Street",
-    "roundTrip": true,
-    "departureTime": "Sat Feb 12 2022 17:46:11 GMT-0600 (Central Standard Time)",
-    "driving": true,
-    "notes": "Im driving and I like to eat at the same time"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c34c8e5815f230dccc",
-      "$db": "dev"
-    },
-    "destination": "Alexandria",
-    "origin": "Orange Street",
-    "roundTrip": false,
-    "departureTime": "Wed Jun 24 2020 10:43:52 GMT-0500 (Central Daylight Time)",
-    "driving": false,
-    "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c32296ddd415701449",
-      "$db": "dev"
-    },
-    "destination": "Alexandria",
-    "origin": "Neptune Court",
-    "roundTrip": true,
-    "departureTime": "Wed Nov 25 2020 10:08:26 GMT-0600 (Central Standard Time)",
-    "driving": false,
-    "notes": "I like to drive with no air conditioning"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3c1512e128c8cee01",
-      "$db": "dev"
-    },
-    "destination": "Willies",
-    "origin": "Bushwick Avenue",
-    "roundTrip": false,
-    "departureTime": "Thu Jun 22 2023 14:12:22 GMT-0500 (Central Daylight Time)",
-    "driving": true,
-    "notes": "I love to crank the volume up to 11"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3c9d5bd601405a22d",
-      "$db": "dev"
-    },
-    "destination": "Willies",
-    "origin": "Bouck Court",
-    "roundTrip": true,
-    "departureTime": "Sun Jul 19 2020 14:54:43 GMT-0500 (Central Daylight Time)",
-    "driving": true,
-    "notes": "I like to drive with no air conditioning"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3ada927b7db8d2677",
-      "$db": "dev"
-    },
-    "destination": "Family Dollar",
-    "origin": "Clermont Avenue",
-    "roundTrip": false,
-    "departureTime": "Sat May 28 2022 23:09:03 GMT-0500 (Central Daylight Time)",
-    "driving": false,
-    "notes": "No room in the trunk of my car"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3c1512e128c8cee01",
-      "$db": "dev"
-    },
-    "destination": "Maplegrove",
-    "origin": "Woodside Avenue",
-    "roundTrip": true,
-    "departureTime": "Mon Sep 05 2022 21:10:39 GMT-0500 (Central Daylight Time)",
-    "driving": true,
-    "notes": "I love to crank the volume up to 11"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3a86a775cd1a7c935",
-      "$db": "dev"
-    },
-    "destination": "Maplegrove",
-    "origin": "Bevy Court",
-    "roundTrip": false,
-    "departureTime": "Sun May 08 2022 04:09:58 GMT-0500 (Central Daylight Time)",
-    "driving": false,
-    "notes": "No pet allowed"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c391bf6eff4f2ebfbb",
-      "$db": "dev"
-    },
-    "destination": "St.Paul",
-    "origin": "Tapscott Avenue",
-    "roundTrip": false,
-    "departureTime": "Thu Jul 25 2019 17:56:06 GMT-0500 (Central Daylight Time)",
-    "driving": true,
-    "notes": "Im driving and I like to eat at the same time"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c324a125961dea39ec",
-      "$db": "dev"
-    },
-    "destination": "Alexandria",
-    "origin": "Miller Avenue",
-    "roundTrip": true,
-    "departureTime": "Fri Jun 29 2018 06:26:28 GMT-0500 (Central Daylight Time)",
-    "driving": false,
-    "notes": "I love to crank the volume up to 11"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c358eb0eb36e0311bf",
-      "$db": "dev"
-    },
-    "destination": "Family Dollar",
-    "origin": "Ditmars Street",
-    "roundTrip": false,
-    "departureTime": "Sun Aug 04 2019 08:45:50 GMT-0500 (Central Daylight Time)",
-    "driving": false,
-    "notes": "No pet allowed"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3aae18d1330d19af7",
-      "$db": "dev"
-    },
-    "destination": "St.Paul",
-    "origin": "Brigham Street",
-    "roundTrip": false,
-    "departureTime": "Wed Oct 10 2018 06:29:42 GMT-0500 (Central Daylight Time)",
-    "driving": true,
-    "notes": "No pet allowed"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c355979ab563c99b06",
-      "$db": "dev"
-    },
-    "destination": "St.Paul",
-    "origin": "Gelston Avenue",
-    "roundTrip": true,
-    "departureTime": "Wed Nov 24 2021 07:44:21 GMT-0600 (Central Standard Time)",
-    "driving": false,
-    "notes": "Im driving and I like to eat at the same time"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c33b4389d5ee29f9f8",
-      "$db": "dev"
-    },
-    "destination": "Willies",
-    "origin": "Clifford Place",
-    "roundTrip": true,
-    "departureTime": "Fri Mar 24 2023 14:39:56 GMT-0500 (Central Daylight Time)",
-    "driving": false,
-    "notes": "I love to crank the volume up to 11"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3d9c7628e6bef5302",
-      "$db": "dev"
-    },
-    "destination": "Family Dollar",
-    "origin": "Cozine Avenue",
-    "roundTrip": true,
-    "departureTime": "Fri Apr 24 2020 07:00:22 GMT-0500 (Central Daylight Time)",
-    "driving": false,
-    "notes": "I like to drive with no air conditioning"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3bfd610b52aa9836f",
-      "$db": "dev"
-    },
-    "destination": "Maplegrove",
-    "origin": "Highland Avenue",
-    "roundTrip": false,
-    "departureTime": "Thu Jul 13 2017 18:17:52 GMT-0500 (Central Daylight Time)",
-    "driving": true,
-    "notes": "No pet allowed"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c38dd9668345048e10",
-      "$db": "dev"
-    },
-    "destination": "Maplegrove",
-    "origin": "Woodrow Court",
-    "roundTrip": false,
-    "departureTime": "Sat Aug 03 2019 08:34:20 GMT-0500 (Central Daylight Time)",
-    "driving": false,
-    "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c355979ab563c99b06",
-      "$db": "dev"
-    },
-    "destination": "St.Paul",
-    "origin": "Dikeman Street",
-    "roundTrip": false,
-    "departureTime": "Wed Oct 17 2018 10:54:24 GMT-0500 (Central Daylight Time)",
-    "driving": true,
-    "notes": "No pet allowed"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c319475d016bc18637",
-      "$db": "dev"
-    },
-    "destination": "Alexandria",
-    "origin": "Ridge Court",
-    "roundTrip": false,
-    "departureTime": "Sat Apr 29 2023 19:20:02 GMT-0500 (Central Daylight Time)",
-    "driving": false,
-    "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3a86a775cd1a7c935",
-      "$db": "dev"
-    },
-    "destination": "Family Dollar",
-    "origin": "Bokee Court",
-    "roundTrip": false,
-    "departureTime": "Mon May 03 2021 01:15:52 GMT-0500 (Central Daylight Time)",
-    "driving": true,
-    "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3c9d5bd601405a22d",
-      "$db": "dev"
-    },
-    "destination": "St.Paul",
-    "origin": "Clinton Street",
-    "roundTrip": true,
-    "departureTime": "Wed May 09 2018 22:25:50 GMT-0500 (Central Daylight Time)",
-    "driving": true,
-    "notes": "Im driving and I like to eat at the same time"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c33f04076672fb1087",
-      "$db": "dev"
-    },
-    "destination": "Family Dollar",
-    "origin": "Buffalo Avenue",
-    "roundTrip": false,
-    "departureTime": "Sat Dec 09 2017 21:34:57 GMT-0600 (Central Standard Time)",
-    "driving": false,
-    "notes": "I like to drive with no air conditioning"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3e1e4d32f39b6b295",
-      "$db": "dev"
-    },
-    "destination": "Family Dollar",
-    "origin": "Richardson Street",
-    "roundTrip": false,
-    "departureTime": "Fri Jun 21 2019 16:40:55 GMT-0500 (Central Daylight Time)",
-    "driving": true,
-    "notes": "Im driving and I like to eat at the same time"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3ada927b7db8d2677",
-      "$db": "dev"
-    },
-    "destination": "Alexandria",
-    "origin": "Lorimer Street",
-    "roundTrip": true,
-    "departureTime": "Sun Aug 16 2020 05:17:26 GMT-0500 (Central Daylight Time)",
-    "driving": false,
-    "notes": "No pet allowed"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3d9c7628e6bef5302",
-      "$db": "dev"
-    },
-    "destination": "Duluth",
-    "origin": "Coffey Street",
-    "roundTrip": false,
-    "departureTime": "Mon Aug 21 2017 11:40:11 GMT-0500 (Central Daylight Time)",
-    "driving": false,
-    "notes": "Im driving and I like to eat at the same time"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c391bf6eff4f2ebfbb",
-      "$db": "dev"
-    },
-    "destination": "Family Dollar",
-    "origin": "Baltic Street",
-    "roundTrip": false,
-    "departureTime": "Sat Jun 03 2023 06:11:00 GMT-0500 (Central Daylight Time)",
-    "driving": false,
-    "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3de4469950c71767b",
-      "$db": "dev"
-    },
-    "destination": "Maplegrove",
-    "origin": "Sutter Avenue",
-    "roundTrip": false,
-    "departureTime": "Sat Dec 08 2018 19:32:33 GMT-0600 (Central Standard Time)",
-    "driving": false,
-    "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3d9c7628e6bef5302",
-      "$db": "dev"
-    },
-    "destination": "Alexandria",
-    "origin": "Doughty Street",
-    "roundTrip": true,
-    "departureTime": "Fri Oct 19 2018 19:33:25 GMT-0500 (Central Daylight Time)",
-    "driving": true,
-    "notes": "I love to crank the volume up to 11"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c355979ab563c99b06",
-      "$db": "dev"
-    },
-    "destination": "Alexandria",
-    "origin": "Degraw Street",
-    "roundTrip": true,
-    "departureTime": "Tue Sep 27 2022 19:13:55 GMT-0500 (Central Daylight Time)",
-    "driving": false,
-    "notes": "No pet allowed"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3de4469950c71767b",
-      "$db": "dev"
-    },
-    "destination": "Willies",
-    "origin": "Box Street",
-    "roundTrip": true,
-    "departureTime": "Mon Jul 10 2017 06:55:02 GMT-0500 (Central Daylight Time)",
-    "driving": false,
-    "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c355979ab563c99b06",
-      "$db": "dev"
-    },
-    "destination": "Duluth",
-    "origin": "Anthony Street",
-    "roundTrip": true,
-    "departureTime": "Tue Jul 04 2023 19:28:55 GMT-0500 (Central Daylight Time)",
-    "driving": false,
-    "notes": "No pet allowed"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c32296ddd415701449",
-      "$db": "dev"
-    },
-    "destination": "Family Dollar",
-    "origin": "Holmes Lane",
-    "roundTrip": false,
-    "departureTime": "Fri Sep 11 2020 01:01:32 GMT-0500 (Central Daylight Time)",
-    "driving": true,
-    "notes": "I like to drive with no air conditioning"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3bfd610b52aa9836f",
-      "$db": "dev"
-    },
-    "destination": "Family Dollar",
-    "origin": "Sapphire Street",
-    "roundTrip": true,
-    "departureTime": "Sat Aug 26 2023 02:41:34 GMT-0500 (Central Daylight Time)",
-    "driving": true,
-    "notes": "Im driving and I like to eat at the same time"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c31b37a417515eb485",
-      "$db": "dev"
-    },
-    "destination": "St.Paul",
     "origin": "Harkness Avenue",
     "roundTrip": true,
-    "departureTime": "Thu Sep 21 2017 02:21:20 GMT-0500 (Central Daylight Time)",
+    "departureTime": "Mon Sep 12 2022 15:23:03 GMT-0500 (Central Daylight Time)",
+    "driving": false,
+    "notes": "No room in the trunk of my car"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c851",
+      "$db": "dev"
+    },
+    "destination": "Maplegrove",
+    "origin": "Voorhies Avenue",
+    "roundTrip": true,
+    "departureTime": "Wed Jan 12 2022 22:39:41 GMT-0600 (Central Standard Time)",
+    "driving": true,
+    "notes": "I like to drive with no air conditioning"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c848",
+      "$db": "dev"
+    },
+    "destination": "Alexandria",
+    "origin": "Lenox Road",
+    "roundTrip": true,
+    "departureTime": "Tue Nov 23 2021 06:52:01 GMT-0600 (Central Standard Time)",
+    "driving": true,
+    "notes": "I like to drive with no air conditioning"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c852",
+      "$db": "dev"
+    },
+    "destination": "Maplegrove",
+    "origin": "Aviation Road",
+    "roundTrip": true,
+    "departureTime": "Tue May 29 2018 15:01:34 GMT-0500 (Central Daylight Time)",
+    "driving": true,
+    "notes": "No room in the trunk of my car"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c853",
+      "$db": "dev"
+    },
+    "destination": "St.Paul",
+    "origin": "Gold Street",
+    "roundTrip": false,
+    "departureTime": "Mon Apr 04 2022 21:52:59 GMT-0500 (Central Daylight Time)",
+    "driving": false,
+    "notes": "I like to drive with no air conditioning"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c84f",
+      "$db": "dev"
+    },
+    "destination": "St.Paul",
+    "origin": "Norfolk Street",
+    "roundTrip": false,
+    "departureTime": "Sat Jan 28 2023 23:24:50 GMT-0600 (Central Standard Time)",
+    "driving": true,
+    "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c852",
+      "$db": "dev"
+    },
+    "destination": "St.Paul",
+    "origin": "Doone Court",
+    "roundTrip": true,
+    "departureTime": "Sun Jan 13 2019 23:10:21 GMT-0600 (Central Standard Time)",
+    "driving": true,
+    "notes": "No room in the trunk of my car"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c85a",
+      "$db": "dev"
+    },
+    "destination": "Willies",
+    "origin": "Campus Road",
+    "roundTrip": false,
+    "departureTime": "Sun Oct 28 2018 02:09:43 GMT-0500 (Central Daylight Time)",
+    "driving": false,
+    "notes": "No pet allowed"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c85d",
+      "$db": "dev"
+    },
+    "destination": "Maplegrove",
+    "origin": "Livingston Street",
+    "roundTrip": false,
+    "departureTime": "Thu Nov 29 2018 18:28:17 GMT-0600 (Central Standard Time)",
+    "driving": false,
+    "notes": "I love to crank the volume up to 11"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c84a",
+      "$db": "dev"
+    },
+    "destination": "Alexandria",
+    "origin": "Kiely Place",
+    "roundTrip": true,
+    "departureTime": "Tue Jan 30 2018 19:35:54 GMT-0600 (Central Standard Time)",
+    "driving": true,
+    "notes": "Im driving and I like to eat at the same time"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c848",
+      "$db": "dev"
+    },
+    "destination": "Maplegrove",
+    "origin": "Campus Place",
+    "roundTrip": true,
+    "departureTime": "Sat Nov 27 2021 17:00:46 GMT-0600 (Central Standard Time)",
+    "driving": false,
+    "notes": "No pet allowed"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c84a",
+      "$db": "dev"
+    },
+    "destination": "Family Dollar",
+    "origin": "Kathleen Court",
+    "roundTrip": false,
+    "departureTime": "Sat Nov 28 2020 00:21:51 GMT-0600 (Central Standard Time)",
+    "driving": false,
+    "notes": "I like to drive with no air conditioning"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c84a",
+      "$db": "dev"
+    },
+    "destination": "Family Dollar",
+    "origin": "Beadel Street",
+    "roundTrip": true,
+    "departureTime": "Wed Oct 11 2017 03:54:56 GMT-0500 (Central Daylight Time)",
+    "driving": false,
+    "notes": "No pet allowed"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c850",
+      "$db": "dev"
+    },
+    "destination": "Maplegrove",
+    "origin": "Randolph Street",
+    "roundTrip": true,
+    "departureTime": "Wed Mar 29 2023 07:46:58 GMT-0500 (Central Daylight Time)",
+    "driving": true,
+    "notes": "No room in the trunk of my car"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c846",
+      "$db": "dev"
+    },
+    "destination": "Family Dollar",
+    "origin": "Schenck Street",
+    "roundTrip": true,
+    "departureTime": "Sun Oct 17 2021 01:09:27 GMT-0500 (Central Daylight Time)",
+    "driving": true,
+    "notes": "Im driving and I like to eat at the same time"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c849",
+      "$db": "dev"
+    },
+    "destination": "Maplegrove",
+    "origin": "Coyle Street",
+    "roundTrip": false,
+    "departureTime": "Thu Apr 13 2017 00:25:19 GMT-0500 (Central Daylight Time)",
+    "driving": true,
+    "notes": "Im driving and I like to eat at the same time"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c849",
+      "$db": "dev"
+    },
+    "destination": "Willies",
+    "origin": "Jardine Place",
+    "roundTrip": true,
+    "departureTime": "Sun Sep 10 2017 11:40:57 GMT-0500 (Central Daylight Time)",
+    "driving": false,
+    "notes": "I love to crank the volume up to 11"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c85d",
+      "$db": "dev"
+    },
+    "destination": "Family Dollar",
+    "origin": "Luquer Street",
+    "roundTrip": true,
+    "departureTime": "Thu Dec 09 2021 20:50:20 GMT-0600 (Central Standard Time)",
+    "driving": false,
+    "notes": "I like to drive with no air conditioning"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c84c",
+      "$db": "dev"
+    },
+    "destination": "Family Dollar",
+    "origin": "Christopher Avenue",
+    "roundTrip": false,
+    "departureTime": "Thu Nov 11 2021 12:54:06 GMT-0600 (Central Standard Time)",
+    "driving": false,
+    "notes": "No pet allowed"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c85a",
+      "$db": "dev"
+    },
+    "destination": "Alexandria",
+    "origin": "Beaumont Street",
+    "roundTrip": true,
+    "departureTime": "Sat Aug 10 2019 06:16:24 GMT-0500 (Central Daylight Time)",
+    "driving": false,
+    "notes": "Im driving and I like to eat at the same time"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c859",
+      "$db": "dev"
+    },
+    "destination": "St.Paul",
+    "origin": "Lancaster Avenue",
+    "roundTrip": true,
+    "departureTime": "Sun Jan 22 2023 21:09:44 GMT-0600 (Central Standard Time)",
+    "driving": false,
+    "notes": "I love to crank the volume up to 11"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c857",
+      "$db": "dev"
+    },
+    "destination": "Family Dollar",
+    "origin": "Lawton Street",
+    "roundTrip": false,
+    "departureTime": "Fri Sep 13 2019 14:44:38 GMT-0500 (Central Daylight Time)",
+    "driving": false,
+    "notes": "I like to drive with no air conditioning"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c850",
+      "$db": "dev"
+    },
+    "destination": "St.Paul",
+    "origin": "Lincoln Place",
+    "roundTrip": false,
+    "departureTime": "Sat Aug 20 2022 22:29:07 GMT-0500 (Central Daylight Time)",
+    "driving": false,
+    "notes": "No room in the trunk of my car"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c85d",
+      "$db": "dev"
+    },
+    "destination": "Maplegrove",
+    "origin": "Bartlett Street",
+    "roundTrip": false,
+    "departureTime": "Wed May 11 2022 19:55:30 GMT-0500 (Central Daylight Time)",
+    "driving": false,
+    "notes": "Im driving and I like to eat at the same time"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c855",
+      "$db": "dev"
+    },
+    "destination": "Alexandria",
+    "origin": "Concord Street",
+    "roundTrip": false,
+    "departureTime": "Thu Sep 10 2020 21:41:05 GMT-0500 (Central Daylight Time)",
+    "driving": false,
+    "notes": "No pet allowed"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c858",
+      "$db": "dev"
+    },
+    "destination": "Alexandria",
+    "origin": "Berkeley Place",
+    "roundTrip": true,
+    "departureTime": "Sun Jul 25 2021 12:20:35 GMT-0500 (Central Daylight Time)",
+    "driving": true,
+    "notes": "No pet allowed"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c851",
+      "$db": "dev"
+    },
+    "destination": "Maplegrove",
+    "origin": "Gaylord Drive",
+    "roundTrip": true,
+    "departureTime": "Fri Jun 07 2019 22:28:47 GMT-0500 (Central Daylight Time)",
+    "driving": false,
+    "notes": "No pet allowed"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c84d",
+      "$db": "dev"
+    },
+    "destination": "Duluth",
+    "origin": "Royce Street",
+    "roundTrip": false,
+    "departureTime": "Mon Sep 18 2017 08:50:15 GMT-0500 (Central Daylight Time)",
+    "driving": false,
+    "notes": "No room in the trunk of my car"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c854",
+      "$db": "dev"
+    },
+    "destination": "Alexandria",
+    "origin": "Independence Avenue",
+    "roundTrip": true,
+    "departureTime": "Tue Nov 01 2022 07:39:10 GMT-0500 (Central Daylight Time)",
+    "driving": false,
+    "notes": "I like to drive with no air conditioning"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c84b",
+      "$db": "dev"
+    },
+    "destination": "Alexandria",
+    "origin": "Sutter Avenue",
+    "roundTrip": false,
+    "departureTime": "Tue Jul 18 2017 05:25:11 GMT-0500 (Central Daylight Time)",
+    "driving": true,
+    "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c856",
+      "$db": "dev"
+    },
+    "destination": "St.Paul",
+    "origin": "Denton Place",
+    "roundTrip": true,
+    "departureTime": "Thu Jan 18 2018 10:03:41 GMT-0600 (Central Standard Time)",
+    "driving": false,
+    "notes": "Im driving and I like to eat at the same time"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c849",
+      "$db": "dev"
+    },
+    "destination": "St.Paul",
+    "origin": "Chapel Street",
+    "roundTrip": true,
+    "departureTime": "Fri Apr 28 2023 18:08:26 GMT-0500 (Central Daylight Time)",
+    "driving": false,
+    "notes": "I love to crank the volume up to 11"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c852",
+      "$db": "dev"
+    },
+    "destination": "Family Dollar",
+    "origin": "Knickerbocker Avenue",
+    "roundTrip": false,
+    "departureTime": "Sat Apr 29 2023 11:07:55 GMT-0500 (Central Daylight Time)",
+    "driving": true,
+    "notes": "No pet allowed"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c85a",
+      "$db": "dev"
+    },
+    "destination": "Maplegrove",
+    "origin": "Tabor Court",
+    "roundTrip": true,
+    "departureTime": "Sun Jul 05 2020 22:35:07 GMT-0500 (Central Daylight Time)",
+    "driving": false,
+    "notes": "Im driving and I like to eat at the same time"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c854",
+      "$db": "dev"
+    },
+    "destination": "St.Paul",
+    "origin": "Kensington Street",
+    "roundTrip": true,
+    "departureTime": "Fri Nov 24 2017 00:15:39 GMT-0600 (Central Standard Time)",
+    "driving": false,
+    "notes": "I like to drive with no air conditioning"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c84c",
+      "$db": "dev"
+    },
+    "destination": "Alexandria",
+    "origin": "Brightwater Court",
+    "roundTrip": false,
+    "departureTime": "Sun Aug 07 2022 23:10:16 GMT-0500 (Central Daylight Time)",
+    "driving": false,
+    "notes": "No pet allowed"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c84f",
+      "$db": "dev"
+    },
+    "destination": "Maplegrove",
+    "origin": "Dunne Place",
+    "roundTrip": false,
+    "departureTime": "Mon Jun 19 2017 23:29:39 GMT-0500 (Central Daylight Time)",
+    "driving": false,
+    "notes": "Im driving and I like to eat at the same time"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c85a",
+      "$db": "dev"
+    },
+    "destination": "Alexandria",
+    "origin": "Division Avenue",
+    "roundTrip": true,
+    "departureTime": "Fri Mar 10 2023 17:48:14 GMT-0600 (Central Standard Time)",
+    "driving": true,
+    "notes": "No pet allowed"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c845",
+      "$db": "dev"
+    },
+    "destination": "Maplegrove",
+    "origin": "Seaview Court",
+    "roundTrip": true,
+    "departureTime": "Mon Mar 05 2018 19:46:48 GMT-0600 (Central Standard Time)",
+    "driving": false,
+    "notes": "No pet allowed"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c84f",
+      "$db": "dev"
+    },
+    "destination": "Duluth",
+    "origin": "Tennis Court",
+    "roundTrip": false,
+    "departureTime": "Sun Dec 16 2018 14:34:42 GMT-0600 (Central Standard Time)",
+    "driving": false,
+    "notes": "No room in the trunk of my car"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c846",
+      "$db": "dev"
+    },
+    "destination": "Family Dollar",
+    "origin": "Tehama Street",
+    "roundTrip": true,
+    "departureTime": "Sun Nov 05 2017 04:58:29 GMT-0600 (Central Standard Time)",
     "driving": false,
     "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy"
   },
@@ -997,27 +745,13 @@
     "driver": "Nic McPhee",
     "owner": {
       "$ref": "users",
-      "$id": "5c9d13c355979ab563c99b06",
+      "$id": "5c9e516466d50cf1fa15c84e",
       "$db": "dev"
     },
-    "destination": "Alexandria",
-    "origin": "Bridge Street",
-    "roundTrip": false,
-    "departureTime": "Sat Jun 20 2020 06:59:02 GMT-0500 (Central Daylight Time)",
-    "driving": true,
-    "notes": "No pet allowed"
-  },
-  {
-    "driver": "Nic McPhee",
-    "owner": {
-      "$ref": "users",
-      "$id": "5c9d13c3a86a775cd1a7c935",
-      "$db": "dev"
-    },
-    "destination": "Willies",
-    "origin": "Middleton Street",
-    "roundTrip": false,
-    "departureTime": "Thu May 21 2020 01:01:54 GMT-0500 (Central Daylight Time)",
+    "destination": "Duluth",
+    "origin": "Thames Street",
+    "roundTrip": true,
+    "departureTime": "Thu Mar 02 2023 04:44:56 GMT-0600 (Central Standard Time)",
     "driving": true,
     "notes": "I love to crank the volume up to 11"
   },
@@ -1025,13 +759,55 @@
     "driver": "Nic McPhee",
     "owner": {
       "$ref": "users",
-      "$id": "5c9d13c391bf6eff4f2ebfbb",
+      "$id": "5c9e516466d50cf1fa15c854",
       "$db": "dev"
     },
-    "destination": "Maplegrove",
-    "origin": "Preston Court",
+    "destination": "St.Paul",
+    "origin": "Irving Place",
     "roundTrip": true,
-    "departureTime": "Sat Jan 02 2021 15:06:06 GMT-0600 (Central Standard Time)",
+    "departureTime": "Fri Aug 04 2017 02:39:00 GMT-0500 (Central Daylight Time)",
+    "driving": false,
+    "notes": "No pet allowed"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c85c",
+      "$db": "dev"
+    },
+    "destination": "Family Dollar",
+    "origin": "Congress Street",
+    "roundTrip": true,
+    "departureTime": "Sun Jul 22 2018 17:54:52 GMT-0500 (Central Daylight Time)",
+    "driving": true,
+    "notes": "Im driving and I like to eat at the same time"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c853",
+      "$db": "dev"
+    },
+    "destination": "Alexandria",
+    "origin": "Ocean Court",
+    "roundTrip": false,
+    "departureTime": "Wed Jun 26 2019 16:57:11 GMT-0500 (Central Daylight Time)",
+    "driving": true,
+    "notes": "I love to crank the volume up to 11"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c849",
+      "$db": "dev"
+    },
+    "destination": "Alexandria",
+    "origin": "Olive Street",
+    "roundTrip": false,
+    "departureTime": "Thu Jun 18 2020 12:43:21 GMT-0500 (Central Daylight Time)",
     "driving": true,
     "notes": "No pet allowed"
   },
@@ -1039,14 +815,238 @@
     "driver": "Nic McPhee",
     "owner": {
       "$ref": "users",
-      "$id": "5c9d13c3c9d5bd601405a22d",
+      "$id": "5c9e516466d50cf1fa15c854",
+      "$db": "dev"
+    },
+    "destination": "Maplegrove",
+    "origin": "Bulwer Place",
+    "roundTrip": true,
+    "departureTime": "Wed Jun 02 2021 22:51:01 GMT-0500 (Central Daylight Time)",
+    "driving": false,
+    "notes": "Im driving and I like to eat at the same time"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c858",
+      "$db": "dev"
+    },
+    "destination": "Maplegrove",
+    "origin": "Dunne Court",
+    "roundTrip": false,
+    "departureTime": "Fri Aug 10 2018 15:05:06 GMT-0500 (Central Daylight Time)",
+    "driving": false,
+    "notes": "Im driving and I like to eat at the same time"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c858",
+      "$db": "dev"
+    },
+    "destination": "Willies",
+    "origin": "Powell Street",
+    "roundTrip": false,
+    "departureTime": "Sat Apr 09 2022 17:40:35 GMT-0500 (Central Daylight Time)",
+    "driving": true,
+    "notes": "Im driving and I like to eat at the same time"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c85b",
+      "$db": "dev"
+    },
+    "destination": "Maplegrove",
+    "origin": "Banner Avenue",
+    "roundTrip": true,
+    "departureTime": "Wed Nov 02 2022 01:58:25 GMT-0500 (Central Daylight Time)",
+    "driving": true,
+    "notes": "No room in the trunk of my car"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c851",
+      "$db": "dev"
+    },
+    "destination": "Willies",
+    "origin": "Menahan Street",
+    "roundTrip": false,
+    "departureTime": "Fri Oct 28 2022 11:51:26 GMT-0500 (Central Daylight Time)",
+    "driving": true,
+    "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c85b",
       "$db": "dev"
     },
     "destination": "St.Paul",
-    "origin": "Shale Street",
+    "origin": "Hoyts Lane",
+    "roundTrip": false,
+    "departureTime": "Sun Jun 23 2019 02:52:35 GMT-0500 (Central Daylight Time)",
+    "driving": false,
+    "notes": "I love to crank the volume up to 11"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c853",
+      "$db": "dev"
+    },
+    "destination": "Maplegrove",
+    "origin": "Sumner Place",
     "roundTrip": true,
-    "departureTime": "Fri Mar 31 2017 10:18:20 GMT-0500 (Central Daylight Time)",
+    "departureTime": "Sat Dec 23 2023 03:45:29 GMT-0600 (Central Standard Time)",
     "driving": false,
     "notes": "I like to drive with no air conditioning"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c852",
+      "$db": "dev"
+    },
+    "destination": "Willies",
+    "origin": "Vanderveer Street",
+    "roundTrip": true,
+    "departureTime": "Fri Apr 06 2018 05:04:14 GMT-0500 (Central Daylight Time)",
+    "driving": true,
+    "notes": "No pet allowed"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c857",
+      "$db": "dev"
+    },
+    "destination": "Alexandria",
+    "origin": "Amboy Street",
+    "roundTrip": true,
+    "departureTime": "Fri Feb 14 2020 11:17:19 GMT-0600 (Central Standard Time)",
+    "driving": true,
+    "notes": "No pet allowed"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c852",
+      "$db": "dev"
+    },
+    "destination": "Willies",
+    "origin": "Suydam Street",
+    "roundTrip": true,
+    "departureTime": "Sun Dec 13 2020 06:49:18 GMT-0600 (Central Standard Time)",
+    "driving": true,
+    "notes": "I like to drive with no air conditioning"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c85a",
+      "$db": "dev"
+    },
+    "destination": "Family Dollar",
+    "origin": "Lester Court",
+    "roundTrip": false,
+    "departureTime": "Mon Jul 01 2019 06:46:45 GMT-0500 (Central Daylight Time)",
+    "driving": true,
+    "notes": "Im driving and I like to eat at the same time"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c84d",
+      "$db": "dev"
+    },
+    "destination": "Alexandria",
+    "origin": "Ashford Street",
+    "roundTrip": true,
+    "departureTime": "Wed Jul 11 2018 02:20:34 GMT-0500 (Central Daylight Time)",
+    "driving": true,
+    "notes": "No room in the trunk of my car"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c84f",
+      "$db": "dev"
+    },
+    "destination": "Alexandria",
+    "origin": "Taaffe Place",
+    "roundTrip": false,
+    "departureTime": "Fri Nov 13 2020 03:22:56 GMT-0600 (Central Standard Time)",
+    "driving": false,
+    "notes": "Im driving and I like to eat at the same time"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c85d",
+      "$db": "dev"
+    },
+    "destination": "Willies",
+    "origin": "Catherine Street",
+    "roundTrip": true,
+    "departureTime": "Fri Mar 20 2020 20:40:50 GMT-0500 (Central Daylight Time)",
+    "driving": false,
+    "notes": "No room in the trunk of my car"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c84e",
+      "$db": "dev"
+    },
+    "destination": "Alexandria",
+    "origin": "Vandervoort Place",
+    "roundTrip": false,
+    "departureTime": "Sun Jun 25 2023 07:21:25 GMT-0500 (Central Daylight Time)",
+    "driving": false,
+    "notes": "Im driving and I like to eat at the same time"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c84f",
+      "$db": "dev"
+    },
+    "destination": "Maplegrove",
+    "origin": "Judge Street",
+    "roundTrip": true,
+    "departureTime": "Sun Jul 18 2021 04:10:27 GMT-0500 (Central Daylight Time)",
+    "driving": false,
+    "notes": "I like to drive with no air conditioning"
+  },
+  {
+    "driver": "Nic McPhee",
+    "owner": {
+      "$ref": "users",
+      "$id": "5c9e516466d50cf1fa15c856",
+      "$db": "dev"
+    },
+    "destination": "Family Dollar",
+    "origin": "Interborough Parkway",
+    "roundTrip": true,
+    "departureTime": "Tue Aug 28 2018 08:16:54 GMT-0500 (Central Daylight Time)",
+    "driving": true,
+    "notes": "No pet allowed"
   }
 ]
