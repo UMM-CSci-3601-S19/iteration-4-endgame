@@ -74,7 +74,7 @@ public class RideController {
       .collect(Collectors.joining(", ", "[", "]"));
   }
 
-  String addNewRide(String driver, String destination, String origin, Boolean roundTrip, Boolean driving, String departureTime, String notes) {
+  String addNewRide(String driver, String destination, String origin, Boolean roundTrip, Boolean driving, String departureTime, String mpg, String notes) {
 
     Document newRide = new Document();
     newRide.append("driver", driver);
@@ -83,6 +83,16 @@ public class RideController {
     newRide.append("roundTrip", roundTrip);
     newRide.append("driving", driving);
     newRide.append("departureTime", departureTime);
+    if (mpg != null) {
+      if (mpg.isEmpty()) {
+        newRide.append("mpg", null);
+      } else {
+        int mpgInt = Integer.parseInt(mpg);
+        newRide.append("mpg", mpgInt);
+      }
+    } else {
+      newRide.append("mpg", mpg);
+    }
     newRide.append("notes", notes);
 
 
@@ -110,7 +120,7 @@ public class RideController {
     }
   }
 
-  Boolean updateRide(String id, String driver, String destination, String origin, Boolean roundTrip, Boolean driving,String departureTime, String notes){
+  Boolean updateRide(String id, String driver, String destination, String origin, Boolean roundTrip, Boolean driving,String departureTime, String mpg, String notes){
     ObjectId objId = new ObjectId(id);
     Document filter = new Document("_id", objId);
     Document updateFields = new Document();
@@ -120,6 +130,16 @@ public class RideController {
     updateFields.append("driving", driving);
     updateFields.append("roundTrip", roundTrip);
     updateFields.append("departureTime", departureTime);
+    if (mpg != null) {
+      if (mpg.isEmpty()) {
+        updateFields.append("mpg", null);
+      } else {
+        int mpgInt = Integer.parseInt(mpg);
+        updateFields.append("mpg", mpgInt);
+      }
+    } else {
+      updateFields.append("mpg", mpg);
+    }
     updateFields.append("notes", notes);
     Document updateDoc = new Document("$set", updateFields);
     try{
