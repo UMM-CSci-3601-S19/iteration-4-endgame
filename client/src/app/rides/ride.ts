@@ -8,4 +8,5 @@ export interface Ride {
   departureTime: string;
   driving?: boolean;
   notes: string;
+  mpg?: number;
 }
