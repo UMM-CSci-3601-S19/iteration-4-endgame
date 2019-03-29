@@ -1,12 +1,17 @@
 package umm3601.ride;
 
-import com.mongodb.MongoException;
+import com.mongodb.*;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
+
 import org.bson.Document;
+import org.bson.codecs.BsonTypeClassMap;
+import org.bson.codecs.DocumentCodec;
+import org.bson.codecs.configuration.CodecRegistries;
+import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.types.ObjectId;
 
 import java.util.Iterator;
@@ -65,9 +70,14 @@ public class RideController {
    * string representing an array of JSON objects.
    */
   private String serializeIterable(Iterable<Document> documents) {
+    CodecRegistry codecRegistry = CodecRegistries.fromRegistries(MongoClient.getDefaultCodecRegistry());
+    DocumentCodec codec = new DocumentCodec(codecRegistry, new BsonTypeClassMap());
+
+    System.out.println(documents.iterator().next().toJson(codec));
     return StreamSupport.stream(documents.spliterator(), false)
-      .map(Document::toJson)
+      .map((Document d) -> d.toJson(codec))
       .collect(Collectors.joining(", ", "[", "]"));
+
   }
 
   String addNewRide(String driver, String destination, String origin, Boolean roundTrip, Boolean driving, String departureTime, String notes) {
