@@ -82,7 +82,7 @@ export class AddRideComponent implements OnInit {
       mpg: new FormControl('mpg', Validators.compose([
         Validators.min(1),
         Validators.max(200),
-        Validators.pattern('\\d')
+        Validators.pattern('\\d+')
       ])),
       notes: new FormControl('notes', Validators.compose([
         Validators.minLength(2),
