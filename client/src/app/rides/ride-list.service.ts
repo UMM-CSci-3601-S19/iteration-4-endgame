@@ -3,19 +3,46 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {environment} from '../../environments/environment';
 import {Ride} from "./ride";
+import {User} from "../users/user"
+import {UserService} from "../users/user-service";
 
 @Injectable()
 export class RideListService {
   readonly baseUrl: string = environment.API_URL + 'rides';
   private rideUrl: string = this.baseUrl;
+  private userService: UserService;
 
   constructor(private http: HttpClient) {
-
+    this.userService = new UserService(http);
   }
 
   getRides(rideDestination?: string): Observable<Ride[]> {
     this.filterByDestination(rideDestination);
+    this.addUsersToRides(this.http.get<Ride[]>(this.rideUrl));
     return this.http.get<Ride[]>(this.rideUrl);
+  }
+
+  addUsersToRides(rides: Observable<Ride[]>): Observable<Ride[]> {
+    let r = rides.subscribe(
+      function(rideArray) {
+        rideArray.forEach((ride) => {
+          console.log(ride);
+          this.addUserToRide(ride);
+        })
+      },
+      (err) => {
+        console.log(err)
+      },
+      () => {
+        console.log("Complete!");
+        return null;
+      });
+  }
+
+  addUserToRide(ride: Ride):Ride {
+    //ride.owner = this.userService.getUsers(ride.owner._id['$oid']);
+    console.log(this.userService.getUsers(ride.owner._id['$oid']));
+    return ride;
   }
 
 

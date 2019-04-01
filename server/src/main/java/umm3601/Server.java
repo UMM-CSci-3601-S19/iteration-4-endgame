@@ -79,6 +79,7 @@ public class Server {
     // User Endpoints ///////////////////////////////////
     /////////////////////////////////////////////////////
     get("api/users", userRequestHandler::getUsers);
+    get("api/users/:id", userRequestHandler::getUserJSON);
     get("api/user/:id", userRequestHandler::getUserJSON);
 
 

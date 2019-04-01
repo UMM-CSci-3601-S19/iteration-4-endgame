@@ -1,7 +1,9 @@
+import {User} from "../users/user";
+
 export interface Ride {
-  _id?: object;
+  _id: object;
   driver: string;
-  //creator: DBRef;
+  owner?: User;
   riders?: string;
   destination: string;
   origin: string;
