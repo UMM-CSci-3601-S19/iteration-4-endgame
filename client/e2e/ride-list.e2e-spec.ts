@@ -121,4 +121,19 @@ describe('Ride List', () => {
     });
   });
 
+  describe('Delete Ride', () => {
+
+    beforeEach(() => {
+      page.click('Japan');
+
+    });
+
+    it('Deletes a newly created ride', () => {
+      page.click('deleteRide');
+
+      page.click('confirmDeleteRideButton');
+      page.slowTime(1000);
+      return expect(page.elementExistsWithCss('Japan')).toBeFalsy('There should not no ride that matches');
+    });
+  });
 });
