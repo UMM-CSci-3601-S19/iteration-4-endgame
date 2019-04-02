@@ -18,33 +18,8 @@ export class RideListService {
 
   getRides(rideDestination?: string): Observable<Ride[]> {
     this.filterByDestination(rideDestination);
-    this.addUsersToRides(this.http.get<Ride[]>(this.rideUrl));
     return this.http.get<Ride[]>(this.rideUrl);
   }
-
-  addUsersToRides(rides: Observable<Ride[]>): Observable<Ride[]> {
-    let r = rides.subscribe(
-      function(rideArray) {
-        rideArray.forEach((ride) => {
-          console.log(ride);
-          this.addUserToRide(ride);
-        })
-      },
-      (err) => {
-        console.log(err)
-      },
-      () => {
-        console.log("Complete!");
-        return null;
-      });
-  }
-
-  addUserToRide(ride: Ride):Ride {
-    //ride.owner = this.userService.getUsers(ride.owner._id['$oid']);
-    console.log(this.userService.getUsers(ride.owner._id['$oid']));
-    return ride;
-  }
-
 
   //This could be changed into a getRideById if we decide to ad id as a field
   getRideByDestination(destination: string): Observable<Ride> {

@@ -1,7 +1,7 @@
 import {User} from "../users/user";
 
 export interface Ride {
-  _id: object;
+  _id?: object;
   driver: string;
   owner?: User;
   riders?: string;
