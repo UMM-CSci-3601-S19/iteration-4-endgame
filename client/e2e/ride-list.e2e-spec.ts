@@ -32,10 +32,10 @@ describe('Ride List', () => {
 
   it('should type something in Filter by Destination box and check that it returned correct element', () => {
     page.typeADestination('d');
-    expect(page.getUniqueRide('Duluth')).toMatch('Batchelder Street.*');
+    expect(page.getUniqueRide('Duluth')).toMatch('Oliver Street.*');
     page.backspace();
     page.typeADestination('Alexandria');
-    return expect(page.getUniqueRide('Alexandria')).toMatch('Amity Street.*');
+    return expect(page.getUniqueRide('Alexandria')).toMatch('Kings Place.*');
   });
 
   it('Should have an add ride button', () => {
@@ -82,21 +82,29 @@ describe('Ride List', () => {
   });
 
   describe('Edit Ride', () => {
-    const new_york_element = element(by.id('New York'));
-    new_york_element.click();
-    page.click('editRide');
 
-    it('Should edit the ride that was just created from the add ride test', () => {
+    beforeEach(() => {
+      page.click('Maplegrove');
+      page.click('editRide');
+    });
+
+    it('Should edit the first ride in the list', () => {
+      page.field('destinationField').clear();
       page.field('destinationField').sendKeys('Japan');
       page.slowTime(100);
+      page.field('driverField').clear();
       page.field('driverField').sendKeys('Kermit');
       page.slowTime(100);
+      page.field('departureTimeField').clear();
       page.field('departureTimeField').sendKeys('By the night');
       page.slowTime(100);
+      page.field('originField').clear();
       page.field('originField').sendKeys('America');
       page.slowTime(100);
+      page.field('mpgField').clear();
       page.field('mpgField').sendKeys('199');
       page.slowTime(100);
+      page.field('notesField').clear();
       page.field('notesField').sendKeys('We be travelin by map');
       page.slowTime(100);
       page.click('roundTripCheckBox');
