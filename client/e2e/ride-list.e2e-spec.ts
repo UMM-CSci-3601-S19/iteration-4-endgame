@@ -59,7 +59,7 @@ describe('Ride List', () => {
     it('Should actually add the ride with the information we put in the fields', () => {
       page.field('destinationField').sendKeys('New York');
       page.slowTime(100);
-      page.field('driverField').sendKeys('Bobbbo');
+      page.field('driverField').sendKeys('Bob');
       page.slowTime(100);
       page.field('departureTimeField').sendKeys('In the morning');
       page.slowTime(100);
@@ -81,36 +81,36 @@ describe('Ride List', () => {
     });
   });
 
-  // describe('Edit Ride', () => {
-  //   const new_york_element = element(by.id('New York'));
-  //   page.click(new_york_element);
-  //   page.click('editRide');
-  //
-  //   it('Should edit the ride that was just created from the add ride test', () => {
-  //     page.field('destinationField').sendKeys('Japan');
-  //     page.slowTime(100);
-  //     page.field('driverField').sendKeys('Kermit');
-  //     page.slowTime(100);
-  //     page.field('departureTimeField').sendKeys('By the night');
-  //     page.slowTime(100);
-  //     page.field('originField').sendKeys('America');
-  //     page.slowTime(100);
-  //     page.field('mpgField').sendKeys('199');
-  //     page.slowTime(100);
-  //     page.field('notesField').sendKeys('We be travelin by map');
-  //     page.slowTime(100);
-  //     page.click('roundTripCheckBox');
-  //     page.slowTime(100);
-  //     page.click('drivingCheckBox');
-  //     page.slowTime(100);
-  //     expect(page.button('confirmAddRideButon').isEnabled()).toBe(true);
-  //     page.click('confirmAddRideButon');
-  //
-  //     const japan_element = element(by.id('Japan'));
-  //     browser.wait(protractor.ExpectedConditions.presenceOf(japan_element), 10000);
-  //
-  //     return expect(page.getUniqueRide('Japan')).toMatch('Japan.*');
-  //   });
-  // });
+  describe('Edit Ride', () => {
+    const new_york_element = element(by.id('New York'));
+    new_york_element.click();
+    page.click('editRide');
+
+    it('Should edit the ride that was just created from the add ride test', () => {
+      page.field('destinationField').sendKeys('Japan');
+      page.slowTime(100);
+      page.field('driverField').sendKeys('Kermit');
+      page.slowTime(100);
+      page.field('departureTimeField').sendKeys('By the night');
+      page.slowTime(100);
+      page.field('originField').sendKeys('America');
+      page.slowTime(100);
+      page.field('mpgField').sendKeys('199');
+      page.slowTime(100);
+      page.field('notesField').sendKeys('We be travelin by map');
+      page.slowTime(100);
+      page.click('roundTripCheckBox');
+      page.slowTime(100);
+      page.click('drivingCheckBox');
+      page.slowTime(100);
+      expect(page.button('confirmEditRideButton').isEnabled()).toBe(true);
+      page.click('confirmEditRideButton');
+
+      const japan_element = element(by.id('Japan'));
+      browser.wait(protractor.ExpectedConditions.presenceOf(japan_element), 10000);
+
+      return expect(page.getUniqueRide('Japan')).toMatch('Japan.*');
+    });
+  });
 
 });
