@@ -58,8 +58,6 @@ public class RideRequestHandler {
    */
   public String getRides(Request req, Response res) {
     res.type("application/json");
-    System.out.println("***");
-    System.out.println(rideController.getRides(req.queryMap().toMap()));
     return rideController.getRides(req.queryMap().toMap());
   }
 

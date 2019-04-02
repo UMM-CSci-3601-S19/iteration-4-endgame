@@ -14,6 +14,8 @@ import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.types.ObjectId;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -26,9 +28,12 @@ import static com.mongodb.client.model.Filters.eq;
 public class RideController {
 
   private final MongoCollection<Document> rideCollection;
+  private final MongoCollection<Document> userCollection;
 
   public RideController(MongoDatabase database) {
     rideCollection = database.getCollection("Rides");
+    userCollection = database.getCollection("Users");
+
   }
 
   String getRide(String id) {
@@ -58,9 +63,8 @@ public class RideController {
     */
     //FindIterable comes from mongo, Document comes from Gson
     FindIterable<Document> matchingRides = rideCollection.find(filterDoc);
-    System.out.println("Got all of the rides!");
-    System.out.println(matchingRides);
-    return serializeIterable(matchingRides);
+    Iterable<Document> ridesWithUsers = addUsersToRides(matchingRides);
+    return serializeIterable(ridesWithUsers);
   }
 
 
@@ -73,7 +77,6 @@ public class RideController {
     CodecRegistry codecRegistry = CodecRegistries.fromRegistries(MongoClient.getDefaultCodecRegistry());
     DocumentCodec codec = new DocumentCodec(codecRegistry, new BsonTypeClassMap());
 
-    System.out.println(documents.iterator().next().toJson(codec));
     return StreamSupport.stream(documents.spliterator(), false)
       .map((Document d) -> d.toJson(codec))
       .collect(Collectors.joining(", ", "[", "]"));
@@ -95,7 +98,6 @@ public class RideController {
     try {
       rideCollection.insertOne(newRide);
       ObjectId _id = newRide.getObjectId("_id");
-      System.err.println("Successfully added new ride [_id=" + _id + ", driver=" + driver + ", destination=" + destination + ", origin=" + origin + ", roundTrip=" + roundTrip + ", driving=" + driving + " departureTime=" + departureTime + " notes=" + notes + ']');
       return _id.toHexString();
     } catch (MongoException me) {
       me.printStackTrace();
@@ -136,5 +138,18 @@ public class RideController {
       e.printStackTrace();
       return false;
     }
+  }
+
+  private Iterable<Document> addUsersToRides(FindIterable<Document> rides){
+    ArrayList<Document> ridesWithUsers = new ArrayList<>();
+    for (Document ride: rides) {
+      Document ownerRef = new Document();
+      Document contentRegQuery = new Document();
+      contentRegQuery.append("_id", ride.getString("ownerId"));
+      ownerRef = ownerRef.append("_id", new ObjectId(ride.getString("ownerId")));
+      ride.put("ownerData", userCollection.find(ownerRef).first());
+      ridesWithUsers.add(ride);
+    }
+    return ridesWithUsers;
   }
 }
