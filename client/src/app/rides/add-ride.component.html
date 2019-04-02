@@ -53,7 +53,7 @@
       </mat-form-field>
       <mat-form-field flex>
         <input matInput #input id="notesField" placeholder="Notes" [(ngModel)]="data.ride.notes" formControlName="notes"
-               required>
+               >
         <mat-error *ngFor="let validation of add_ride_validation_messages.notes">
           <mat-error class="error-message" id="notes-error"
                      *ngIf="addRideForm.get('notes').hasError(validation.type) && (addRideForm.get('notes').dirty || addRideForm.get('notes').touched)">
