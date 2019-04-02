@@ -1,5 +1,5 @@
 <td-layout #layout>
-  <td-navigation-drawer flex sidenavTitle="">
+  <td-navigation-drawer flex>
     <mat-nav-list>
       <a id="navHome" mat-list-item [routerLink]="['/']" (click)="layout.close()" routerLinkActive="nav-active"
          [routerLinkActiveOptions]="{exact: true}">
@@ -7,10 +7,10 @@
         Home</a>
       <a id="navRides" mat-list-item [routerLink]="['/rides']" (click)="layout.close()" routerLinkActive="nav-active">
         <mat-icon id="carNav">directions_car</mat-icon>
-        Rides</a>
+        Available Listings</a>
     </mat-nav-list>
   </td-navigation-drawer>
-  <td-layout-nav toolbarTitle="Menu" navigationRoute="/">
+  <td-layout-nav toolbarTitle="MoRide" navigationRoute="/">
     <button mat-icon-button td-menu-button tdLayoutToggle>
       <mat-icon>menu</mat-icon>
     </button>
