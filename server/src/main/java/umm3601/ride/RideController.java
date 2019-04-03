@@ -83,8 +83,8 @@ public class RideController {
 
   }
 
-  String addNewRide(String driver, String destination, String origin, Boolean roundTrip, Boolean driving, String departureTime, String notes) {
-
+  String addNewRide(String driver, String destination, String origin, Boolean roundTrip, Boolean driving, String departureTime, String notes, String ownerId) {
+    System.out.println(ownerId);
     Document newRide = new Document();
     newRide.append("driver", driver);
     newRide.append("destination", destination);
@@ -93,7 +93,7 @@ public class RideController {
     newRide.append("driving", driving);
     newRide.append("departureTime", departureTime);
     newRide.append("notes", notes);
-
+    newRide.append("ownerId", ownerId);
 
     try {
       rideCollection.insertOne(newRide);

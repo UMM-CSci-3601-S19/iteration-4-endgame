@@ -83,10 +83,16 @@ public class RideRequestHandler {
     Boolean driving = newRide.getBoolean("driving");
     String departureTime = newRide.getString("departureTime");
     String notes = newRide.getString("notes");
+    String ownerId;
+    if(newRide.containsKey("ownerId")){
+      ownerId = newRide.getString("ownerId");
+    }else{
+      ownerId = new ObjectId().toHexString();
+    }
 
 
-    System.err.println("Adding new ride [driver=" + driver + " destination=" + destination + " origin=" + origin + " roundTrip=" + roundTrip + " driving=" + driving + " departureTime=" + departureTime + " notes=" + notes + ']');
-    return rideController.addNewRide(driver, destination, origin, roundTrip, driving,departureTime, notes);
+    System.err.println("Adding new ride [driver=" + driver + " ownerId=" + ownerId + " destination=" + destination + " origin=" + origin + " roundTrip=" + roundTrip + " driving=" + driving + " departureTime=" + departureTime + " notes=" + notes + ']');
+    return rideController.addNewRide(driver, destination, origin, roundTrip, driving,departureTime, notes, ownerId);
   }
 
   public Boolean updateRide(Request req, Response res) {

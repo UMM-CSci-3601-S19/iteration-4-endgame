@@ -11,7 +11,7 @@
       <mat-card-content>
 
         <mat-form-field>
-          <input matInput id="rideDestination" #input type="text" placeholder="Filter by Destination"
+          <input matInput id="rideDestination" #input placeholder="Filter by Destination"
                  (input)="rideDestination = $event.target.value">
         </mat-form-field>
 
@@ -22,15 +22,18 @@
               <mat-panel-title>{{ride.origin}} &nbsp; <mat-icon class="arrow">label_important</mat-icon> &nbsp; {{ride.destination}}</mat-panel-title>
 
             </mat-expansion-panel-header>
-            <mat-panel-description>Owner: {{ride.ownerData.name}}</mat-panel-description>
-
+            <div *ngIf="ride.ownerData">
+              <mat-panel-description>Owner: {{ride.ownerData.name}}</mat-panel-description>
+              <mat-panel-description *ngIf="ride.ownerData.phoneNumber">Phone Number: {{ride.ownerData.phoneNumber}}</mat-panel-description>
+              <mat-panel-description *ngIf="ride.ownerData.email">Email: {{ride.ownerData.email}}</mat-panel-description>
+            </div>
+            <div *ngIf="!ride.ownerData">
+              <mat-panel-description>Owner data not found</mat-panel-description>
+            </div>
+            <br/>
             <mat-panel-description>Round Trip: {{ride.roundTrip}}</mat-panel-description>
             <mat-panel-description>Departure Time: {{ride.departureTime}}</mat-panel-description>
             <mat-panel-description>Driving: {{ride.driving}}</mat-panel-description>
-
-            <br/>
-            <mat-panel-description *ngIf="ride.ownerData.phoneNumber">Phone Number: {{ride.ownerData.phoneNumber}}</mat-panel-description>
-            <mat-panel-description *ngIf="ride.ownerData.email">Email: {{ride.ownerData.email}}</mat-panel-description>
             <br/>
             <mat-panel-description>Notes: {{ride.notes}}</mat-panel-description>
 

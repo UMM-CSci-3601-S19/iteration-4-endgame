@@ -27,6 +27,12 @@ public class RideControllerSpec {
   private RideController rideController;
   private ObjectId knownId;
 
+  //Todo: This functionality is not implemented
+  //Add protection against entries with improper or empty ownerId field
+  //Todo: This functionality is not tested
+  //Check ownerData has been properly added (Involve
+
+
   @Before
   public void clearAndPopulateDB(){
     MongoClient mongoClient = new MongoClient();
@@ -36,7 +42,7 @@ public class RideControllerSpec {
     List<Document> testRides = new ArrayList<>();
     testRides.add(Document.parse("{\n" +
       "driver: \"Marci Sears\",\n" +
-      "riders: \"5c817c356e1e7c3c544638fd\",\n" +
+      "ownerId: \"5ca243f0712ed630c21a8407\",\n" +
       "destination: \"Maplegrove\",\n" +
       "origin: \"Knight Court\",\n" +
       "roundTrip: true,\n" +
@@ -46,7 +52,7 @@ public class RideControllerSpec {
       "}"));
     testRides.add(Document.parse("{\n" +
       "driver: \"Boyer Kramer\",\n" +
-      "riders: \"5c817c358f1702ea7c5f4ee3\",\n" +
+      "ownerId: \"5ca243f0b4676a59e54a2ca6\",\n" +
       "destination: \"St.Paul\",\n" +
       "origin: \"Polar Street\",\n" +
       "roundTrip: false,\n" +
@@ -56,7 +62,7 @@ public class RideControllerSpec {
       "}"));
     testRides.add(Document.parse("{\n" +
       "driver: \"Millie Flores\",\n" +
-      "riders: \"5c817c35004535b2c6789e1a\",\n" +
+      "ownerId: \"5ca243f04e7664997cbc9119\",\n" +
       "destination: \"Duluth\",\n" +
       "origin: \"Oliver Street\",\n" +
       "roundTrip: true,\n" +
@@ -70,7 +76,7 @@ public class RideControllerSpec {
     BasicDBObject knownObj = new BasicDBObject("_id", knownId);
     knownObj = knownObj
       .append("driver", "Carter Browning")
-      .append("riders", "5c817c356e1e7c3c544638fd")
+      .append("ownerId", "5ca243f0db41ec9258d40336")
       .append("destination", "Maplegrove")
       .append("origin", "Balfour Place")
       .append("roundTrip", false)
@@ -131,7 +137,7 @@ public class RideControllerSpec {
     String beforeResult = rideController.getRides(emptyMap);
     BsonArray beforeDocs = parseJsonArray(beforeResult);
     assertEquals("Should have 4 riders before adding a new one", 4, beforeDocs.size());
-    String jsonResult = rideController.addNewRide("Good Driver", "Far, Far Away", "The RFC", false, true,"Noon Tomorrow", "We're never coming back.");
+    String jsonResult = rideController.addNewRide("Good Driver", "Far, Far Away", "The RFC", false, true,"Noon Tomorrow", "We're never coming back.", "5ca243f0db41ec9258d40336");
     assertNotNull("Add ride result should not be null", jsonResult);
     String afterResult = rideController.getRides(emptyMap);
     BsonArray afterDocs = parseJsonArray(afterResult);
