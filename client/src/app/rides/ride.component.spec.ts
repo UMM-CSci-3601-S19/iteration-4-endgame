@@ -71,7 +71,7 @@ describe('Ride component', () => {
 
   it('returns undefined for Canada', () => {
     rideComponent.setDestination('Canada');
-    expect(rideComponent.ride).not.toBeDefined();
+    expect(rideComponent.ride).toBeUndefined()
   });
 
 
