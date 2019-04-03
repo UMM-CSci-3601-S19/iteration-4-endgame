@@ -15,21 +15,42 @@
                  (input)="rideDestination = $event.target.value">
         </mat-form-field>
 
+        <br>
+
+        <mat-radio-group class="radioGroup" [(ngModel)] = "rideDriving">
+          I am looking for...
+          <mat-radio-button id="isDriving" [value] = "true"> <mat-icon style="color:green"> drive_eta</mat-icon> drivers</mat-radio-button>
+          <mat-radio-button id="isNotDriving" [value] = "false"> <mat-icon style="color: blue"> transfer_within_a_station </mat-icon> riders</mat-radio-button>
+          <mat-radio-button id="isEither" [value] = "null"> riders and drivers</mat-radio-button>
+        </mat-radio-group>
+
+        <br>
+
+        <button class="filterButton" mat-raised-button id="submit" color="primary" #input type="button" (click)="loadService()">
+          Filter by driving / riding
+        </button>
+
         <mat-accordion *ngIf="rides; else ridesError">
           <mat-expansion-panel #elem class="rides" [id]="ride.destination"
-                               *ngFor="let ride of this.filterRides(rideDestination)">
+                               *ngFor="let ride of this.filterRides(rideDestination)"
+                               [ngSwitch]="ride.driving">
             <mat-expansion-panel-header>
-              <mat-panel-title>{{ride.origin}} &nbsp; <mat-icon class="arrow">label_important</mat-icon> &nbsp; {{ride.destination}}</mat-panel-title>
+              <mat-panel-title *ngSwitchDefault style="background: #c2ff87">
+                <mat-icon style="color: green"> drive_eta </mat-icon> {{ride.origin}} &nbsp; <mat-icon class="arrow">play_arrow</mat-icon> &nbsp; {{ride.destination}}</mat-panel-title>
 
+              <mat-panel-title *ngSwitchCase=false style="background: #80ffff">
+                <mat-icon style="color:blue"> transfer_within_a_station</mat-icon> {{ride.origin}} &nbsp; <mat-icon class="arrow">play_arrow</mat-icon> &nbsp; {{ride.destination}}</mat-panel-title>
             </mat-expansion-panel-header>
+
             <mat-panel-description>Name: {{ride.driver}}</mat-panel-description>
             <mat-panel-description>Round Trip: {{ride.roundTrip}}</mat-panel-description>
             <mat-panel-description>Departure Time: {{ride.departureTime}}</mat-panel-description>
             <mat-panel-description>Pickup at: {{ride.origin}}</mat-panel-description>
             <mat-panel-description>Driving: {{ride.driving}}</mat-panel-description>
+            <mat-panel-description>MPG: {{ride.mpg}}</mat-panel-description>
             <mat-panel-description>Notes: {{ride.notes}}</mat-panel-description>
             <div>
-              <button id="editRide" mat-raised-button (click)="openEditDialog(ride._id, ride.driver, ride.destination, ride.origin, ride.roundTrip, ride.driving,ride.departureTime, ride.notes)">Edit Ride</button>
+              <button id="editRide" mat-raised-button (click)="openEditDialog(ride._id, ride.driver, ride.destination, ride.origin, ride.roundTrip, ride.driving,ride.departureTime, ride.mpg, ride.notes)">Edit Ride</button>
               <button id="deleteRide" mat-raised-button (click)="openDeleteDialog(ride._id)">Delete Ride</button>
             </div>
 

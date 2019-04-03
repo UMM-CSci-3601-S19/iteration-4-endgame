@@ -1,4 +1,4 @@
-import {browser, element, by, promise, ElementFinder} from 'protractor';
+import {browser, element, by, promise, ElementFinder, protractor} from 'protractor';
 import {Key} from 'selenium-webdriver';
 
 export class RidePage {
@@ -32,14 +32,6 @@ export class RidePage {
     input.sendKeys(destination);
   }
 
-  selectUpKey() {
-    browser.actions().sendKeys(Key.ARROW_UP).perform();
-  }
-
-  selectDownKey() {
-    browser.actions().sendKeys(Key.ARROW_DOWN).perform();
-  }
-
   backspace() {
     browser.actions().sendKeys(Key.BACK_SPACE).perform();
   }
@@ -47,7 +39,6 @@ export class RidePage {
   getUniqueRide(destination: string) {
     const ride = element(by.id(destination)).getText();
     this.highlightElement(by.id(destination));
-
     return ride;
   }
 
@@ -83,6 +74,10 @@ export class RidePage {
   getTextFromField(idOfField: string) {
     this.highlightElement(by.id(idOfField));
     return element(by.id(idOfField)).getText();
+  }
+
+  slowTime(ms: number) {
+    return protractor.promise.delayed(ms);
   }
 
 }

@@ -90,6 +90,11 @@ describe('Ride list', () => {
     });
   }));
 
+  it('loadService gets the ride list', () => {
+    rideList.loadService();
+    expect(rideList.rides.length == 6)
+  });
+
   it('contains all the rides', () => {
     expect(rideList.rides.length).toBe(6);
   });
@@ -354,7 +359,7 @@ describe('Editing a ride',()=> {
 
   it('calls RideListService.editRide', () => {
     expect(calledRide).toBeNull();
-    rideList.openEditDialog(currentRide._id, currentRide.driver, currentRide.destination, currentRide.origin, currentRide.roundTrip, currentRide.driving,currentRide.departureTime, currentRide.notes);
+    rideList.openEditDialog(currentRide._id, currentRide.driver, currentRide.destination, currentRide.origin, currentRide.roundTrip, currentRide.driving,currentRide.departureTime, currentRide.mpg, currentRide.notes);
     expect(calledRide).toEqual(currentRide);
   });
 });

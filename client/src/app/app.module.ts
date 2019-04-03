@@ -6,13 +6,17 @@ import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
 import {Routing} from './app.routes';
 import {APP_BASE_HREF} from '@angular/common';
+
 import {RideComponent} from "./rides/ride.component";
 import {RideListComponent} from "./rides/ride-list.component";
 import {RideListService} from "./rides/ride-list.service";
 import {AddRideComponent} from "./rides/add-ride.component";
 import {EditRideComponent} from "./rides/edit-ride.component";
 import {DeleteRideComponent} from "./rides/delete-ride.component";
+
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatSelectModule} from '@angular/material/select';
 
 import {CustomModule} from './custom.module';
 
@@ -25,6 +29,8 @@ import {CustomModule} from './custom.module';
     Routing,
     CustomModule,
     MatCheckboxModule,
+    MatRadioModule,
+    MatSelectModule,
   ],
   declarations: [
     AppComponent,
