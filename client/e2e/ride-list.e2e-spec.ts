@@ -27,7 +27,7 @@ describe('Ride List', () => {
   });
 
   it('should have a Rides title', () => {
-    return expect(page.getTitle()).toEqual('Rides');
+    return expect(page.getTitle()).toEqual('Available Listings');
   });
 
   it('should type something in Filter by Destination box and check that it returned correct element', () => {
