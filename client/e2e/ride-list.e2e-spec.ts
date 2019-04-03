@@ -31,11 +31,11 @@ describe('Ride List', () => {
   });
 
   it('should type something in Filter by Destination box and check that it returned correct element', () => {
-    page.typeADestination('d');
+    page.typeADestination('dul');
     expect(page.getUniqueRide('Duluth')).toMatch('Oliver Street.*');
-    page.backspace();
+    page.backspace();page.backspace();page.backspace();
     page.typeADestination('Alexandria');
-    return expect(page.getUniqueRide('Alexandria')).toMatch('Kings Place.*');
+    return expect(page.getUniqueRide('Alexandria')).toMatch('Amity Street.*');
   });
 
   it('Should have an add ride button', () => {
@@ -156,6 +156,8 @@ describe('Ride List', () => {
   describe('Edit Ride', () => {
 
     beforeEach(() => {
+      page.typeADestination('Maplegrove');
+      page.slowTime(100);
       page.click('Maplegrove');
       page.slowTime(1000);
       page.click('editRide');
@@ -187,6 +189,10 @@ describe('Ride List', () => {
       page.slowTime(100);
       expect(page.button('confirmEditRideButton').isEnabled()).toBe(true);
       page.click('confirmEditRideButton');
+      page.slowTime(100);
+
+      page.field('rideDestination').clear();
+      page.typeADestination('Japan');
 
       const japan_element = element(by.id('Japan'));
       browser.wait(protractor.ExpectedConditions.presenceOf(japan_element), 10000);
@@ -194,105 +200,91 @@ describe('Ride List', () => {
       return expect(page.getUniqueRide('Japan')).toMatch('Japan.*');
     });
 
-//todo The edit ride validation is not working correctly when the validation is tested.  The validation in the add rides work.
-    // describe('Edit Ride (Validation)', () => {
-    //
-    //   afterEach(() => {
-    //     page.click('exitWithoutEditingButton');
-    //   });
-    //
-    //   it('Should allow us to put information into the fields of the edit ride dialog', () => {
-    //
-    //     page.click('editRide');
-    //
-    //     expect(page.field('driverField').isPresent()).toBeTruthy('There should be a driver field');
-    //     page.field('driverField').sendKeys('Dana Jones');
-    //     expect(page.field('notesField').isPresent()).toBeTruthy('There should be a notes field');
-    //     page.field('notesField').sendKeys('Test Notes');
-    //     expect(page.field('originField').isPresent()).toBeTruthy('There should be an origin field');
-    //     page.field('originField').sendKeys('Pickup Location');
-    //     expect(page.field('destinationField').isPresent()).toBeTruthy('There should be a destination field');
-    //     page.field('destinationField').sendKeys('Dropoff Location');
-    //     expect(page.field('departureTimeField').isPresent()).toBeTruthy('There should be a date field');
-    //     page.field('departureTimeField').sendKeys('3/27/2019');
-    //     expect(page.field('mpgField').isPresent()).toBeTruthy('MPG must be a number');
-    //     page.field('mpgField').sendKeys('20');
-    //   });
-    //
-    //   it('Should show the validation error message about the format of driver when editing a ride', () => {
-    //
-    //     page.click('editRide');
-    //
-    //     expect(element(by.id('driverField')).isPresent()).toBeTruthy('There should be a driver field');
-    //     page.field('driverField').sendKeys('Don@ld Jones');
-    //     expect(page.button('confirmEditRideButton').isEnabled()).toBe(false);
-    //     //clicking somewhere else will make the error appear
-    //     page.field('notesField').click();
-    //     expect(page.getTextFromField('driver-error')).toBe('Driver must contain only numbers and letters');
-    //   });
-    //
-    //   it('Should show the validation error message about origin format when editing a ride', () => {
-    //
-    //     page.click('editRide');
-    //
-    //     expect(element(by.id('originField')).isPresent()).toBeTruthy('There should be a origin field');
-    //     page.field('originField').sendKeys('#@$@$#');
-    //     expect(page.button('confirmEditRideButton').isEnabled()).toBe(false);
-    //     //clicking somewhere else will make the error appear
-    //     page.field('driverField').click();
-    //     expect(page.getTextFromField('origin-error')).toBe('Origin must contain only numbers, letters, dashes, underscores, and dots');
-    //   });
-    //
-    //   it('Should show the validation error message about the format of destination when editing a ride', () => {
-    //
-    //     page.click('editRide');
-    //
-    //     expect(element(by.id('destinationField')).isPresent()).toBeTruthy('There should be a destination field');
-    //     page.field('destinationField').sendKeys('@$@$');
-    //     expect(page.button('confirmEditRideButton').isEnabled()).toBe(false);
-    //     page.field('mpgField').click();
-    //     expect(page.getTextFromField('destination-error')).toBe('Destination must contain only numbers, letters, dashes, underscores, and dots');
-    //   });
-    //
-    //   it('Should show the validation error message about the format of DepartureTime when editing a ride', () => {
-    //
-    //     page.click('editRide');
-    //
-    //     expect(element(by.id('departureTimeField')).isPresent()).toBeTruthy('There should be a departureTime field');
-    //     page.field('departureTimeField').sendKeys('A');
-    //     expect(page.button('confirmEditRideButton').isEnabled()).toBe(false);
-    //     page.field('mpgField').click();
-    //     expect(page.getTextFromField('departureTime-error')).toBe('Departure Time must be at least 2 characters long');
-    //   });
-    //
-    //   it('Should show the validation error message about the format of mpg when editing a ride', () => {
-    //
-    //     page.click('editRide');
-    //
-    //     //expect(element(by.id('mpgField')).isPresent()).toBeTruthy('MPG must be a number');
-    //     page.field('mpgField').sendKeys('A');
-    //     expect(page.button('confirmEditRideButton').isEnabled()).toBe(false);
-    //     page.field('notesField').click();
-    //     expect(page.getTextFromField('mpg-error')).toBe('MPG must be a number');
-    //   });
-    //
-    //   it('Should show the validation error message about the format of notes when editing a ride', () => {
-    //
-    //     page.click('editRide');
-    //
-    //     //expect(element(by.id('mpgField')).isPresent()).toBeTruthy('notes must contain only english and certain symbols');
-    //     page.field('notesField').sendKeys('片仮名');
-    //     expect(page.button('confirmEditRideButton').isEnabled()).toBe(false);
-    //     page.field('notesField').click();
-    //     expect(page.getTextFromField('notes-error')).toBe('notes must contain only english and certain symbols');
-    //   });
-    // });
+    describe('Edit Ride (Validation)', () => {
+
+      afterEach(() => {
+        page.click('exitWithoutEditingButton');
+        page.field('rideDestination').clear();
+        page.typeADestination('Maplegrove');
+      });
+
+      it('Should allow us to put information into the fields of the edit ride dialog', () => {
+
+        expect(page.field('destinationField').isPresent()).toBeTruthy('There should be a destination field');
+        page.field('destinationField').sendKeys('Dropoff Location');
+        expect(page.field('driverField').isPresent()).toBeTruthy('There should be a driver field');
+        page.field('driverField').sendKeys('Dana Jones');
+        expect(page.field('originField').isPresent()).toBeTruthy('There should be an origin field');
+        page.field('originField').sendKeys('Pickup Location');
+        expect(page.field('departureTimeField').isPresent()).toBeTruthy('There should be a date field');
+        page.field('departureTimeField').sendKeys('3/27/2019');
+        expect(page.field('mpgField').isPresent()).toBeTruthy('MPG must be a number');
+        page.field('mpgField').sendKeys('20');
+        expect(page.field('notesField').isPresent()).toBeTruthy('There should be a notes field');
+        page.field('notesField').sendKeys('Test Notes');
+      });
+
+      it('Should show the validation error message about the format of driver when editing a ride', () => {
+        expect(element(by.id('driverField')).isPresent()).toBeTruthy('There should be a driver field');
+        page.field('driverField').sendKeys('Don@ld Jones');
+        expect(page.button('confirmEditRideButton').isEnabled()).toBe(false);
+        //clicking somewhere else will make the error appear
+        page.field('notesField').click();
+        expect(page.getTextFromField('driver-error')).toBe('Driver must contain only numbers and letters');
+      });
+
+      it('Should show the validation error message about origin format when editing a ride', () => {
+        expect(element(by.id('originField')).isPresent()).toBeTruthy('There should be a origin field');
+        page.field('originField').sendKeys('#@$@$#');
+        expect(page.button('confirmEditRideButton').isEnabled()).toBe(false);
+        //clicking somewhere else will make the error appear
+        page.field('driverField').click();
+        expect(page.getTextFromField('origin-error')).toBe('Origin must contain only numbers, letters, dashes, underscores, and dots');
+      });
+
+      it('Should show the validation error message about the format of destination when editing a ride', () => {
+        expect(element(by.id('destinationField')).isPresent()).toBeTruthy('There should be a destination field');
+        page.field('destinationField').sendKeys('@$@$');
+        expect(page.button('confirmEditRideButton').isEnabled()).toBe(false);
+        page.field('mpgField').click();
+        expect(page.getTextFromField('destination-error')).toBe('Destination must contain only numbers, letters, dashes, underscores, and dots');
+      });
+
+      it('Should show the validation error message about the format of DepartureTime when editing a ride', () => {
+        expect(element(by.id('departureTimeField')).isPresent()).toBeTruthy('There should be a departureTime field');
+        page.field('departureTimeField').clear();
+        page.field('departureTimeField').sendKeys('a');
+        expect(page.button('confirmEditRideButton').isEnabled()).toBe(false);
+        page.field('mpgField').click();
+        expect(page.getTextFromField('departureTime-error')).toBe('Departure Time must be at least 2 characters long');
+      });
+
+      it('Should show the validation error message about the format of mpg when editing a ride', () => {
+        //expect(element(by.id('mpgField')).isPresent()).toBeTruthy('MPG must be a number');
+        page.field('mpgField').sendKeys('A');
+        expect(page.button('confirmEditRideButton').isEnabled()).toBe(false);
+        page.field('notesField').click();
+        expect(page.getTextFromField('mpg-error')).toBe('MPG must be a number');
+      });
+
+      it('Should show the validation error message about the format of notes when editing a ride', () => {
+        //expect(element(by.id('mpgField')).isPresent()).toBeTruthy('notes must contain only english and certain symbols');
+        page.field('notesField').sendKeys('片仮名');
+        expect(page.button('confirmEditRideButton').isEnabled()).toBe(false);
+        page.field('notesField').click();
+        expect(page.getTextFromField('notes-error')).toBe('notes must contain only english and certain symbols');
+      });
+    });
 
   });
 
   describe('Delete Ride', () => {
 
     beforeEach(() => {
+      page.field('rideDestination').clear();
+      page.slowTime(100);
+      page.typeADestination('Japan');
+      page.slowTime(100);
       page.click('Japan');
 
     });
