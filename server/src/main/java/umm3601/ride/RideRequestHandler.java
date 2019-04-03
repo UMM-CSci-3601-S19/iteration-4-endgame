@@ -82,6 +82,7 @@ public class RideRequestHandler {
     Boolean roundTrip = newRide.getBoolean("roundTrip");
     Boolean driving = newRide.getBoolean("driving");
     String departureTime = newRide.getString("departureTime");
+    String mpg = newRide.getString("mpg");
     String notes = newRide.getString("notes");
     String ownerId;
     if(newRide.containsKey("ownerId")){
@@ -91,8 +92,8 @@ public class RideRequestHandler {
     }
 
 
-    System.err.println("Adding new ride [driver=" + driver + " ownerId=" + ownerId + " destination=" + destination + " origin=" + origin + " roundTrip=" + roundTrip + " driving=" + driving + " departureTime=" + departureTime + " notes=" + notes + ']');
-    return rideController.addNewRide(driver, destination, origin, roundTrip, driving,departureTime, notes, ownerId);
+    System.err.println("Adding new ride [driver=" + driver + " ownerId=" + ownerId + " destination=" + destination + " origin=" + origin + " roundTrip=" + roundTrip + " driving=" + driving + " departureTime=" + departureTime + " mpg=" + mpg + " notes=" + notes + ']');
+    return rideController.addNewRide(driver, destination, origin, roundTrip, driving,departureTime, mpg, notes, ownerId);
   }
 
   public Boolean updateRide(Request req, Response res) {
@@ -107,11 +108,12 @@ public class RideRequestHandler {
     Boolean roundTrip = editRide.getBoolean("roundTrip");
     Boolean driving = editRide.getBoolean("driving");
     String departureTime = editRide.getString("departureTime");
+    String mpg = editRide.getString("mpg");
     String notes = editRide.getString("notes");
 
 
     System.err.println("Editing ride [id=" + id + " driver=" + driver + " destination=" + destination + " origin=" + origin + " roundTrip=" + roundTrip + " driving=" + driving + " departureTime=" + departureTime + " notes=" + notes + ']');
-    return rideController.updateRide(id, driver, destination, origin, roundTrip, driving,departureTime, notes);
+    return rideController.updateRide(id, driver, destination, origin, roundTrip, driving,departureTime, mpg, notes);
   }
 
   public Boolean deleteRide(Request req, Response res){

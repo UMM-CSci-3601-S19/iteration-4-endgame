@@ -43,8 +43,17 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field flex>
+        <input matInput #input id="mpgField" placeholder="Miles Per Gallon" [(ngModel)]="data.ride.mpg" formControlName="mpg">
+        <mat-error *ngFor="let validation of edit_ride_validation_messages.mpg">
+          <mat-error class="error-message" id="mpg-error"
+                     *ngIf="editRideForm.get('mpg').hasError(validation.type) && (editRideForm.get('mpg').dirty || editRideForm.get('mpg').touched)">
+            {{validation.message}}
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field flex>
         <input matInput #input id="notesField" placeholder="Notes" [(ngModel)]="data.ride.notes" formControlName="notes"
-               required>
+              >
         <mat-error *ngFor="let validation of edit_ride_validation_messages.notes">
           <mat-error class="error-message" id="notes-error"
                      *ngIf="editRideForm.get('notes').hasError(validation.type) && (editRideForm.get('notes').dirty || editRideForm.get('notes').touched)">
@@ -53,8 +62,8 @@
         </mat-error>
       </mat-form-field>
       <div>
-        <mat-checkbox name ="roundTripStatus" ngDefaultControl [(ngModel)]="data.ride.roundTrip" [ngModelOptions]="{standalone: true}" >Round Trip</mat-checkbox>
-        <mat-checkbox name ="drivingStatus" ngDefaultControl [(ngModel)]="data.ride.driving" [ngModelOptions]="{standalone: true}" >Driving</mat-checkbox>
+        <mat-checkbox id="roundTripCheckBox" name ="roundTripStatus" ngDefaultControl [(ngModel)]="data.ride.roundTrip" [ngModelOptions]="{standalone: true}" >Round Trip</mat-checkbox>
+        <mat-checkbox id="drivingCheckBox"name ="drivingStatus" ngDefaultControl [(ngModel)]="data.ride.driving" [ngModelOptions]="{standalone: true}" >Driving</mat-checkbox>
       </div>
 
 
@@ -62,11 +71,11 @@
 
     </mat-dialog-content>
     <mat-dialog-actions layout="row">
-      <button mat-raised-button id="confirmAddRideButon" [mat-dialog-close]="data.ride" type="button" color="primary"
+      <button mat-raised-button id="confirmEditRideButton" [mat-dialog-close]="data.ride" type="button" color="primary"
               [disabled]="!editRideForm.valid">Edit Ride
       </button>
 
-      <button mat-raised-button id="exitWithoutAddingButton" [mat-dialog-close]="null" type="button">Cancel</button>
+      <button mat-raised-button id="exitWithoutEditingButton" [mat-dialog-close]="null" type="button">Cancel</button>
     </mat-dialog-actions>
   </form>
 </div>

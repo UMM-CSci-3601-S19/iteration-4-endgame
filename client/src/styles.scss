@@ -9,16 +9,22 @@
   color: mat-color($accent) !important;
 }
 
-ride-list-component{
-  background-color: lightgrey;
+.mat-toolbar {
+  background-color: #800000;
+  color: #F5F5F5;
 }
 
-.mat-card{
-  background-color: #4caf50;
-  color: white;
+.td-layout-sidenav {
+  background-color: #800000;
 }
 
-.mat-expansion-panel{
-  background-color: lightgrey;
+.td-layout-sidenav .drawerIcons {
+  color: #F5F5F5;
+  .mat-icon {
+    color: #F5F5F5;
+  }
 }
 
+.mat-card {
+  font-family: "Verdana", sans-serif;
+}

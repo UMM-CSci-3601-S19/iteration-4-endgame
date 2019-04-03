@@ -7,35 +7,78 @@
   padding-right: 14px;
 }
 
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#ride-list-title {
+  background: #800000 linear-gradient(#000000, #800000);
+  text-align: center;
+  color: #F5F5F5;
+  font-family: "Arial Black", sans-serif;
+  padding-bottom: 10px;
+}
+
+#availableListings {
+  background: #800000;
+}
+
+#filterLocation {
+  background: black;
+  margin: 0;
+}
+
+#filterLocation .mat-card-content {
+  padding: 0 16px;
+}
+
+#listContainer {
+  color: #000000;
+}
+
+.mat-card {
+  background-color: #ffc107;
+  color: #000000;
+}
+
+.postCard .mat-expansion-panel-header {
+  background: #800000;
+  font-family: "Arial Black", sans-serif;
+  text-align: center;
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  border-bottom-color: #ffc107;
+}
 
 #addNewRide {
+  font-family: "Verdana", sans-serif;
   margin-left: 45%;
   border-radius: 300px;
   margin-top: 20px;
   margin-bottom: 20px;
-  background-color: white;
-  color: darkgreen;
 }
 
-
 #addNewRide:hover {
-  background-color: darkgreen;
-  color: white;
+  background-color: #ffc107;
+  color: #000000;
 }
 
 #editRide{
   background-color: white;
-  color: navy;
+  color: #800000;
 }
 
 #editRide:hover {
-  background-color: #5C5D91;
-  color: white;
+  background-color: #ffc107;
+  color: #000000;
 }
 
 #deleteRide{
-  background-color: darkred;
+  background-color: #800000;
   color: white;
+  float: right;
 }
 
 #deleteRide:hover {
@@ -45,6 +88,21 @@
   font-weight: bold;
 }
 
-.arrow{
-  color: #4caf50;
+mat-radio-group {
+  color: #000000;
+}
+
+.mat-button, .mat-fab, .mat-icon-button, .mat-mini-fab, .mat-raised-button {
+  color: #ffffff;
+  background: #800000;
+}
+
+.mat-button, .mat-fab, .mat-icon-button, .mat-mini-fab, .mat-raised-button:hover{
+  color: #ffffff;
+  background: #424242;
+}
+
+.mat-form-field {
+  font-family: "Verdana", sans-serif;
+  color: #F5F5F5;
 }

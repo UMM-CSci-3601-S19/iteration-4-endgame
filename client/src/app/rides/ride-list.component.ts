@@ -21,6 +21,7 @@ export class RideListComponent implements OnInit {
   public filteredRides: Ride[];
 
   public rideDestination: string;
+  public rideDriving: string;
 
   private highlightedDestination: string = '';
 
@@ -34,7 +35,7 @@ export class RideListComponent implements OnInit {
 
 
   openDialog(): void {
-    const newRide: Ride = {driver: '', destination: '', origin: '', roundTrip: false, driving: false, departureTime: '', notes: ''};
+    const newRide: Ride = {driver: '', destination: '', origin: '', roundTrip: false, driving: false, departureTime: '', mpg: null, notes: ''};
     const dialogRef = this.dialog.open(AddRideComponent, {
       width: '500px',
       data: {ride: newRide}
@@ -58,7 +59,7 @@ export class RideListComponent implements OnInit {
     });
   }
 
-  openEditDialog(currentId: object,currentDriver: string, currentDestination: string, currentOrigin: string, currentRoundTrip: boolean, currentDriving: boolean,currentDepartureTime: string, currentNotes: string): void {
+  openEditDialog(currentId: object,currentDriver: string, currentDestination: string, currentOrigin: string, currentRoundTrip: boolean, currentDriving: boolean,currentDepartureTime: string, currentMPG: number, currentNotes: string): void {
     const currentRide: Ride = {
       _id: currentId,
       driver: currentDriver,
@@ -67,6 +68,7 @@ export class RideListComponent implements OnInit {
       roundTrip: currentRoundTrip,
       driving: currentDriving,
       departureTime: currentDepartureTime,
+      mpg: currentMPG,
       notes: currentNotes
     };
 
@@ -122,6 +124,7 @@ export class RideListComponent implements OnInit {
 
     this.filteredRides = this.rides;
 
+
     if (searchDestination != null) {
       searchDestination = searchDestination.toLocaleLowerCase();
 
@@ -129,7 +132,6 @@ export class RideListComponent implements OnInit {
         return !searchDestination || ride.destination.toLowerCase().indexOf(searchDestination) !== -1;
       });
     }
-
 
     return this.filteredRides;
   }
@@ -146,6 +148,18 @@ export class RideListComponent implements OnInit {
         console.log(err);
       });
     return rides;
+  }
+
+  loadService(): void {
+    this.rideListService.getRides(this.rideDriving).subscribe(
+      rides => {
+        this.rides = rides;
+        this.filteredRides = this.rides;
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
 
