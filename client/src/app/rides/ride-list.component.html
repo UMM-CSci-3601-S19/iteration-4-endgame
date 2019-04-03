@@ -22,14 +22,19 @@
               <mat-panel-title>{{ride.origin}} &nbsp; <mat-icon class="arrow">label_important</mat-icon> &nbsp; {{ride.destination}}</mat-panel-title>
 
             </mat-expansion-panel-header>
-            <mat-panel-description>Name: {{ride.driver}}</mat-panel-description>
             <mat-panel-description>Owner: {{ride.ownerData.name}}</mat-panel-description>
 
             <mat-panel-description>Round Trip: {{ride.roundTrip}}</mat-panel-description>
             <mat-panel-description>Departure Time: {{ride.departureTime}}</mat-panel-description>
-            <mat-panel-description>Pickup at: {{ride.origin}}</mat-panel-description>
             <mat-panel-description>Driving: {{ride.driving}}</mat-panel-description>
+
+            <br/>
+            <mat-panel-description *ngIf="ride.ownerData.phoneNumber">Phone Number: {{ride.ownerData.phoneNumber}}</mat-panel-description>
+            <mat-panel-description *ngIf="ride.ownerData.email">Email: {{ride.ownerData.email}}</mat-panel-description>
+            <br/>
             <mat-panel-description>Notes: {{ride.notes}}</mat-panel-description>
+
+
             <div>
               <button id="editRide" mat-raised-button (click)="openEditDialog(ride._id, ride.driver, ride.destination, ride.origin, ride.roundTrip, ride.driving,ride.departureTime, ride.notes)">Edit Ride</button>
               <button id="deleteRide" mat-raised-button (click)="openDeleteDialog(ride._id)">Delete Ride</button>
