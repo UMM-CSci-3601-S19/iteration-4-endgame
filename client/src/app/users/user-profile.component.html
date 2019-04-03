@@ -1,0 +1,31 @@
+<div layout-gt-sm="row">
+  <div flex-gt-sm="80" flex-offset-gt-sm="10">
+    <mat-card>
+      <mat-card-title id="user-list-title">{{ this.exampleUser }}'s Profile</mat-card-title>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <div class="cardInner">
+          <div class="boxes" id="nameBox"[style.grid-area]="'name'">
+            My name is {{this.exampleUser}}
+            <br/> <br/>
+            {{this.exampleBio}}
+            <hr>
+          </div>
+          <div class="boxes" id="vehicleBox" [style.grid-area]="'vehicle'">
+            <h3>Vehicle Information:</h3>
+            - {{this.exampleYear}} {{this.exampleMakeModel}}
+            <br/>
+            - Color: {{this.exampleColor}}
+            <br/>
+            - Notes: {{this.exampleNotes}}
+          </div>
+          <div class="boxes" id="contactInfoBox" [style.grid-area]="'contactInfo'">
+            <h3>Contact Info:</h3>
+            - Email: {{this.exampleEmail}}
+            <hr>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

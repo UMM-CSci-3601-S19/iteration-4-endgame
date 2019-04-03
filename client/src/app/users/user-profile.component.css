@@ -1,0 +1,41 @@
+#title input {
+  width: 16%;
+  min-width: 100px;
+}
+
+#list-title {
+  padding-right: 14px;
+}
+
+img {
+  border: 2px solid gold;
+  max-width: 100%;
+  height: auto;
+  float:left;
+}
+
+.cardInner {
+  display: grid;
+  grid-template-areas: "name picture" "contactInfo picture" "vehicle vehiclePicture";
+  grid-template-rows: auto auto auto;
+  grid-template-columns: 55% 45%;
+  grid-row-gap: 8px;
+  grid-column-gap: 8px;
+}
+
+.boxes {
+  word-wrap: break-word;
+  max-width: 100%;
+}
+
+.picBoxes {
+  max-width: 100%;
+}
+
+.mat-card .mat-card-title {
+  font-family: "Arial Black";
+}
+
+.mat-card {
+  font-family: Verdana;
+}
