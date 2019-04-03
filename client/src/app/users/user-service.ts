@@ -8,14 +8,15 @@ import {User} from "./user";
 export class UserService {
   readonly baseUrl: string = environment.API_URL + 'users';
   private userUrl: string = this.baseUrl;
-  private http;
+  private http: HttpClient;
 
-  constructor(private http: HttpClient) {
-    this.http = http;
+  constructor(private client: HttpClient) {
+    this.http = client;
   }
 
   getUsers(userID?: string): Observable<User[]> {
-    return this.http.get<User[]>(this.userUrl + "/" + userID);
+    let url : string = this.userUrl + "/" + userID;
+    return this.http.get<User[]>(url);
   }
 
   private parameterPresent(searchParam: string) {
