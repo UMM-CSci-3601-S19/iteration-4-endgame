@@ -136,7 +136,6 @@ export class RideListComponent implements OnInit {
 
 
   refreshRides(): Observable<Ride[]> {
-
     const rides: Observable<Ride[]> = this.rideListService.getRides();
     rides.subscribe(
       rides => {
