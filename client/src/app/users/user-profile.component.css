@@ -33,9 +33,15 @@ img {
 }
 
 .mat-card .mat-card-title {
-  font-family: "Arial Black";
+  font-family: "Arial Black", sans-serif;
 }
 
 .mat-card {
-  font-family: Verdana;
+  font-family: "Verdana", sans-serif;
+}
+
+.star {
+  display: flex;
+  flex-direction: row;
+  float: left;
 }
