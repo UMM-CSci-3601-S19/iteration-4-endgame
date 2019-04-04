@@ -20,6 +20,9 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 
 import {CustomModule} from './custom.module';
+import {UserProfileComponent} from "./users/user-profile.component";
+import {UserService} from "./users/user-service";
+import {EditUserComponent} from "./users/edit-user.component";
 
 
 
@@ -38,18 +41,22 @@ import {CustomModule} from './custom.module';
     AppComponent,
     HomeComponent,
     RideComponent,
+    UserProfileComponent,
     RideListComponent,
     AddRideComponent,
     EditRideComponent,
+    EditUserComponent,
     DeleteRideComponent
   ],
   providers: [
     RideListService,
+    UserService,
     {provide: APP_BASE_HREF, useValue: '/'},
   ],
   entryComponents: [
     AddRideComponent,
     EditRideComponent,
+    EditUserComponent,
     DeleteRideComponent
   ],
   bootstrap: [AppComponent]
