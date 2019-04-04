@@ -43,22 +43,28 @@
                 <mat-icon style="color: #008000"> drive_eta </mat-icon> &nbsp; {{ride.origin}} &nbsp; <mat-icon style="color: #008000">play_arrow</mat-icon> &nbsp; {{ride.destination}}
               </mat-panel-title>
             </mat-expansion-panel-header>
-
             <mat-expansion-panel-header *ngSwitchCase=false style="color: #0000FF">
               <mat-panel-title>
                 <mat-icon style="color: #0000FF"> airline_seat_recline_extra </mat-icon> &nbsp; {{ride.origin}} &nbsp; <mat-icon style="color: #0000FF">play_arrow</mat-icon> &nbsp; {{ride.destination}}
               </mat-panel-title>
             </mat-expansion-panel-header>
-
+            <br />
+            <div *ngIf="ride.ownerData">
+              <mat-panel-description>Owner: {{ride.ownerData.name}}</mat-panel-description>
+              <mat-panel-description *ngIf="ride.ownerData.phoneNumber">Phone Number: {{ride.ownerData.phoneNumber}}</mat-panel-description>
+              <mat-panel-description *ngIf="ride.ownerData.email">Email: {{ride.ownerData.email}}</mat-panel-description>
+            </div>
+            <div *ngIf="!ride.ownerData">
+              <mat-panel-description>Owner data not found</mat-panel-description>
+            </div>
             <mat-panel-description>
-              <br> Name: {{ride.driver}}
               <br> Round Trip: {{ride.roundTrip}}
               <br> Departure Time: {{ride.departureTime}}
               <br> Pickup at: {{ride.origin}}
               <br> MPG: {{ride.mpg}}
-              <br> Notes: {{ride.notes}}
             </mat-panel-description>
-
+            <br />
+            <mat-panel-description>Notes: {{ride.notes}}</mat-panel-description>
             <div id="buttonContainer">
               <br>
               <button id="editRide" mat-raised-button (click)="openEditDialog(ride._id, ride.driver, ride.destination, ride.origin, ride.roundTrip, ride.driving,ride.departureTime, ride.mpg, ride.notes)">Edit Ride</button>

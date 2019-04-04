@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 
 import {Ride} from "./ride";
 import {RideListService} from "./ride-list.service";
+import {User} from "../users/user";
 
 describe( 'Ride list service: ', () => {
   const testRides: Ride[] = [
@@ -35,7 +36,39 @@ describe( 'Ride list service: ', () => {
       notes: 'There is no escaping Morris'
     }
   ];
-
+  const testUsers: User[] = [
+  {
+    "_id": {
+      "$oid": "5ca243f0ef2bf9b410bb5672"
+    },
+    "name": "Rosario Shaffer",
+      "email": "Venoflex19@gmail.com",
+      "phoneNumber": "(928) 480-3646"
+  },
+  {
+    "_id": {
+      "$oid": "5ca243f0662128b361c92055"
+    },
+    "name": "Trina Ramsey",
+    "email": "Isologia30@hotmail.com",
+    "phoneNumber": "(963) 498-3516"
+  },
+  {
+    "_id": {
+      "$oid": "5ca243f0daa0cc10e6f90b76"
+    },
+    "name": "Elvira Wiley",
+    "email": "Musaphics29@yahoo.com",
+    "phoneNumber": "(904) 578-2784"
+  },
+  {
+    "_id": {
+      "$oid": "5ca243f0797d9e845106b25e"
+    },
+    "name": "Hatfield Daniels",
+    "email": "Extragen25@gmail.com",
+    "phoneNumber": "(830) 410-3952"
+  }];
   const trueRides: Ride[] = testRides.filter(ride =>
     ride.driving == true
   );
@@ -71,9 +104,20 @@ describe( 'Ride list service: ', () => {
     httpTestingController.verify();
   });
 
-
+  //Todo: Test getUsers()
+  //Please ask Nic / KK
+  /*
+  it('can get Users', () => {
+    console.log(rideListService);
+    rideListService.getUsers().subscribe(
+      users => expect(users).toBe(testUsers)
+    );
+    const req = httpTestingController.expectOne(rideListService.baseUrl);
+    expect(req.request.method).toEqual('GET');
+    req.flush(testUsers);
+  });
+  */
   it('getRides() calls api/rides', () => {
-
     rideListService.getRides().subscribe(
       rides => expect(rides).toBe(testRides)
     );
@@ -117,7 +161,7 @@ describe( 'Ride list service: ', () => {
 
 
   it('adding a ride calls api/rides/new', () => {
-    const teacherDestination = 'teacherDestination';
+    const teacherDestination = 'St. Cloud';
     const newRide: Ride = {
       driver: 'Teacher',
       destination: 'St. Cloud',

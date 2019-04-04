@@ -1,5 +1,6 @@
 package umm3601.ride;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import spark.Request;
@@ -83,10 +84,16 @@ public class RideRequestHandler {
     String departureTime = newRide.getString("departureTime");
     String mpg = newRide.getString("mpg");
     String notes = newRide.getString("notes");
+    String ownerId;
+    if(newRide.containsKey("ownerId")){
+      ownerId = newRide.getString("ownerId");
+    }else{
+      ownerId = new ObjectId().toHexString();
+    }
 
 
-    System.err.println("Adding new ride [driver=" + driver + " destination=" + destination + " origin=" + origin + " roundTrip=" + roundTrip + " driving=" + driving + " departureTime=" + departureTime + " notes=" + notes + ']');
-    return rideController.addNewRide(driver, destination, origin, roundTrip, driving,departureTime, mpg, notes);
+    System.err.println("Adding new ride [driver=" + driver + " ownerId=" + ownerId + " destination=" + destination + " origin=" + origin + " roundTrip=" + roundTrip + " driving=" + driving + " departureTime=" + departureTime + " mpg=" + mpg + " notes=" + notes + ']');
+    return rideController.addNewRide(driver, destination, origin, roundTrip, driving,departureTime, mpg, notes, ownerId);
   }
 
   public Boolean updateRide(Request req, Response res) {

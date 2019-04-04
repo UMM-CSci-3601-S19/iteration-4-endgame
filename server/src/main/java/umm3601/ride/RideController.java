@@ -1,14 +1,21 @@
 package umm3601.ride;
 
-import com.mongodb.MongoException;
+import com.mongodb.*;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
+
 import org.bson.Document;
+import org.bson.codecs.BsonTypeClassMap;
+import org.bson.codecs.DocumentCodec;
+import org.bson.codecs.configuration.CodecRegistries;
+import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.types.ObjectId;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,9 +28,12 @@ import static com.mongodb.client.model.Filters.eq;
 public class RideController {
 
   private final MongoCollection<Document> rideCollection;
+  private final MongoCollection<Document> userCollection;
 
   public RideController(MongoDatabase database) {
     rideCollection = database.getCollection("Rides");
+    userCollection = database.getCollection("Users");
+
   }
 
   String getRide(String id) {
@@ -58,8 +68,8 @@ public class RideController {
 
     //FindIterable comes from mongo, Document comes from Gson
     FindIterable<Document> matchingRides = rideCollection.find(filterDoc);
-
-    return serializeIterable(matchingRides);
+    Iterable<Document> ridesWithUsers = addUsersToRides(matchingRides);
+    return serializeIterable(ridesWithUsers);
   }
 
 
@@ -69,13 +79,15 @@ public class RideController {
    * string representing an array of JSON objects.
    */
   private String serializeIterable(Iterable<Document> documents) {
+    CodecRegistry codecRegistry = CodecRegistries.fromRegistries(MongoClient.getDefaultCodecRegistry());
+    DocumentCodec codec = new DocumentCodec(codecRegistry, new BsonTypeClassMap());
     return StreamSupport.stream(documents.spliterator(), false)
-      .map(Document::toJson)
+      .map((Document d) -> d.toJson(codec))
       .collect(Collectors.joining(", ", "[", "]"));
   }
 
-  String addNewRide(String driver, String destination, String origin, Boolean roundTrip, Boolean driving, String departureTime, String mpg, String notes) {
-
+  String addNewRide(String driver, String destination, String origin, Boolean roundTrip, Boolean driving, String departureTime, String mpg, String notes, String ownerId) {
+    System.out.println(ownerId);
     Document newRide = new Document();
     newRide.append("driver", driver);
     newRide.append("destination", destination);
@@ -94,7 +106,7 @@ public class RideController {
       newRide.append("mpg", mpg);
     }
     newRide.append("notes", notes);
-
+    newRide.append("ownerId", ownerId);
 
     try {
       rideCollection.insertOne(newRide);
@@ -150,5 +162,18 @@ public class RideController {
       e.printStackTrace();
       return false;
     }
+  }
+
+  private Iterable<Document> addUsersToRides(FindIterable<Document> rides){
+    ArrayList<Document> ridesWithUsers = new ArrayList<>();
+    for (Document ride: rides) {
+      Document ownerRef = new Document();
+      Document contentRegQuery = new Document();
+      contentRegQuery.append("_id", ride.getString("ownerId"));
+      ownerRef = ownerRef.append("_id", new ObjectId(ride.getString("ownerId")));
+      ride.put("ownerData", userCollection.find(ownerRef).first());
+      ridesWithUsers.add(ride);
+    }
+    return ridesWithUsers;
   }
 }

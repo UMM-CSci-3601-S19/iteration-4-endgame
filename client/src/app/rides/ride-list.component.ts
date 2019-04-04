@@ -6,7 +6,7 @@ import {AddRideComponent} from "./add-ride.component";
 import {EditRideComponent} from "./edit-ride.component";
 import {MatDialog} from "@angular/material";
 import {DeleteRideComponent} from "./delete-ride.component";
-
+import {User} from "../users/user";
 
 @Component({
   selector: 'ride-list-component',
@@ -19,6 +19,7 @@ export class RideListComponent implements OnInit {
 
   public rides: Ride[];
   public filteredRides: Ride[];
+  public users: User[];
 
   public rideDestination: string;
   public rideDriving: string;
@@ -38,12 +39,12 @@ export class RideListComponent implements OnInit {
     const newRide: Ride = {driver: '', destination: '', origin: '', roundTrip: false, driving: false, departureTime: '', mpg: null, notes: ''};
     const dialogRef = this.dialog.open(AddRideComponent, {
       width: '500px',
-      data: {ride: newRide}
+      data: {ride: newRide, users: this.users}
     });
 
     dialogRef.afterClosed().subscribe(newRide => {
       if (newRide != null) {
-
+        console.log(newRide);
         this.rideListService.addNewRide(newRide).subscribe(
           result => {
             this.highlightedDestination = result;
@@ -78,7 +79,7 @@ export class RideListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(currentRide => {
-      if (currentRide != null) {
+      if (currentRide != null) {//RideListComponent
 
         this.rideListService.editRide(currentRide).subscribe(
           result => {
@@ -138,7 +139,6 @@ export class RideListComponent implements OnInit {
 
 
   refreshRides(): Observable<Ride[]> {
-
     const rides: Observable<Ride[]> = this.rideListService.getRides();
     rides.subscribe(
       rides => {
@@ -149,6 +149,18 @@ export class RideListComponent implements OnInit {
         console.log(err);
       });
     return rides;
+  }
+
+  refreshUsers(): Observable<User[]> {
+    const users: Observable<User[]> = this.rideListService.getUsers();
+    users.subscribe(
+      users => {
+        this.users = users;
+      },
+      err => {
+        console.log(err);
+      });
+    return users;
   }
 
   loadService(): void {
@@ -166,5 +178,6 @@ export class RideListComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshRides();
+    this.refreshUsers();
   }
 }

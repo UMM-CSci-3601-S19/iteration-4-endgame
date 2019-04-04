@@ -12,12 +12,16 @@
           </mat-error>
         </mat-error>
       </mat-form-field>
-      <mat-form-field flex>
-        <input matInput #input id="driverField" placeholder="Name" [(ngModel)]="data.ride.driver" formControlName="driver"
-               required>
-        <mat-error *ngFor="let validation of add_ride_validation_messages.driver">
-          <mat-error class="error-message" id="driver-error"
-                     *ngIf="addRideForm.get('driver').hasError(validation.type) && (addRideForm.get('driver').dirty || addRideForm.get('driver').touched)">
+      <mat-form-field id="ownerField" flex>
+        <mat-label>Owner</mat-label>
+        <mat-select id="owner" [(ngModel)]="data.ride.ownerId" formControlName="ownerId">
+          <mat-option *ngFor="let user of data.users" value="{{user._id['$oid']}}">
+            {{user.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngFor="let validation of add_ride_validation_messages.ownerId">
+          <mat-error class="error-message" id="owner-error"
+                     *ngIf="addRideForm.get('ownerId').hasError(validation.type) && (addRideForm.get('ownerId').dirty || addRideForm.get('ownerId').touched)">
             {{validation.message}}
           </mat-error>
         </mat-error>
@@ -75,7 +79,6 @@
       <button mat-raised-button id="confirmAddRideButton" [mat-dialog-close]="data.ride" type="button" color="primary"
               [disabled]="!addRideForm.valid">Add Ride
       </button>
-
       <button mat-raised-button id="exitWithoutAddingButton" [mat-dialog-close]="null" type="button">Cancel</button>
     </mat-dialog-actions>
   </form>

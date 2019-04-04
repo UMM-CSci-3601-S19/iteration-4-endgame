@@ -11,6 +11,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
 import {EditRideComponent} from "./edit-ride.component";
 import {DeleteRideComponent} from "./delete-ride.component";
+import {User} from "../users/user";
 
 describe('Ride list', () => {
 
@@ -18,7 +19,8 @@ describe('Ride list', () => {
   let fixture: ComponentFixture<RideListComponent>;
 
   let rideListServiceStub: {
-    getRides: () => Observable<Ride[]>
+    getRides: () => Observable<Ride[]>,
+    getUsers: () => Observable<User[]>
   };
 
   beforeEach(()=> {
@@ -30,6 +32,16 @@ describe('Ride list', () => {
           origin: 'Morris',
           roundTrip: false,
           departureTime: '5:00pm',
+          driving: true,
+          ownerId: "5ca243f0ef2bf9b410bb5672",
+          ownerData: {
+            "_id": {
+              "$oid": "5ca243f0ef2bf9b410bb5672"
+            },
+            "name": "Rosario Shaffer",
+            "email": "Venoflex19@gmail.com",
+            "phoneNumber": "(928) 480-3646"
+          },
           notes: 'I like do drive with loud music.'
         },
         {
@@ -37,6 +49,16 @@ describe('Ride list', () => {
           destination: 'St. Cloud',
           origin: 'Morris',
           roundTrip: true,
+          driving: true,
+          ownerId: "5ca243f0662128b361c92055",
+          ownerData: {
+            "_id": {
+              "$oid": "5ca243f0662128b361c92055"
+            },
+            "name": "Trina Ramsey",
+            "email": "Isologia30@hotmail.com",
+            "phoneNumber": "(963) 498-3516"
+          },
           departureTime: '6:00pm',
           notes: 'I like to drive with pets.'
         },
@@ -45,6 +67,16 @@ describe('Ride list', () => {
           destination: 'Big Lake',
           origin: 'Minneapolis',
           roundTrip: true,
+          driving: false,
+          ownerId: "5ca243f0daa0cc10e6f90b76",
+          ownerData: {
+            "_id": {
+              "$oid": "5ca243f0daa0cc10e6f90b76"
+            },
+            "name": "Elvira Wiley",
+            "email": "Musaphics29@yahoo.com",
+            "phoneNumber": "(904) 578-2784"
+          },
           departureTime: '7:00pm',
           notes: 'I am down to play some music.'
         },
@@ -53,6 +85,16 @@ describe('Ride list', () => {
           destination: 'California',
           origin: 'Morris',
           roundTrip: false,
+          driving: false,
+          ownerId: "5ca243f0797d9e845106b25e",
+          ownerData: {
+            "_id": {
+              "$oid": "5ca243f0797d9e845106b25e"
+            },
+            "name": "Hatfield Daniels",
+            "email": "Extragen25@gmail.com",
+            "phoneNumber": "(830) 410-3952"
+          },
           departureTime: '3:00pm',
           notes: 'I am fine with driving large groups of people.'
         },
@@ -71,6 +113,40 @@ describe('Ride list', () => {
           roundTrip: true,
           departureTime: '7:00pm',
           notes: 'I hate dogs and I am scared to ride with them.'
+        }
+      ]),
+      getUsers: () => Observable.of([
+        {
+          "_id": {
+            "$oid": "5ca243f0ef2bf9b410bb5672"
+          },
+          "name": "Rosario Shaffer",
+          "email": "Venoflex19@gmail.com",
+          "phoneNumber": "(928) 480-3646"
+        },
+        {
+          "_id": {
+            "$oid": "5ca243f0662128b361c92055"
+          },
+          "name": "Trina Ramsey",
+          "email": "Isologia30@hotmail.com",
+          "phoneNumber": "(963) 498-3516"
+        },
+        {
+          "_id": {
+            "$oid": "5ca243f0daa0cc10e6f90b76"
+          },
+          "name": "Elvira Wiley",
+          "email": "Musaphics29@yahoo.com",
+          "phoneNumber": "(904) 578-2784"
+        },
+        {
+          "_id": {
+            "$oid": "5ca243f0797d9e845106b25e"
+          },
+          "name": "Hatfield Daniels",
+          "email": "Extragen25@gmail.com",
+          "phoneNumber": "(830) 410-3952"
         }
       ])
     };
@@ -184,6 +260,17 @@ describe('Ride list', () => {
     });
   });
 
+  it('has the associated ownerData', () => {
+    console.log(rideList.rides);
+    rideList.rides.some((ride: Ride) => ride.ownerData && ride.ownerData.name === "Hatfield Daniels");
+    rideList.rides.some((ride: Ride) => ride.ownerData && ride.ownerData.phoneNumber === "(904) 578-2784");
+    rideList.rides.some((ride: Ride) => ride.ownerData && ride.ownerData.email === "Isologia30@hotmail.com");
+    rideList.rides.forEach((ride) => {
+      if(ride.ownerId){
+        expect(ride.ownerData._id['$oid'] === (ride.ownerId.toString()));
+      }
+    });
+  });
 });
 
 describe('Misbehaving Ride List',() => {
@@ -191,12 +278,16 @@ describe('Misbehaving Ride List',() => {
   let fixture: ComponentFixture<RideListComponent>;
 
   let rideListServiceStub: {
-    getRides: () => Observable<Ride[]>
+    getRides: () => Observable<Ride[]>,
+    getUsers: () => Observable<User[]>
   };
 
   beforeEach(() => {
     rideListServiceStub = {
       getRides: () => Observable.create(observer => {
+        observer.error('Error-prone observable');
+      }),
+      getUsers: () => Observable.create(observer => {
         observer.error('Error-prone observable');
       })
     };
@@ -216,7 +307,7 @@ describe('Misbehaving Ride List',() => {
     });
   }));
 
-  it('generates an error if w don\'t set up a RideListService',() => {
+  it('generates an error if we don\'t set up a RideListService',() => {
     expect(rideList.rides).toBeUndefined();
   });
 });
@@ -238,6 +329,7 @@ describe('Adding a ride',()=> {
 
   let rideListServiceStub: {
     getRides: () => Observable<Ride[]>,
+    getUsers: () => Observable<User[]>,
     addNewRide: (newRide: Ride) => Observable<{ '$oid': string}>
   };
   let mockMatDialog: {
@@ -255,7 +347,8 @@ describe('Adding a ride',()=> {
         return Observable.of({
           '$oid': newId
         });
-      }
+      },
+      getUsers: () => Observable.of([])
     };
     mockMatDialog = {
       open: () => {
@@ -310,7 +403,8 @@ describe('Editing a ride',()=> {
 
   let rideListServiceStub: {
     getRides: () => Observable<Ride[]>,
-    editRide: (currentRide: Ride) => Observable<{ '$oid': string}>
+    editRide: (currentRide: Ride) => Observable<{ '$oid': string}>,
+    getUsers: () => Observable<User[]>
   };
   let mockMatDialog: {
     open: (EditRideComponent, any) => {
@@ -327,7 +421,17 @@ describe('Editing a ride',()=> {
         return Observable.of({
           '$oid': newId
         });
-      }
+      },
+      getUsers: () => Observable.of([
+        {
+          _id: {
+            '$oid': '5ca243f0712ed630c21a8407'
+          },
+          name: 'Sydney Stevens',
+          phoneNumber: '320 555 5555',
+          email: 'Stevens@google.com',
+        }
+      ])
     };
     mockMatDialog = {
       open: () => {
@@ -381,7 +485,8 @@ describe('Deleting a ride',()=> {
 
   let rideListServiceStub: {
     getRides: () => Observable<Ride[]>,
-    deleteRide: (currentRide: Ride) => Observable<{ '$oid': string}>
+    deleteRide: (currentRide: Ride) => Observable<{ '$oid': string}>,
+    getUsers: () => Observable<User[]>
   };
   let mockMatDialog: {
     open: (DeleteRideComponent, any) => {
@@ -398,7 +503,17 @@ describe('Deleting a ride',()=> {
         return Observable.of({
           '$oid': newId
         });
+      },
+      getUsers: () => Observable.of([
+      {
+        _id: {
+          '$oid': '5ca243f0712ed630c21a8407'
+        },
+        name: 'Sydney Stevens',
+        phoneNumber: '320 555 5555',
+        email: 'Stevens@google.com',
       }
+    ])
     };
     mockMatDialog = {
       open: () => {
