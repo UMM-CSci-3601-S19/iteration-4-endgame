@@ -79,7 +79,7 @@ export class RideListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(currentRide => {
-      if (currentRide != null) {RideListComponent
+      if (currentRide != null) {//RideListComponent
 
         this.rideListService.editRide(currentRide).subscribe(
           result => {

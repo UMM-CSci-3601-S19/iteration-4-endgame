@@ -4,21 +4,20 @@ import {Observable} from 'rxjs/Observable';
 import {environment} from '../../environments/environment';
 import {Ride} from "./ride";
 import {User} from "../users/user"
-import {UserService} from "../users/user-service";
 
 @Injectable()
 export class RideListService {
   readonly baseUrl: string = environment.API_URL + 'rides';
   private rideUrl: string = this.baseUrl;
-  private userService: UserService;
 
   constructor(private http: HttpClient) {
-    this.userService = new UserService(http);
   }
 
   getRides(rideDriving?: string): Observable<Ride[]> {
     this.filterByDriving(rideDriving);
-    return this.http.get<Ride[]>(this.rideUrl);
+    let url = this.rideUrl;
+    this.rideUrl = this.baseUrl;
+    return this.http.get<Ride[]>(url);
   }
 
   //This could be changed into a getRideById if we decide to ad id as a field
@@ -138,5 +137,5 @@ export class RideListService {
   getUsers(): Observable<User[]> {
     let url : string = environment.API_URL + "users";
     return this.http.get<User[]>(url);
-  }
+  };
 }

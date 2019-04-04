@@ -71,7 +71,12 @@ describe( 'Ride list service: ', () => {
     httpTestingController.verify();
   });
 
-
+  /*
+  it('can get Users', () => {
+    console.log(rideListService);
+    rideListService.getRides();
+  });
+  */
   it('getRides() calls api/rides', () => {
 
     rideListService.getRides().subscribe(
@@ -117,7 +122,7 @@ describe( 'Ride list service: ', () => {
 
 
   it('adding a ride calls api/rides/new', () => {
-    const teacherDestination = 'teacherDestination';
+    const teacherDestination = 'St. Cloud';
     const newRide: Ride = {
       driver: 'Teacher',
       destination: 'St. Cloud',
@@ -201,5 +206,4 @@ describe( 'Ride list service: ', () => {
     expect(req.request.method).toEqual('POST');
     req.flush(deletedTeacherDestination);
   });
-
 });

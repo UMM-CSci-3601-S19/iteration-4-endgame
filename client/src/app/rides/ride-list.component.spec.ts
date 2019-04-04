@@ -11,6 +11,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
 import {EditRideComponent} from "./edit-ride.component";
 import {DeleteRideComponent} from "./delete-ride.component";
+import {User} from "../users/user";
 
 describe('Ride list', () => {
 
@@ -18,7 +19,8 @@ describe('Ride list', () => {
   let fixture: ComponentFixture<RideListComponent>;
 
   let rideListServiceStub: {
-    getRides: () => Observable<Ride[]>
+    getRides: () => Observable<Ride[]>,
+    getUsers: () => Observable<User[]>
   };
 
   beforeEach(()=> {
@@ -71,6 +73,16 @@ describe('Ride list', () => {
           roundTrip: true,
           departureTime: '7:00pm',
           notes: 'I hate dogs and I am scared to ride with them.'
+        }
+      ]),
+      getUsers: () => Observable.of([
+        {
+          _id: {
+            '$oid': '5ca243f0712ed630c21a8407'
+          },
+          name: 'Sydney Stevens',
+          phoneNumber: '320 555 5555',
+          email: 'Stevens@google.com',
         }
       ])
     };
@@ -191,12 +203,16 @@ describe('Misbehaving Ride List',() => {
   let fixture: ComponentFixture<RideListComponent>;
 
   let rideListServiceStub: {
-    getRides: () => Observable<Ride[]>
+    getRides: () => Observable<Ride[]>,
+    getUsers: () => Observable<User[]>
   };
 
   beforeEach(() => {
     rideListServiceStub = {
       getRides: () => Observable.create(observer => {
+        observer.error('Error-prone observable');
+      }),
+      getUsers: () => Observable.create(observer => {
         observer.error('Error-prone observable');
       })
     };
@@ -216,7 +232,7 @@ describe('Misbehaving Ride List',() => {
     });
   }));
 
-  it('generates an error if w don\'t set up a RideListService',() => {
+  it('generates an error if we don\'t set up a RideListService',() => {
     expect(rideList.rides).toBeUndefined();
   });
 });
@@ -238,6 +254,7 @@ describe('Adding a ride',()=> {
 
   let rideListServiceStub: {
     getRides: () => Observable<Ride[]>,
+    getUsers: () => Observable<User[]>,
     addNewRide: (newRide: Ride) => Observable<{ '$oid': string}>
   };
   let mockMatDialog: {
@@ -255,7 +272,8 @@ describe('Adding a ride',()=> {
         return Observable.of({
           '$oid': newId
         });
-      }
+      },
+      getUsers: () => Observable.of([])
     };
     mockMatDialog = {
       open: () => {
@@ -310,7 +328,8 @@ describe('Editing a ride',()=> {
 
   let rideListServiceStub: {
     getRides: () => Observable<Ride[]>,
-    editRide: (currentRide: Ride) => Observable<{ '$oid': string}>
+    editRide: (currentRide: Ride) => Observable<{ '$oid': string}>,
+    getUsers: () => Observable<User[]>
   };
   let mockMatDialog: {
     open: (EditRideComponent, any) => {
@@ -327,7 +346,17 @@ describe('Editing a ride',()=> {
         return Observable.of({
           '$oid': newId
         });
-      }
+      },
+      getUsers: () => Observable.of([
+        {
+          _id: {
+            '$oid': '5ca243f0712ed630c21a8407'
+          },
+          name: 'Sydney Stevens',
+          phoneNumber: '320 555 5555',
+          email: 'Stevens@google.com',
+        }
+      ])
     };
     mockMatDialog = {
       open: () => {
@@ -381,7 +410,8 @@ describe('Deleting a ride',()=> {
 
   let rideListServiceStub: {
     getRides: () => Observable<Ride[]>,
-    deleteRide: (currentRide: Ride) => Observable<{ '$oid': string}>
+    deleteRide: (currentRide: Ride) => Observable<{ '$oid': string}>,
+    getUsers: () => Observable<User[]>
   };
   let mockMatDialog: {
     open: (DeleteRideComponent, any) => {
@@ -398,7 +428,17 @@ describe('Deleting a ride',()=> {
         return Observable.of({
           '$oid': newId
         });
+      },
+      getUsers: () => Observable.of([
+      {
+        _id: {
+          '$oid': '5ca243f0712ed630c21a8407'
+        },
+        name: 'Sydney Stevens',
+        phoneNumber: '320 555 5555',
+        email: 'Stevens@google.com',
       }
+    ])
     };
     mockMatDialog = {
       open: () => {
