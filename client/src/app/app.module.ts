@@ -21,6 +21,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {CustomModule} from './custom.module';
 import {UserProfileComponent} from "./users/user-profile.component";
 import {UserService} from "./users/user-service";
+import {EditUserComponent} from "./users/edit-user.component";
 
 
 
@@ -42,6 +43,7 @@ import {UserService} from "./users/user-service";
     RideListComponent,
     AddRideComponent,
     EditRideComponent,
+    EditUserComponent,
     DeleteRideComponent
   ],
   providers: [
@@ -52,6 +54,7 @@ import {UserService} from "./users/user-service";
   entryComponents: [
     AddRideComponent,
     EditRideComponent,
+    EditUserComponent,
     DeleteRideComponent
   ],
   bootstrap: [AppComponent]
