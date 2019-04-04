@@ -5,6 +5,6 @@ export interface User {
   name: String;
   email?: String;
   phoneNumber?: String;
-  reviewScore?: number;
+  reviewScores?: number;
   numReviews?: number;
 }

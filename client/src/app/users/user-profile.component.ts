@@ -38,15 +38,13 @@ export class UserProfileComponent implements OnInit {
 
   editUserReviewDialog(currentId: string, currentName: string, currentEmail: string, currentPhoneNumber: string, reviewScore: number, rating: string, numReviews: number): void {
     let newRating: number = parseInt(rating);
+    console.log("Old Rating: " + reviewScore + "  Number of Reviews: " + numReviews + "  New Rating: " + newRating);
     if (reviewScore == null) {
-      console.log("currentReviewScore is Null");
       reviewScore = newRating;
     } else {
-      console.log("currentReviewScore isn't Null");
       reviewScore = reviewScore + newRating;
     }
 
-    console.log(currentId);
     const currentUser: User = {
       _id: {
         $oid: currentId
@@ -91,7 +89,6 @@ export class UserProfileComponent implements OnInit {
     users.subscribe(
       users => {
         this.users = users;
-        console.log(users);
       },
       err => {
         console.log(err);
