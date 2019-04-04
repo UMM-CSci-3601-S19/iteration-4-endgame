@@ -12,7 +12,7 @@
           </mat-error>
         </mat-error>
       </mat-form-field>
-      <mat-form-field flex>
+      <mat-form-field id="ownerField" flex>
         <mat-label>Owner</mat-label>
         <mat-select id="owner" [(ngModel)]="data.ride.ownerId" formControlName="ownerId">
           <mat-option *ngFor="let user of data.users" value="{{user._id['$oid']}}">

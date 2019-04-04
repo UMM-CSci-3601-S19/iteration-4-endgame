@@ -22,7 +22,7 @@ export class AddRideComponent implements OnInit {
       {type: 'required', message: 'Destination is required'},
       {type: 'minlength', message: 'Destination must be at least 2 characters long'},
       {type: 'maxlength', message: 'Destination cannot be more than 100 characters long'},
-      {type: 'pattern', message: 'Destination must contain only numbers, letters, dashes, underscores, and dots'}
+      {type: 'pattern', message: 'Destination must contain only numbers, letters, dashes, underscores, commas, and dots'}
     ],
     'ownerId': [
       {type: 'required', message: 'Owner is required'}
@@ -54,7 +54,7 @@ export class AddRideComponent implements OnInit {
     this.addRideForm = this.fb.group({
       destination: new FormControl('destination', Validators.compose([
 
-        Validators.pattern('^[ a-zA-Z0-9.]+$'),
+        Validators.pattern('^[ a-zA-Z0-9.,]+$'),
         Validators.minLength(2),
         Validators.maxLength(100),
         Validators.required
@@ -81,7 +81,7 @@ export class AddRideComponent implements OnInit {
       notes: new FormControl('notes', Validators.compose([
         Validators.minLength(2),
         Validators.maxLength(150),
-        Validators.pattern('^[?\'"></!@#$%^&*()_+= a-zA-Z0-9:._-]+$')
+        Validators.pattern('^[?\'"></!@#$%^&*()_+= a-zA-Z0-9:.,_-]+$')
       ]))
 
     })

@@ -71,6 +71,22 @@ export class RidePage {
     return element(by.id(idOfButton));
   }
 
+  selectDropdown(targetField: string) {
+    return element(by.css(targetField)).click();
+  }
+
+  selectDownKey() {
+    browser.actions().sendKeys(Key.ARROW_DOWN).perform();
+  }
+
+  selectEnterKey() {
+    browser.actions().sendKeys(Key.ENTER).perform();
+  }
+
+  selectTabKey() {
+    browser.actions().sendKeys(Key.TAB).perform();
+  }
+
   getTextFromField(idOfField: string) {
     this.highlightElement(by.id(idOfField));
     return element(by.id(idOfField)).getText();
