@@ -1,8 +1,12 @@
 package umm3601.user;
 
+import org.apache.commons.lang3.ArrayUtils;
+import org.bson.Document;
 import spark.Request;
 import spark.Response;
 import umm3601.user.UserController;
+
+import java.util.List;
 
 public class UserRequestHandler {
   private final UserController userController;
@@ -39,4 +43,14 @@ public class UserRequestHandler {
     res.type("application/json");
     return userController.getUsers(req.queryMap().toMap());
   }
+
+  public Boolean rateUser(Request req, Response res) {
+    res.type("application/json");
+
+    Document rateUser = Document.parse(req.body());
+
+    String id = rateUser.getObjectId("_id").toHexString();
+    return userController.rateUser(id, rateUser.getInteger("reviewScores"), rateUser.getInteger("numReviews"));
+  }
+
 }
