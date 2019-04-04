@@ -3,6 +3,7 @@ import {UserService} from './user-service';
 import {User} from './user';
 import {Observable} from 'rxjs/Observable';
 import {MatDialog} from '@angular/material';
+import {EditUserComponent} from "./edit-user.component";
 
 @Component({
   selector: 'user-profile-component',
@@ -15,28 +16,68 @@ export class UserProfileComponent implements OnInit {
   public users: User[];
   public filteredUsers: User[];
 
-
-
-  // Static references for displaying an example profile page
-  public exampleUser: string;
-  public exampleEmail: string;
-  public exampleBio: string;
-  public exampleMakeModel: string;
-  public exampleYear: string;
-  public exampleColor: string;
-  public exampleNotes: string;
-
   // Inject the UserListService into this component.
   constructor(public userService: UserService, public dialog: MatDialog) {
 
-    this.exampleUser = 'Albert Einstein';
-    this.exampleEmail = 'Albert.Einstein@nointernet.yet';
-    this.exampleBio = 'I am a German-born theoretical physicist who discovered the theory of relativity! Also I never learned how to drive!';
-    this.exampleMakeModel = 'Pontiac Torpedo';
-    this.exampleYear = '1940';
-    this.exampleColor = 'Black';
-    this.exampleNotes = 'Nearly 80 years old, but it\'s still brand new.';
   };
+
+  public filterUsers(searchOid: string): User[] {
+
+    this.filteredUsers = this.users;
+
+    if (searchOid != null) {
+      searchOid = searchOid.toLocaleLowerCase();
+
+      this.filteredUsers = this.filteredUsers.filter(user => {
+        return !searchOid || user._id.$oid.indexOf(searchOid) !== -1;
+      });
+    }
+
+    return this.filteredUsers;
+  }
+
+  editUserReviewDialog(currentId: string, currentName: string, currentEmail: string, currentPhoneNumber: string, reviewScore: number, rating: string, numReviews: number): void {
+    let newRating: number = parseInt(rating);
+    if (reviewScore == null) {
+      console.log("currentReviewScore is Null");
+      reviewScore = newRating;
+    } else {
+      console.log("currentReviewScore isn't Null");
+      reviewScore = reviewScore + newRating;
+    }
+
+    console.log(currentId);
+    const currentUser: User = {
+      _id: {
+        $oid: currentId
+      },
+      name: currentName,
+      email: currentEmail,
+      phoneNumber: currentPhoneNumber,
+      reviewScores: reviewScore,
+      numReviews: numReviews + 1 || 1
+    };
+
+    const dialogRef = this.dialog.open(EditUserComponent, {
+      width: '500px',
+      data: {user: currentUser}
+    });
+
+    dialogRef.afterClosed().subscribe(currentUser => {
+      if (currentUser != null) {
+        this.userService.editUser(currentUser).subscribe(
+          result => {
+            console.log("The result is " + result);
+            this.refreshUsers();
+          },
+          err => {
+            console.log('There was an error editing the ride.');
+            console.log('The currentRide or dialogResult was ' + JSON.stringify(currentUser));
+            console.log('The error was ' + JSON.stringify(err));
+          });
+      }
+    });
+  }
 
   refreshUsers(): Observable<User[]> {
     // Get Users returns an Observable, basically a "promise" that
@@ -49,6 +90,7 @@ export class UserProfileComponent implements OnInit {
     users.subscribe(
       users => {
         this.users = users;
+        console.log(users);
       },
       err => {
         console.log(err);
