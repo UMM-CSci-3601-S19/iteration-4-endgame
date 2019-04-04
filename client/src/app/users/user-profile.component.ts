@@ -16,6 +16,8 @@ export class UserProfileComponent implements OnInit {
   public users: User[];
   public filteredUsers: User[];
 
+  public selected: string;
+
   // Inject the UserListService into this component.
   constructor(public userService: UserService, public dialog: MatDialog) {
 
@@ -62,6 +64,7 @@ export class UserProfileComponent implements OnInit {
       data: {user: currentUser}
     });
 
+    console.log("Dialog Ref " + dialogRef);
     dialogRef.afterClosed().subscribe(currentUser => {
       if (currentUser != null) {
         this.userService.editUser(currentUser).subscribe(
