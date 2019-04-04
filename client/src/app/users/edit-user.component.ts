@@ -12,8 +12,10 @@ import {FormControl, Validators, FormGroup, FormBuilder} from "@angular/forms";
 export class EditUserComponent implements OnInit {
   currentId: string;
 
+  public user: User[];
+
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { id : Object }, private fb: FormBuilder) {
+    @Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder) {
   }
   ngOnInit(): void {
   }
