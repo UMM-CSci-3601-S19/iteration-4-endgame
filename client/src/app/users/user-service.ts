@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {environment} from "../../environments/environment";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {User} from "./user";
 
@@ -22,6 +22,7 @@ export class UserService {
       return this.http.get<User[]>(url);
     } else {
       let url: string = this.userUrl + "/" + userID;
+      console.log(this.http.get<User[]>(url));
       return this.http.get<User[]>(url);
     }
   }
@@ -40,4 +41,15 @@ export class UserService {
   //   }
   //   this.userUrl = this.userUrl.substring(0, start) + this.userUrl.substring(end);
   // }
+
+  editUser(editedUser: User): Observable<string> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      responseType: 'text' as 'json'
+    };
+
+    return this.http.post<string>(this.userUrl + '/rate', editedUser, httpOptions);
+  }
 }
