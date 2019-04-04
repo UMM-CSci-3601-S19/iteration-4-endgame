@@ -18,6 +18,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertNull;
 
 public class UserControllerSpec {
@@ -99,5 +100,18 @@ public class UserControllerSpec {
     assertEquals("Name should match", "Marci Sears III", result.get("name"));
     String noJsonResult = userController.getUser(new ObjectId().toString());
     assertNull("No ride should be found", noJsonResult);
+  }
+
+  @Test
+  public void rateUser() {
+    String jsonResultNoReviews = userController.getUser(knownId.toString());
+    Document resultNoReviews = Document.parse(jsonResultNoReviews);
+    assertFalse("User should have no reviews", resultNoReviews.containsKey("numReviews"));
+    assertFalse("User should have no review score", resultNoReviews.containsKey("reviewScore"));
+    userController.rateUser(knownId.toString(), 12, 3);
+    String jsonResult = userController.getUser(knownId.toString());
+    Document result = Document.parse(jsonResult);
+    assertEquals("Number of reviews should be 3", 3, (int) result.getInteger("numReviews"));
+    assertEquals("Aggregate review score should be 12", 12, (int) result.getInteger("reviewScore"));
   }
 }
