@@ -115,12 +115,12 @@ describe('Misbehaving User Profiles',() => {
   let userProfiles: UserProfileComponent;
   let fixture: ComponentFixture<UserProfileComponent>;
 
-  let userProfileServiceStub: {
+  let userServiceStub: {
     getUsers: () => Observable<User[]>
   };
 
   beforeEach(() => {
-    userProfileServiceStub = {
+    userServiceStub = {
       getUsers: () => Observable.create(observer => {
         observer.error('Error-prone observable');
       })
@@ -129,7 +129,7 @@ describe('Misbehaving User Profiles',() => {
     TestBed.configureTestingModule( {
       imports: [FormsModule, CustomModule],
       declarations: [UserProfileComponent],
-      providers: [{provide: UserService, useValue: userProfileServiceStub}]
+      providers: [{provide: UserService, useValue: userServiceStub}]
     });
   });
 
@@ -147,78 +147,74 @@ describe('Misbehaving User Profiles',() => {
   */
 });
 
-describe('Editing a user',()=> {
-  let userProfiles: UserProfileComponent;
-  let fixture: ComponentFixture<UserProfileComponent>;
-  const currentUser: User = {
-    _id: {$oid: 'Danial_id'},
-    name: 'Danial',
-    email: 'dannyphantom@cn.com',
-    phoneNumber: '(555) 555 5555',
-  };
-  const newId = 'Danial_id';
-
-  let calledUser: User;
-
-  let userProfileServiceStub: {
-    getUsers: () => Observable<User[]>
-  };
-  let mockMatDialog: {
-    open: (EditUserComponent, any) => {
-      afterClosed: () => Observable<User>
-    };
-  };
-
-  beforeEach(() => {
-    calledUser = null;
-    userProfileServiceStub = {
-      editUserReviewDialog: (currentUser: User) => {
-        calledUser = currentUser;
-        return Observable.of({
-          '$oid': newId
-        });
-      },
-      getUsers: () => Observable.of([
-        {
-          _id: {
-            '$oid': '5ca243f0712ed630c21a8407'
-          },
-          name: 'Sydney Stevens',
-          phoneNumber: '320 555 5555',
-          email: 'Stevens@google.com',
-        }
-      ])
-    };
-    mockMatDialog = {
-      open: () => {
-        return {
-          afterClosed: () => {
-            return Observable.of(currentUser);
-          }
-        };
-      }
-    };
-
-    TestBed.configureTestingModule({
-      imports: [FormsModule, CustomModule],
-      declarations: [UserProfileComponent],
-      providers: [
-        {provide: UserService, useValue: userProfileServiceStub},
-        {provide: MatDialog, useValue: mockMatDialog},
-      ]
-    });
-    beforeEach(async(()=> {
-      TestBed.compileComponents().then(()=> {
-        fixture = TestBed.createComponent(UserProfileComponent);
-        userProfiles = fixture.componentInstance;
-        fixture.detectChanges();
-      });
-    }));
-
-    it('calls RideListService.editRide', () => {
-      expect(calledUser).toBeNull();
-      userProfiles.editUserReviewDialog(currentUser._id.$oid, currentUser.name, currentUser.email, currentUser.phoneNumber, currentUser.reviewScores, 3, currentUser.numReviews);
-      expect(calledUser).toEqual(currentUser);
-    });
-  });
-});
+// describe('Editing a user',()=> {
+//   let userProfiles: UserProfileComponent;
+//   let fixture: ComponentFixture<UserProfileComponent>;
+//   const currentUser: User = {
+//     "_id": {
+//       "$oid": "5ca243f0ef2bf9b410bb5672"
+//     },
+//     "name": "Rosario Shaffer",
+//     "email": "Venoflex19@gmail.com",
+//     "phoneNumber": "(928) 480-3646",
+//     "reviewScores": 12,
+//     "numReviews": 3
+//   };
+//   const newId: string = 'Rosario_id';
+//
+//   let calledUser: User;
+//
+//   let userServiceStub: {
+//     getUsers: () => Observable<User[]>
+//   };
+//   let mockMatDialog: {
+//     open: (EditUserComponent, any) => {
+//       afterClosed: () => Observable<User>
+//     };
+//   };
+//
+//   beforeEach(() => {
+//     calledUser = null;
+//     userServiceStub = {
+//       getUsers: () => Observable.of([]),
+//       editUser: (currentUser: User) => {
+//         calledUser = currentUser;
+//         return Observable.of({
+//           '$oid': newId
+//         });
+//       }
+//     };
+//     mockMatDialog = {
+//       open: () => {
+//         return {
+//           afterClosed: () => {
+//             return Observable.of(currentUser);
+//           }
+//         };
+//       }
+//     };
+//
+//     TestBed.configureTestingModule({
+//       imports: [FormsModule, CustomModule],
+//       declarations: [UserProfileComponent],
+//       providers: [
+//         {provide: UserService, useValue: userServiceStub},
+//         {provide: MatDialog, useValue: mockMatDialog},
+//       ]
+//     });
+//     beforeEach(async(()=> {
+//       TestBed.compileComponents().then(()=> {
+//         fixture = TestBed.createComponent(UserProfileComponent);
+//         userProfiles = fixture.componentInstance;
+//         fixture.detectChanges();
+//       });
+//     }));
+//
+//     it('calls UserService.editUser', () => {
+//       expect(calledUser).toBeNull();
+//       let rating: string = '3';
+//       userProfiles.editUserReviewDialog(currentUser._id.$oid, currentUser.name, currentUser.email, currentUser.phoneNumber, currentUser.reviewScores, rating, currentUser.numReviews);
+//       expect(calledUser).toEqual(currentUser);
+//     });
+//   });
+// });
