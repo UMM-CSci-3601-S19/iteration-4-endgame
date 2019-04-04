@@ -44,4 +44,10 @@ img {
   display: flex;
   flex-direction: row;
   float: left;
+  color: #ffc107;
+}
+
+#addRatingButton:hover {
+  background-color: #ffc107;
+  color: #000000;
 }

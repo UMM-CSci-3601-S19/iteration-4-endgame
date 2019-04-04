@@ -28,7 +28,7 @@
             <hr>
           </div>
           <div class="boxes" id="RatingBox" [style.grid-area]="'rating'">
-            <div class="star"> This user's rating: </div>
+            <div class="star"> This user's average rating: </div>
             <div class="star" *ngIf="(user.reviewScore/user.numReviews) >=  .5"><mat-icon>star_rate</mat-icon></div>
             <div class="star" *ngIf="(user.reviewScore/user.numReviews) >= 1.5"><mat-icon>star_rate</mat-icon></div>
             <div class="star" *ngIf="(user.reviewScore/user.numReviews) >= 2.5"><mat-icon>star_rate</mat-icon></div>
@@ -46,7 +46,7 @@
                 <mat-option value=5>Five Stars - Best</mat-option>
               </mat-select>
             </mat-form-field>
-            <button class="addRatingButton" mat-raised-button id="submit" #input type="button" (click)="editUserReviewDialog(user._id.$oid, user.name, user.email, user.phoneNumber, user.reviewScore, rating, user.numReviews)">
+            <button mat-raised-button id="addRatingButton" #input type="button" (click)="editUserReviewDialog(user._id.$oid, user.name, user.email, user.phoneNumber, user.reviewScore, rating, user.numReviews)">
               Submit Rating
             </button>
           </div>

@@ -22,7 +22,6 @@ export class UserService {
       return this.http.get<User[]>(url);
     } else {
       let url: string = this.userUrl + "/" + userID;
-      console.log(this.http.get<User[]>(url));
       return this.http.get<User[]>(url);
     }
   }
