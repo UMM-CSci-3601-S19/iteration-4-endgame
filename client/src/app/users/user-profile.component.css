@@ -16,7 +16,7 @@ img {
 
 .cardInner {
   display: grid;
-  grid-template-areas: "name picture" "contactInfo picture" "vehicle vehiclePicture";
+  grid-template-areas: "name name" "contactInfo contactInfo" "rating review";
   grid-template-rows: auto auto auto;
   grid-template-columns: 55% 45%;
   grid-row-gap: 8px;
