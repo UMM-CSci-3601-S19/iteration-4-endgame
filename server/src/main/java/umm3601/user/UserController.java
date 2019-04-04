@@ -55,7 +55,6 @@ public class UserController {
   }
 
   Boolean rateUser(String id, Integer reviewScore, Integer numReviews) {
-    System.out.println("Rating User");
     ObjectId objId = new ObjectId(id);
     Document filter = new Document("_id", objId);
     Document updateFields = new Document();
@@ -64,9 +63,7 @@ public class UserController {
 
     Document updateDoc = new Document("$set", updateFields);
     try{
-      System.out.println("Trying");
       UpdateResult out = userCollection.updateOne(filter, updateDoc);
-      System.out.println(out.getModifiedCount());
       return out.getModifiedCount() != 0;
     }catch(MongoException e){
       e.printStackTrace();
