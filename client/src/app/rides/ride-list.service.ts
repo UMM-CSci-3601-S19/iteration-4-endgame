@@ -135,4 +135,8 @@ export class RideListService {
     return this.http.post<string>(this.rideUrl + '/remove', deleteDoc, httpOptions);
   }
 
+  getUsers(): Observable<User[]> {
+    let url : string = environment.API_URL + "users";
+    return this.http.get<User[]>(url);
+  }
 }

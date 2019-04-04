@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material';
 import {Ride} from './ride';
 import {FormControl, Validators, FormGroup, FormBuilder} from "@angular/forms";
-
+import {User} from "../users/user";
 
 
 @Component({
@@ -14,7 +14,7 @@ export class AddRideComponent implements OnInit {
   addRideForm: FormGroup;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { ride: Ride }, private fb: FormBuilder) {
+    @Inject(MAT_DIALOG_DATA) public data: { ride: Ride, users: User[] }, private fb: FormBuilder) {
   }
 
   add_ride_validation_messages = {
@@ -24,11 +24,8 @@ export class AddRideComponent implements OnInit {
       {type: 'maxlength', message: 'Destination cannot be more than 100 characters long'},
       {type: 'pattern', message: 'Destination must contain only numbers, letters, dashes, underscores, and dots'}
     ],
-    'driver': [
-      {type: 'required', message: 'Driver is required'},
-      {type: 'minlength', message: 'Driver must be at least 2 characters long'},
-      {type: 'maxlength', message: 'Driver cannot be more than 50 characters long'},
-      {type: 'pattern', message: 'Driver must contain only numbers and letters'}
+    'ownerId': [
+      {type: 'required', message: 'Owner is required'}
     ],
     'origin': [
       {type: 'required', message: 'Origin is required'},
@@ -62,11 +59,8 @@ export class AddRideComponent implements OnInit {
         Validators.maxLength(100),
         Validators.required
       ])),
-      driver: new FormControl('driver', Validators.compose([
-        Validators.minLength(2),
-        Validators.maxLength(50),
-        Validators.required,
-        Validators.pattern('^[A-Za-z0-9\\s]+[A-Za-z0-9\\s]+$(\\.0-9+)?')
+      ownerId: new FormControl('ownerId', Validators.compose([
+        Validators.required
       ])),
       origin: new FormControl('origin', Validators.compose([
         Validators.minLength(2),

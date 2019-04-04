@@ -14,6 +14,7 @@ import {AddRideComponent} from "./rides/add-ride.component";
 import {EditRideComponent} from "./rides/edit-ride.component";
 import {DeleteRideComponent} from "./rides/delete-ride.component";
 
+import {MatFormFieldModule} from '@angular/material';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
@@ -31,6 +32,7 @@ import {CustomModule} from './custom.module';
     MatCheckboxModule,
     MatRadioModule,
     MatSelectModule,
+    MatFormFieldModule
   ],
   declarations: [
     AppComponent,

@@ -11,7 +11,8 @@ Code for Generating random rides:
     roundTrip: '{{bool()}}',
     departureTime: '{{date(new Date(2017, 0, 1), new Date(2024, 0, 1))}}',
     driving: '{{bool()}}',
-    notes: "{{random('Im driving and I like to eat at the same time', 'I love to crank the volume up to 11', 'I like to drive with no air conditioning', 'No room in the trunk of my car', 'No pet allowed', 'I will pay for lunch for anyone who is riding with me and I am a cool guy')}}"
+    notes: "{{random('Im driving and I like to eat at the same time', 'I love to crank the volume up to 11', 'I like to drive with no air conditioning', 'No room in the trunk of my car', 'No pet allowed', 'I will pay for lunch for anyone who is riding with me and I am a cool guy')}}",
+    mpg: "{{integer(25, 65)}}"
   }
 ]
 

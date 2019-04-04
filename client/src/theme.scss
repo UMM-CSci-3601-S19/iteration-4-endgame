@@ -3,6 +3,72 @@
 
 @include mat-core();
 
+//Paul made these, we don't use them but it would be nice to.
+$mat-ummmaroon: (
+  50 : #efe0e3,
+  100 : #d7b3ba,
+  200 : #bd808c,
+  300 : #a24d5e,
+  400 : #8e263c,
+  500 : #7a0019,
+  600 : #720016,
+  700 : #670012,
+  800 : #5d000e,
+  900 : #4a0008,
+  A100 : #ff7e82,
+  A200 : #ff4b51,
+  A400 : #ff1820,
+  A700 : #fd0009,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $light-primary-text,
+    400: $light-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $dark-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text,
+  )
+);
+
+$mat-ummgold: (
+  50 : #fff9e7,
+  100 : #fff0c2,
+  200 : #ffe699,
+  300 : #ffdb70,
+  400 : #ffd452,
+  500 : #ffcc33,
+  600 : #ffc72e,
+  700 : #ffc027,
+  800 : #ffb920,
+  900 : #ffad14,
+  A100 : #ffffff,
+  A200 : #fffdfb,
+  A400 : #ffeac8,
+  A700 : #ffe1ae,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $dark-primary-text,
+    600: $dark-primary-text,
+    700: $dark-primary-text,
+    800: $dark-primary-text,
+    900: $dark-primary-text,
+    A100: $dark-primary-text,
+    A200: $dark-primary-text,
+    A400: $dark-primary-text,
+    A700: $dark-primary-text,
+  )
+);
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue.
