@@ -54,6 +54,7 @@ export class UserProfileComponent implements OnInit {
       name: currentName,
       email: currentEmail,
       phoneNumber: currentPhoneNumber,
+      // Tests work when removing the s in the reviewScores changing this to reviewScore.  However, doing this causes the review system to break.
       reviewScores: reviewScore,
       numReviews: numReviews + 1 || 1
     };
