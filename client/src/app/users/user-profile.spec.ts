@@ -147,6 +147,8 @@ describe('Misbehaving User Profiles',() => {
   */
 });
 
+// We are unsure of why this is failing, its an error that none of us have seen before or could figure out
+
 // describe('Editing a user',()=> {
 //   let userProfiles: UserProfileComponent;
 //   let fixture: ComponentFixture<UserProfileComponent>;

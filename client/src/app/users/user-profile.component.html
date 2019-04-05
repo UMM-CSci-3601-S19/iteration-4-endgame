@@ -28,12 +28,15 @@
             <hr>
           </div>
           <div class="boxes" id="RatingBox" [style.grid-area]="'rating'">
-            <div class="star"> This user's average rating: </div>
-            <div class="star" *ngIf="(user.reviewScore/user.numReviews) >=  .5"><mat-icon>star_rate</mat-icon></div>
-            <div class="star" *ngIf="(user.reviewScore/user.numReviews) >= 1.5"><mat-icon>star_rate</mat-icon></div>
-            <div class="star" *ngIf="(user.reviewScore/user.numReviews) >= 2.5"><mat-icon>star_rate</mat-icon></div>
-            <div class="star" *ngIf="(user.reviewScore/user.numReviews) >= 3.5"><mat-icon>star_rate</mat-icon></div>
-            <div class="star" *ngIf="(user.reviewScore/user.numReviews) >= 4.5"><mat-icon>star_rate</mat-icon></div>
+            <div id="label"> This user's average rating: </div>
+            <br>
+            <div id="starRating">
+              <div class="star" *ngIf="(user.reviewScore/user.numReviews) >=  .5"><mat-icon>star_rate</mat-icon></div>
+              <div class="star" *ngIf="(user.reviewScore/user.numReviews) >= 1.5"><mat-icon>star_rate</mat-icon></div>
+              <div class="star" *ngIf="(user.reviewScore/user.numReviews) >= 2.5"><mat-icon>star_rate</mat-icon></div>
+              <div class="star" *ngIf="(user.reviewScore/user.numReviews) >= 3.5"><mat-icon>star_rate</mat-icon></div>
+              <div class="star" *ngIf="(user.reviewScore/user.numReviews) >= 4.5"><mat-icon>star_rate</mat-icon></div>
+            </div>
           </div>
           <div class="boxes" id="ReviewBox" [style.grid-area]="'review'">
             <mat-form-field>
