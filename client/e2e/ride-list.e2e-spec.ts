@@ -89,7 +89,7 @@ describe('Ride List', () => {
       });
 
       it('Should allow us to put information into the fields of the add ride dialog', () => {
-        expect(page.elementExistsWithId('ownerField')).toBeTruthy('There should be a driver field');
+        expect(page.elementExistsWithId('ownerField')).toBeTruthy('There should be an owner field');
         page.selectDropdown('#ownerField');
         page.selectDownKey();
         page.selectEnterKey();
@@ -122,7 +122,7 @@ describe('Ride List', () => {
         expect(page.button('confirmAddRideButton').isEnabled()).toBe(false);
         //clicking somewhere else will make the error appear
         page.field('destinationField').click();
-        expect(page.getTextFromField('origin-error')).toBe('Origin must contain only numbers, letters, dashes, underscores, and dots');
+        expect(page.getTextFromField('origin-error')).toBe('Origin contains an unaccepted character');
       });
 
       it('Should show the validation error message about the format of destination', () => {
@@ -130,7 +130,7 @@ describe('Ride List', () => {
         page.field('destinationField').sendKeys('@$@$');
         expect(page.button('confirmAddRideButton').isEnabled()).toBe(false);
         page.field('mpgField').click();
-        expect(page.getTextFromField('destination-error')).toBe('Destination must contain only numbers, letters, dashes, underscores, commas, and dots');
+        expect(page.getTextFromField('destination-error')).toBe('Destination contains an unaccepted character');
       });
 
       it('Should show the validation error message about the format of DepartureTime', () => {
@@ -174,9 +174,6 @@ describe('Ride List', () => {
       page.field('destinationField').clear();
       page.field('destinationField').sendKeys('Japan');
       page.slowTime(100);
-      // page.field('driverField').clear();
-      // page.field('driverField').sendKeys('Kermit');
-      page.slowTime(100);
       page.field('departureTimeField').clear();
       page.field('departureTimeField').sendKeys('By the night');
       page.slowTime(100);
@@ -218,8 +215,6 @@ describe('Ride List', () => {
 
         expect(page.field('destinationField').isPresent()).toBeTruthy('There should be a destination field');
         page.field('destinationField').sendKeys('Dropoff Location');
-        // expect(page.field('driverField').isPresent()).toBeTruthy('There should be a driver field');
-        // page.field('driverField').sendKeys('Dana Jones');
         expect(page.field('originField').isPresent()).toBeTruthy('There should be an origin field');
         page.field('originField').sendKeys('Pickup Location');
         expect(page.field('departureTimeField').isPresent()).toBeTruthy('There should be a date field');
@@ -230,30 +225,21 @@ describe('Ride List', () => {
         page.field('notesField').sendKeys('Test Notes');
       });
 
-      // it('Should show the validation error message about the format of driver when editing a ride', () => {
-      //   expect(element(by.id('driverField')).isPresent()).toBeTruthy('There should be a driver field');
-      //   page.field('driverField').sendKeys('Don@ld Jones');
-      //   expect(page.button('confirmEditRideButton').isEnabled()).toBe(false);
-      //   //clicking somewhere else will make the error appear
-      //   page.field('notesField').click();
-      //   expect(page.getTextFromField('driver-error')).toBe('Driver must contain only numbers and letters');
-      // });
-
-      // it('Should show the validation error message about origin format when editing a ride', () => {
-      //   expect(element(by.id('originField')).isPresent()).toBeTruthy('There should be a origin field');
-      //   page.field('originField').sendKeys('#@$@$#');
-      //   expect(page.button('confirmEditRideButton').isEnabled()).toBe(false);
-      //   //clicking somewhere else will make the error appear
-      //   page.field('driverField').click();
-      //   expect(page.getTextFromField('origin-error')).toBe('Origin must contain only numbers, letters, dashes, underscores, and dots');
-      // });
+      it('Should show the validation error message about origin format when editing a ride', () => {
+        expect(element(by.id('originField')).isPresent()).toBeTruthy('There should be a origin field');
+        page.field('originField').sendKeys('#@$@$#');
+        expect(page.button('confirmEditRideButton').isEnabled()).toBe(false);
+        //clicking somewhere else will make the error appear
+        page.field('destinationField').click();
+        expect(page.getTextFromField('origin-error')).toBe('Origin contains an unaccepted character');
+      });
 
       it('Should show the validation error message about the format of destination when editing a ride', () => {
         expect(element(by.id('destinationField')).isPresent()).toBeTruthy('There should be a destination field');
         page.field('destinationField').sendKeys('@$@$');
         expect(page.button('confirmEditRideButton').isEnabled()).toBe(false);
         page.field('mpgField').click();
-        expect(page.getTextFromField('destination-error')).toBe('Destination must contain only numbers, letters, dashes, underscores, commas, and dots');
+        expect(page.getTextFromField('destination-error')).toBe('Destination contains an unaccepted character');
       });
 
       it('Should show the validation error message about the format of DepartureTime when editing a ride', () => {
