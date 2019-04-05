@@ -2,7 +2,7 @@
   <div flex-gt-sm="80" flex-offset-gt-sm="10">
     <mat-form-field>
       <mat-label>Select User Profile</mat-label>
-      <mat-select [(value)]="selected">
+      <mat-select id="userSelect" [(value)]="selected">
         <mat-option *ngFor="let user of users" [value]="user._id.$oid">
           {{user.name}}
         </mat-option>
@@ -10,7 +10,7 @@
     </mat-form-field>
 
     <mat-card #elem [id]="user._id.$oid" *ngFor="let user of this.filterUsers(selected)">
-      <mat-card-title id="user-list-title">{{user.name}}'s Profile</mat-card-title>
+      <mat-card-title [id]="user.name">{{user.name}}'s Profile</mat-card-title>
       <mat-divider></mat-divider>
       <mat-card-content>
         <div class="cardInner">
@@ -31,17 +31,17 @@
             <div id="label"> This user's average rating: </div>
             <br>
             <div id="starRating">
-              <div class="star" *ngIf="(user.reviewScore/user.numReviews) >=  .5"><mat-icon>star_rate</mat-icon></div>
-              <div class="star" *ngIf="(user.reviewScore/user.numReviews) >= 1.5"><mat-icon>star_rate</mat-icon></div>
-              <div class="star" *ngIf="(user.reviewScore/user.numReviews) >= 2.5"><mat-icon>star_rate</mat-icon></div>
-              <div class="star" *ngIf="(user.reviewScore/user.numReviews) >= 3.5"><mat-icon>star_rate</mat-icon></div>
-              <div class="star" *ngIf="(user.reviewScore/user.numReviews) >= 4.5"><mat-icon>star_rate</mat-icon></div>
+              <div class="star" *ngIf="(user.reviewScore/user.numReviews) >=  .5"><mat-icon id="starID1">star_rate</mat-icon></div>
+              <div class="star" *ngIf="(user.reviewScore/user.numReviews) >= 1.5"><mat-icon id="starID2">star_rate</mat-icon></div>
+              <div class="star" *ngIf="(user.reviewScore/user.numReviews) >= 2.5"><mat-icon id="starID3">star_rate</mat-icon></div>
+              <div class="star" *ngIf="(user.reviewScore/user.numReviews) >= 3.5"><mat-icon id="starID4">star_rate</mat-icon></div>
+              <div class="star" *ngIf="(user.reviewScore/user.numReviews) >= 4.5"><mat-icon id="starID5">star_rate</mat-icon></div>
             </div>
           </div>
           <div class="boxes" id="ReviewBox" [style.grid-area]="'review'">
             <mat-form-field>
               <mat-label>Leave a Rating</mat-label>
-              <mat-select [(value)]="rating">
+              <mat-select id="ratingSelect" [(value)]="rating">
                 <mat-option value=1>One Star - Worst</mat-option>
                 <mat-option value=2>Two Stars </mat-option>
                 <mat-option value=3>Three Stars </mat-option>
