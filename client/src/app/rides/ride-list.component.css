@@ -14,7 +14,7 @@
 }
 
 #ride-list-title {
-  background: #800000 linear-gradient(#000000, #800000);
+  background: #7a0019 linear-gradient(#000000, #7a0019);
   text-align: center;
   color: #F5F5F5;
   font-family: "Arial Black", sans-serif;
@@ -22,7 +22,7 @@
 }
 
 #availableListings {
-  background: #800000;
+  background: #7a0019;
 }
 
 #filterLocation {
@@ -44,7 +44,7 @@
 }
 
 .postCard .mat-expansion-panel-header {
-  background: #800000;
+  background: #7a0019;
   font-family: "Arial Black", sans-serif;
   text-align: center;
   border-bottom-width: 2px;
@@ -67,7 +67,7 @@
 
 #editRide{
   background-color: white;
-  color: #800000;
+  color: #7a0019;
 }
 
 #editRide:hover {
@@ -76,7 +76,7 @@
 }
 
 #deleteRide{
-  background-color: #800000;
+  background-color: #7a0019;
   color: white;
   float: right;
 }
@@ -94,7 +94,7 @@ mat-radio-group {
 
 .mat-button, .mat-fab, .mat-icon-button, .mat-mini-fab, .mat-raised-button {
   color: #ffffff;
-  background: #800000;
+  background: #7a0019;
 }
 
 .mat-button, .mat-fab, .mat-icon-button, .mat-mini-fab, .mat-raised-button:hover{
