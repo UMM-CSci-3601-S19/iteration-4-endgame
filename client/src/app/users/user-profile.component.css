@@ -40,9 +40,15 @@ img {
   font-family: "Verdana", sans-serif;
 }
 
-.star {
-  display: flex;
+#label {
+  position: absolute;
   float: left;
+  color: #ffc107;
+}
+
+.star {
+  position: relative;
+  display: inline-flex;
   color: #ffc107;
 }
 
