@@ -42,7 +42,6 @@ img {
 
 .star {
   display: flex;
-  flex-direction: row;
   float: left;
   color: #ffc107;
 }

@@ -80,7 +80,7 @@ export class RideListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(currentRide => {
       if (currentRide != null) {//RideListComponent
-
+        currentRide.mpg = "" + currentRide.mpg;
         this.rideListService.editRide(currentRide).subscribe(
           result => {
             this.highlightedDestination = result;

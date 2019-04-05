@@ -22,7 +22,7 @@ export class AddRideComponent implements OnInit {
       {type: 'required', message: 'Destination is required'},
       {type: 'minlength', message: 'Destination must be at least 2 characters long'},
       {type: 'maxlength', message: 'Destination cannot be more than 100 characters long'},
-      {type: 'pattern', message: 'Destination must contain only numbers, letters, dashes, underscores, commas, and dots'}
+      {type: 'pattern', message: 'Destination contains an unaccepted character'}
     ],
     'ownerId': [
       {type: 'required', message: 'Owner is required'}
@@ -31,7 +31,7 @@ export class AddRideComponent implements OnInit {
       {type: 'required', message: 'Origin is required'},
       {type: 'minlength', message: 'Origin must be at least 2 characters long'},
       {type: 'maxlength', message: 'Origin cannot be more than 100 characters long'},
-      {type: 'pattern', message: 'Origin must contain only numbers, letters, dashes, underscores, and dots'}
+      {type: 'pattern', message: 'Origin contains an unaccepted character'}
     ],
     'departureTime': [
       {type: 'required', message: 'Departure Time is required'},
@@ -54,7 +54,7 @@ export class AddRideComponent implements OnInit {
     this.addRideForm = this.fb.group({
       destination: new FormControl('destination', Validators.compose([
 
-        Validators.pattern('^[ a-zA-Z0-9.,]+$'),
+        Validators.pattern('^[ a-zA-Z0-9.,\']+$'),
         Validators.minLength(2),
         Validators.maxLength(100),
         Validators.required
@@ -66,7 +66,7 @@ export class AddRideComponent implements OnInit {
         Validators.minLength(2),
         Validators.maxLength(100),
         Validators.required,
-        Validators.pattern('^[ a-zA-Z0-9.]+$')
+        Validators.pattern('^[ a-zA-Z0-9.,\']+$')
       ])),
       departureTime: new FormControl('departureTime', Validators.compose([
         Validators.minLength(2),

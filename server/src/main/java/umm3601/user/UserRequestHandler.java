@@ -1,6 +1,5 @@
 package umm3601.user;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.bson.Document;
 import spark.Request;
 import spark.Response;
