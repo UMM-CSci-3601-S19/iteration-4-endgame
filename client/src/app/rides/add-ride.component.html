@@ -36,16 +36,28 @@
           </mat-error>
         </mat-error>
       </mat-form-field>
-      <mat-form-field flex>
-        <input matInput #input id="departureTimeField" placeholder="Departure Time" [(ngModel)]="data.ride.departureTime" formControlName="departureTime"
-               required>
-        <mat-error *ngFor="let validation of add_ride_validation_messages.departureTime">
-          <mat-error class="error-message" id="departureTime-error"
-                     *ngIf="addRideForm.get('departureTime').hasError(validation.type) && (addRideForm.get('departureTime').dirty || addRideForm.get('departureTime').touched)">
-            {{validation.message}}
-          </mat-error>
-        </mat-error>
+
+      <mat-form-field>
+        <input matInput #input id="dateField" [matDatepicker]="myDatepicker" placeholder="Date of Departure" [(ngModel)]="data.ride.departureDate" formControlName="departureDate">
+        <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #myDatepicker></mat-datepicker>
       </mat-form-field>
+
+      <mat-form-field>
+        <input type="time" matInput #input id="timeField" placeholder="Time of Departure"
+               [(ngModel)]="data.ride.departureTime" formControlName="departureTime">
+      </mat-form-field>
+
+      <!--<mat-form-field flex>-->
+        <!--<input matInput #input id="departureTimeField" placeholder="Departure Time" [(ngModel)]="data.ride.departureTime" formControlName="departureTime"-->
+               <!--required>-->
+        <!--<mat-error *ngFor="let validation of add_ride_validation_messages.departureTime">-->
+          <!--<mat-error class="error-message" id="departureTime-error"-->
+                     <!--*ngIf="addRideForm.get('departureTime').hasError(validation.type) && (addRideForm.get('departureTime').dirty || addRideForm.get('departureTime').touched)">-->
+            <!--{{validation.message}}-->
+          <!--</mat-error>-->
+        <!--</mat-error>-->
+      <!--</mat-form-field>-->
       <mat-form-field flex>
         <input matInput #input id="mpgField" placeholder="Miles Per Gallon" [(ngModel)]="data.ride.mpg" formControlName="mpg">
         <mat-error *ngFor="let validation of add_ride_validation_messages.mpg">

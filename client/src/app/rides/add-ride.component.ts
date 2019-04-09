@@ -1,9 +1,16 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material';
+import {Component, Inject, NgModule, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDatepickerModule, MatNativeDateModule} from '@angular/material';
 import {Ride} from './ride';
 import {FormControl, Validators, FormGroup, FormBuilder} from "@angular/forms";
 import {User} from "../users/user";
 
+@NgModule({
+  imports:
+    [
+      MatDatepickerModule,
+      MatNativeDateModule
+    ]
+})
 
 @Component({
   selector: 'add-ride.component',

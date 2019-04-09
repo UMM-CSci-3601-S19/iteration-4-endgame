@@ -23,6 +23,7 @@ import {CustomModule} from './custom.module';
 import {UserProfileComponent} from "./users/user-profile.component";
 import {UserService} from "./users/user-service";
 import {EditUserComponent} from "./users/edit-user.component";
+import {MatDatepickerModule, MatNativeDateModule} from "@angular/material";
 
 
 
@@ -35,7 +36,9 @@ import {EditUserComponent} from "./users/edit-user.component";
     MatCheckboxModule,
     MatRadioModule,
     MatSelectModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   declarations: [
     AppComponent,
