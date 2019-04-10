@@ -31,6 +31,7 @@ describe('Ride list', () => {
           destination: 'Minneapolis',
           origin: 'Morris',
           roundTrip: false,
+          departureDate: 'March 19, 2020',
           departureTime: '5:00pm',
           driving: true,
           ownerId: "5ca243f0ef2bf9b410bb5672",
@@ -59,6 +60,7 @@ describe('Ride list', () => {
             "email": "Isologia30@hotmail.com",
             "phoneNumber": "(963) 498-3516"
           },
+          departureDate: 'April 6th, 2019',
           departureTime: '6:00pm',
           notes: 'I like to drive with pets.'
         },
@@ -77,6 +79,7 @@ describe('Ride list', () => {
             "email": "Musaphics29@yahoo.com",
             "phoneNumber": "(904) 578-2784"
           },
+          departureDate: 'August 23rd, 2019',
           departureTime: '7:00pm',
           notes: 'I am down to play some music.'
         },
@@ -104,6 +107,7 @@ describe('Ride list', () => {
           origin: 'Morris',
           roundTrip: true,
           departureTime: '5:00pm',
+          departureDate: 'June 16th, 2019',
           notes: 'I hate dogs and I am scared to ride with them.'
         },
         {
@@ -321,6 +325,7 @@ describe('Adding a ride',()=> {
     origin: 'Morris',
     roundTrip: true,
     departureTime: '5:00pm',
+    departureDate: 'December 25th, 2019',
     notes: 'I do not like the smell of smoke.'
   };
   const newId = 'Danial_id';
@@ -395,6 +400,7 @@ describe('Editing a ride',()=> {
     roundTrip: true,
     driving: true,
     departureTime: '5:00pm',
+    departureDate: 'December 25th, 2019',
     notes: 'I do not like the smell of smoke.'
   };
   const newId = 'Danial_id';
@@ -477,6 +483,7 @@ describe('Deleting a ride',()=> {
     origin: 'Morris',
     roundTrip: true,
     departureTime: '5:00pm',
+    departureDate: 'December 25th, 2019',
     notes: 'I do not like the smell of smoke.'
   };
   const newId = 'Danial_id';
