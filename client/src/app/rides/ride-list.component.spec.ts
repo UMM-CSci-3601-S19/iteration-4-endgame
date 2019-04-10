@@ -9,8 +9,6 @@ import {MatDialog} from '@angular/material';
 
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
-import {EditRideComponent} from "./edit-ride.component";
-import {DeleteRideComponent} from "./delete-ride.component";
 import {User} from "../users/user";
 
 describe('Ride list', () => {
