@@ -80,6 +80,8 @@ public class RideRequestHandler {
     String origin = newRide.getString("origin");
     Boolean roundTrip = newRide.getBoolean("roundTrip");
     Boolean driving = newRide.getBoolean("driving");
+    String departureDate = newRide.getString("departureDate");
+    departureDate = convertDate(departureDate);
     String departureTime = newRide.getString("departureTime");
     String mpg = newRide.getString("mpg");
     String notes = newRide.getString("notes");
@@ -91,8 +93,8 @@ public class RideRequestHandler {
     }
 
 
-    System.err.println("Adding new ride [driver=" + driver + " ownerId=" + ownerId + " destination=" + destination + " origin=" + origin + " roundTrip=" + roundTrip + " driving=" + driving + " departureTime=" + departureTime + " mpg=" + mpg + " notes=" + notes + ']');
-    return rideController.addNewRide(driver, destination, origin, roundTrip, driving,departureTime, mpg, notes, ownerId);
+    System.err.println("Adding new ride [driver=" + driver + " ownerId=" + ownerId + " destination=" + destination + " origin=" + origin + " roundTrip=" + roundTrip + " driving=" + driving + " departureDate=" + departureDate + " departureTime=" + departureTime + " mpg=" + mpg + " notes=" + notes + ']');
+    return rideController.addNewRide(driver, destination, origin, roundTrip, driving, departureDate, departureTime, mpg, notes, ownerId);
   }
 
   public Boolean updateRide(Request req, Response res) {
@@ -125,6 +127,11 @@ public class RideRequestHandler {
     return rideController.deleteRide(id);
   }
 
+  private String convertDate(String jsonDate) {
 
+    jsonDate = jsonDate.substring(5, 7) + "/" + jsonDate.substring(8, 10) + "/" + jsonDate.substring(0, 4);
+
+    return jsonDate;
+  }
 
 }

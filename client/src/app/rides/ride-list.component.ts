@@ -51,8 +51,6 @@ export class RideListComponent implements OnInit {
         console.log(newRide);
         this.rideListService.addNewRide(newRide).subscribe(
           result => {
-            console.log("Date format" + newRide.departureDate);
-            console.log("Time format" + newRide.departureTime);
             this.highlightedDestination = result;
             this.refreshRides();
           },
@@ -111,7 +109,7 @@ export class RideListComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {id: currentId};
     dialogConfig.width = '500px';
-    
+
     const dialogRef = this.dialog.open(DeleteRideComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(deletedRideId => {
       if (deletedRideId != null) {

@@ -41,7 +41,7 @@ export class AddRideComponent implements OnInit {
       {type: 'pattern', message: 'Origin contains an unaccepted character'}
     ],
     'departureDate': [
-      {type: 'required', message: 'Departure Time is required'},
+      {type: 'required', message: 'Departure Date is required'},
     ],
     'departureTime': [
 

@@ -41,6 +41,12 @@
         <input matInput #input id="dateField" [matDatepicker]="myDatepicker" placeholder="Date of Departure" [(ngModel)]="data.ride.departureDate" formControlName="departureDate" required>
         <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
         <mat-datepicker #myDatepicker></mat-datepicker>
+        <mat-error *ngFor="let validation of add_ride_validation_messages.departureDate">
+          <mat-error class="error-message" id="departureDate-error"
+                     *ngIf="addRideForm.get('departureDate').hasError(validation.type) && (addRideForm.get('departureDate').dirty || addRideForm.get('departureDate').touched)">
+            {{validation.message}}
+          </mat-error>
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field>
