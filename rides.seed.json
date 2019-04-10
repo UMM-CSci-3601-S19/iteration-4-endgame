@@ -5,7 +5,7 @@
     "destination": "St.Paul",
     "origin": "Willow Street",
     "roundTrip": false,
-    "departureTime": "Thu Aug 06 2020 14:36:42 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Thu Aug 06 2020 14:36:42 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "I like to drive with no air conditioning",
     "mpg": 65
@@ -16,7 +16,7 @@
     "destination": "Family Dollar",
     "origin": "Herzl Street",
     "roundTrip": false,
-    "departureTime": "Mon Apr 25 2022 07:01:00 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Mon Apr 25 2022 07:01:00 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy",
     "mpg": 33
@@ -27,7 +27,7 @@
     "destination": "Maplegrove",
     "origin": "Alabama Avenue",
     "roundTrip": false,
-    "departureTime": "Fri Oct 23 2020 03:15:17 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Fri Oct 23 2020 03:15:17 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "No pet allowed",
     "mpg": 59
@@ -38,7 +38,7 @@
     "destination": "Duluth",
     "origin": "Livonia Avenue",
     "roundTrip": false,
-    "departureTime": "Tue Mar 31 2020 16:29:27 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Tue Mar 31 2020 16:29:27 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "Im driving and I like to eat at the same time",
     "mpg": 60
@@ -49,7 +49,7 @@
     "destination": "Maplegrove",
     "origin": "Interborough Parkway",
     "roundTrip": true,
-    "departureTime": "Mon Jan 13 2020 12:10:01 GMT-0600 (Central Standard Time)",
+    "departureDate": "Mon Jan 13 2020 12:10:01 GMT-0600 (Central Standard Time)",
     "driving": true,
     "notes": "Im driving and I like to eat at the same time",
     "mpg": 60
@@ -60,7 +60,7 @@
     "destination": "Family Dollar",
     "origin": "Tillary Street",
     "roundTrip": false,
-    "departureTime": "Wed Sep 18 2019 10:06:19 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Wed Sep 18 2019 10:06:19 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "I love to crank the volume up to 11",
     "mpg": 57
@@ -71,7 +71,7 @@
     "destination": "Alexandria",
     "origin": "Amber Street",
     "roundTrip": false,
-    "departureTime": "Mon Jan 02 2023 06:53:10 GMT-0600 (Central Standard Time)",
+    "departureDate": "Mon Jan 02 2023 06:53:10 GMT-0600 (Central Standard Time)",
     "driving": true,
     "notes": "Im driving and I like to eat at the same time",
     "mpg": 32
@@ -82,7 +82,7 @@
     "destination": "Duluth",
     "origin": "Eaton Court",
     "roundTrip": false,
-    "departureTime": "Tue May 03 2022 06:18:04 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Tue May 03 2022 06:18:04 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "No pet allowed",
     "mpg": 55
@@ -93,7 +93,7 @@
     "destination": "St.Paul",
     "origin": "Thames Street",
     "roundTrip": false,
-    "departureTime": "Thu Oct 26 2023 07:02:30 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Thu Oct 26 2023 07:02:30 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "No pet allowed",
     "mpg": 44
@@ -104,7 +104,7 @@
     "destination": "Willies",
     "origin": "Division Place",
     "roundTrip": false,
-    "departureTime": "Thu Sep 01 2022 15:57:57 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Thu Sep 01 2022 15:57:57 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy",
     "mpg": 55
@@ -115,7 +115,7 @@
     "destination": "Maplegrove",
     "origin": "Fiske Place",
     "roundTrip": false,
-    "departureTime": "Thu Jul 22 2021 19:04:58 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Thu Jul 22 2021 19:04:58 GMT-0500 (Central Daylight Time)",
     "driving": true,
     "notes": "No room in the trunk of my car",
     "mpg": 42
@@ -126,7 +126,7 @@
     "destination": "Duluth",
     "origin": "Boulevard Court",
     "roundTrip": false,
-    "departureTime": "Wed Jan 22 2020 17:49:25 GMT-0600 (Central Standard Time)",
+    "departureDate": "Wed Jan 22 2020 17:49:25 GMT-0600 (Central Standard Time)",
     "driving": false,
     "notes": "No room in the trunk of my car",
     "mpg": 64
@@ -137,7 +137,7 @@
     "destination": "St.Paul",
     "origin": "Bradford Street",
     "roundTrip": false,
-    "departureTime": "Fri Jul 09 2021 21:21:54 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Fri Jul 09 2021 21:21:54 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy",
     "mpg": 62
@@ -148,7 +148,7 @@
     "destination": "Duluth",
     "origin": "Ash Street",
     "roundTrip": true,
-    "departureTime": "Fri Jan 27 2017 18:56:40 GMT-0600 (Central Standard Time)",
+    "departureDate": "Fri Jan 27 2017 18:56:40 GMT-0600 (Central Standard Time)",
     "driving": true,
     "notes": "Im driving and I like to eat at the same time",
     "mpg": 36
@@ -159,7 +159,7 @@
     "destination": "Family Dollar",
     "origin": "Sumner Place",
     "roundTrip": true,
-    "departureTime": "Sun Apr 03 2022 16:41:02 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Sun Apr 03 2022 16:41:02 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "I love to crank the volume up to 11",
     "mpg": 27
@@ -170,7 +170,7 @@
     "destination": "Duluth",
     "origin": "Evans Street",
     "roundTrip": false,
-    "departureTime": "Tue Aug 18 2020 00:56:29 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Tue Aug 18 2020 00:56:29 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "No pet allowed",
     "mpg": 39
@@ -181,7 +181,7 @@
     "destination": "Family Dollar",
     "origin": "Kensington Street",
     "roundTrip": true,
-    "departureTime": "Thu May 18 2023 02:58:40 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Thu May 18 2023 02:58:40 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "No pet allowed",
     "mpg": 28
@@ -192,7 +192,7 @@
     "destination": "St.Paul",
     "origin": "Hutchinson Court",
     "roundTrip": true,
-    "departureTime": "Sat Dec 30 2023 22:15:32 GMT-0600 (Central Standard Time)",
+    "departureDate": "Sat Dec 30 2023 22:15:32 GMT-0600 (Central Standard Time)",
     "driving": true,
     "notes": "Im driving and I like to eat at the same time",
     "mpg": 56
@@ -203,7 +203,7 @@
     "destination": "Maplegrove",
     "origin": "Pierrepont Place",
     "roundTrip": true,
-    "departureTime": "Sat Dec 02 2017 22:37:12 GMT-0600 (Central Standard Time)",
+    "departureDate": "Sat Dec 02 2017 22:37:12 GMT-0600 (Central Standard Time)",
     "driving": true,
     "notes": "I love to crank the volume up to 11",
     "mpg": 51
@@ -214,7 +214,7 @@
     "destination": "St.Paul",
     "origin": "Linden Street",
     "roundTrip": false,
-    "departureTime": "Fri Oct 14 2022 06:42:52 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Fri Oct 14 2022 06:42:52 GMT-0500 (Central Daylight Time)",
     "driving": true,
     "notes": "I love to crank the volume up to 11",
     "mpg": 34
@@ -225,7 +225,7 @@
     "destination": "St.Paul",
     "origin": "Strauss Street",
     "roundTrip": true,
-    "departureTime": "Tue Jul 18 2017 19:25:07 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Tue Jul 18 2017 19:25:07 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy",
     "mpg": 45
@@ -236,7 +236,7 @@
     "destination": "Family Dollar",
     "origin": "Dikeman Street",
     "roundTrip": false,
-    "departureTime": "Thu Apr 20 2017 00:17:13 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Thu Apr 20 2017 00:17:13 GMT-0500 (Central Daylight Time)",
     "driving": true,
     "notes": "I like to drive with no air conditioning",
     "mpg": 29
@@ -247,7 +247,7 @@
     "destination": "Alexandria",
     "origin": "Paerdegat Avenue",
     "roundTrip": true,
-    "departureTime": "Thu Oct 25 2018 19:30:36 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Thu Oct 25 2018 19:30:36 GMT-0500 (Central Daylight Time)",
     "driving": true,
     "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy",
     "mpg": 51
@@ -258,7 +258,7 @@
     "destination": "Family Dollar",
     "origin": "Louise Terrace",
     "roundTrip": true,
-    "departureTime": "Wed Apr 13 2022 04:27:13 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Wed Apr 13 2022 04:27:13 GMT-0500 (Central Daylight Time)",
     "driving": true,
     "notes": "I love to crank the volume up to 11",
     "mpg": 64
@@ -269,7 +269,7 @@
     "destination": "Willies",
     "origin": "Wythe Place",
     "roundTrip": true,
-    "departureTime": "Sat Sep 30 2017 00:06:40 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Sat Sep 30 2017 00:06:40 GMT-0500 (Central Daylight Time)",
     "driving": true,
     "notes": "No room in the trunk of my car",
     "mpg": 48
@@ -280,7 +280,7 @@
     "destination": "St.Paul",
     "origin": "Meadow Street",
     "roundTrip": true,
-    "departureTime": "Sun Apr 25 2021 07:17:02 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Sun Apr 25 2021 07:17:02 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "Im driving and I like to eat at the same time",
     "mpg": 30
@@ -291,7 +291,7 @@
     "destination": "Duluth",
     "origin": "Dean Street",
     "roundTrip": false,
-    "departureTime": "Tue Aug 25 2020 16:15:01 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Tue Aug 25 2020 16:15:01 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "Im driving and I like to eat at the same time",
     "mpg": 45
@@ -302,7 +302,7 @@
     "destination": "Family Dollar",
     "origin": "Moore Street",
     "roundTrip": false,
-    "departureTime": "Mon Feb 20 2023 09:28:54 GMT-0600 (Central Standard Time)",
+    "departureDate": "Mon Feb 20 2023 09:28:54 GMT-0600 (Central Standard Time)",
     "driving": true,
     "notes": "Im driving and I like to eat at the same time",
     "mpg": 31
@@ -313,7 +313,7 @@
     "destination": "Alexandria",
     "origin": "Monument Walk",
     "roundTrip": true,
-    "departureTime": "Wed Jan 29 2020 21:48:59 GMT-0600 (Central Standard Time)",
+    "departureDate": "Wed Jan 29 2020 21:48:59 GMT-0600 (Central Standard Time)",
     "driving": true,
     "notes": "No room in the trunk of my car",
     "mpg": 60
@@ -324,7 +324,7 @@
     "destination": "St.Paul",
     "origin": "Duffield Street",
     "roundTrip": true,
-    "departureTime": "Mon Apr 20 2020 09:40:24 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Mon Apr 20 2020 09:40:24 GMT-0500 (Central Daylight Time)",
     "driving": true,
     "notes": "I like to drive with no air conditioning",
     "mpg": 41
@@ -335,7 +335,7 @@
     "destination": "Willies",
     "origin": "Whitty Lane",
     "roundTrip": true,
-    "departureTime": "Thu Jun 24 2021 18:52:49 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Thu Jun 24 2021 18:52:49 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "I love to crank the volume up to 11",
     "mpg": 56
@@ -346,7 +346,7 @@
     "destination": "Family Dollar",
     "origin": "Columbia Street",
     "roundTrip": true,
-    "departureTime": "Wed Feb 28 2018 18:58:02 GMT-0600 (Central Standard Time)",
+    "departureDate": "Wed Feb 28 2018 18:58:02 GMT-0600 (Central Standard Time)",
     "driving": false,
     "notes": "I like to drive with no air conditioning",
     "mpg": 30
@@ -357,7 +357,7 @@
     "destination": "Family Dollar",
     "origin": "Glenwood Road",
     "roundTrip": true,
-    "departureTime": "Thu Jan 26 2017 18:36:13 GMT-0600 (Central Standard Time)",
+    "departureDate": "Thu Jan 26 2017 18:36:13 GMT-0600 (Central Standard Time)",
     "driving": false,
     "notes": "I love to crank the volume up to 11",
     "mpg": 38
@@ -368,7 +368,7 @@
     "destination": "Family Dollar",
     "origin": "Veterans Avenue",
     "roundTrip": true,
-    "departureTime": "Sun Jun 05 2022 20:03:33 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Sun Jun 05 2022 20:03:33 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy",
     "mpg": 28
@@ -379,7 +379,7 @@
     "destination": "Maplegrove",
     "origin": "Gerritsen Avenue",
     "roundTrip": true,
-    "departureTime": "Sat Dec 16 2017 12:07:35 GMT-0600 (Central Standard Time)",
+    "departureDate": "Sat Dec 16 2017 12:07:35 GMT-0600 (Central Standard Time)",
     "driving": true,
     "notes": "I like to drive with no air conditioning",
     "mpg": 38
@@ -390,7 +390,7 @@
     "destination": "St.Paul",
     "origin": "Batchelder Street",
     "roundTrip": false,
-    "departureTime": "Thu Dec 08 2022 07:42:37 GMT-0600 (Central Standard Time)",
+    "departureDate": "Thu Dec 08 2022 07:42:37 GMT-0600 (Central Standard Time)",
     "driving": false,
     "notes": "Im driving and I like to eat at the same time",
     "mpg": 39
@@ -401,7 +401,7 @@
     "destination": "Alexandria",
     "origin": "Hamilton Avenue",
     "roundTrip": true,
-    "departureTime": "Sat Sep 26 2020 05:47:32 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Sat Sep 26 2020 05:47:32 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "I like to drive with no air conditioning",
     "mpg": 31
@@ -412,7 +412,7 @@
     "destination": "Duluth",
     "origin": "Lincoln Road",
     "roundTrip": true,
-    "departureTime": "Mon Aug 05 2019 08:52:34 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Mon Aug 05 2019 08:52:34 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "I like to drive with no air conditioning",
     "mpg": 57
@@ -423,7 +423,7 @@
     "destination": "St.Paul",
     "origin": "Rochester Avenue",
     "roundTrip": true,
-    "departureTime": "Tue Jun 14 2022 15:56:50 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Tue Jun 14 2022 15:56:50 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "No room in the trunk of my car",
     "mpg": 60
@@ -434,7 +434,7 @@
     "destination": "Duluth",
     "origin": "Bedell Lane",
     "roundTrip": false,
-    "departureTime": "Fri Jun 24 2022 18:42:58 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Fri Jun 24 2022 18:42:58 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy",
     "mpg": 47
@@ -445,7 +445,7 @@
     "destination": "Willies",
     "origin": "Laurel Avenue",
     "roundTrip": true,
-    "departureTime": "Sun Mar 03 2019 07:27:48 GMT-0600 (Central Standard Time)",
+    "departureDate": "Sun Mar 03 2019 07:27:48 GMT-0600 (Central Standard Time)",
     "driving": false,
     "notes": "I like to drive with no air conditioning",
     "mpg": 62
@@ -456,7 +456,7 @@
     "destination": "Willies",
     "origin": "Hubbard Street",
     "roundTrip": false,
-    "departureTime": "Thu Oct 26 2017 05:12:40 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Thu Oct 26 2017 05:12:40 GMT-0500 (Central Daylight Time)",
     "driving": true,
     "notes": "I love to crank the volume up to 11",
     "mpg": 43
@@ -467,7 +467,7 @@
     "destination": "St.Paul",
     "origin": "Cypress Avenue",
     "roundTrip": false,
-    "departureTime": "Mon May 22 2023 23:07:15 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Mon May 22 2023 23:07:15 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "Im driving and I like to eat at the same time",
     "mpg": 35
@@ -478,7 +478,7 @@
     "destination": "Family Dollar",
     "origin": "Flatbush Avenue",
     "roundTrip": false,
-    "departureTime": "Sun Jun 23 2019 23:03:35 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Sun Jun 23 2019 23:03:35 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "I love to crank the volume up to 11",
     "mpg": 26
@@ -489,7 +489,7 @@
     "destination": "Maplegrove",
     "origin": "Horace Court",
     "roundTrip": true,
-    "departureTime": "Sat Nov 25 2017 19:20:57 GMT-0600 (Central Standard Time)",
+    "departureDate": "Sat Nov 25 2017 19:20:57 GMT-0600 (Central Standard Time)",
     "driving": false,
     "notes": "I love to crank the volume up to 11",
     "mpg": 41
@@ -500,7 +500,7 @@
     "destination": "Duluth",
     "origin": "Irving Place",
     "roundTrip": false,
-    "departureTime": "Tue Dec 27 2022 05:01:09 GMT-0600 (Central Standard Time)",
+    "departureDate": "Tue Dec 27 2022 05:01:09 GMT-0600 (Central Standard Time)",
     "driving": false,
     "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy",
     "mpg": 25
@@ -511,7 +511,7 @@
     "destination": "Duluth",
     "origin": "Belmont Avenue",
     "roundTrip": false,
-    "departureTime": "Sat Apr 22 2023 00:08:24 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Sat Apr 22 2023 00:08:24 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy",
     "mpg": 26
@@ -522,7 +522,7 @@
     "destination": "Duluth",
     "origin": "Bridge Street",
     "roundTrip": false,
-    "departureTime": "Mon Dec 05 2022 09:59:06 GMT-0600 (Central Standard Time)",
+    "departureDate": "Mon Dec 05 2022 09:59:06 GMT-0600 (Central Standard Time)",
     "driving": false,
     "notes": "No room in the trunk of my car",
     "mpg": 60
@@ -533,7 +533,7 @@
     "destination": "Family Dollar",
     "origin": "Riverdale Avenue",
     "roundTrip": true,
-    "departureTime": "Fri Sep 08 2023 22:10:04 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Fri Sep 08 2023 22:10:04 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "I like to drive with no air conditioning",
     "mpg": 61
@@ -544,7 +544,7 @@
     "destination": "Maplegrove",
     "origin": "Clifton Place",
     "roundTrip": false,
-    "departureTime": "Wed May 13 2020 10:48:22 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Wed May 13 2020 10:48:22 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "I love to crank the volume up to 11",
     "mpg": 34
@@ -555,7 +555,7 @@
     "destination": "Maplegrove",
     "origin": "Cornelia Street",
     "roundTrip": true,
-    "departureTime": "Fri Feb 14 2020 09:53:19 GMT-0600 (Central Standard Time)",
+    "departureDate": "Fri Feb 14 2020 09:53:19 GMT-0600 (Central Standard Time)",
     "driving": false,
     "notes": "I love to crank the volume up to 11",
     "mpg": 47
@@ -566,7 +566,7 @@
     "destination": "Maplegrove",
     "origin": "Estate Road",
     "roundTrip": true,
-    "departureTime": "Fri Nov 11 2022 04:19:34 GMT-0600 (Central Standard Time)",
+    "departureDate": "Fri Nov 11 2022 04:19:34 GMT-0600 (Central Standard Time)",
     "driving": false,
     "notes": "I love to crank the volume up to 11",
     "mpg": 35
@@ -577,7 +577,7 @@
     "destination": "Alexandria",
     "origin": "Seba Avenue",
     "roundTrip": false,
-    "departureTime": "Sun May 07 2017 16:35:33 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Sun May 07 2017 16:35:33 GMT-0500 (Central Daylight Time)",
     "driving": true,
     "notes": "No pet allowed",
     "mpg": 50
@@ -588,7 +588,7 @@
     "destination": "Maplegrove",
     "origin": "Emmons Avenue",
     "roundTrip": false,
-    "departureTime": "Sat Mar 18 2017 11:39:18 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Sat Mar 18 2017 11:39:18 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "I love to crank the volume up to 11",
     "mpg": 52
@@ -599,7 +599,7 @@
     "destination": "Alexandria",
     "origin": "Oxford Street",
     "roundTrip": false,
-    "departureTime": "Sat Aug 06 2022 12:05:06 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Sat Aug 06 2022 12:05:06 GMT-0500 (Central Daylight Time)",
     "driving": true,
     "notes": "I like to drive with no air conditioning",
     "mpg": 29
@@ -610,7 +610,7 @@
     "destination": "Duluth",
     "origin": "Woodbine Street",
     "roundTrip": true,
-    "departureTime": "Mon May 08 2017 15:15:29 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Mon May 08 2017 15:15:29 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "I like to drive with no air conditioning",
     "mpg": 39
@@ -621,7 +621,7 @@
     "destination": "Alexandria",
     "origin": "Clinton Avenue",
     "roundTrip": true,
-    "departureTime": "Fri Sep 29 2023 23:15:25 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Fri Sep 29 2023 23:15:25 GMT-0500 (Central Daylight Time)",
     "driving": true,
     "notes": "I love to crank the volume up to 11",
     "mpg": 47
@@ -632,7 +632,7 @@
     "destination": "Duluth",
     "origin": "Benson Avenue",
     "roundTrip": false,
-    "departureTime": "Sun Feb 28 2021 16:51:21 GMT-0600 (Central Standard Time)",
+    "departureDate": "Sun Feb 28 2021 16:51:21 GMT-0600 (Central Standard Time)",
     "driving": false,
     "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy",
     "mpg": 58
@@ -643,7 +643,7 @@
     "destination": "St.Paul",
     "origin": "Scott Avenue",
     "roundTrip": true,
-    "departureTime": "Tue Aug 27 2019 04:45:28 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Tue Aug 27 2019 04:45:28 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "No room in the trunk of my car",
     "mpg": 61
@@ -654,7 +654,7 @@
     "destination": "Family Dollar",
     "origin": "Miller Avenue",
     "roundTrip": false,
-    "departureTime": "Fri Aug 24 2018 04:36:18 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Fri Aug 24 2018 04:36:18 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "No room in the trunk of my car",
     "mpg": 37
@@ -665,7 +665,7 @@
     "destination": "Duluth",
     "origin": "Holmes Lane",
     "roundTrip": true,
-    "departureTime": "Sun Feb 19 2017 12:35:45 GMT-0600 (Central Standard Time)",
+    "departureDate": "Sun Feb 19 2017 12:35:45 GMT-0600 (Central Standard Time)",
     "driving": true,
     "notes": "I love to crank the volume up to 11",
     "mpg": 57
@@ -676,7 +676,7 @@
     "destination": "Alexandria",
     "origin": "Devoe Street",
     "roundTrip": false,
-    "departureTime": "Thu Jul 06 2023 05:03:52 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Thu Jul 06 2023 05:03:52 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "Im driving and I like to eat at the same time",
     "mpg": 41
@@ -687,7 +687,7 @@
     "destination": "St.Paul",
     "origin": "Sandford Street",
     "roundTrip": false,
-    "departureTime": "Thu Mar 10 2022 19:09:21 GMT-0600 (Central Standard Time)",
+    "departureDate": "Thu Mar 10 2022 19:09:21 GMT-0600 (Central Standard Time)",
     "driving": true,
     "notes": "I love to crank the volume up to 11",
     "mpg": 36
@@ -698,7 +698,7 @@
     "destination": "Family Dollar",
     "origin": "Gelston Avenue",
     "roundTrip": false,
-    "departureTime": "Wed Apr 19 2017 07:51:00 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Wed Apr 19 2017 07:51:00 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "No room in the trunk of my car",
     "mpg": 55
@@ -709,7 +709,7 @@
     "destination": "Duluth",
     "origin": "Canton Court",
     "roundTrip": true,
-    "departureTime": "Fri Mar 23 2018 11:26:21 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Fri Mar 23 2018 11:26:21 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "Im driving and I like to eat at the same time",
     "mpg": 42
@@ -720,7 +720,7 @@
     "destination": "Willies",
     "origin": "Micieli Place",
     "roundTrip": true,
-    "departureTime": "Sat Apr 10 2021 07:53:09 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Sat Apr 10 2021 07:53:09 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "No pet allowed",
     "mpg": 48
@@ -731,7 +731,7 @@
     "destination": "Duluth",
     "origin": "Chester Street",
     "roundTrip": false,
-    "departureTime": "Fri Sep 18 2020 18:20:49 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Fri Sep 18 2020 18:20:49 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "No room in the trunk of my car",
     "mpg": 48
@@ -742,7 +742,7 @@
     "destination": "Willies",
     "origin": "Metropolitan Avenue",
     "roundTrip": false,
-    "departureTime": "Thu Sep 20 2018 06:43:39 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Thu Sep 20 2018 06:43:39 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "No pet allowed",
     "mpg": 45
@@ -753,7 +753,7 @@
     "destination": "Family Dollar",
     "origin": "Lloyd Street",
     "roundTrip": true,
-    "departureTime": "Tue Jun 27 2023 22:28:18 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Tue Jun 27 2023 22:28:18 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy",
     "mpg": 42
@@ -764,7 +764,7 @@
     "destination": "Alexandria",
     "origin": "Bogart Street",
     "roundTrip": false,
-    "departureTime": "Sat Dec 09 2023 12:30:45 GMT-0600 (Central Standard Time)",
+    "departureDate": "Sat Dec 09 2023 12:30:45 GMT-0600 (Central Standard Time)",
     "driving": true,
     "notes": "I like to drive with no air conditioning",
     "mpg": 31
@@ -775,7 +775,7 @@
     "destination": "St.Paul",
     "origin": "Underhill Avenue",
     "roundTrip": true,
-    "departureTime": "Sun Jan 23 2022 10:41:00 GMT-0600 (Central Standard Time)",
+    "departureDate": "Sun Jan 23 2022 10:41:00 GMT-0600 (Central Standard Time)",
     "driving": true,
     "notes": "Im driving and I like to eat at the same time",
     "mpg": 51
@@ -786,7 +786,7 @@
     "destination": "Alexandria",
     "origin": "Union Avenue",
     "roundTrip": true,
-    "departureTime": "Tue May 12 2020 08:48:40 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Tue May 12 2020 08:48:40 GMT-0500 (Central Daylight Time)",
     "driving": true,
     "notes": "Im driving and I like to eat at the same time",
     "mpg": 25
@@ -797,7 +797,7 @@
     "destination": "Duluth",
     "origin": "Applegate Court",
     "roundTrip": false,
-    "departureTime": "Fri Jun 21 2019 22:25:58 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Fri Jun 21 2019 22:25:58 GMT-0500 (Central Daylight Time)",
     "driving": false,
     "notes": "No room in the trunk of my car",
     "mpg": 36
@@ -808,7 +808,7 @@
     "destination": "Duluth",
     "origin": "Stone Avenue",
     "roundTrip": false,
-    "departureTime": "Mon Mar 13 2023 01:30:39 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Mon Mar 13 2023 01:30:39 GMT-0500 (Central Daylight Time)",
     "driving": true,
     "notes": "I like to drive with no air conditioning",
     "mpg": 38
@@ -819,7 +819,7 @@
     "destination": "Alexandria",
     "origin": "Dupont Street",
     "roundTrip": true,
-    "departureTime": "Tue Jun 04 2019 04:16:18 GMT-0500 (Central Daylight Time)",
+    "departureDate": "Tue Jun 04 2019 04:16:18 GMT-0500 (Central Daylight Time)",
     "driving": true,
     "notes": "I love to crank the volume up to 11",
     "mpg": 54

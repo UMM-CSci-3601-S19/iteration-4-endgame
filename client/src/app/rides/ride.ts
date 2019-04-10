@@ -10,7 +10,7 @@ export interface Ride {
   origin: string;
   roundTrip: boolean;
   departureDate: string;
-  departureTime: string;
+  departureTime?: string;
   driving?: boolean;
   notes: string;
   mpg?: number;
