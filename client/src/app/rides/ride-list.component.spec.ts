@@ -385,7 +385,7 @@ describe('Adding a ride',()=> {
 
   it('calls RideListService.addNewRide', () => {
     expect(calledRide).toBeNull();
-    rideList.openDialog();
+    rideList.openAddDialog();
     expect(calledRide).toEqual(newRide);
   });
 });
@@ -469,7 +469,7 @@ describe('Editing a ride',()=> {
 
   it('calls RideListService.editRide', () => {
     expect(calledRide).toBeNull();
-    rideList.openEditDialog(currentRide._id, currentRide.driver, currentRide.destination, currentRide.origin, currentRide.roundTrip, currentRide.driving,currentRide.departureTime, currentRide.mpg, currentRide.notes);
+    rideList.openEditDialog(currentRide._id, currentRide.driver, currentRide.destination, currentRide.origin, currentRide.roundTrip, currentRide.driving, currentRide.departureDate, currentRide.departureTime, currentRide.mpg, currentRide.notes);
     expect(calledRide).toEqual(currentRide);
   });
 });
