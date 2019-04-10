@@ -9,6 +9,7 @@ export interface Ride {
   destination: string;
   origin: string;
   roundTrip: boolean;
+  departureDate: string;
   departureTime: string;
   driving?: boolean;
   notes: string;
