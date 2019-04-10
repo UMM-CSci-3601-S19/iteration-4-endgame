@@ -46,6 +46,7 @@ public class RideControllerSpec {
       "destination: \"Maplegrove\",\n" +
       "origin: \"Knight Court\",\n" +
       "roundTrip: true,\n" +
+      "departureDate: \"2019-08-08\",\n" +
       "departureTime: \"Mon Aug 07 2017 15:00:32 GMT+0000 (UTC)\",\n" +
       "driving: true,\n" +
       "mpg: 20,\n" +
@@ -57,6 +58,7 @@ public class RideControllerSpec {
       "destination: \"St.Paul\",\n" +
       "origin: \"Polar Street\",\n" +
       "roundTrip: false,\n" +
+      "departureDate: \"2019-04-08\",\n" +
       "departureTime: \"Tue Jun 30 2020 09:47:19 GMT+0000 (UTC)\",\n" +
       "driving: false,\n" +
       "mpg: 20,\n" +
@@ -68,6 +70,7 @@ public class RideControllerSpec {
       "destination: \"Duluth\",\n" +
       "origin: \"Oliver Street\",\n" +
       "roundTrip: true,\n" +
+      "departureDate: \"2019-09-08\",\n" +
       "departureTime: \"Sun Sep 18 2022 01:29:42 GMT+0000 (UTC)\",\n" +
       "driving: false,\n" +
       "mpg: 20,\n" +
@@ -83,6 +86,7 @@ public class RideControllerSpec {
       .append("destination", "Maplegrove")
       .append("origin", "Balfour Place")
       .append("roundTrip", false)
+      .append("departureDate", "2020-05-12")
       .append("departureTime", "Sat Apr 22 2017 06:12:11 GMT+0000 (UTC)")
       .append("driving", true)
       .append("mpg", 15)
@@ -174,7 +178,7 @@ public class RideControllerSpec {
     String beforeResult = rideController.getRides(emptyMap);
     BsonArray beforeDocs = parseJsonArray(beforeResult);
     assertEquals("Should have 4 riders before adding a new one", 4, beforeDocs.size());
-    String jsonResult = rideController.addNewRide("Good Driver", "Far, Far Away", "The RFC", false, true,"Noon Tomorrow", "30", "We're never coming back.", "5ca243f0db41ec9258d40336");
+    String jsonResult = rideController.addNewRide("Good Driver", "Far, Far Away", "The RFC", false, true,"2020-04-07", "5:00 PM","30", "We're never coming back.", "5ca243f0db41ec9258d40336");
     assertNotNull("Add ride result should not be null", jsonResult);
     String afterResult = rideController.getRides(emptyMap);
     BsonArray afterDocs = parseJsonArray(afterResult);
