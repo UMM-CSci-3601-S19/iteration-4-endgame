@@ -46,8 +46,8 @@ public class RideControllerSpec {
       "destination: \"Maplegrove\",\n" +
       "origin: \"Knight Court\",\n" +
       "roundTrip: true,\n" +
-      "departureDate: \"2019-08-08\",\n" +
-      "departureTime: \"Mon Aug 07 2017 15:00:32 GMT+0000 (UTC)\",\n" +
+      "departureDate: \"2019-08-08T05:00:00.000Z\",\n" +
+      "departureTime: \"15:00\",\n" +
       "driving: true,\n" +
       "mpg: 20,\n" +
       "notes: \"I like to drive with Y	no air conditioning\"\n" +
@@ -58,8 +58,8 @@ public class RideControllerSpec {
       "destination: \"St.Paul\",\n" +
       "origin: \"Polar Street\",\n" +
       "roundTrip: false,\n" +
-      "departureDate: \"2019-04-08\",\n" +
-      "departureTime: \"Tue Jun 30 2020 09:47:19 GMT+0000 (UTC)\",\n" +
+      "departureDate: \"2019-04-08T05:00:00.000Z\",\n" +
+      "departureTime: \"09:47\",\n" +
       "driving: false,\n" +
       "mpg: 20,\n" +
       "notes: \"No room in the trunk of my car\"\n" +
@@ -70,8 +70,8 @@ public class RideControllerSpec {
       "destination: \"Duluth\",\n" +
       "origin: \"Oliver Street\",\n" +
       "roundTrip: true,\n" +
-      "departureDate: \"2019-09-08\",\n" +
-      "departureTime: \"Sun Sep 18 2022 01:29:42 GMT+0000 (UTC)\",\n" +
+      "departureDate: \"2019-09-08T05:00:00.000Z\",\n" +
+      "departureTime: \"01:29\",\n" +
       "driving: false,\n" +
       "mpg: 20,\n" +
       "notes: \"I love to crank the volume up to 11\"\n" +
@@ -86,8 +86,8 @@ public class RideControllerSpec {
       .append("destination", "Maplegrove")
       .append("origin", "Balfour Place")
       .append("roundTrip", false)
-      .append("departureDate", "2020-05-12")
-      .append("departureTime", "Sat Apr 22 2017 06:12:11 GMT+0000 (UTC)")
+      .append("departureDate", "2020-05-12T05:00:00.000Z")
+      .append("departureTime", "06:12")
       .append("driving", true)
       .append("mpg", 15)
       .append("notes", "I will pay for lunch for anyone who is riding with me and I am a cool guy");
@@ -220,7 +220,7 @@ public class RideControllerSpec {
   public void updateRide(){
     Map<String, String[]> emptyMap = new HashMap<>();
     //Test good update
-    Boolean resp = rideController.updateRide(knownId.toString(), "Christian", "Milwaukee", "Arizona", false, false,"March 28", "30","Lets Go!");
+    Boolean resp = rideController.updateRide(knownId.toString(), "Christian", "Milwaukee", "Arizona", false, false,"2019-04-01TT05:00:00.000Z", "03:00", "30", "Lets Go!");
     assertTrue("Successful update should return true",resp);
     String result = rideController.getRides(emptyMap);
     BsonArray docs = parseJsonArray(result);
@@ -239,10 +239,11 @@ public class RideControllerSpec {
     assertEquals("Origin should match", "Arizona", singleResult.get("origin"));
     assertEquals("Round Trip should match", false, singleResult.get("roundTrip"));
     assertEquals("Driving should match", false, singleResult.get("driving"));
-    assertEquals("Departure Time should match", "March 28", singleResult.get("departureTime"));
+    assertEquals("Departure Date should match", "2019-04-01TT05:00:00.000Z", singleResult.get("departureDate"));
+    assertEquals("Departure Time should match", "03:00", singleResult.get("departureTime"));
     assertEquals("Notes should match", "Lets Go!", singleResult.get("notes"));
     //Test bad update
-    Boolean badResp = rideController.updateRide(new ObjectId().toString(), "Christian2", "Milwaukee", "Arizona", false, true,"March 28", "100", "Lets Go!");
+    Boolean badResp = rideController.updateRide(new ObjectId().toString(), "Christian2", "Milwaukee", "Arizona", false, true,"2019-04-01TT05:00:00.000Z","14:05","100", "Lets Go!");
     assertFalse("Unsuccessful update should return false", badResp);
     assertEquals("Should have 4 riders after failed update", 4, docs.size());
     assertEquals("Drivers should match after failed update", expectedDrivers, drivers);
