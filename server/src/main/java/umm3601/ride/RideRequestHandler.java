@@ -81,7 +81,6 @@ public class RideRequestHandler {
     Boolean roundTrip = newRide.getBoolean("roundTrip");
     Boolean driving = newRide.getBoolean("driving");
     String departureDate = newRide.getString("departureDate");
-    departureDate = convertDate(departureDate);
     String departureTime = newRide.getString("departureTime");
     String mpg = newRide.getString("mpg");
     String notes = newRide.getString("notes");
@@ -126,12 +125,4 @@ public class RideRequestHandler {
     System.err.println("Deleting ride id=" + id);
     return rideController.deleteRide(id);
   }
-
-  private String convertDate(String jsonDate) {
-
-    jsonDate = jsonDate.substring(5, 7) + "/" + jsonDate.substring(8, 10) + "/" + jsonDate.substring(0, 4);
-
-    return jsonDate;
-  }
-
 }
