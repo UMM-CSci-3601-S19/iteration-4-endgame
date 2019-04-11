@@ -1,8 +1,16 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material';
+import {Component, Inject, NgModule, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDatepickerModule, MatNativeDateModule} from '@angular/material';
 import {Ride} from './ride';
 import {FormControl, Validators, FormGroup, FormBuilder} from "@angular/forms";
 
+
+@NgModule({
+  imports:
+    [
+      MatDatepickerModule,
+      MatNativeDateModule
+    ]
+})
 
 @Component({
   selector: 'edit-ride.component',
@@ -11,6 +19,7 @@ import {FormControl, Validators, FormGroup, FormBuilder} from "@angular/forms";
 
 export class EditRideComponent implements OnInit {
   editRideForm: FormGroup;
+  currentDate = new Date();
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { ride: Ride }, private fb: FormBuilder) {
@@ -23,22 +32,18 @@ export class EditRideComponent implements OnInit {
       {type: 'maxlength', message: 'Destination cannot be more than 100 characters long'},
       {type: 'pattern', message: 'Destination contains an unaccepted character'}
     ],
-    'driver': [
-      {type: 'required', message: 'Driver is required'},
-      {type: 'minlength', message: 'Driver must be at least 2 characters long'},
-      {type: 'maxlength', message: 'Driver cannot be more than 50 characters long'},
-      {type: 'pattern', message: 'Driver must contain only numbers and letters'}
-    ],
     'origin': [
       {type: 'required', message: 'Origin is required'},
       {type: 'minlength', message: 'Origin must be at least 2 characters long'},
       {type: 'maxlength', message: 'Origin cannot be more than 100 characters long'},
       {type: 'pattern', message: 'Origin contains an unaccepted character'}
     ],
+    'departureDate': [
+      {type: 'required', message: 'Date of departure is required'},
+      {type: 'matDatepickerMin', message: 'Date of departure cannot have already occurred'}
+    ],
     'departureTime': [
-      {type: 'required', message: 'Departure Time is required'},
-      {type: 'minlength', message: 'Departure Time must be at least 2 characters long'},
-      {type: 'maxlength', message: 'Departure Time cannot be more than 100 characters long'}
+
       ],
     'mpg': [
       {type: 'min', message: 'MPG is too low, not reasonable'},
@@ -73,10 +78,11 @@ export class EditRideComponent implements OnInit {
         Validators.required,
         Validators.pattern('^[ a-zA-Z0-9.,\']+$')
       ])),
-      departureTime: new FormControl('departureTime', Validators.compose([
-        Validators.minLength(2),
-        Validators.maxLength(100),
+      departureDate: new FormControl('departureDate', Validators.compose([
         Validators.required
+      ])),
+      departureTime: new FormControl('departureTime', Validators.compose([
+
       ])),
       mpg: new FormControl('mpg', Validators.compose([
         Validators.min(1),
