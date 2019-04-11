@@ -13,8 +13,8 @@ describe( 'Ride list service: ', () => {
       destination: 'Hogwarts',
       origin: '4 Privet Drive',
       roundTrip: true,
-      departureDate: 'March 18th, 2019',
-      departureTime: 'midnight',
+      departureDate: '03/13/2019',
+      departureTime: '5:00',
       driving: false,
       notes: 'I will be arriving in a flying motorcycle'
     },
@@ -23,8 +23,8 @@ describe( 'Ride list service: ', () => {
       destination: 'Narnia',
       origin: 'Wardrobe',
       roundTrip: true,
-      departureDate: 'March 18th, 2019',
-      departureTime: 'During Hide and Seek',
+      departureDate: '03/19/2019',
+      departureTime: '9:00',
       driving: true,
       notes: 'Dress for cold'
     },
@@ -33,8 +33,8 @@ describe( 'Ride list service: ', () => {
       destination: 'Morris',
       origin: 'The Outside',
       roundTrip: false,
-      departureDate: 'March 18th, 2019',
-      departureTime: 'August',
+      departureDate: '04/01/2019',
+      departureTime: '12:00',
       driving: true,
       notes: 'There is no escaping Morris'
     }
@@ -149,6 +149,8 @@ describe( 'Ride list service: ', () => {
     expect(req.request.method).toEqual('GET');
     req.flush(trueRides);
 
+
+    // TODO: Potentially look into and see if similar to the MatDialogConfig<any> error
     rideListService.getRides('false').subscribe(
       rides => expect(rides).toEqual(falseRides)
     );
