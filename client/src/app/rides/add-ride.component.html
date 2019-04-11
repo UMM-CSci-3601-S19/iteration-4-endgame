@@ -38,7 +38,7 @@
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput #input id="dateField" [matDatepicker]="myDatepicker" placeholder="Date of Departure" [(ngModel)]="data.ride.departureDate" formControlName="departureDate" required>
+        <input matInput #input id="dateField" [min]="currentDate" [matDatepicker]="myDatepicker" placeholder="Date of Departure" [(ngModel)]="data.ride.departureDate" formControlName="departureDate" required>
         <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
         <mat-datepicker #myDatepicker></mat-datepicker>
         <mat-error *ngFor="let validation of add_ride_validation_messages.departureDate">

@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDatepickerModule, MatNativeDateModule} from '@angula
 import {Ride} from './ride';
 import {FormControl, Validators, FormGroup, FormBuilder} from "@angular/forms";
 import {User} from "../users/user";
+import {DatePipe} from "@angular/common";
 
 @NgModule({
   imports:
@@ -19,6 +20,7 @@ import {User} from "../users/user";
 
 export class AddRideComponent implements OnInit {
   addRideForm: FormGroup;
+  currentDate = new Date();
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { ride: Ride, users: User[] }, private fb: FormBuilder) {
@@ -41,7 +43,8 @@ export class AddRideComponent implements OnInit {
       {type: 'pattern', message: 'Origin contains an unaccepted character'}
     ],
     'departureDate': [
-      {type: 'required', message: 'Departure Date is required'},
+      {type: 'required', message: 'Date of departure is required'},
+      {type: 'matDatepickerMin', message: 'Date of departure cannot have already occurred'}
     ],
     'departureTime': [
 
