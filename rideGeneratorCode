@@ -9,8 +9,8 @@ Code for Generating random rides:
     destination: "{{random('Willies', 'Alexandria', 'Duluth', 'Maplegrove', 'Family Dollar', 'St.Paul')}}",
     origin:'{{street()}}',
     roundTrip: '{{bool()}}',
-    departureDate: '{{random(01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12)}}/{{random(01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28)}}/{{random(2019, 2020, 2021, 2022)}}',
-    departureTime: '{{random(00, 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23)}}:00',
+    departureDate: '{{random(2019, 2020, 2021, 2022)}}-{{random("01", "02", "03", "04", "05", "06", "07", "08", "09", 10, 11, 12)}}-{{random("01", "02", "03", "04", "05", "06", "07", "08", "09", 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28)}}T05:00:00.000Z',
+    departureTime: '{{random("00", "01", "02", "03", "04", "05", "06", "07", "08", "09", 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23)}}:00',
     driving: '{{bool()}}',
     notes: "{{random('Im driving and I like to eat at the same time', 'I love to crank the volume up to 11', 'I like to drive with no air conditioning', 'No room in the trunk of my car', 'No pet allowed', 'I will pay for lunch for anyone who is riding with me and I am a cool guy')}}",
     mpg: "{{integer(25, 65)}}"
