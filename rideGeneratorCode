@@ -2,17 +2,19 @@ Code for Generating random rides:
 
 
 [
-  '{{repeat(75)}}',
   {
+  'repeat(75)': {
     driver: "Nic McPhee",
     ownerId: '{{random("5ca243f0230a5d1a43216ece", "5ca243f09af80af8e9b6f2fd", "5ca243f0c189664337cf73fe", "5ca243f02047785213e10d03", "5ca243f04e7664997cbc9119", "5ca243f0fc9eaf611f054d36", "5ca243f0ced44b4a49aa7890", "5ca243f03c8b2e5c5ab3669b", "5ca243f0712ed630c21a8407", "5ca243f0fa9aaa02210b0b2d", "5ca243f03c4a3a51c47c0c86", "5ca243f07943d400bc358725", "5ca243f0d64d23d153f63084", "5ca243f05529cd8398ee8823", "5ca243f0db41ec9258d40336", "5ca243f04b1647f7bd33385b", "5ca243f0b4676a59e54a2ca6", "5ca243f04a0d0382c2914384", "5ca243f0662128b361c92055", "5ca243f0ef2bf9b410bb5672", "5ca243f0797d9e845106b25e", "5ca243f0daa0cc10e6f90b76", "5ca243f0c8afe3f3507ba44b")}}',
     destination: "{{random('Willies', 'Alexandria', 'Duluth', 'Maplegrove', 'Family Dollar', 'St.Paul')}}",
     origin:'{{street()}}',
     roundTrip: '{{bool()}}',
-    departureTime: '{{date(new Date(2017, 0, 1), new Date(2024, 0, 1))}}',
+    departureDate: '{{random(01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12)}}/{{random(01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28)}}/{{random(2019, 2020, 2021, 2022)}}',
+    departureTime: '{{random(00, 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23)}}:00',
     driving: '{{bool()}}',
     notes: "{{random('Im driving and I like to eat at the same time', 'I love to crank the volume up to 11', 'I like to drive with no air conditioning', 'No room in the trunk of my car', 'No pet allowed', 'I will pay for lunch for anyone who is riding with me and I am a cool guy')}}",
     mpg: "{{integer(25, 65)}}"
+  	}
   }
 ]
 

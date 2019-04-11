@@ -142,7 +142,30 @@ export class RideListComponent implements OnInit {
       });
     }
 
-    return this.filteredRides;
+    return this.filteredRides
+      //.sort(function(a,b) {return new String(a.departureTime).localeCompare(new String (b.departureTime))})
+      //.sort(function(a,b) {return +new Date(a.departureDate) - +new Date(b.departureDate)});
+      //.sort(function(a, b) => {return this.compareFunction(a, b)});
+      .sort(function (a, b) {
+        console.log("Date a: ", a.departureDate, "Date b: ", b.departureDate, "Comparison #: ", +new Date(a.departureDate) - +new Date(b.departureDate));
+        console.log(a.departureTime.localeCompare(b.departureTime));
+        if (+new Date(a.departureDate) - +new Date(b.departureDate) != 0) {
+          return +new Date(a.departureDate) - +new Date(b.departureDate);
+        } else return a.departureTime.localeCompare(b.departureTime);
+      })
+      // .sort(function (a, b) {
+      //   console.log(+new Date(a.departureDate) - +new Date(b.departureDate));
+      //   console.log(new String(a.departureTime).localeCompare(new String (b.departureTime)));
+      //   if (new String(a.departureTime).localeCompare(new String (b.departureTime)) != 0) {
+      //     return (new String(a.departureTime).localeCompare(new String (b.departureTime)));
+      //   } else return +new Date(a.departureDate) - +new Date(b.departureDate);
+      // })
+  }
+
+  compareFunction(a: Ride, b: Ride): number {
+    if (+new Date(a.departureDate) - +new Date(b.departureDate) != 0) {
+      return +new Date(a.departureDate) - +new Date(b.departureDate);
+    } else return (+new Date(a.departureDate) - +new Date(b.departureDate));
   }
 
 
