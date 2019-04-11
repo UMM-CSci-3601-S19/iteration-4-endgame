@@ -133,7 +133,7 @@ public class RideController {
     }
   }
 
-  Boolean updateRide(String id, String driver, String destination, String origin, Boolean roundTrip, Boolean driving,String departureTime, String mpg, String notes){
+  Boolean updateRide(String id, String driver, String destination, String origin, Boolean roundTrip, Boolean driving, String departureDate, String departureTime, String mpg, String notes){
     ObjectId objId = new ObjectId(id);
     Document filter = new Document("_id", objId);
     Document updateFields = new Document();
@@ -142,6 +142,7 @@ public class RideController {
     updateFields.append("origin", origin);
     updateFields.append("driving", driving);
     updateFields.append("roundTrip", roundTrip);
+    updateFields.append("departureDate", departureDate);
     updateFields.append("departureTime", departureTime);
     if (mpg != null) {
       if (mpg.isEmpty()) {
