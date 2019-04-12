@@ -65,8 +65,12 @@ describe('Ride List', () => {
       page.selectDownKey();
       page.selectEnterKey();
       let st2 = page.slowTime(500);
-      // page.field('departureTimeField').sendKeys('In the morning');
-      // let st3 = page.slowTime(500);
+
+      page.field('dateField').sendKeys('5/31/2019');
+      let st3 = page.slowTime(500);
+      page.field('timeField').sendKeys('1250PM');
+      let st8 = page.slowTime(500);
+
       page.field('originField').sendKeys('Morris');
       let st4 = page.slowTime(500);
       page.field('mpgField').sendKeys('40');
@@ -82,7 +86,7 @@ describe('Ride List', () => {
       browser.wait(protractor.ExpectedConditions.presenceOf(new_york_element), 10000);
 
       let exp2 = expect(page.getUniqueRide('New York')).toMatch('New York.*');
-      return st1 && st2 && st4 && st5 && st6 && st7 && exp1 && exp2;
+      return st1 && st2 && st3 && st8 && st4 && st5 && st6 && st7 && exp1 && exp2;
     });
 
     describe('Add Ride (Validation)', () => {
@@ -102,11 +106,16 @@ describe('Ride List', () => {
         page.field('originField').sendKeys('Pickup Location');
         let exp4 = expect(page.field('destinationField').isPresent()).toBeTruthy('There should be a destination field');
         page.field('destinationField').sendKeys('Dropoff Location');
-        // expect(page.field('departureTimeField').isPresent()).toBeTruthy('There should be a date field');
-        // page.field('departureTimeField').sendKeys('3/27/2019');
+
+        let exp6 = expect(page.field('dateField').isPresent()).toBeTruthy('There should be a date field');
+        page.field('dateField').sendKeys('5/31/2019');
+        let exp7 = expect(page.field('timeField').isPresent()).toBeTruthy('A time field should exist');
+        page.click('timeField');
+        page.field('timeField').sendKeys('1203PM');
+
         let exp5 = expect(page.field('mpgField').isPresent()).toBeTruthy('MPG must be a number');
         page.field('mpgField').sendKeys('20');
-        return exp1 && exp2 && exp3 && exp4 && exp5;
+        return exp1 && exp2 && exp3 && exp4 && exp6 && exp7 && exp5;
       });
 
       it('Should show the validation error message about the requirement of owner', () => {
@@ -140,13 +149,14 @@ describe('Ride List', () => {
         return exp1 && exp2 && exp3;
       });
 
-      // it('Should show the validation error message about the format of DepartureTime', () => {
-      //   expect(element(by.id('departureTimeField')).isPresent()).toBeTruthy('There should be a departureTime field');
-      //   page.field('departureTimeField').sendKeys('A');
-      //   expect(page.button('confirmAddRideButton').isEnabled()).toBe(false);
-      //   page.field('mpgField').click();
-      //   expect(page.getTextFromField('departureTime-error')).toBe('Departure Time must be at least 2 characters long');
-      // });
+      it('Should show the validation error message about the format of Date field', () => {
+        let exp1 = expect(element(by.id('dateField')).isPresent()).toBeTruthy('There should be a date field');
+        page.field('dateField').sendKeys('5/03/2017');
+        let exp2 = expect(page.button('confirmAddRideButton').isEnabled()).toBe(false);
+        page.field('mpgField').click();
+        let exp3 = expect(page.getTextFromField('departureTime-error')).toBe('Date of departure cannot have already occurred');
+        return exp1 && exp2 && exp3;
+      });
 
       it('Should show the validation error message about the format of mpg', () => {
         let exp1 = expect(element(by.id('mpgField')).isPresent()).toBeTruthy('MPG must be a number');
@@ -186,9 +196,12 @@ describe('Ride List', () => {
       page.field('destinationField').clear();
       page.field('destinationField').sendKeys('Japan');
       let st3 = page.slowTime(100);
-      // page.field('departureTimeField').clear();
-      // page.field('departureTimeField').sendKeys('By the night');
-      // page.slowTime(100);
+      page.field('dateField').clear();
+      page.field('dateField').sendKeys('5/31/2020');
+      let st10 = page.slowTime(100);
+      page.field('timeField').clear();
+      page.field('timeField').sendKeys('1250PM');
+      let st11 = page.slowTime(100);
       page.field('originField').clear();
       page.field('originField').sendKeys('America');
       let st4 = page.slowTime(100);
@@ -214,7 +227,7 @@ describe('Ride List', () => {
       browser.wait(protractor.ExpectedConditions.presenceOf(japan_element), 10000);
 
       let exp2 = expect(page.getUniqueRide('Japan')).toMatch('Japan.*');
-      return st1 && st2 && st3 && st4 && st5 && st6 && st7 && st8 && st9 && exp1 && exp2;
+      return st1 && st2 && st3 && st10 && st11 && st4 && st5 && st6 && st7 && st8 && st9 && exp1 && exp2;
     });
 
     describe('Edit Ride (Validation)', () => {
@@ -231,13 +244,13 @@ describe('Ride List', () => {
         page.field('destinationField').sendKeys('Dropoff Location');
         let exp2 = expect(page.field('originField').isPresent()).toBeTruthy('There should be an origin field');
         page.field('originField').sendKeys('Pickup Location');
-        // expect(page.field('departureTimeField').isPresent()).toBeTruthy('There should be a date field');
-        // page.field('departureTimeField').sendKeys('3/27/2019');
+        let exp5 = expect(page.field('dateField').isPresent()).toBeTruthy('There should be a date field');
+        page.field('dateField').sendKeys('3/27/2020');
         let exp3 = expect(page.field('mpgField').isPresent()).toBeTruthy('MPG must be a number');
         page.field('mpgField').sendKeys('20');
         let exp4 = expect(page.field('notesField').isPresent()).toBeTruthy('There should be a notes field');
         page.field('notesField').sendKeys('Test Notes');
-        return exp1 && exp2 && exp3 && exp4;
+        return exp1 && exp2 && exp5 && exp3 && exp4;
       });
 
       it('Should show the validation error message about origin format when editing a ride', () => {
@@ -259,14 +272,15 @@ describe('Ride List', () => {
         return exp1 && exp2 && exp3;
       });
 
-      // it('Should show the validation error message about the format of DepartureTime when editing a ride', () => {
-      //   expect(element(by.id('departureTimeField')).isPresent()).toBeTruthy('There should be a departureTime field');
-      //   page.field('departureTimeField').clear();
-      //   page.field('departureTimeField').sendKeys('a');
-      //   expect(page.button('confirmEditRideButton').isEnabled()).toBe(false);
-      //   page.field('mpgField').click();
-      //   expect(page.getTextFromField('departureTime-error')).toBe('Departure Time must be at least 2 characters long');
-      // });
+      it('Should show the validation error message about the format of dateFiled when editing a ride', () => {
+        let exp1 = expect(element(by.id('dateField')).isPresent()).toBeTruthy('There should be a departureDate field');
+        page.field('dateField').clear();
+        page.field('dateField').sendKeys('5');
+        let exp2 = expect(page.button('confirmEditRideButton').isEnabled()).toBe(false);
+        page.field('mpgField').click();
+        let exp3 = expect(page.getTextFromField('departureTime-error')).toBe('Date of departure cannot have already occurred');
+        return exp1 && exp2 && exp3;
+      });
 
       it('Should show the validation error message about the format of mpg when editing a ride', () => {
         let exp1 = expect(element(by.id('mpgField')).isPresent()).toBeTruthy('MPG must be a number');
