@@ -25,6 +25,7 @@ describe('Ride list', () => {
     rideListServiceStub = {
       getRides: () => Observable.of([
         {
+          _id: {$oid: 'wendyId'},
           driver: 'Wendy Huebert',
           ownerId: "5ca243f0ef2bf9b410bb5672",
           ownerData: {
@@ -45,6 +46,7 @@ describe('Ride list', () => {
           mpg: 50
         },
         {
+          _id: {$oid: 'bobId'},
           driver: 'Bob Mann',
           ownerId: "5ca243f0662128b361c92055",
           ownerData: {
@@ -65,6 +67,7 @@ describe('Ride list', () => {
           mpg: 60
         },
         {
+          _id: {$oid: 'jonId'},
           driver: 'Jon Ruevers',
           ownerId: "5ca243f0daa0cc10e6f90b76",
           ownerData: {
@@ -85,6 +88,7 @@ describe('Ride list', () => {
           mpg: 12
         },
         {
+          _id: {$oid: 'billId'},
           driver: 'Bill Williams',
           ownerId: "5ca243f0797d9e845106b25e",
           ownerData: {
@@ -390,6 +394,7 @@ describe('Editing a ride',()=> {
   let rideList: RideListComponent;
   let fixture: ComponentFixture<RideListComponent>;
   const currentRide: Ride = {
+    _id: {$oid: 'Danial_id'},
     driver: 'Danial Donald',
     destination: 'Becker',
     origin: 'Morris',
@@ -465,7 +470,7 @@ describe('Editing a ride',()=> {
 
   it('calls RideListService.editRide', () => {
     let exp1 = expect(calledRide).toBeNull();
-    rideList.openEditDialog(currentRide._id, currentRide.driver, currentRide.destination, currentRide.origin, currentRide.roundTrip, currentRide.driving, currentRide.departureDate, currentRide.departureTime, currentRide.mpg, currentRide.notes);
+    rideList.openEditDialog(currentRide._id.$oid, currentRide.driver, currentRide.destination, currentRide.origin, currentRide.roundTrip, currentRide.driving, currentRide.departureDate, currentRide.departureTime, currentRide.mpg, currentRide.notes);
     let exp2 = expect(calledRide).toEqual(currentRide);
     return exp1 && exp2;
   });

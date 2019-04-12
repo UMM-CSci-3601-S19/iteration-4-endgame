@@ -229,7 +229,7 @@ describe( 'Ride list service: ', () => {
     const deletedTeacherDestination = 'deletedTeacherDestination';
     const deletedRide: Ride = {
       _id: {
-        oid: 'gobbldygook'
+        $oid: 'gobbldygook'
       },
       driver: 'Teacher',
       destination: 'Office',
