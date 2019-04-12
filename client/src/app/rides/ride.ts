@@ -1,7 +1,9 @@
 import {User} from "../users/user";
 
 export interface Ride {
-  _id?: object;
+  _id?: {
+    $oid: string;
+  };
   driver: string;
   ownerId?: string;
   ownerData?: User;

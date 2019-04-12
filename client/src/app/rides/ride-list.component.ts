@@ -64,9 +64,11 @@ export class RideListComponent implements OnInit {
     });
   }
 
-  openEditDialog(currentId: object,currentDriver: string, currentDestination: string, currentOrigin: string, currentRoundTrip: boolean, currentDriving: boolean, currentDepartureDate: string, currentDepartureTime: string, currentMPG: number, currentNotes: string): void {
+  openEditDialog(currentId: string, currentDriver: string, currentDestination: string, currentOrigin: string, currentRoundTrip: boolean, currentDriving: boolean, currentDepartureDate: string, currentDepartureTime: string, currentMPG: number, currentNotes: string): void {
     const currentRide: Ride = {
-      _id: currentId,
+      _id: {
+        $oid: currentId
+      },
       driver: currentDriver,
       destination: currentDestination,
       origin: currentOrigin,

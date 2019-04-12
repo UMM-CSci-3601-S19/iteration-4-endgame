@@ -36,9 +36,9 @@ export class RidePage {
     browser.actions().sendKeys(Key.BACK_SPACE).perform();
   }
 
-  getUniqueRide(destination: string) {
-    const ride = element(by.id(destination)).getText();
-    this.highlightElement(by.id(destination));
+  getUniqueRide(id: string) {
+    const ride = element(by.id(id)).getText();
+    this.highlightElement(by.id(id));
     return ride;
   }
 
