@@ -32,10 +32,10 @@ describe('Ride List', () => {
 
   it('should type something in Filter by Destination box and check that it returned correct element', () => {
     page.typeADestination('dul');
-    let exp1 = expect(page.getUniqueRide('Duluth')).toMatch('Grand Street .*');
+    let exp1 = expect(page.getUniqueRide('5cb129c060bd26f72fbc2958')).toMatch('Grand Street.*');
     page.backspace();page.backspace();page.backspace();
     page.typeADestination('Alexandria');
-    let exp2 = expect(page.getUniqueRide('Alexandria')).toMatch('Folsom Place.*');
+    let exp2 = expect(page.getUniqueRide('5cb129c060bd26f72fbc294a')).toMatch('Folsom Place.*');
     return exp1 && exp2;
   });
 
@@ -66,7 +66,7 @@ describe('Ride List', () => {
       page.selectEnterKey();
       let st2 = page.slowTime(500);
 
-      page.field('dateField').sendKeys('5/31/2019');
+      page.field('dateField').sendKeys('5/31/2025');
       let st3 = page.slowTime(500);
       page.field('timeField').sendKeys('1250PM');
       let st8 = page.slowTime(500);
@@ -85,7 +85,7 @@ describe('Ride List', () => {
       const new_york_element = element(by.id('New York'));
       browser.wait(protractor.ExpectedConditions.presenceOf(new_york_element), 10000);
 
-      let exp2 = expect(page.getUniqueRide('New York')).toMatch('New York.*');
+      let exp2 = expect(page.getRideByDestination('New York')).toMatch('New York.*');
       return st1 && st2 && st3 && st8 && st4 && st5 && st6 && st7 && exp1 && exp2;
     });
 
@@ -154,7 +154,7 @@ describe('Ride List', () => {
         page.field('dateField').sendKeys('5/03/2017');
         let exp2 = expect(page.button('confirmAddRideButton').isEnabled()).toBe(false);
         page.field('mpgField').click();
-        let exp3 = expect(page.getTextFromField('departureTime-error')).toBe('Date of departure cannot have already occurred');
+        let exp3 = expect(page.getTextFromField('departureDate-error')).toBe('Date of departure cannot have already occurred');
         return exp1 && exp2 && exp3;
       });
 
@@ -278,7 +278,7 @@ describe('Ride List', () => {
         page.field('dateField').sendKeys('5');
         let exp2 = expect(page.button('confirmEditRideButton').isEnabled()).toBe(false);
         page.field('mpgField').click();
-        let exp3 = expect(page.getTextFromField('departureTime-error')).toBe('Date of departure cannot have already occurred');
+        let exp3 = expect(page.getTextFromField('departureDate-error')).toBe('Date of departure cannot have already occurred');
         return exp1 && exp2 && exp3;
       });
 

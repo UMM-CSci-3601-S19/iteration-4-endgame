@@ -42,8 +42,10 @@ export class RidePage {
     return ride;
   }
 
-  getRides() {
-    return element.all(by.className('rides'));
+  getRideByDestination(destination: string) {
+    const ride = element(by.id(destination)).getText();
+    this.highlightElement(by.id(destination));
+    return ride;
   }
 
   elementExistsWithId(idOfElement: string): promise.Promise<boolean> {

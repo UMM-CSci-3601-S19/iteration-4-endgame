@@ -684,6 +684,9 @@
     "mpg": 63
   },
   {
+    "_id": {
+      "$oid": "5cb129c060bd26f72fbc294a"
+    },
     "driver": "Nic McPhee",
     "ownerId": "5ca243f0c189664337cf73fe",
     "destination": "Alexandria",
@@ -852,6 +855,9 @@
     "mpg": 56
   },
   {
+    "_id": {
+      "$oid": "5cb129c060bd26f72fbc2958"
+    },
     "driver": "Nic McPhee",
     "ownerId": "5ca243f09af80af8e9b6f2fd",
     "destination": "Duluth",

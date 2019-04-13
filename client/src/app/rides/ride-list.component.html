@@ -40,12 +40,12 @@
           <mat-expansion-panel #elem class="rides" [id]="ride._id.$oid"
                                *ngFor="let ride of this.filterRides(rideDestination)" [ngSwitch]="ride.driving">
             <mat-expansion-panel-header *ngSwitchDefault style="color: #008000">
-              <mat-panel-title>
+              <mat-panel-title [id]="ride.destination">
                 <mat-icon style="color: #008000"> drive_eta </mat-icon> &nbsp; {{ride.origin}} &nbsp; <mat-icon style="color: #008000">play_arrow</mat-icon> &nbsp; {{ride.destination}}
               </mat-panel-title>
             </mat-expansion-panel-header>
             <mat-expansion-panel-header *ngSwitchCase=false style="color: #6EB5FF">
-              <mat-panel-title>
+              <mat-panel-title [id]="ride.destination">
                 <mat-icon style="color: #6EB5FF"> airline_seat_recline_extra </mat-icon> &nbsp; {{ride.origin}} &nbsp; <mat-icon style="color: #6EB5FF">play_arrow</mat-icon> &nbsp; {{ride.destination}}
               </mat-panel-title>
             </mat-expansion-panel-header>
