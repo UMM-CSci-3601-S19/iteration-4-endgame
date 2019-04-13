@@ -1,9 +1,17 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material';
+import {Component, Inject, NgModule, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDatepickerModule, MatNativeDateModule} from '@angular/material';
 import {Ride} from './ride';
 import {FormControl, Validators, FormGroup, FormBuilder} from "@angular/forms";
 import {User} from "../users/user";
+import {DatePipe} from "@angular/common";
 
+@NgModule({
+  imports:
+    [
+      MatDatepickerModule,
+      MatNativeDateModule
+    ]
+})
 
 @Component({
   selector: 'add-ride.component',
@@ -12,6 +20,7 @@ import {User} from "../users/user";
 
 export class AddRideComponent implements OnInit {
   addRideForm: FormGroup;
+  currentDate = new Date();
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { ride: Ride, users: User[] }, private fb: FormBuilder) {
@@ -33,10 +42,12 @@ export class AddRideComponent implements OnInit {
       {type: 'maxlength', message: 'Origin cannot be more than 100 characters long'},
       {type: 'pattern', message: 'Origin contains an unaccepted character'}
     ],
+    'departureDate': [
+      {type: 'required', message: 'Date of departure is required'},
+      {type: 'matDatepickerMin', message: 'Date of departure cannot have already occurred'}
+    ],
     'departureTime': [
-      {type: 'required', message: 'Departure Time is required'},
-      {type: 'minlength', message: 'Departure Time must be at least 2 characters long'},
-      {type: 'maxlength', message: 'Departure Time cannot be more than 100 characters long'},
+
     ],
     'mpg': [
       {type: 'min', message: 'MPG is too low, not reasonable'},
@@ -68,10 +79,11 @@ export class AddRideComponent implements OnInit {
         Validators.required,
         Validators.pattern('^[ a-zA-Z0-9.,\']+$')
       ])),
-      departureTime: new FormControl('departureTime', Validators.compose([
-        Validators.minLength(2),
-        Validators.maxLength(100),
+      departureDate: new FormControl('departureDate', Validators.compose([
         Validators.required
+      ])),
+      departureTime: new FormControl('departureTime', Validators.compose([
+
       ])),
       mpg: new FormControl('mpg', Validators.compose([
         Validators.min(1),

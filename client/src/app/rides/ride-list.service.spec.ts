@@ -13,7 +13,8 @@ describe( 'Ride list service: ', () => {
       destination: 'Hogwarts',
       origin: '4 Privet Drive',
       roundTrip: true,
-      departureTime: 'midnight',
+      departureDate: '2019-03-13T00:00:00.000Z',
+      departureTime: '05:00',
       driving: false,
       notes: 'I will be arriving in a flying motorcycle'
     },
@@ -22,7 +23,8 @@ describe( 'Ride list service: ', () => {
       destination: 'Narnia',
       origin: 'Wardrobe',
       roundTrip: true,
-      departureTime: 'During Hide and Seek',
+      departureDate: '2019-03-19T00:00:00.000Z',
+      departureTime: '09:00',
       driving: true,
       notes: 'Dress for cold'
     },
@@ -31,7 +33,8 @@ describe( 'Ride list service: ', () => {
       destination: 'Morris',
       origin: 'The Outside',
       roundTrip: false,
-      departureTime: 'August',
+      departureDate: '2019-04-01T00:00:00.000Z',
+      departureTime: '12:00',
       driving: true,
       notes: 'There is no escaping Morris'
     }
@@ -77,10 +80,6 @@ describe( 'Ride list service: ', () => {
     ride.driving == false
   );
 
-  const emptyRides: Ride[] = testRides.filter( ride=>
-    ride.driving.toString() == ''
-  );
-
   let rideListService: RideListService;
   //let searchUrl: string;
 
@@ -123,8 +122,9 @@ describe( 'Ride list service: ', () => {
     );
 
     const req = httpTestingController.expectOne(rideListService.baseUrl);
-    expect(req.request.method).toEqual('GET');
+    let exp1 = expect(req.request.method).toEqual('GET');
     req.flush(testRides);
+    return exp1;
   });
 
   it('getRides(rideDriving) adds appropriate param string to called URL', () => {
@@ -133,8 +133,9 @@ describe( 'Ride list service: ', () => {
     );
 
     const req = httpTestingController.expectOne(rideListService.baseUrl + '?driving=true&');
-    expect(req.request.method).toEqual('GET');
+    let exp1 = expect(req.request.method).toEqual('GET');
     req.flush(trueRides);
+    return exp1;
   });
 
   it('getRides(rideDriving) removes param', () => {
@@ -143,20 +144,19 @@ describe( 'Ride list service: ', () => {
     );
 
     const req = httpTestingController.expectOne(rideListService.baseUrl + '?driving=true&');
-    expect(req.request.method).toEqual('GET');
+    let exp1 = expect(req.request.method).toEqual('GET');
     req.flush(trueRides);
 
+
+    // TODO: Potentially look into and see if similar to the MatDialogConfig<any> error
     rideListService.getRides('false').subscribe(
       rides => expect(rides).toEqual(falseRides)
     );
 
     const req2 = httpTestingController.expectOne(rideListService.baseUrl + '?driving=false&');
-    expect(req2.request.method).toEqual('GET');
+    let exp2 = expect(req2.request.method).toEqual('GET');
     req2.flush(falseRides);
-
-    // rideListService.getRides('').subscribe(
-    //   rides => expect(rides).toEqual(emptyRides)
-    // );
+    return exp1 && exp2;
   });
 
 
@@ -167,20 +167,22 @@ describe( 'Ride list service: ', () => {
       destination: 'St. Cloud',
       origin: 'Becker',
       roundTrip: false,
+      departureDate: 'March 18th, 2019',
       departureTime: 'August',
       notes: 'There is no escaping Morris'
     };
 
     rideListService.addNewRide(newRide).subscribe(
       destination => {
-        expect(destination).toBe(teacherDestination);
+        return expect(destination).toBe(teacherDestination);
       }
     );
 
     const expectedUrl: string = rideListService.baseUrl + '/new';
     const req = httpTestingController.expectOne(expectedUrl);
-    expect(req.request.method).toEqual('POST');
+    let exp1 = expect(req.request.method).toEqual('POST');
     req.flush(teacherDestination);
+    return exp1;
   });
 
   it('getRideByDestination() calls api/rides/destination', () => {
@@ -192,8 +194,9 @@ describe( 'Ride list service: ', () => {
 
     const expectedUrl: string = rideListService.baseUrl + '/' + targetDestination;
     const req = httpTestingController.expectOne(expectedUrl);
-    expect(req.request.method).toEqual('GET');
+    let exp1 = expect(req.request.method).toEqual('GET');
     req.flush(targetRide);
+    return exp1;
   });
 
   it('editing a ride calls api/rides/update', () => {
@@ -203,20 +206,22 @@ describe( 'Ride list service: ', () => {
       destination: 'Morris',
       origin: 'Home',
       roundTrip: false,
-      departureTime: 'Year Round',
+      departureDate: '2019-03-18T00:00:00.000Z',
+      departureTime: '05:00',
       notes: 'There is no escaping Morris'
     };
 
     rideListService.editRide(editedRide).subscribe(
       destination => {
-        expect(destination).toBe(editedTeacherDestination);
+        return expect(destination).toBe(editedTeacherDestination);
       }
     );
 
     const expectedUrl: string = rideListService.baseUrl + '/update';
     const req = httpTestingController.expectOne(expectedUrl);
-    expect(req.request.method).toEqual('POST');
+    let exp1 = expect(req.request.method).toEqual('POST');
     req.flush(editedTeacherDestination);
+    return exp1;
   });
 
 
@@ -224,26 +229,28 @@ describe( 'Ride list service: ', () => {
     const deletedTeacherDestination = 'deletedTeacherDestination';
     const deletedRide: Ride = {
       _id: {
-        oid: 'gobbldygook'
+        $oid: 'gobbldygook'
       },
       driver: 'Teacher',
       destination: 'Office',
       origin: 'Lab',
       roundTrip: false,
-      departureTime: 'never',
+      departureDate: '2019-03-18T00:00:00.000Z',
+      departureTime: '05:00',
       notes: 'There is no escaping the lab'
     };
 
     rideListService.deleteRide(deletedRide._id.toString()).subscribe(
       destination => {
-        expect(destination).toBe(deletedTeacherDestination);
+        return expect(destination).toBe(deletedTeacherDestination);
       }
     );
 
     const expectedUrl: string = rideListService.baseUrl + '/remove';
     const req = httpTestingController.expectOne(expectedUrl);
-    expect(req.request.method).toEqual('POST');
+    let exp1 = expect(req.request.method).toEqual('POST');
     req.flush(deletedTeacherDestination);
+    return exp1;
   });
 
 });

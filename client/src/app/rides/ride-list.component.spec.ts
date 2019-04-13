@@ -9,8 +9,6 @@ import {MatDialog} from '@angular/material';
 
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
-import {EditRideComponent} from "./edit-ride.component";
-import {DeleteRideComponent} from "./delete-ride.component";
 import {User} from "../users/user";
 
 describe('Ride list', () => {
@@ -27,12 +25,8 @@ describe('Ride list', () => {
     rideListServiceStub = {
       getRides: () => Observable.of([
         {
+          _id: {$oid: 'wendyId'},
           driver: 'Wendy Huebert',
-          destination: 'Minneapolis',
-          origin: 'Morris',
-          roundTrip: false,
-          departureTime: '5:00pm',
-          driving: true,
           ownerId: "5ca243f0ef2bf9b410bb5672",
           ownerData: {
             "_id": {
@@ -42,14 +36,18 @@ describe('Ride list', () => {
             "email": "Venoflex19@gmail.com",
             "phoneNumber": "(928) 480-3646"
           },
-          notes: 'I like do drive with loud music.'
+          destination: 'Minneapolis',
+          origin: 'Morris',
+          roundTrip: false,
+          departureDate: '2019-06-11T05:00:00.000Z',
+          departureTime: '20:00',
+          driving: true,
+          notes: 'I like do drive with loud music.',
+          mpg: 50
         },
         {
+          _id: {$oid: 'bobId'},
           driver: 'Bob Mann',
-          destination: 'St. Cloud',
-          origin: 'Morris',
-          roundTrip: true,
-          driving: true,
           ownerId: "5ca243f0662128b361c92055",
           ownerData: {
             "_id": {
@@ -59,15 +57,18 @@ describe('Ride list', () => {
             "email": "Isologia30@hotmail.com",
             "phoneNumber": "(963) 498-3516"
           },
-          departureTime: '6:00pm',
-          notes: 'I like to drive with pets.'
+          destination: 'St. Cloud',
+          origin: 'Morris',
+          roundTrip: true,
+          departureDate: '2020-06-05T05:00:00.000Z',
+          departureTime: '14:00',
+          driving: true,
+          notes: 'I am down to play some music.',
+          mpg: 60
         },
         {
+          _id: {$oid: 'jonId'},
           driver: 'Jon Ruevers',
-          destination: 'Big Lake',
-          origin: 'Minneapolis',
-          roundTrip: true,
-          driving: false,
           ownerId: "5ca243f0daa0cc10e6f90b76",
           ownerData: {
             "_id": {
@@ -77,15 +78,18 @@ describe('Ride list', () => {
             "email": "Musaphics29@yahoo.com",
             "phoneNumber": "(904) 578-2784"
           },
-          departureTime: '7:00pm',
-          notes: 'I am down to play some music.'
+          destination: 'Big Lake',
+          origin: 'Minneapolis',
+          roundTrip: true,
+          departureDate: '2021-01-15T05:00:00.000Z',
+          departureTime: '03:00',
+          driving: false,
+          notes: 'I am down to play some music.',
+          mpg: 12
         },
         {
+          _id: {$oid: 'billId'},
           driver: 'Bill Williams',
-          destination: 'California',
-          origin: 'Morris',
-          roundTrip: false,
-          driving: false,
           ownerId: "5ca243f0797d9e845106b25e",
           ownerData: {
             "_id": {
@@ -95,24 +99,14 @@ describe('Ride list', () => {
             "email": "Extragen25@gmail.com",
             "phoneNumber": "(830) 410-3952"
           },
-          departureTime: '3:00pm',
-          notes: 'I am fine with driving large groups of people.'
-        },
-        {
-          driver: 'Sydney Stevens',
-          destination: 'Becker',
+          destination: 'California',
           origin: 'Morris',
-          roundTrip: true,
-          departureTime: '5:00pm',
-          notes: 'I hate dogs and I am scared to ride with them.'
-        },
-        {
-          driver: 'Sydney Stevens',
-          destination: 'Becker',
-          origin: 'Morris',
-          roundTrip: true,
-          departureTime: '7:00pm',
-          notes: 'I hate dogs and I am scared to ride with them.'
+          roundTrip: false,
+          departureDate: '2019-06-11T05:00:00.000Z',
+          departureTime: '14:00',
+          driving: false,
+          notes: 'I am fine with driving large groups of people.',
+          mpg: 43
         }
       ]),
       getUsers: () => Observable.of([
@@ -168,95 +162,104 @@ describe('Ride list', () => {
 
   it('loadService gets the ride list', () => {
     rideList.loadService();
-    expect(rideList.rides.length == 6)
+    return expect(rideList.rides.length == 4).toBe(true);
   });
 
   it('contains all the rides', () => {
-    expect(rideList.rides.length).toBe(6);
+    return expect(rideList.rides.length).toBe(4);
   });
 
   it('contains a ride driver \'Wendy Huebert\'', () => {
-    expect(rideList.rides.some((ride: Ride) => ride.driver === 'Wendy Huebert')).toBe(true);
-  });
-
-  it('contains a ride driver \'Sydney Stevens\'', () => {
-    expect(rideList.rides.filter((ride:Ride) => ride.driver === 'Sydney Stevens').length).toBe(2);
+    return expect(rideList.rides.some((ride: Ride) => ride.driver === 'Wendy Huebert')).toBe(true);
   });
 
   it('contains a ride driver \'Bill Williams\'', () => {
-    expect(rideList.rides.some((ride: Ride) => ride.driver === 'Bill Williams')).toBe(true);
+    return expect(rideList.rides.some((ride: Ride) => ride.driver === 'Bill Williams')).toBe(true);
   });
 
   it('Does not contain a ride driver \'Bilbo Baggins\'', () => {
-    expect(rideList.rides.some((ride: Ride) => ride.driver === 'Bilbo Baggins')).toBe(false);
+    return expect(rideList.rides.some((ride: Ride) => ride.driver === 'Bilbo Baggins')).toBe(false);
   });
 
   it('contains a ride destination \'Big Lake\'', () => {
-    expect(rideList.rides.some((ride: Ride) => ride.destination === 'Big Lake')).toBe(true);
+    return expect(rideList.rides.some((ride: Ride) => ride.destination === 'Big Lake')).toBe(true);
   });
 
-  it('contains a ride destination \'Becker\'', () => {
-    expect(rideList.rides.some((ride: Ride) => ride.destination === 'Becker')).toBe(true);
+  it('contains a ride destination \'Minneapolis\'', () => {
+    return expect(rideList.rides.some((ride: Ride) => ride.destination === 'Minneapolis')).toBe(true);
   });
 
   it('Does not contain a ride destination \'Canada\'', () => {
-    expect(rideList.rides.some((ride: Ride) => ride.destination === 'canada')).toBe(false);
+    return expect(rideList.rides.some((ride: Ride) => ride.destination === 'canada')).toBe(false);
   });
 
   it('contains a ride origin \'Morris\'', () => {
-    expect(rideList.rides.filter((ride: Ride) => ride.origin === 'Morris').length).toBe(5);
+    return expect(rideList.rides.filter((ride: Ride) => ride.origin === 'Morris').length).toBe(3);
   });
 
   it('contains a ride origin \'Minneapolis\'', () => {
-    expect(rideList.rides.some((ride: Ride) => ride.origin === 'Minneapolis')).toBe(true);
+    return expect(rideList.rides.some((ride: Ride) => ride.origin === 'Minneapolis')).toBe(true);
   });
 
   it('Does not contain a ride origin \'Canada\'', () => {
-    expect(rideList.rides.some((ride: Ride) => ride.origin === 'canada')).toBe(false);
+    return expect(rideList.rides.some((ride: Ride) => ride.origin === 'canada')).toBe(false);
   });
 
   it('contains a ride roundTrip \'True\'', () => {
-    expect(rideList.rides.some((ride: Ride) => ride.roundTrip === true));
+    return expect(rideList.rides.some((ride: Ride) => ride.roundTrip === true)).toBe(true);
   });
 
   it('contains a ride roundTrip \'False\'', () => {
-    expect(rideList.rides.some((ride: Ride) => ride.roundTrip === false)).toBe(true);
+    return expect(rideList.rides.some((ride: Ride) => ride.roundTrip === false)).toBe(true);
   });
 
   it('Does not contain the correct number of ride roundTrips \'True\'', () => {
-    expect(rideList.rides.some((ride: Ride) => ride.roundTrip === true));
+    return expect(rideList.rides.some((ride: Ride) => ride.roundTrip === true)).toBe(true);
   });
 
-  it('contains a ride departureTime \'5:00pm\' and checks multiple cases of this departure time', () => {
-    expect(rideList.rides.filter((ride: Ride) => ride.departureTime === '5:00pm').length).toBe(2);
+  it('contains a ride departureDate \'2019-06-11T05:00:00.000Z\' and checks multiple cases of this departure time', () => {
+    return expect(rideList.rides.filter((ride: Ride) => ride.departureDate === '2019-06-11T05:00:00.000Z').length).toBe(2);
   });
 
-  it('contains a ride departureTime \'3:00pm\' and checks for once instance of this', () => {
-    expect(rideList.rides.filter((ride: Ride) => ride.departureTime === '3:00pm').length).toBe(1);
+  it('contains a ride departureDate \'2021-01-15T05:00:00.000Z\' and checks for once instance of this', () => {
+    return expect(rideList.rides.filter((ride: Ride) => ride.departureDate === '2021-01-15T05:00:00.000Z').length).toBe(1);
+  });
+
+  it('Does not contain a ride departureDate \'12:00pm\'', () => {
+    return expect(rideList.rides.some((ride: Ride) => ride.departureDate === '12:00pm')).toBe(false);
+  });
+
+  it('contains a ride departureTime \'14:00\' and checks multiple cases of this departure time', () => {
+    return expect(rideList.rides.filter((ride: Ride) => ride.departureTime === '14:00').length).toBe(2);
+  });
+
+  it('contains a ride departureTime \'03:00\' and checks for once instance of this', () => {
+    return expect(rideList.rides.filter((ride: Ride) => ride.departureTime === '03:00').length).toBe(1);
   });
 
   it('Does not contain a ride departureTime \'12:00pm\'', () => {
-    expect(rideList.rides.some((ride: Ride) => ride.departureTime === '12:00pm')).toBe(false);
+    return expect(rideList.rides.some((ride: Ride) => ride.departureTime === '12:00pm')).toBe(false);
   });
 
-  it('contains a ride notes \'I hate dogs and I am scared to ride with them.\' and checks multiple cases of this note', () => {
-    expect(rideList.rides.filter((ride: Ride) => ride.notes === 'I hate dogs and I am scared to ride with them.').length).toBe(2);
+  it('contains a ride notes \'I am down to play some music.\' and checks multiple cases of this note', () => {
+    return expect(rideList.rides.filter((ride: Ride) => ride.notes === 'I am down to play some music.').length).toBe(2);
   });
 
   it('contains a ride notes \'I like to drive with pets.\' and checks for once instance of this', () => {
-    expect(rideList.rides.some((ride: Ride) => ride.notes === 'I like to drive with pets.')).toBe(true);
+    return expect(rideList.rides.some((ride: Ride) => ride.notes === 'I like do drive with loud music.')).toBe(true);
   });
 
   it('Does not contain a ride notes \'I like to ride alone\'', () => {
-    expect(rideList.rides.some((ride: Ride) => ride.notes === 'I like to ride alone')).toBe(false);
+    return expect(rideList.rides.some((ride: Ride) => ride.notes === 'I like to ride alone')).toBe(false);
   });
 
 
   it('ride list filters by destination', () => {
-    expect(rideList.filteredRides.length).toBe(6);
-    rideList.rideDestination = 'Becker';
+    let exp1 = expect(rideList.filteredRides.length).toBe(4);
+    rideList.rideDestination = 'Minneapolis';
     rideList.refreshRides().subscribe(() => {
-      expect(rideList.filteredRides.length).toBe(2);
+      let exp2 = expect(rideList.filteredRides.length).toBe(1);
+      return exp1 && exp2;
     });
   });
 
@@ -267,7 +270,7 @@ describe('Ride list', () => {
     rideList.rides.some((ride: Ride) => ride.ownerData && ride.ownerData.email === "Isologia30@hotmail.com");
     rideList.rides.forEach((ride) => {
       if(ride.ownerId){
-        expect(ride.ownerData._id['$oid'] === (ride.ownerId.toString()));
+        return expect(ride.ownerData._id['$oid'] === (ride.ownerId.toString())).toBe(true);
       }
     });
   });
@@ -308,7 +311,7 @@ describe('Misbehaving Ride List',() => {
   }));
 
   it('generates an error if we don\'t set up a RideListService',() => {
-    expect(rideList.rides).toBeUndefined();
+    return expect(rideList.rides).toBeUndefined();
   });
 });
 
@@ -320,7 +323,8 @@ describe('Adding a ride',()=> {
     destination: 'Becker',
     origin: 'Morris',
     roundTrip: true,
-    departureTime: '5:00pm',
+    departureTime: '05:00',
+    departureDate: '2019-12-25T00:00:00.000Z',
     notes: 'I do not like the smell of smoke.'
   };
   const newId = 'Danial_id';
@@ -379,9 +383,10 @@ describe('Adding a ride',()=> {
   }));
 
   it('calls RideListService.addNewRide', () => {
-    expect(calledRide).toBeNull();
-    rideList.openDialog();
-    expect(calledRide).toEqual(newRide);
+    let exp1 = expect(calledRide).toBeNull();
+    rideList.openAddDialog();
+    let exp2 = expect(calledRide).toEqual(newRide);
+    return exp1 && exp2;
   });
 });
 
@@ -389,12 +394,14 @@ describe('Editing a ride',()=> {
   let rideList: RideListComponent;
   let fixture: ComponentFixture<RideListComponent>;
   const currentRide: Ride = {
+    _id: {$oid: 'Danial_id'},
     driver: 'Danial Donald',
     destination: 'Becker',
     origin: 'Morris',
     roundTrip: true,
     driving: true,
-    departureTime: '5:00pm',
+    departureTime: '05:00',
+    departureDate: '2019-12-25T00:00:00.000Z',
     notes: 'I do not like the smell of smoke.'
   };
   const newId = 'Danial_id';
@@ -462,9 +469,10 @@ describe('Editing a ride',()=> {
   }));
 
   it('calls RideListService.editRide', () => {
-    expect(calledRide).toBeNull();
-    rideList.openEditDialog(currentRide._id, currentRide.driver, currentRide.destination, currentRide.origin, currentRide.roundTrip, currentRide.driving,currentRide.departureTime, currentRide.mpg, currentRide.notes);
-    expect(calledRide).toEqual(currentRide);
+    let exp1 = expect(calledRide).toBeNull();
+    rideList.openEditDialog(currentRide._id.$oid, currentRide.driver, currentRide.destination, currentRide.origin, currentRide.roundTrip, currentRide.driving, currentRide.departureDate, currentRide.departureTime, currentRide.mpg, currentRide.notes);
+    let exp2 = expect(calledRide).toEqual(currentRide);
+    return exp1 && exp2;
   });
 });
 
@@ -476,7 +484,8 @@ describe('Deleting a ride',()=> {
     destination: 'Becker',
     origin: 'Morris',
     roundTrip: true,
-    departureTime: '5:00pm',
+    departureTime: '05:00',
+    departureDate: '2019-12-25T00:00:00.000Z',
     notes: 'I do not like the smell of smoke.'
   };
   const newId = 'Danial_id';
@@ -544,8 +553,9 @@ describe('Deleting a ride',()=> {
   }));
 
   it('calls RideListService.deleteRide', () => {
-    expect(calledRide).toBeNull();
+    let exp1 = expect(calledRide).toBeNull();
     rideList.openDeleteDialog(currentRide);
-    expect(calledRide).toEqual(currentRide);
+    let exp2 = expect(calledRide).toEqual(currentRide);
+    return exp1 && exp2;
   });
 });

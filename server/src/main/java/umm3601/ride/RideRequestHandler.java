@@ -80,6 +80,7 @@ public class RideRequestHandler {
     String origin = newRide.getString("origin");
     Boolean roundTrip = newRide.getBoolean("roundTrip");
     Boolean driving = newRide.getBoolean("driving");
+    String departureDate = newRide.getString("departureDate");
     String departureTime = newRide.getString("departureTime");
     String mpg = newRide.getString("mpg");
     String notes = newRide.getString("notes");
@@ -91,8 +92,8 @@ public class RideRequestHandler {
     }
 
 
-    System.err.println("Adding new ride [driver=" + driver + " ownerId=" + ownerId + " destination=" + destination + " origin=" + origin + " roundTrip=" + roundTrip + " driving=" + driving + " departureTime=" + departureTime + " mpg=" + mpg + " notes=" + notes + ']');
-    return rideController.addNewRide(driver, destination, origin, roundTrip, driving,departureTime, mpg, notes, ownerId);
+    System.err.println("Adding new ride [driver=" + driver + " ownerId=" + ownerId + " destination=" + destination + " origin=" + origin + " roundTrip=" + roundTrip + " driving=" + driving + " departureDate=" + departureDate + " departureTime=" + departureTime + " mpg=" + mpg + " notes=" + notes + ']');
+    return rideController.addNewRide(driver, destination, origin, roundTrip, driving, departureDate, departureTime, mpg, notes, ownerId);
   }
 
   public Boolean updateRide(Request req, Response res) {
@@ -106,13 +107,14 @@ public class RideRequestHandler {
     String origin = editRide.getString("origin");
     Boolean roundTrip = editRide.getBoolean("roundTrip");
     Boolean driving = editRide.getBoolean("driving");
+    String departureDate = editRide.getString("departureDate");
     String departureTime = editRide.getString("departureTime");
     String mpg = editRide.getString("mpg");
     String notes = editRide.getString("notes");
 
 
-    System.err.println("Editing ride [id=" + id + " driver=" + driver + " destination=" + destination + " origin=" + origin + " roundTrip=" + roundTrip + " driving=" + driving + " departureTime=" + departureTime + " notes=" + notes + ']');
-    return rideController.updateRide(id, driver, destination, origin, roundTrip, driving,departureTime, mpg, notes);
+    System.err.println("Editing ride [id=" + id + " driver=" + driver + " destination=" + destination + " origin=" + origin + " roundTrip=" + roundTrip + " driving=" + driving + " departureDate=" + departureDate + " departureTime=" + departureTime + " notes=" + notes + ']');
+    return rideController.updateRide(id, driver, destination, origin, roundTrip, driving, departureDate, departureTime, mpg, notes);
   }
 
   public Boolean deleteRide(Request req, Response res){
@@ -124,7 +126,4 @@ public class RideRequestHandler {
     System.err.println("Deleting ride id=" + id);
     return rideController.deleteRide(id);
   }
-
-
-
 }

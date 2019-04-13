@@ -36,14 +36,16 @@ export class RidePage {
     browser.actions().sendKeys(Key.BACK_SPACE).perform();
   }
 
-  getUniqueRide(destination: string) {
-    const ride = element(by.id(destination)).getText();
-    this.highlightElement(by.id(destination));
+  getUniqueRide(id: string) {
+    const ride = element(by.id(id)).getText();
+    this.highlightElement(by.id(id));
     return ride;
   }
 
-  getRides() {
-    return element.all(by.className('rides'));
+  getRideByDestination(destination: string) {
+    const ride = element(by.id(destination)).getText();
+    this.highlightElement(by.id(destination));
+    return ride;
   }
 
   elementExistsWithId(idOfElement: string): promise.Promise<boolean> {

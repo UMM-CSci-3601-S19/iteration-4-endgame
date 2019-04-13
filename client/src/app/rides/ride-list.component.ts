@@ -4,7 +4,7 @@ import {Ride} from "./ride";
 import {RideListService} from "./ride-list.service";
 import {AddRideComponent} from "./add-ride.component";
 import {EditRideComponent} from "./edit-ride.component";
-import {MatDialog} from "@angular/material";
+import {MatDialog, MatDialogConfig} from "@angular/material";
 import {DeleteRideComponent} from "./delete-ride.component";
 import {User} from "../users/user";
 
@@ -35,12 +35,16 @@ export class RideListComponent implements OnInit {
   }
 
 
-  openDialog(): void {
-    const newRide: Ride = {driver: '', destination: '', origin: '', roundTrip: false, driving: false, departureTime: '', mpg: null, notes: ''};
-    const dialogRef = this.dialog.open(AddRideComponent, {
-      width: '500px',
-      data: {ride: newRide, users: this.users}
-    });
+  openAddDialog(): void {
+    const newRide: Ride = {driver: '', destination: '', origin: '', roundTrip: false, driving: false, departureDate: '', departureTime: '', mpg: null, notes: ''};
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {ride:newRide, users: this.users};
+    dialogConfig.width = '500px';
+
+    const dialogRef = this.dialog.open(AddRideComponent, dialogConfig);
+
+
 
     dialogRef.afterClosed().subscribe(newRide => {
       if (newRide != null) {
@@ -60,23 +64,27 @@ export class RideListComponent implements OnInit {
     });
   }
 
-  openEditDialog(currentId: object,currentDriver: string, currentDestination: string, currentOrigin: string, currentRoundTrip: boolean, currentDriving: boolean,currentDepartureTime: string, currentMPG: number, currentNotes: string): void {
+  openEditDialog(currentId: string, currentDriver: string, currentDestination: string, currentOrigin: string, currentRoundTrip: boolean, currentDriving: boolean, currentDepartureDate: string, currentDepartureTime: string, currentMPG: number, currentNotes: string): void {
     const currentRide: Ride = {
-      _id: currentId,
+      _id: {
+        $oid: currentId
+      },
       driver: currentDriver,
       destination: currentDestination,
       origin: currentOrigin,
       roundTrip: currentRoundTrip,
       driving: currentDriving,
+      departureDate: currentDepartureDate,
       departureTime: currentDepartureTime,
       mpg: currentMPG,
       notes: currentNotes
     };
 
-    const dialogRef = this.dialog.open(EditRideComponent, {
-      width: '500px',
-      data: {ride: currentRide}
-    });
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {ride: currentRide};
+    dialogConfig.width = '500px';
+
+    const dialogRef = this.dialog.open(EditRideComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(currentRide => {
       if (currentRide != null) {//RideListComponent
@@ -99,10 +107,12 @@ export class RideListComponent implements OnInit {
 
   openDeleteDialog(currentId: object): void {
     console.log("openDeleteDialog");
-    const dialogRef = this.dialog.open(DeleteRideComponent, {
-      width: '500px',
-      data: {id: currentId}
-    });
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {id: currentId};
+    dialogConfig.width = '500px';
+
+    const dialogRef = this.dialog.open(DeleteRideComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(deletedRideId => {
       if (deletedRideId != null) {
         this.rideListService.deleteRide(deletedRideId).subscribe(
@@ -134,9 +144,13 @@ export class RideListComponent implements OnInit {
       });
     }
 
-    return this.filteredRides;
+    return this.filteredRides
+      .sort(function (a, b) {
+        if (+new Date(a.departureDate) - +new Date(b.departureDate) != 0) {
+          return +new Date(a.departureDate) - +new Date(b.departureDate);
+        } else return a.departureTime.localeCompare(b.departureTime);
+      })
   }
-
 
   refreshRides(): Observable<Ride[]> {
     const rides: Observable<Ride[]> = this.rideListService.getRides();

@@ -1,7 +1,9 @@
 import {User} from "../users/user";
 
 export interface Ride {
-  _id?: object;
+  _id?: {
+    $oid: string;
+  };
   driver: string;
   ownerId?: string;
   ownerData?: User;
@@ -9,7 +11,8 @@ export interface Ride {
   destination: string;
   origin: string;
   roundTrip: boolean;
-  departureTime: string;
+  departureDate: string;
+  departureTime?: string;
   driving?: boolean;
   notes: string;
   mpg?: number;

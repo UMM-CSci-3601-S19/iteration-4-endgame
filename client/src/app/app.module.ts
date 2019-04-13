@@ -7,7 +7,6 @@ import {HomeComponent} from './home/home.component';
 import {Routing} from './app.routes';
 import {APP_BASE_HREF} from '@angular/common';
 
-import {RideComponent} from "./rides/ride.component";
 import {RideListComponent} from "./rides/ride-list.component";
 import {RideListService} from "./rides/ride-list.service";
 import {AddRideComponent} from "./rides/add-ride.component";
@@ -23,6 +22,7 @@ import {CustomModule} from './custom.module';
 import {UserProfileComponent} from "./users/user-profile.component";
 import {UserService} from "./users/user-service";
 import {EditUserComponent} from "./users/edit-user.component";
+import {MatDatepickerModule, MatNativeDateModule} from "@angular/material";
 
 
 
@@ -35,12 +35,13 @@ import {EditUserComponent} from "./users/edit-user.component";
     MatCheckboxModule,
     MatRadioModule,
     MatSelectModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   declarations: [
     AppComponent,
     HomeComponent,
-    RideComponent,
     UserProfileComponent,
     RideListComponent,
     AddRideComponent,

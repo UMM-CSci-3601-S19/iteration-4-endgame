@@ -1,6 +1,5 @@
 import {RidePage} from './ride-list.po';
 import {browser, protractor, element, by} from 'protractor';
-import {Key} from 'selenium-webdriver';
 
 const origFn = browser.driver.controlFlow().execute;
 
@@ -33,10 +32,11 @@ describe('Ride List', () => {
 
   it('should type something in Filter by Destination box and check that it returned correct element', () => {
     page.typeADestination('dul');
-    expect(page.getUniqueRide('Duluth')).toMatch('Eaton Court .*');
+    let exp1 = expect(page.getUniqueRide('5cb129c060bd26f72fbc2958')).toMatch('Grand Street.*');
     page.backspace();page.backspace();page.backspace();
     page.typeADestination('Alexandria');
-    return expect(page.getUniqueRide('Alexandria')).toMatch('Amber Street.*');
+    let exp2 = expect(page.getUniqueRide('5cb129c060bd26f72fbc294a')).toMatch('Folsom Place.*');
+    return exp1 && exp2;
   });
 
   it('Should have an add ride button', () => {
@@ -46,9 +46,10 @@ describe('Ride List', () => {
 
   it('Should open a dialog box when add ride button is clicked', () => {
     page.navigateTo();
-    expect(page.elementExistsWithCss('add-ride')).toBeFalsy('There should not be a modal window yet');
+    let exp1 = expect(page.elementExistsWithCss('add-ride')).toBeFalsy('There should not be a modal window yet');
     page.click('addNewRide');
-    return expect(page.elementExistsWithCss('add-ride')).toBeTruthy('There should be a modal window now');
+    let exp2 = expect(page.elementExistsWithCss('add-ride')).toBeTruthy('There should be a modal window now');
+    return exp1 && exp2;
   });
 
   describe('Add Ride', () => {
@@ -59,28 +60,33 @@ describe('Ride List', () => {
 
     it('Should actually add the ride with the information we put in the fields', () => {
       page.field('destinationField').sendKeys('New York');
-      page.slowTime(1000);
+      let st1 = page.slowTime(1000);
       page.selectDropdown('#ownerField');
       page.selectDownKey();
       page.selectEnterKey();
-      page.slowTime(500);
-      page.field('departureTimeField').sendKeys('In the morning');
-      page.slowTime(500);
+      let st2 = page.slowTime(500);
+
+      page.field('dateField').sendKeys('5/31/2025');
+      let st3 = page.slowTime(500);
+      page.field('timeField').sendKeys('1250PM');
+      let st8 = page.slowTime(500);
+
       page.field('originField').sendKeys('Morris');
-      page.slowTime(500);
+      let st4 = page.slowTime(500);
       page.field('mpgField').sendKeys('40');
-      page.slowTime(500);
+      let st5 = page.slowTime(500);
       page.field('notesField').sendKeys('I do not pick up my trash');
-      page.slowTime(500);
+      let st6 = page.slowTime(500);
       page.click('roundTripCheckBox');
-      page.slowTime(500);
-      expect(page.button('confirmAddRideButton').isEnabled()).toBe(true);
+      let st7 = page.slowTime(500);
+      let exp1 = expect(page.button('confirmAddRideButton').isEnabled()).toBe(true);
       page.click('confirmAddRideButton');
 
       const new_york_element = element(by.id('New York'));
       browser.wait(protractor.ExpectedConditions.presenceOf(new_york_element), 10000);
 
-      return expect(page.getUniqueRide('New York')).toMatch('New York.*');
+      let exp2 = expect(page.getRideByDestination('New York')).toMatch('New York.*');
+      return st1 && st2 && st3 && st8 && st4 && st5 && st6 && st7 && exp1 && exp2;
     });
 
     describe('Add Ride (Validation)', () => {
@@ -90,83 +96,98 @@ describe('Ride List', () => {
       });
 
       it('Should allow us to put information into the fields of the add ride dialog', () => {
-        expect(page.elementExistsWithId('ownerField')).toBeTruthy('There should be an owner field');
+        let exp1 = expect(page.elementExistsWithId('ownerField')).toBeTruthy('There should be an owner field');
         page.selectDropdown('#ownerField');
         page.selectDownKey();
         page.selectEnterKey();
-        expect(page.field('notesField').isPresent()).toBeTruthy('There should be a notes field');
+        let exp2 = expect(page.field('notesField').isPresent()).toBeTruthy('There should be a notes field');
         page.field('notesField').sendKeys('Test Notes');
-        expect(page.field('originField').isPresent()).toBeTruthy('There should be an origin field');
+        let exp3 = expect(page.field('originField').isPresent()).toBeTruthy('There should be an origin field');
         page.field('originField').sendKeys('Pickup Location');
-        expect(page.field('destinationField').isPresent()).toBeTruthy('There should be a destination field');
+        let exp4 = expect(page.field('destinationField').isPresent()).toBeTruthy('There should be a destination field');
         page.field('destinationField').sendKeys('Dropoff Location');
-        expect(page.field('departureTimeField').isPresent()).toBeTruthy('There should be a date field');
-        page.field('departureTimeField').sendKeys('3/27/2019');
-        expect(page.field('mpgField').isPresent()).toBeTruthy('MPG must be a number');
+
+        let exp6 = expect(page.field('dateField').isPresent()).toBeTruthy('There should be a date field');
+        page.field('dateField').sendKeys('5/31/2019');
+        let exp7 = expect(page.field('timeField').isPresent()).toBeTruthy('A time field should exist');
+        page.click('timeField');
+        page.field('timeField').sendKeys('1203PM');
+
+        let exp5 = expect(page.field('mpgField').isPresent()).toBeTruthy('MPG must be a number');
         page.field('mpgField').sendKeys('20');
+        return exp1 && exp2 && exp3 && exp4 && exp6 && exp7 && exp5;
       });
 
       it('Should show the validation error message about the requirement of owner', () => {
-        expect(page.elementExistsWithId('ownerField')).toBeTruthy('There should be a owner field');
+        let exp1 = expect(page.elementExistsWithId('ownerField')).toBeTruthy('There should be a owner field');
         page.selectDropdown('#ownerField');
-        page.slowTime(500);
-        page.selectTabKey()
-        page.slowTime(500);
-        expect(page.button('confirmAddRideButton').isEnabled()).toBe(false);
+        let st1 = page.slowTime(500);
+        page.selectTabKey();
+        let st2 = page.slowTime(500);
+        let exp2 = expect(page.button('confirmAddRideButton').isEnabled()).toBe(false);
         //clicking somewhere else will make the error appear
-        expect(page.getTextFromField('owner-error')).toBe('Owner is required');
+        let exp3 = expect(page.getTextFromField('owner-error')).toBe('Owner is required');
+        return st1 && st2 && exp1 && exp2 && exp3;
       });
 
       it('Should show the validation error message about origin format', () => {
-        expect(element(by.id('originField')).isPresent()).toBeTruthy('There should be a origin field');
+        let exp1 = expect(element(by.id('originField')).isPresent()).toBeTruthy('There should be a origin field');
         page.field('originField').sendKeys('#@$@$#');
-        expect(page.button('confirmAddRideButton').isEnabled()).toBe(false);
+        let exp2 = expect(page.button('confirmAddRideButton').isEnabled()).toBe(false);
         //clicking somewhere else will make the error appear
         page.field('destinationField').click();
-        expect(page.getTextFromField('origin-error')).toBe('Origin contains an unaccepted character');
+        let exp3 = expect(page.getTextFromField('origin-error')).toBe('Origin contains an unaccepted character');
+        return exp1 && exp2 && exp3;
       });
 
       it('Should show the validation error message about the format of destination', () => {
-        expect(element(by.id('destinationField')).isPresent()).toBeTruthy('There should be a destination field');
+        let exp1 = expect(element(by.id('destinationField')).isPresent()).toBeTruthy('There should be a destination field');
         page.field('destinationField').sendKeys('@$@$');
-        expect(page.button('confirmAddRideButton').isEnabled()).toBe(false);
+        let exp2 = expect(page.button('confirmAddRideButton').isEnabled()).toBe(false);
         page.field('mpgField').click();
-        expect(page.getTextFromField('destination-error')).toBe('Destination contains an unaccepted character');
+        let exp3 = expect(page.getTextFromField('destination-error')).toBe('Destination contains an unaccepted character');
+        return exp1 && exp2 && exp3;
       });
 
-      it('Should show the validation error message about the format of DepartureTime', () => {
-        expect(element(by.id('departureTimeField')).isPresent()).toBeTruthy('There should be a departureTime field');
-        page.field('departureTimeField').sendKeys('A');
-        expect(page.button('confirmAddRideButton').isEnabled()).toBe(false);
+      it('Should show the validation error message about the format of Date field', () => {
+        let exp1 = expect(element(by.id('dateField')).isPresent()).toBeTruthy('There should be a date field');
+        page.field('dateField').sendKeys('5/03/2017');
+        let exp2 = expect(page.button('confirmAddRideButton').isEnabled()).toBe(false);
         page.field('mpgField').click();
-        expect(page.getTextFromField('departureTime-error')).toBe('Departure Time must be at least 2 characters long');
+        let exp3 = expect(page.getTextFromField('departureDate-error')).toBe('Date of departure cannot have already occurred');
+        return exp1 && exp2 && exp3;
       });
 
       it('Should show the validation error message about the format of mpg', () => {
-        //expect(element(by.id('mpgField')).isPresent()).toBeTruthy('MPG must be a number');
+        let exp1 = expect(element(by.id('mpgField')).isPresent()).toBeTruthy('MPG must be a number');
         page.field('mpgField').sendKeys('A');
-        expect(page.button('confirmAddRideButton').isEnabled()).toBe(false);
+        let exp2 = expect(page.button('confirmAddRideButton').isEnabled()).toBe(false);
         page.field('notesField').click();
-        expect(page.getTextFromField('mpg-error')).toBe('MPG must be a number');
+        let exp3 = expect(page.getTextFromField('mpg-error')).toBe('MPG must be a number');
+        return exp1 && exp2 && exp3;
       });
 
       it('Should show the validation error message about the format of notes', () => {
-        //expect(element(by.id('mpgField')).isPresent()).toBeTruthy('notes must contain only english and certain symbols');
+        let exp1 = expect(element(by.id('notesField')).isPresent()).toBeTruthy('notes must contain only english and certain symbols');
         page.field('notesField').sendKeys('片仮名');
-        expect(page.button('confirmAddRideButton').isEnabled()).toBe(false);
+        let exp2 = expect(page.button('confirmAddRideButton').isEnabled()).toBe(false);
         page.field('notesField').click();
-        expect(page.getTextFromField('notes-error')).toBe('notes must contain only english and certain symbols');
+        let exp3 = expect(page.getTextFromField('notes-error')).toBe('notes must contain only english and certain symbols');
+        return exp1 && exp2 && exp3;
       });
     });
   });
 
   describe('Edit Ride', () => {
 
+    let st1;
+    let st2;
+
     beforeEach(() => {
       page.typeADestination('Maplegrove');
-      page.slowTime(100);
+      st1 = page.slowTime(100);
       page.click('Maplegrove');
-      page.slowTime(1000);
+      st2 = page.slowTime(1000);
       page.click('editRide');
     });
 
@@ -174,26 +195,30 @@ describe('Ride List', () => {
 
       page.field('destinationField').clear();
       page.field('destinationField').sendKeys('Japan');
-      page.slowTime(100);
-      page.field('departureTimeField').clear();
-      page.field('departureTimeField').sendKeys('By the night');
-      page.slowTime(100);
+      let st3 = page.slowTime(100);
+      page.field('dateField').clear();
+      page.field('dateField').sendKeys('5/31/2020');
+      let st10 = page.slowTime(100);
+      page.field('timeField').clear();
+      page.field('timeField').sendKeys('1250PM');
+      let st11 = page.slowTime(100);
       page.field('originField').clear();
       page.field('originField').sendKeys('America');
-      page.slowTime(100);
+      let st4 = page.slowTime(100);
       page.field('mpgField').clear();
       page.field('mpgField').sendKeys('199');
-      page.slowTime(100);
+      let st5 = page.slowTime(100);
       page.field('notesField').clear();
       page.field('notesField').sendKeys('We be travelin by map');
-      page.slowTime(100);
+      let st6 = page.slowTime(100);
       page.click('roundTripCheckBox');
-      page.slowTime(100);
+      let st7 = page.slowTime(100);
       page.click('drivingCheckBox');
-      page.slowTime(100);
-      expect(page.button('confirmEditRideButton').isEnabled()).toBe(true);
+      let st8 = page.slowTime(100);
+
+      let exp1 = expect(page.button('confirmEditRideButton').isEnabled()).toBe(true);
       page.click('confirmEditRideButton');
-      page.slowTime(100);
+      let st9 = page.slowTime(100);
 
       page.field('rideDestination').clear();
       page.typeADestination('Japan');
@@ -201,7 +226,8 @@ describe('Ride List', () => {
       const japan_element = element(by.id('Japan'));
       browser.wait(protractor.ExpectedConditions.presenceOf(japan_element), 10000);
 
-      return expect(page.getUniqueRide('Japan')).toMatch('Japan.*');
+      let exp2 = expect(page.getUniqueRide('Japan')).toMatch('Japan.*');
+      return st1 && st2 && st3 && st10 && st11 && st4 && st5 && st6 && st7 && st8 && st9 && exp1 && exp2;
     });
 
     describe('Edit Ride (Validation)', () => {
@@ -214,58 +240,64 @@ describe('Ride List', () => {
 
       it('Should allow us to put information into the fields of the edit ride dialog', () => {
 
-        expect(page.field('destinationField').isPresent()).toBeTruthy('There should be a destination field');
+        let exp1 = expect(page.field('destinationField').isPresent()).toBeTruthy('There should be a destination field');
         page.field('destinationField').sendKeys('Dropoff Location');
-        expect(page.field('originField').isPresent()).toBeTruthy('There should be an origin field');
+        let exp2 = expect(page.field('originField').isPresent()).toBeTruthy('There should be an origin field');
         page.field('originField').sendKeys('Pickup Location');
-        expect(page.field('departureTimeField').isPresent()).toBeTruthy('There should be a date field');
-        page.field('departureTimeField').sendKeys('3/27/2019');
-        expect(page.field('mpgField').isPresent()).toBeTruthy('MPG must be a number');
+        let exp5 = expect(page.field('dateField').isPresent()).toBeTruthy('There should be a date field');
+        page.field('dateField').sendKeys('3/27/2020');
+        let exp3 = expect(page.field('mpgField').isPresent()).toBeTruthy('MPG must be a number');
         page.field('mpgField').sendKeys('20');
-        expect(page.field('notesField').isPresent()).toBeTruthy('There should be a notes field');
+        let exp4 = expect(page.field('notesField').isPresent()).toBeTruthy('There should be a notes field');
         page.field('notesField').sendKeys('Test Notes');
+        return exp1 && exp2 && exp5 && exp3 && exp4;
       });
 
       it('Should show the validation error message about origin format when editing a ride', () => {
-        expect(element(by.id('originField')).isPresent()).toBeTruthy('There should be a origin field');
+        let exp1 = expect(element(by.id('originField')).isPresent()).toBeTruthy('There should be a origin field');
         page.field('originField').sendKeys('#@$@$#');
-        expect(page.button('confirmEditRideButton').isEnabled()).toBe(false);
+        let exp2 = expect(page.button('confirmEditRideButton').isEnabled()).toBe(false);
         //clicking somewhere else will make the error appear
         page.field('destinationField').click();
-        expect(page.getTextFromField('origin-error')).toBe('Origin contains an unaccepted character');
+        let exp3 = expect(page.getTextFromField('origin-error')).toBe('Origin contains an unaccepted character');
+        return exp1 && exp2 && exp3;
       });
 
       it('Should show the validation error message about the format of destination when editing a ride', () => {
-        expect(element(by.id('destinationField')).isPresent()).toBeTruthy('There should be a destination field');
+        let exp1 = expect(element(by.id('destinationField')).isPresent()).toBeTruthy('There should be a destination field');
         page.field('destinationField').sendKeys('@$@$');
-        expect(page.button('confirmEditRideButton').isEnabled()).toBe(false);
+        let exp2 = expect(page.button('confirmEditRideButton').isEnabled()).toBe(false);
         page.field('mpgField').click();
-        expect(page.getTextFromField('destination-error')).toBe('Destination contains an unaccepted character');
+        let exp3 = expect(page.getTextFromField('destination-error')).toBe('Destination contains an unaccepted character');
+        return exp1 && exp2 && exp3;
       });
 
-      it('Should show the validation error message about the format of DepartureTime when editing a ride', () => {
-        expect(element(by.id('departureTimeField')).isPresent()).toBeTruthy('There should be a departureTime field');
-        page.field('departureTimeField').clear();
-        page.field('departureTimeField').sendKeys('a');
-        expect(page.button('confirmEditRideButton').isEnabled()).toBe(false);
+      it('Should show the validation error message about the format of dateFiled when editing a ride', () => {
+        let exp1 = expect(element(by.id('dateField')).isPresent()).toBeTruthy('There should be a departureDate field');
+        page.field('dateField').clear();
+        page.field('dateField').sendKeys('5');
+        let exp2 = expect(page.button('confirmEditRideButton').isEnabled()).toBe(false);
         page.field('mpgField').click();
-        expect(page.getTextFromField('departureTime-error')).toBe('Departure Time must be at least 2 characters long');
+        let exp3 = expect(page.getTextFromField('departureDate-error')).toBe('Date of departure cannot have already occurred');
+        return exp1 && exp2 && exp3;
       });
 
       it('Should show the validation error message about the format of mpg when editing a ride', () => {
-        //expect(element(by.id('mpgField')).isPresent()).toBeTruthy('MPG must be a number');
+        let exp1 = expect(element(by.id('mpgField')).isPresent()).toBeTruthy('MPG must be a number');
         page.field('mpgField').sendKeys('A');
-        expect(page.button('confirmEditRideButton').isEnabled()).toBe(false);
+        let exp2 = expect(page.button('confirmEditRideButton').isEnabled()).toBe(false);
         page.field('notesField').click();
-        expect(page.getTextFromField('mpg-error')).toBe('MPG must be a number');
+        let exp3 = expect(page.getTextFromField('mpg-error')).toBe('MPG must be a number');
+        return exp1 && exp2 && exp3;
       });
 
       it('Should show the validation error message about the format of notes when editing a ride', () => {
-        //expect(element(by.id('mpgField')).isPresent()).toBeTruthy('notes must contain only english and certain symbols');
+        let exp1 = expect(element(by.id('notesField')).isPresent()).toBeTruthy('notes must contain only english and certain symbols');
         page.field('notesField').sendKeys('片仮名');
-        expect(page.button('confirmEditRideButton').isEnabled()).toBe(false);
+        let exp2 = expect(page.button('confirmEditRideButton').isEnabled()).toBe(false);
         page.field('notesField').click();
-        expect(page.getTextFromField('notes-error')).toBe('notes must contain only english and certain symbols');
+        let exp3 = expect(page.getTextFromField('notes-error')).toBe('notes must contain only english and certain symbols');
+        return exp1 && exp2 && exp3;
       });
     });
 
@@ -273,11 +305,14 @@ describe('Ride List', () => {
 
   describe('Delete Ride', () => {
 
+    let st1;
+    let st2;
+
     beforeEach(() => {
       page.field('rideDestination').clear();
-      page.slowTime(100);
+      st1 = page.slowTime(100);
       page.typeADestination('Japan');
-      page.slowTime(100);
+      st2 = page.slowTime(100);
       page.click('Japan');
 
     });
@@ -286,8 +321,9 @@ describe('Ride List', () => {
       page.click('deleteRide');
 
       page.click('confirmDeleteRideButton');
-      page.slowTime(1000);
-      return expect(page.elementExistsWithCss('Japan')).toBeFalsy('There should not no ride that matches');
+      let st3 = page.slowTime(1000);
+      let exp1 = expect(page.elementExistsWithCss('Japan')).toBeFalsy('There should not no ride that matches');
+      return st1 && st2 && st3 && exp1;
     });
   });
 });

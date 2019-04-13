@@ -1,27 +1,7 @@
 <div class="edit-ride">
   <form [formGroup]="editRideForm">
-    <h2 mat-dialog-title>New Ride</h2>
+    <h2 mat-dialog-title>Edit Ride</h2>
     <mat-dialog-content layout="column">
-      <mat-form-field flex>
-        <input matInput #input id="destinationField" placeholder="Destination" [(ngModel)]="data.ride.destination" formControlName="destination"
-               required>
-        <mat-error *ngFor="let validation of edit_ride_validation_messages.destination">
-          <mat-error class="error-message" id="destination-error"
-                     *ngIf="editRideForm.get('destination').hasError(validation.type) && (editRideForm.get('destination').dirty || editRideForm.get('destination').touched)">
-            {{validation.message}}
-          </mat-error>
-        </mat-error>
-      </mat-form-field>
-      <!--<mat-form-field flex>-->
-        <!--<input matInput #input id="driverField" placeholder="Name" [(ngModel)]="data.ride.driver" formControlName="driver"-->
-               <!--required>-->
-        <!--<mat-error *ngFor="let validation of edit_ride_validation_messages.driver">-->
-          <!--<mat-error class="error-message" id="driver-error"-->
-                     <!--*ngIf="editRideForm.get('driver').hasError(validation.type) && (editRideForm.get('driver').dirty || editRideForm.get('driver').touched)">-->
-            <!--{{validation.message}}-->
-          <!--</mat-error>-->
-        <!--</mat-error>-->
-      <!--</mat-form-field>-->
       <mat-form-field flex>
         <input matInput #input id="originField" placeholder="Origin" [(ngModel)]="data.ride.origin" formControlName="origin"
                required>
@@ -32,16 +12,35 @@
           </mat-error>
         </mat-error>
       </mat-form-field>
+
       <mat-form-field flex>
-        <input matInput #input id="departureTimeField" placeholder="Departure Time" [(ngModel)]="data.ride.departureTime" formControlName="departureTime"
+        <input matInput #input id="destinationField" placeholder="Destination" [(ngModel)]="data.ride.destination" formControlName="destination"
                required>
-        <mat-error *ngFor="let validation of edit_ride_validation_messages.departureTime">
-          <mat-error class="error-message" id="departureTime-error"
-                     *ngIf="editRideForm.get('departureTime').hasError(validation.type) && (editRideForm.get('departureTime').dirty || editRideForm.get('departureTime').touched)">
+        <mat-error *ngFor="let validation of edit_ride_validation_messages.destination">
+          <mat-error class="error-message" id="destination-error"
+                     *ngIf="editRideForm.get('destination').hasError(validation.type) && (editRideForm.get('destination').dirty || editRideForm.get('destination').touched)">
             {{validation.message}}
           </mat-error>
         </mat-error>
       </mat-form-field>
+
+      <mat-form-field>
+        <input matInput #input id="dateField" [min]="currentDate" [matDatepicker]="myDatepicker" placeholder="Date of Departure" [(ngModel)]="data.ride.departureDate" formControlName="departureDate" required>
+        <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #myDatepicker></mat-datepicker>
+        <mat-error *ngFor="let validation of edit_ride_validation_messages.departureDate">
+          <mat-error class="error-message" id="departureDate-error"
+                     *ngIf="editRideForm.get('departureDate').hasError(validation.type) && (editRideForm.get('departureDate').dirty || editRideForm.get('departureDate').touched)">
+            {{validation.message}}
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input type="time" matInput #input id="timeField" placeholder="Time of Departure"
+               [(ngModel)]="data.ride.departureTime" formControlName="departureTime">
+      </mat-form-field>
+
       <mat-form-field flex>
         <input matInput #input id="mpgField" placeholder="Miles Per Gallon" [(ngModel)]="data.ride.mpg" formControlName="mpg">
         <mat-error *ngFor="let validation of edit_ride_validation_messages.mpg">
@@ -51,6 +50,7 @@
           </mat-error>
         </mat-error>
       </mat-form-field>
+
       <mat-form-field flex>
         <input matInput #input id="notesField" placeholder="Notes" [(ngModel)]="data.ride.notes" formControlName="notes"
               >
@@ -61,13 +61,11 @@
           </mat-error>
         </mat-error>
       </mat-form-field>
+
       <div>
         <mat-checkbox id="roundTripCheckBox" name ="roundTripStatus" ngDefaultControl [(ngModel)]="data.ride.roundTrip" [ngModelOptions]="{standalone: true}" >Round Trip</mat-checkbox>
         <mat-checkbox id="drivingCheckBox"name ="drivingStatus" ngDefaultControl [(ngModel)]="data.ride.driving" [ngModelOptions]="{standalone: true}" >Driving</mat-checkbox>
       </div>
-
-
-
 
     </mat-dialog-content>
     <mat-dialog-actions layout="row">
