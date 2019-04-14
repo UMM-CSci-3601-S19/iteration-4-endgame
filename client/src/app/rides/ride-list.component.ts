@@ -105,11 +105,11 @@ export class RideListComponent implements OnInit {
   }
 
 
-  openDeleteDialog(currentId: object): void {
+  openDeleteDialog(currentId: string): void {
     console.log("openDeleteDialog");
 
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = {id: currentId};
+    dialogConfig.data = {id: {$oid: currentId}};
     dialogConfig.width = '500px';
 
     const dialogRef = this.dialog.open(DeleteRideComponent, dialogConfig);

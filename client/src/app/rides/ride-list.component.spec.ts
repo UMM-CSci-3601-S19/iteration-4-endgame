@@ -480,6 +480,7 @@ describe('Deleting a ride',()=> {
   let rideList: RideListComponent;
   let fixture: ComponentFixture<RideListComponent>;
   const currentRide: Ride = {
+    _id: {$oid: 'Danial_id'},
     driver: 'Danial Donald',
     destination: 'Becker',
     origin: 'Morris',
@@ -554,7 +555,7 @@ describe('Deleting a ride',()=> {
 
   it('calls RideListService.deleteRide', () => {
     let exp1 = expect(calledRide).toBeNull();
-    rideList.openDeleteDialog(currentRide);
+    rideList.openDeleteDialog(currentRide._id.$oid);
     let exp2 = expect(calledRide).toEqual(currentRide);
     return exp1 && exp2;
   });

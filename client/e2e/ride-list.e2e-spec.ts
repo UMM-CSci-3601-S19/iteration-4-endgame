@@ -226,7 +226,7 @@ describe('Ride List', () => {
       const japan_element = element(by.id('Japan'));
       browser.wait(protractor.ExpectedConditions.presenceOf(japan_element), 10000);
 
-      let exp2 = expect(page.getUniqueRide('Japan')).toMatch('Japan.*');
+      let exp2 = expect(page.getRideByDestination('Japan')).toMatch('Japan.*');
       return st1 && st2 && st3 && st10 && st11 && st4 && st5 && st6 && st7 && st8 && st9 && exp1 && exp2;
     });
 
@@ -311,18 +311,18 @@ describe('Ride List', () => {
     beforeEach(() => {
       page.field('rideDestination').clear();
       st1 = page.slowTime(100);
-      page.typeADestination('Japan');
+      page.typeADestination('Duluth');
       st2 = page.slowTime(100);
-      page.click('Japan');
+      page.click('5cb129c060bd26f72fbc2958');
 
     });
 
-    it('Deletes a newly created ride', () => {
+    it('Deletes an existing ride', () => {
       page.click('deleteRide');
 
       page.click('confirmDeleteRideButton');
       let st3 = page.slowTime(1000);
-      let exp1 = expect(page.elementExistsWithCss('Japan')).toBeFalsy('There should not no ride that matches');
+      let exp1 = expect(page.elementExistsWithCss('Grand Street')).toBeFalsy("The ride should not exist as it was deleted");
       return st1 && st2 && st3 && exp1;
     });
   });
