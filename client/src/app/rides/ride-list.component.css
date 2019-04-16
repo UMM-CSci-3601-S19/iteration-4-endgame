@@ -30,8 +30,17 @@
   margin: 0;
 }
 
-#filterLocation .mat-card-content {
-  padding: 0 16px;
+.mat-card-content.mat-card-content.ng-star-inserted {
+  margin: 0;
+}
+
+.mat-form-field {
+  font-family: "Verdana", sans-serif;
+  color: #F5F5F5;
+}
+
+.radioGroup {
+  color: #F5F5F5;
 }
 
 #listContainer {
@@ -40,19 +49,25 @@
 
 .mat-card {
   background-color: #ffc107;
-  color: #000000;
+  color: #ffffff;
 }
 
-.postCard .mat-expansion-panel-header {
-  background: #7a0019;
-  font-family: "Arial Black", sans-serif;
-  text-align: center;
-  border-bottom-width: 2px;
-  border-bottom-style: solid;
-  border-bottom-color: #ffc107;
+.mat-card .postCard {
+  background-color: #2e2e2e;
+  margin: 0;
+  font-family: "Verdana", sans-serif;
 }
+
+.mat-card .postCard .mat-card-title {
+  background: #7a0019;
+  padding: 16px;
+  margin: 0;
+  font-family: "Arial Black", sans-serif;
+}
+
 
 #addNewRide {
+  background-color: #7a0019;
   font-family: "Verdana", sans-serif;
   margin-left: 45%;
   border-radius: 300px;
@@ -65,9 +80,20 @@
   color: #000000;
 }
 
-#editRide{
+#goToUser {
   background-color: white;
   color: #7a0019;
+}
+
+#goToUser:hover {
+  background-color: #ffc107;
+  color: #000000;
+}
+
+#editRide {
+  background-color: white;
+  color: #7a0019;
+  float: right;
 }
 
 #editRide:hover {
@@ -79,6 +105,7 @@
   background-color: #7a0019;
   color: white;
   float: right;
+  margin-left: 15px;
 }
 
 #deleteRide:hover {
@@ -88,21 +115,12 @@
   font-weight: bold;
 }
 
-mat-radio-group {
-  color: #000000;
-}
-
-.mat-button, .mat-fab, .mat-icon-button, .mat-mini-fab, .mat-raised-button {
+#submit {
   color: #ffffff;
   background: #7a0019;
 }
 
-.mat-button, .mat-fab, .mat-icon-button, .mat-mini-fab, .mat-raised-button:hover{
-  color: #ffffff;
-  background: #424242;
-}
-
-.mat-form-field {
-  font-family: "Verdana", sans-serif;
-  color: #F5F5F5;
+#submit:hover {
+  color: #000000;
+  background: #ffc107;
 }
