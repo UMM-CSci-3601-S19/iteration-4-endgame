@@ -17,12 +17,14 @@ import {MatFormFieldModule} from '@angular/material';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
+import {MatDatepickerModule, MatNativeDateModule} from "@angular/material";
 
 import {CustomModule} from './custom.module';
+
 import {UserProfileComponent} from "./users/user-profile.component";
+import {UserSingleComponent} from "./users/user-single.component";
 import {UserService} from "./users/user-service";
 import {EditUserComponent} from "./users/edit-user.component";
-import {MatDatepickerModule, MatNativeDateModule} from "@angular/material";
 
 
 
@@ -43,6 +45,7 @@ import {MatDatepickerModule, MatNativeDateModule} from "@angular/material";
     AppComponent,
     HomeComponent,
     UserProfileComponent,
+    UserSingleComponent,
     RideListComponent,
     AddRideComponent,
     EditRideComponent,
