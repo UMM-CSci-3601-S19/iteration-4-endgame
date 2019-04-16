@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from './user-service';
 import {User} from './user';
 import {Observable} from 'rxjs/Observable';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatDialogConfig} from '@angular/material';
 import {EditUserComponent} from "./edit-user.component";
 
 @Component({
@@ -21,7 +21,7 @@ export class UserProfileComponent implements OnInit {
   // Inject the UserListService into this component.
   constructor(public userService: UserService, public dialog: MatDialog) {
 
-  };
+  }
 
   public filterUsers(searchOid: string): User[] {
 
@@ -59,10 +59,11 @@ export class UserProfileComponent implements OnInit {
       numReviews: numReviews + 1 || 1
     };
 
-    const dialogRef = this.dialog.open(EditUserComponent, {
-      width: '500px',
-      data: {user: currentUser}
-    });
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {user: currentUser};
+    dialogConfig.width = '500px';
+
+    const dialogRef = this.dialog.open(EditUserComponent, dialogConfig);
 
     console.log("Dialog Ref " + dialogRef);
     dialogRef.afterClosed().subscribe(currentUser => {
