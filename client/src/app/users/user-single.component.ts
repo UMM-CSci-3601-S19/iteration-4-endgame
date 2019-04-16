@@ -20,7 +20,7 @@ export class UserSingleComponent implements OnInit {
 
   }
 
-  //TODO: needs to work for an individual file, as of right now it will pull an individual user, but can't interact or update it
+  //TODO: needs to work on recognizing the correct property for reviewScore or reviewScores as this is not being recognized even though the variables exists
   editUserReviewDialog(currentId: string, currentName: string, currentEmail: string, currentPhoneNumber: string, currentReviewScore: number, rating: string, numReviews: number): void {
     let newRating: number = parseInt(rating);
     console.log("Old Rating: " + currentReviewScore + "  Number of Reviews: " + numReviews + "  New Rating: " + newRating);
