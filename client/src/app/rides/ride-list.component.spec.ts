@@ -276,6 +276,7 @@ describe('Ride list', () => {
   });
 });
 
+// TODO: This is currently not letting the build work due to the error: Cannot read property 'sort' of undefined
 describe('Misbehaving Ride List',() => {
   let rideList: RideListComponent;
   let fixture: ComponentFixture<RideListComponent>;
