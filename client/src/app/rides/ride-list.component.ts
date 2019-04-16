@@ -149,7 +149,7 @@ export class RideListComponent implements OnInit {
         if (+new Date(a.departureDate) - +new Date(b.departureDate) != 0) {
           return +new Date(a.departureDate) - +new Date(b.departureDate);
         } else return a.departureTime.localeCompare(b.departureTime);
-      })
+      });
   }
 
   refreshRides(): Observable<Ride[]> {
