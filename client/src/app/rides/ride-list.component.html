@@ -73,7 +73,7 @@
 
             <div id="buttonContainer">
               <a mat-raised-button id="goToUser"
-                      href="http://localhost:4567/api/users/{{ride.ownerData._id.$oid}}">
+                      routerLink="users/{{ride.ownerData._id.$oid}}">
                 User Information
               </a>
               <button id="deleteRide" mat-raised-button
