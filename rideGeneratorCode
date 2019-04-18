@@ -2,10 +2,9 @@ Code for Generating random rides:
 
 
 [
+  '{{repeat(25)}}',
   {
-  'repeat(25)': {
-    driver: "Nic McPhee",
-    ownerId: '{{random("5ca243f0230a5d1a43216ece", "5ca243f09af80af8e9b6f2fd", "5ca243f0c189664337cf73fe", "5ca243f02047785213e10d03", "5ca243f04e7664997cbc9119", "5ca243f0fc9eaf611f054d36", "5ca243f0ced44b4a49aa7890", "5ca243f03c8b2e5c5ab3669b", "5ca243f0712ed630c21a8407", "5ca243f0fa9aaa02210b0b2d", "5ca243f03c4a3a51c47c0c86", "5ca243f07943d400bc358725", "5ca243f0d64d23d153f63084", "5ca243f05529cd8398ee8823", "5ca243f0db41ec9258d40336", "5ca243f04b1647f7bd33385b", "5ca243f0b4676a59e54a2ca6", "5ca243f04a0d0382c2914384", "5ca243f0662128b361c92055", "5ca243f0ef2bf9b410bb5672", "5ca243f0797d9e845106b25e", "5ca243f0daa0cc10e6f90b76", "5ca243f0c8afe3f3507ba44b")}}',
+    ownerId: '{{random("5cb8bee09ab85ac5f581b03a", "5cb8bee0fb6321d5c408c17d", "5cb8bee08f7394657ba3c2e9", "5cb8bee0e5d75c539ece2fe5", "5cb8bee087f744e61fba62a3", "5cb8bee01dcce624e181efca", "5cb8bee01faacab569eac688", "5cb8bee0889cc09ffc7a0205", "5cb8bee0fc8510c466d1689c", "5cb8bee0b552830549caef0a")}}',
     destination: "{{random('Willies', 'Alexandria', 'Duluth', 'Maplegrove', 'Family Dollar', 'St.Paul')}}",
     origin:'{{street()}}',
     roundTrip: '{{bool()}}',
@@ -14,7 +13,6 @@ Code for Generating random rides:
     driving: '{{bool()}}',
     notes: "{{random('Im driving and I like to eat at the same time', 'I love to crank the volume up to 11', 'I like to drive with no air conditioning', 'No room in the trunk of my car', 'No pet allowed', 'I will pay for lunch for anyone who is riding with me and I am a cool guy')}}",
     mpg: "{{integer(25, 65)}}"
-  	}
   }
 ]
 

@@ -1,227 +1,112 @@
 [
   {
     "_id": {
-      "$oid": "5ca243f0230a5d1a43216ece"
+      "$oid": "5cb8bee09ab85ac5f581b03a"
     },
-    "name": "Deanne Welch",
+    "name": "Rosemary Newman",
     "bio": "This user has not written anything",
-    "email": "Moltonic77@yahoo.com",
-    "phoneNumber": "(866) 535-2843"
+    "email": "Extrawear7@morris.umn.edu",
+    "phoneNumber": "(844) 400-3819",
+    "totalReviewScore": 0,
+    "numReviews": 0
   },
   {
     "_id": {
-      "$oid": "5ca243f09af80af8e9b6f2fd"
+      "$oid": "5cb8bee0fb6321d5c408c17d"
     },
-    "name": "Traci Hubbard",
+    "name": "Bruce Morales",
     "bio": "This user has not written anything",
-    "email": "Matrixity76@morris.umn.edu",
-    "phoneNumber": "(863) 541-2488"
+    "email": "Conjurica84@gmail.com",
+    "phoneNumber": "(882) 450-3419",
+    "totalReviewScore": 0,
+    "numReviews": 0
   },
   {
     "_id": {
-      "$oid": "5ca243f0c189664337cf73fe"
+      "$oid": "5cb8bee08f7394657ba3c2e9"
     },
-    "name": "Salas Brown",
+    "name": "Clarke Barry",
     "bio": "This user has not written anything",
-    "email": "Gaptec57@gmail.com",
-    "phoneNumber": "(960) 443-2568"
+    "email": "Uni63@morris.umn.edu",
+    "phoneNumber": "(836) 574-2643",
+    "totalReviewScore": 0,
+    "numReviews": 0
   },
   {
     "_id": {
-      "$oid": "5ca243f02047785213e10d03"
+      "$oid": "5cb8bee0e5d75c539ece2fe5"
     },
-    "name": "Shields Randall",
+    "name": "Annette Bowen",
     "bio": "This user has not written anything",
-    "email": "Signity5@gmail.com",
-    "phoneNumber": "(898) 513-3335"
+    "email": "Medicroix86@hotmail.com",
+    "phoneNumber": "(811) 490-2029",
+    "totalReviewScore": 0,
+    "numReviews": 0
   },
   {
     "_id": {
-      "$oid": "5ca243f04e7664997cbc9119"
+      "$oid": "5cb8bee087f744e61fba62a3"
     },
-    "name": "Becky Davidson",
+    "name": "Roy Gray",
     "bio": "This user has not written anything",
-    "email": "Xth46@yahoo.com",
-    "phoneNumber": "(805) 577-3566"
+    "email": "Kegular20@morris.umn.edu",
+    "phoneNumber": "(927) 515-3733",
+    "totalReviewScore": 0,
+    "numReviews": 0
   },
   {
     "_id": {
-      "$oid": "5ca243f0fc9eaf611f054d36"
+      "$oid": "5cb8bee01dcce624e181efca"
     },
-    "name": "Shelly Bush",
+    "name": "Meghan Sweeney",
     "bio": "This user has not written anything",
-    "email": "Ecrater28@morris.umn.edu",
-    "phoneNumber": "(800) 464-2382"
+    "email": "Farmage20@morris.umn.edu",
+    "phoneNumber": "(860) 564-2927",
+    "totalReviewScore": 0,
+    "numReviews": 0
   },
   {
     "_id": {
-      "$oid": "5ca243f0ced44b4a49aa7890"
+      "$oid": "5cb8bee01faacab569eac688"
     },
-    "name": "Lou Mcguire",
+    "name": "Weeks Boyle",
     "bio": "This user has not written anything",
-    "email": "Intergeek5@hotmail.com",
-    "phoneNumber": "(860) 418-3177"
+    "email": "Petigems27@yahoo.com",
+    "phoneNumber": "(820) 472-2966",
+    "totalReviewScore": 0,
+    "numReviews": 0
   },
   {
     "_id": {
-      "$oid": "5ca243f03c8b2e5c5ab3669b"
+      "$oid": "5cb8bee0889cc09ffc7a0205"
     },
-    "name": "Estes Copeland",
+    "name": "Clara Padilla",
     "bio": "This user has not written anything",
-    "email": "Utarian70@morris.umn.edu",
-    "phoneNumber": "(885) 413-3109"
+    "email": "Namebox41@yahoo.com",
+    "phoneNumber": "(886) 529-2309",
+    "totalReviewScore": 0,
+    "numReviews": 0
   },
   {
     "_id": {
-      "$oid": "5ca243f09929f94992f68b63"
+      "$oid": "5cb8bee0fc8510c466d1689c"
     },
-    "name": "Hill Mcpherson",
+    "name": "Madeline Morse",
     "bio": "This user has not written anything",
-    "email": "Zboo49@hotmail.com",
-    "phoneNumber": "(821) 550-3925"
+    "email": "Egypto93@yahoo.com",
+    "phoneNumber": "(998) 472-3487",
+    "totalReviewScore": 0,
+    "numReviews": 0
   },
   {
     "_id": {
-      "$oid": "5ca243f0712ed630c21a8407"
+      "$oid": "5cb8bee0b552830549caef0a"
     },
-    "name": "Amalia Lynch",
+    "name": "Marisa Castillo",
     "bio": "This user has not written anything",
-    "email": "Zytrac21@morris.umn.edu",
-    "phoneNumber": "(916) 582-3030"
-  },
-  {
-    "_id": {
-      "$oid": "5ca243f04915b92bd77afc7b"
-    },
-    "name": "Maritza Hampton",
-    "bio": "This user has not written anything",
-    "email": "Centree57@gmail.com",
-    "phoneNumber": "(911) 499-2899"
-  },
-  {
-    "_id": {
-      "$oid": "5ca243f0fa9aaa02210b0b2d"
-    },
-    "name": "Leslie Hoover",
-    "bio": "This user has not written anything",
-    "email": "Bluplanet87@yahoo.com",
-    "phoneNumber": "(858) 591-3214"
-  },
-  {
-    "_id": {
-      "$oid": "5ca243f03c4a3a51c47c0c86"
-    },
-    "name": "Julia Jimenez",
-    "bio": "This user has not written anything",
-    "email": "Syntac26@yahoo.com",
-    "phoneNumber": "(943) 578-3964"
-  },
-  {
-    "_id": {
-      "$oid": "5ca243f07943d400bc358725"
-    },
-    "name": "Hutchinson Poole",
-    "bio": "This user has not written anything",
-    "email": "Isostream40@hotmail.com",
-    "phoneNumber": "(835) 555-2902"
-  },
-  {
-    "_id": {
-      "$oid": "5ca243f0d64d23d153f63084"
-    },
-    "name": "Manning Ryan",
-    "bio": "This user has not written anything",
-    "email": "Genmy23@hotmail.com",
-    "phoneNumber": "(819) 557-3466"
-  },
-  {
-    "_id": {
-      "$oid": "5ca243f05529cd8398ee8823"
-    },
-    "name": "Miranda Patterson",
-    "bio": "This user has not written anything",
-    "email": "Netbook88@hotmail.com",
-    "phoneNumber": "(829) 546-2812"
-  },
-  {
-    "_id": {
-      "$oid": "5ca243f0db41ec9258d40336"
-    },
-    "name": "Virgie Mcintosh",
-    "bio": "This user has not written anything",
-    "email": "Signidyne5@hotmail.com",
-    "phoneNumber": "(883) 485-2150"
-  },
-  {
-    "_id": {
-      "$oid": "5ca243f04b1647f7bd33385b"
-    },
-    "name": "Delaney Fuller",
-    "bio": "This user has not written anything",
-    "email": "Pigzart34@gmail.com",
-    "phoneNumber": "(855) 532-2613"
-  },
-  {
-    "_id": {
-      "$oid": "5ca243f0b4676a59e54a2ca6"
-    },
-    "name": "Good Benjamin",
-    "bio": "This user has not written anything",
-    "email": "Ziggles56@hotmail.com",
-    "phoneNumber": "(925) 489-2406"
-  },
-  {
-    "_id": {
-      "$oid": "5ca243f04a0d0382c2914384"
-    },
-    "name": "Della Lowe",
-    "bio": "This user has not written anything",
-    "email": "Harmoney6@hotmail.com",
-    "phoneNumber": "(856) 450-2017"
-  },
-  {
-    "_id": {
-      "$oid": "5ca243f0662128b361c92055"
-    },
-    "name": "Trina Ramsey",
-    "bio": "This user has not written anything",
-    "email": "Isologia30@hotmail.com",
-    "phoneNumber": "(963) 498-3516"
-  },
-  {
-    "_id": {
-      "$oid": "5ca243f0ef2bf9b410bb5672"
-    },
-    "name": "Rosario Shaffer",
-    "bio": "This user has not written anything",
-    "email": "Venoflex19@gmail.com",
-    "phoneNumber": "(928) 480-3646"
-  },
-  {
-    "_id": {
-      "$oid": "5ca243f0797d9e845106b25e"
-    },
-    "name": "Hatfield Daniels",
-    "bio": "This user has not written anything",
-    "email": "Extragen25@gmail.com",
-    "phoneNumber": "(830) 410-3952"
-  },
-  {
-    "_id": {
-      "$oid": "5ca243f0daa0cc10e6f90b76"
-    },
-    "name": "Elvira Wiley",
-    "bio": "This user has not written anything",
-    "email": "Musaphics29@yahoo.com",
-    "phoneNumber": "(904) 578-2784"
-  },
-  {
-    "_id": {
-      "$oid": "5ca243f0c8afe3f3507ba44b"
-    },
-    "name": "Marta Stone",
-    "bio": "This user has not written anything",
-    "email": "Gink65@hotmail.com",
-    "phoneNumber": "(934) 477-2794"
+    "email": "Quotezart18@morris.umn.edu",
+    "phoneNumber": "(981) 512-2328",
+    "totalReviewScore": 0,
+    "numReviews": 0
   }
 ]
