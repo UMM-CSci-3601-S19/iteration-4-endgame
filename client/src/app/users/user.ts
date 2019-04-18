@@ -4,8 +4,8 @@ export interface User {
   };
   name: String;
   bio: String;
-  email?: String;
+  email: String;
   phoneNumber?: String;
-  reviewScores?: number;
+  totalReviewScore?: number;
   numReviews?: number;
 }
