@@ -25,6 +25,7 @@ import {UserProfileComponent} from "./users/user-profile.component";
 import {UserSingleComponent} from "./users/user-single.component";
 import {UserService} from "./users/user-service";
 import {EditUserComponent} from "./users/edit-user.component";
+import {RouterModule} from "@angular/router";
 
 
 
@@ -33,6 +34,7 @@ import {EditUserComponent} from "./users/edit-user.component";
     BrowserModule,
     HttpClientModule,
     Routing,
+    RouterModule,
     CustomModule,
     MatCheckboxModule,
     MatRadioModule,

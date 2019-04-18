@@ -10,8 +10,8 @@ import {UserSingleComponent} from "./users/user-single.component";
 export const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'rides', component: RideListComponent},
-  {path: 'rides/users', component: UserProfileComponent},
-  {path: 'rides/users/:userId', component: UserSingleComponent}
+  {path: 'rides/users/:userId', component: UserProfileComponent},
+  // {path: 'rides/users/:userId', component: UserSingleComponent}
 ];
 
 export const Routing: ModuleWithProviders = RouterModule.forRoot(routes);

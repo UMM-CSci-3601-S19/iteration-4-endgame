@@ -14,6 +14,11 @@ export class UserService {
     this.http = client;
   }
 
+  getUserById(userID: string): Observable<User> {
+    let url: string = this.userUrl + "/" + userID;
+    return this.http.get<User>(url);
+  }
+
   getUsers(userID?: string): Observable<User[]> {
     // this.filterByUserID(userID);
     // return this.http.get<User[]>(this.userUrl);
