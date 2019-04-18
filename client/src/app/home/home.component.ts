@@ -14,9 +14,13 @@ export class HomeComponent {
     this.text = 'MoRide';
   }
 
+  onSignIn() {
+    console.log("We did it!");
+  }
   signIn() {
     console.log("Signing in!");
-    auth2.signIn();
+    let user = auth2.signIn();
+    console.log(user.getAuthResponse().id_token);
   }
 
   signOut() {
