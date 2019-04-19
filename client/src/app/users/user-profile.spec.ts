@@ -23,6 +23,7 @@ describe( 'User Profile', () => {
             "$oid": "5ca243f0ef2bf9b410bb5672"
           },
           "name": "Rosario Shaffer",
+          "bio": "This user has not written anything",
           "email": "Venoflex19@gmail.com",
           "phoneNumber": "(928) 480-3646",
           "reviewScores": 12,
@@ -33,6 +34,7 @@ describe( 'User Profile', () => {
             "$oid": "5ca243f0662128b361c92055"
           },
           "name": "Trina Ramsey",
+          "bio": "This user has not written anything",
           "email": "Isologia30@hotmail.com",
           "phoneNumber": "(963) 498-3516"
         },
@@ -41,6 +43,7 @@ describe( 'User Profile', () => {
             "$oid": "5ca243f0daa0cc10e6f90b76"
           },
           "name": "Elvira Wiley",
+          "bio": "This user has not written anything",
           "email": "Musaphics29@yahoo.com",
           "phoneNumber": "(904) 578-2784",
           "reviewScores": 1,
@@ -51,6 +54,7 @@ describe( 'User Profile', () => {
             "$oid": "5ca243f0797d9e845106b25e"
           },
           "name": "Hatfield Daniels",
+          "bio": "This user has not written anything",
           "email": "Extragen25@gmail.com",
           "phoneNumber": "(830) 410-3952"
         }

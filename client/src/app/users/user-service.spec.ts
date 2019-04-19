@@ -13,6 +13,7 @@ describe('User list service: ', () => {
         $oid: '5ca243f0230a5d1a43216ece'
       },
       name: 'testUserNumeroUno',
+      bio: 'There is currently nothing written here',
       email: 'email@one.com',
       phoneNumber: '(111) 111-1111'
     },
@@ -21,6 +22,7 @@ describe('User list service: ', () => {
         $oid: '5ca243f02047785213e10d03'
       },
       name: 'testUserNumeroDos',
+      bio: 'There is currently nothing written here',
       email: 'email@two.com',
       phoneNumber: '(222) 222-2222'
     },
@@ -29,6 +31,7 @@ describe('User list service: ', () => {
         $oid: '5ca243f04e7664997cbc9119'
       },
       name: 'testUserNumeroTres',
+      bio: 'There is currently nothing written here',
       email: 'email@three.com',
       phoneNumber: '(333) 333-3333'
     }
