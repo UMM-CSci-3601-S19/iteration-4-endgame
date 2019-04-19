@@ -6,7 +6,7 @@ import {User} from "./user";
 
 @Injectable()
 export class UserService {
-  readonly baseUrl: string = environment.API_URL + 'users';
+  readonly baseUrl: string = environment.API_URL + 'user';
   private userUrl: string = this.baseUrl;
   private http: HttpClient;
 
@@ -19,16 +19,9 @@ export class UserService {
     return this.http.get<User>(url);
   }
 
-  getUsers(userID?: string): Observable<User[]> {
-    // this.filterByUserID(userID);
-    // return this.http.get<User[]>(this.userUrl);
-    if (userID == null) {
-      let url: string = this.userUrl;
-      return this.http.get<User[]>(url);
-    } else {
-      let url: string = this.userUrl + "/" + userID;
-      return this.http.get<User[]>(url);
-    }
+  getUsers(): Observable<User[]> {
+    let url: string = this.userUrl;
+    return this.http.get<User[]>(url);
   }
 
   // private parameterPresent(searchParam: string) {
@@ -54,6 +47,6 @@ export class UserService {
       responseType: 'text' as 'json'
     };
 
-    return this.http.post<string>(this.userUrl + '/rate', editedUser, httpOptions);
+    return this.http.post<string>(this.userUrl + '/editProfile', editedUser, httpOptions);
   }
 }
