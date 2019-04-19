@@ -5,6 +5,7 @@ import {Observable} from 'rxjs/Observable';
 import {MatDialog, MatDialogConfig} from '@angular/material';
 import {EditUserComponent} from "./edit-user.component";
 import {ActivatedRoute} from "@angular/router";
+import {RateUserComponent} from "./rate-user.component";
 
 @Component({
   selector: 'user-profile-component',
@@ -14,6 +15,7 @@ import {ActivatedRoute} from "@angular/router";
 
 export class UserProfileComponent implements OnInit {
 
+  rating;
   user: User;
 
   // Inject the UserListService into this component.
@@ -21,22 +23,23 @@ export class UserProfileComponent implements OnInit {
 
   }
 
-  editUserDialog(currentId: string, currentName: string, currentBio: string,currentPhoneNumber: string,
-                 currentEmail: string, currentTotalReviewScore: number, currentNumReviews: number): void {
-    const currentInfo: User = {
+  editUserDialog(cId: string, cName: string, cBio: string, cEmail: string, cPhoneNumber: string,
+                 cTotalReviewScore: number, cNumReviews: number, cAvgScore: number): void {
+    const cInfo: User = {
       _id: {
-        $oid: currentId
+        $oid: cId
       },
-      name: currentName,
-      bio: currentBio,
-      phoneNumber: currentPhoneNumber,
-      email: currentEmail,
-      totalReviewScore: currentTotalReviewScore,
-      numReviews: currentNumReviews
+      name: cName,
+      bio: cBio,
+      email: cEmail,
+      phoneNumber: cPhoneNumber,
+      totalReviewScore: cTotalReviewScore,
+      numReviews: cNumReviews,
+      avgScore: cAvgScore
     };
 
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = {user: currentInfo};
+    dialogConfig.data = {user: cInfo};
     dialogConfig.width = '500px';
 
     const dialogRef = this.dialog.open(EditUserComponent, dialogConfig);
@@ -58,50 +61,52 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  // editUserReviewDialog(currentId: string, currentName: string, currentBio: string, currentEmail: string, currentPhoneNumber: string, reviewScore: number, rating: string, numReviews: number): void {
-  //   let newRating: number = parseInt(rating);
-  //   console.log("Old Rating: " + reviewScore + "  Number of Reviews: " + numReviews + "  New Rating: " + newRating);
-  //   if (reviewScore == null) {
-  //     reviewScore = newRating;
-  //   } else {
-  //     reviewScore = reviewScore + newRating;
-  //   }
-  //
-  //   const currentUser: User = {
-  //     _id: {
-  //       $oid: currentId
-  //     },
-  //     name: currentName,
-  //     bio: currentBio,
-  //     email: currentEmail,
-  //     phoneNumber: currentPhoneNumber,
-  //     // Tests work when removing the s in the reviewScore changing this to reviewScore.  However, doing this causes the review system to break.
-  //     reviewScores: reviewScore,
-  //     numReviews: numReviews + 1 || 1
-  //   };
-  //
-  //   const dialogConfig = new MatDialogConfig();
-  //   dialogConfig.data = {user: currentUser};
-  //   dialogConfig.width = '500px';
-  //
-  //   const dialogRef = this.dialog.open(EditUserComponent, dialogConfig);
-  //
-  //   console.log("Dialog Ref " + dialogRef.toString());
-  //   dialogRef.afterClosed().subscribe(currentUser => {
-  //     if (currentUser != null) {
-  //       this.userService.editUser(currentUser).subscribe(
-  //         result => {
-  //           console.log("The result is " + result);
-  //           this.ngOnInit();
-  //         },
-  //         err => {
-  //           console.log('There was an error editing the ride.');
-  //           console.log('The currentRide or dialogResult was ' + JSON.stringify(currentUser));
-  //           console.log('The error was ' + JSON.stringify(err));
-  //         });
-  //     }
-  //   });
-  // }
+  editUserReviewDialog(cId: string, cName: string, cBio: string, cEmail: string, cPhoneNumber: string,
+                       cTotalReviewScore: number, cNumReviews: number, cAvgScore: number, cRating: string): void {
+    let newRating: number = parseInt(cRating);
+    console.log("Old Total Rating: " + cTotalReviewScore + "\nOld Number of Reviews: " + cNumReviews
+            + "\nNew Rating: " + newRating + "\nOld Average: " + cAvgScore);
+    cTotalReviewScore = cTotalReviewScore + newRating;
+    cNumReviews += 1;
+    cAvgScore = cTotalReviewScore/cNumReviews;
+    console.log("New Total Rating: " + cTotalReviewScore + "\nNew Number of Reviews: " + cNumReviews + "\nNew Average: " + cAvgScore);
+
+    const cUser: User = {
+      _id: {
+        $oid: cId
+      },
+      name: cName,
+      bio: cBio,
+      email: cEmail,
+      phoneNumber: cPhoneNumber,
+      totalReviewScore: cTotalReviewScore,
+      numReviews: cNumReviews,
+      avgScore: cAvgScore
+    };
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {user: cUser};
+    dialogConfig.width = '500px';
+
+    const dialogRef = this.dialog.open(RateUserComponent, dialogConfig);
+
+    console.log("Dialog Ref " + dialogRef.toString());
+    dialogRef.afterClosed().subscribe(cUser => {
+      if (cUser != null) {
+        this.userService.rateUser(cUser).subscribe(
+          result => {
+            console.log("The result is " + result);
+            this.refreshUser();
+          },
+          err => {
+            console.log('There was an error editing the ride.');
+            console.log('The currentRide or dialogResult was ' + JSON.stringify(cUser));
+            console.log('The error was ' + JSON.stringify(err));
+          }
+        );
+      }
+    });
+  }
 
   refreshUser(): void {
     this.route.params.subscribe(params => {

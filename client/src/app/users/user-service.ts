@@ -49,4 +49,15 @@ export class UserService {
 
     return this.http.post<string>(this.userUrl + '/editProfile', editedUser, httpOptions);
   }
+
+  rateUser(ratedUser: User): Observable<string> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      responseType: 'text' as 'json'
+    };
+
+    return this.http.post<string>(this.userUrl + '/rateProfile', ratedUser, httpOptions);
+  }
 }

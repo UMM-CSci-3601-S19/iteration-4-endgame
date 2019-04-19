@@ -8,4 +8,5 @@ export interface User {
   phoneNumber?: String;
   totalReviewScore?: number;
   numReviews?: number;
+  avgScore?: number;
 }

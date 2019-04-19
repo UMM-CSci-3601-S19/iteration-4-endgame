@@ -5,7 +5,7 @@
       <mat-card-title [id]="user.name">
         {{user.name}}'s Profile
         <button mat-raised-button id="editProfile" #input type="button"
-                (click)="editUserDialog(user._id.$oid, user.name, user.bio, user.phoneNumber, user.email, user.totalReviewScore, user.numReviews)">
+                (click)="editUserDialog(user._id.$oid, user.name, user.bio, user.email, user.phoneNumber, user.totalReviewScore, user.numReviews, user.avgScore)">
           Edit Profile
         </button>
       </mat-card-title>
@@ -25,33 +25,34 @@
             - Email: {{user.email}}
             <hr/>
           </div>
-          <!--<div class="boxes" id="RatingBox" [style.grid-area]="'rating'">-->
-            <!--<div id="label"> This user's average rating: reviewScore ={{user.reviewScore}} numReviews ={{user.numReviews}}</div>-->
-            <!--<br/>-->
-            <!--<div id="starRating">-->
-              <!--<div class="star" *ngIf="(user.reviewScore/user.numReviews) >=  .5"><mat-icon id="starID1">star_rate</mat-icon></div>-->
-              <!--<div class="star" *ngIf="(user.reviewScore/user.numReviews) >= 1.5"><mat-icon id="starID2">star_rate</mat-icon></div>-->
-              <!--<div class="star" *ngIf="(user.reviewScore/user.numReviews) >= 2.5"><mat-icon id="starID3">star_rate</mat-icon></div>-->
-              <!--<div class="star" *ngIf="(user.reviewScore/user.numReviews) >= 3.5"><mat-icon id="starID4">star_rate</mat-icon></div>-->
-              <!--<div class="star" *ngIf="(user.reviewScore/user.numReviews) >= 4.5"><mat-icon id="starID5">star_rate</mat-icon></div>-->
-            <!--</div>-->
-          <!--</div>-->
-          <!--<div class="boxes" id="ReviewBox" [style.grid-area]="'review'">-->
-            <!--<mat-form-field>-->
-              <!--<mat-label>Leave a Rating</mat-label>-->
-              <!--<mat-select id="ratingSelect" [(value)]="rating">-->
-                <!--<mat-option value=1>One Star - Worst</mat-option>-->
-                <!--<mat-option value=2>Two Stars </mat-option>-->
-                <!--<mat-option value=3>Three Stars </mat-option>-->
-                <!--<mat-option value=4>Four Stars </mat-option>-->
-                <!--<mat-option value=5>Five Stars - Best</mat-option>-->
-              <!--</mat-select>-->
-            <!--</mat-form-field>-->
-            <!--<button mat-raised-button id="addRatingButton" #input type="button"-->
-                    <!--(click)="editUserReviewDialog(user._id.$oid, user.name, user.email, user.phoneNumber, user.reviewScore, rating, user.numReviews)">-->
-              <!--Submit Rating-->
-            <!--</button>-->
-          <!--</div>-->
+
+          <div class="boxes" id="ratingBox" [style.grid-area]="'rating'">
+            <div id="label"> This user's average rating: totalReviewScore ={{user.totalReviewScore}} numReviews ={{user.numReviews}} avgScore ={{user.avgScore}}</div>
+            <br/>
+            <div id="starRating">
+              <span class="star" *ngIf="user.avgScore >=  .5"><mat-icon id="starID1">star_rate</mat-icon></span>
+              <span class="star" *ngIf="user.avgScore >= 1.5"><mat-icon id="starID2">star_rate</mat-icon></span>
+              <span class="star" *ngIf="user.avgScore >= 2.5"><mat-icon id="starID3">star_rate</mat-icon></span>
+              <span class="star" *ngIf="user.avgScore >= 3.5"><mat-icon id="starID4">star_rate</mat-icon></span>
+              <span class="star" *ngIf="user.avgScore >= 4.5"><mat-icon id="starID5">star_rate</mat-icon></span>
+            </div>
+          </div>
+          <div class="boxes" id="ReviewBox" [style.grid-area]="'review'">
+            <mat-form-field>
+              <mat-label>Leave a Rating</mat-label>
+              <mat-select id="ratingSelect" [(value)]="rating">
+                <mat-option value=1>One Star - Worst</mat-option>
+                <mat-option value=2>Two Stars </mat-option>
+                <mat-option value=3>Three Stars </mat-option>
+                <mat-option value=4>Four Stars </mat-option>
+                <mat-option value=5>Five Stars - Best</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <button mat-raised-button id="addRatingButton" #input type="button"
+                    (click)="editUserReviewDialog(user._id.$oid, user.name, user.bio, user.email, user.phoneNumber, user.totalReviewScore, user.numReviews, user.avgScore, rating)">
+              Submit Rating
+            </button>
+          </div>
         </div>
       </mat-card-content>
     </mat-card>
