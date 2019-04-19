@@ -40,7 +40,7 @@ export class UserProfileComponent implements OnInit {
 
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {user: cInfo};
-    dialogConfig.width = '500px';
+    dialogConfig.width = '1000px';
 
     const dialogRef = this.dialog.open(EditUserComponent, dialogConfig);
 

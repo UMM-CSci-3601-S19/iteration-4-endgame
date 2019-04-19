@@ -26,6 +26,7 @@ import {UserService} from "./users/user-service";
 import {EditUserComponent} from "./users/edit-user.component";
 import {RouterModule} from "@angular/router";
 import {RateUserComponent} from "./users/rate-user.component";
+import {PhoneMaskDirective} from "./users/phone-mask.directive";
 
 
 
@@ -52,7 +53,11 @@ import {RateUserComponent} from "./users/rate-user.component";
     EditRideComponent,
     EditUserComponent,
     RateUserComponent,
-    DeleteRideComponent
+    DeleteRideComponent,
+    PhoneMaskDirective
+  ],
+  exports: [
+    PhoneMaskDirective
   ],
   providers: [
     RideListService,

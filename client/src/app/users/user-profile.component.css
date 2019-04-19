@@ -52,7 +52,23 @@ img {
   color: #ffc107;
 }
 
+#addRatingButton {
+  color: #ffffff;
+  background: #7a0019;
+}
+
 #addRatingButton:hover {
-  background-color: #ffc107;
+  background: #ffc107;
+  color: #000000;
+}
+
+#editProfile {
+  float: right;
+  color: #ffffff;
+  background: #7a0019;
+}
+
+#editProfile:hover {
+  background: #ffc107;
   color: #000000;
 }

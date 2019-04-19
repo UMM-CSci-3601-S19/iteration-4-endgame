@@ -57,7 +57,7 @@ export class AddRideComponent implements OnInit {
     'notes': [
       {type: 'minlength', message: 'Notes must be at least 2 characters long'},
       {type: 'maxlength', message: 'Notes cannot be more than 150 characters long'},
-      {type: 'pattern', message: 'notes must contain only english and certain symbols'}
+      {type: 'pattern', message: 'Notes must contain only english and certain symbols'}
     ]
   };
 
