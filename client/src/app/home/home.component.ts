@@ -21,10 +21,6 @@ export class HomeComponent {
     this.text = 'MoRide';
   }
 
-  onSignIn() {
-    console.log("We did it!");
-  }
-
   checkUser() {
     let authInstance = gapi.auth2.getAuthInstance();
     console.log(authInstance.currentUser.get().getAuthResponse().id_token);
