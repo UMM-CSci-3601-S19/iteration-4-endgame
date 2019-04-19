@@ -37,7 +37,6 @@ export class HomeComponent {
     console.log(environment.API_URL + 'signin');
     return this.http.post<string>(environment.API_URL + 'signin', {idtoken: idtoken}, httpOptions);
   }
-
   signIn() {
     console.log("Signing in");
     let authInstance = gapi.auth2.getAuthInstance();
