@@ -1,6 +1,7 @@
 import {MAT_DIALOG_DATA} from "@angular/material";
 import {Component, Inject, OnInit} from "@angular/core";
 import {FormBuilder} from "@angular/forms";
+import {User} from "./user";
 
 @Component({
   selector: 'rate-user.component',
@@ -10,7 +11,7 @@ import {FormBuilder} from "@angular/forms";
 export class RateUserComponent implements OnInit {
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: {id: Object}, private fb: FormBuilder) {
+    @Inject(MAT_DIALOG_DATA) public data: {user: User}, private fb: FormBuilder) {
 
   }
 
