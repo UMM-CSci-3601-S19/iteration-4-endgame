@@ -24,6 +24,8 @@ import {UserService} from "./users/user-service";
 import {EditUserComponent} from "./users/edit-user.component";
 import {MatDatepickerModule, MatNativeDateModule} from "@angular/material";
 
+import {AuthService} from "./auth.service";
+
 
 
 @NgModule({
@@ -52,7 +54,8 @@ import {MatDatepickerModule, MatNativeDateModule} from "@angular/material";
   providers: [
     RideListService,
     UserService,
-    {provide: APP_BASE_HREF, useValue: '/'},
+    AuthService,
+    {provide: APP_BASE_HREF, useValue: '/'}
   ],
   entryComponents: [
     AddRideComponent,

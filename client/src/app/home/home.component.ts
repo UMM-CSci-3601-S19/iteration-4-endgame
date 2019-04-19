@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs/Observable";
+import {AuthService} from "../auth.service";
 
 //Declare pulls the variable from the html/js environment, so our gapi we declared in index gets pulled here.
 declare let gapi: any;
@@ -16,36 +17,15 @@ declare let gapi: any;
   templateUrl: 'home.component.html',
   styleUrls: ['./home.component.css']
 })
+
 export class HomeComponent {
+  private auth: AuthService;
   public text: string;
-  private user;
 
-  constructor(private http: HttpClient) {
+  constructor(private authService: AuthService) {
     this.text = 'MoRide';
+    this.auth = authService;
   }
 
-  checkUser(): Observable<Object> {
-    let authInstance = gapi.auth2.getAuthInstance();
-    let idtoken = authInstance.currentUser.get().getAuthResponse().id_token;
-    console.log(idtoken);
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      }),
-      responseType: 'text' as 'json'
-    };
-    console.log(environment.API_URL + 'signin');
-    return this.http.post<string>(environment.API_URL + 'signin', {idtoken: idtoken}, httpOptions);
-  }
-  signIn() {
-    console.log("Signing in");
-    let authInstance = gapi.auth2.getAuthInstance();
-    authInstance.signIn();
-  }
 
-  signOut() {
-    console.log("Signing out");
-    let authInstance = gapi.auth2.getAuthInstance();
-    authInstance.signOut();
-  }
 }
