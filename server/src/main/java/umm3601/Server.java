@@ -81,7 +81,7 @@ public class Server {
     get("api/users", userRequestHandler::getUsers);
     get("api/user/:id", userRequestHandler::getUserJSON);
     post("api/user/editProfile", userRequestHandler::editUserProfile);
-//    post("api/user/rate", userRequestHandler::rateUser);
+    post("api/user/rateProfile", userRequestHandler::rateUser);
 
 
     // An example of throwing an unhandled exception so you can see how the

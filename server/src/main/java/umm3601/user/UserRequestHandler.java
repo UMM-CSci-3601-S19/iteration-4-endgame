@@ -54,13 +54,18 @@ public class UserRequestHandler {
 
     return userController.editInfo(id, bio, phoneNumber);
   }
-//  public Boolean rateUser(Request req, Response res) {
-//    res.type("application/json");
-//
-//    Document rateUser = Document.parse(req.body());
-//
-//    String id = rateUser.getObjectId("_id").toHexString();
-//    return userController.rateUser(id, rateUser.getInteger("reviewScores"), rateUser.getInteger("numReviews"));
-//  }
+
+  public Boolean rateUser(Request req, Response res) {
+    res.type("application/json");
+
+    Document rateUser = Document.parse(req.body());
+
+    String id = rateUser.getObjectId("_id").toHexString();
+    Integer totalReviewScore = rateUser.getInteger("totalReviewScore");
+    Integer numReviews = rateUser.getInteger("numReviews");
+    Double avgScore = rateUser.getDouble("avgScore");
+
+    return userController.rateUser(id, totalReviewScore, numReviews, avgScore);
+  }
 
 }

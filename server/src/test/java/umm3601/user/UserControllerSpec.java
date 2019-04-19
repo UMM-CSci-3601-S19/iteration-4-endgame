@@ -108,10 +108,10 @@ public class UserControllerSpec {
     Document resultNoReviews = Document.parse(jsonResultNoReviews);
     assertFalse("User should have no reviews", resultNoReviews.containsKey("numReviews"));
     assertFalse("User should have no review score", resultNoReviews.containsKey("reviewScore"));
-    userController.rateUser(knownId.toString(), 12, 3);
+    userController.rateUser(knownId.toString(), 12, 3, 4.0);
     String jsonResult = userController.getUser(knownId.toString());
     Document result = Document.parse(jsonResult);
     assertEquals("Number of reviews should be 3", 3, (int) result.getInteger("numReviews"));
-    assertEquals("Aggregate review score should be 12", 12, (int) result.getInteger("reviewScore"));
+    assertEquals("Aggregate review score should be 12", 12, (int) result.getInteger("totalReviewScore"));
   }
 }

@@ -70,20 +70,22 @@ public class UserController {
       return false;
     }
   }
-//  Boolean rateUser(String id, Integer reviewScore, Integer numReviews) {
-//    ObjectId objId = new ObjectId(id);
-//    Document filter = new Document("_id", objId);
-//    Document updateFields = new Document();
-//    updateFields.append("reviewScore", reviewScore);
-//    updateFields.append("numReviews", numReviews);
-//
-//    Document updateDoc = new Document("$set", updateFields);
-//    try{
-//      UpdateResult out = userCollection.updateOne(filter, updateDoc);
-//      return out.getModifiedCount() != 0;
-//    }catch(MongoException e){
-//      e.printStackTrace();
-//      return false;
-//    }
-//  }
+
+  Boolean rateUser(String id, Integer totalReviewScore, Integer numReviews, Double avgScore) {
+    ObjectId objId = new ObjectId(id);
+    Document filter = new Document("_id", objId);
+    Document updateFields = new Document();
+    updateFields.append("totalReviewScore", totalReviewScore);
+    updateFields.append("numReviews", numReviews);
+    updateFields.append("avgScore", avgScore);
+
+    Document updateDoc = new Document("$set", updateFields);
+    try{
+      UpdateResult out = userCollection.updateOne(filter, updateDoc);
+      return out.getModifiedCount() != 0;
+    }catch(MongoException e){
+      e.printStackTrace();
+      return false;
+    }
+  }
 }
