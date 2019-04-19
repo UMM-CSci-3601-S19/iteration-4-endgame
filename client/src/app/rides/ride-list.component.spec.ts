@@ -10,6 +10,7 @@ import {MatDialog} from '@angular/material';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
 import {User} from "../users/user";
+import {RouterTestingModule} from "@angular/router/testing";
 
 describe('Ride list', () => {
 
@@ -26,13 +27,13 @@ describe('Ride list', () => {
       getRides: () => Observable.of([
         {
           _id: {$oid: 'wendyId'},
-          driver: 'Wendy Huebert',
           ownerId: "5ca243f0ef2bf9b410bb5672",
           ownerData: {
             "_id": {
               "$oid": "5ca243f0ef2bf9b410bb5672"
             },
             "name": "Rosario Shaffer",
+            "bio": "This person does not have a bio written",
             "email": "Venoflex19@gmail.com",
             "phoneNumber": "(928) 480-3646"
           },
@@ -47,13 +48,13 @@ describe('Ride list', () => {
         },
         {
           _id: {$oid: 'bobId'},
-          driver: 'Bob Mann',
           ownerId: "5ca243f0662128b361c92055",
           ownerData: {
             "_id": {
               "$oid": "5ca243f0662128b361c92055"
             },
             "name": "Trina Ramsey",
+            "bio": "This person does not have a bio written",
             "email": "Isologia30@hotmail.com",
             "phoneNumber": "(963) 498-3516"
           },
@@ -68,13 +69,13 @@ describe('Ride list', () => {
         },
         {
           _id: {$oid: 'jonId'},
-          driver: 'Jon Ruevers',
           ownerId: "5ca243f0daa0cc10e6f90b76",
           ownerData: {
             "_id": {
               "$oid": "5ca243f0daa0cc10e6f90b76"
             },
             "name": "Elvira Wiley",
+            "bio": "This person does not have a bio written",
             "email": "Musaphics29@yahoo.com",
             "phoneNumber": "(904) 578-2784"
           },
@@ -89,13 +90,13 @@ describe('Ride list', () => {
         },
         {
           _id: {$oid: 'billId'},
-          driver: 'Bill Williams',
           ownerId: "5ca243f0797d9e845106b25e",
           ownerData: {
             "_id": {
               "$oid": "5ca243f0797d9e845106b25e"
             },
             "name": "Hatfield Daniels",
+            "bio": "This person does not have a bio written",
             "email": "Extragen25@gmail.com",
             "phoneNumber": "(830) 410-3952"
           },
@@ -115,6 +116,7 @@ describe('Ride list', () => {
             "$oid": "5ca243f0ef2bf9b410bb5672"
           },
           "name": "Rosario Shaffer",
+          "bio": "This person does not have a bio written",
           "email": "Venoflex19@gmail.com",
           "phoneNumber": "(928) 480-3646"
         },
@@ -123,6 +125,7 @@ describe('Ride list', () => {
             "$oid": "5ca243f0662128b361c92055"
           },
           "name": "Trina Ramsey",
+          "bio": "This person does not have a bio written",
           "email": "Isologia30@hotmail.com",
           "phoneNumber": "(963) 498-3516"
         },
@@ -131,6 +134,7 @@ describe('Ride list', () => {
             "$oid": "5ca243f0daa0cc10e6f90b76"
           },
           "name": "Elvira Wiley",
+          "bio": "This person does not have a bio written",
           "email": "Musaphics29@yahoo.com",
           "phoneNumber": "(904) 578-2784"
         },
@@ -139,6 +143,7 @@ describe('Ride list', () => {
             "$oid": "5ca243f0797d9e845106b25e"
           },
           "name": "Hatfield Daniels",
+          "bio": "This person does not have a bio written",
           "email": "Extragen25@gmail.com",
           "phoneNumber": "(830) 410-3952"
         }
@@ -146,7 +151,7 @@ describe('Ride list', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [CustomModule],
+      imports: [CustomModule, RouterTestingModule],
       declarations: [RideListComponent],
       providers: [{provide: RideListService, useValue: rideListServiceStub}]
     });
@@ -169,17 +174,17 @@ describe('Ride list', () => {
     return expect(rideList.rides.length).toBe(4);
   });
 
-  it('contains a ride driver \'Wendy Huebert\'', () => {
-    return expect(rideList.rides.some((ride: Ride) => ride.driver === 'Wendy Huebert')).toBe(true);
-  });
-
-  it('contains a ride driver \'Bill Williams\'', () => {
-    return expect(rideList.rides.some((ride: Ride) => ride.driver === 'Bill Williams')).toBe(true);
-  });
-
-  it('Does not contain a ride driver \'Bilbo Baggins\'', () => {
-    return expect(rideList.rides.some((ride: Ride) => ride.driver === 'Bilbo Baggins')).toBe(false);
-  });
+  // it('contains a ride driver \'Wendy Huebert\'', () => {
+  //   return expect(rideList.rides.some((ride: Ride) => ride.driver === 'Wendy Huebert')).toBe(true);
+  // });
+  //
+  // it('contains a ride driver \'Bill Williams\'', () => {
+  //   return expect(rideList.rides.some((ride: Ride) => ride.driver === 'Bill Williams')).toBe(true);
+  // });
+  //
+  // it('Does not contain a ride driver \'Bilbo Baggins\'', () => {
+  //   return expect(rideList.rides.some((ride: Ride) => ride.driver === 'Bilbo Baggins')).toBe(false);
+  // });
 
   it('contains a ride destination \'Big Lake\'', () => {
     return expect(rideList.rides.some((ride: Ride) => ride.destination === 'Big Lake')).toBe(true);
@@ -297,7 +302,7 @@ describe('Misbehaving Ride List',() => {
     };
 
     TestBed.configureTestingModule( {
-      imports: [FormsModule, CustomModule],
+      imports: [FormsModule, CustomModule, RouterTestingModule],
       declarations: [RideListComponent],
       providers: [{provide: RideListService, useValue: rideListServiceStub}]
     });
@@ -366,7 +371,7 @@ describe('Adding a ride',()=> {
     };
 
     TestBed.configureTestingModule({
-      imports: [FormsModule, CustomModule],
+      imports: [FormsModule, CustomModule, RouterTestingModule],
       declarations: [RideListComponent],
       providers: [
         {provide: RideListService, useValue: rideListServiceStub},
@@ -436,6 +441,7 @@ describe('Editing a ride',()=> {
             '$oid': '5ca243f0712ed630c21a8407'
           },
           name: 'Sydney Stevens',
+          bio: 'This person does not have a bio written',
           phoneNumber: '320 555 5555',
           email: 'Stevens@google.com',
         }
@@ -452,7 +458,7 @@ describe('Editing a ride',()=> {
     };
 
     TestBed.configureTestingModule({
-      imports: [FormsModule, CustomModule],
+      imports: [FormsModule, CustomModule, RouterTestingModule],
       declarations: [RideListComponent],
       providers: [
         {provide: RideListService, useValue: rideListServiceStub},
@@ -521,6 +527,7 @@ describe('Deleting a ride',()=> {
           '$oid': '5ca243f0712ed630c21a8407'
         },
         name: 'Sydney Stevens',
+        bio: 'This person does not have a bio written',
         phoneNumber: '320 555 5555',
         email: 'Stevens@google.com',
       }
@@ -537,7 +544,7 @@ describe('Deleting a ride',()=> {
     };
 
     TestBed.configureTestingModule({
-      imports: [FormsModule, CustomModule],
+      imports: [FormsModule, CustomModule, RouterTestingModule],
       declarations: [RideListComponent],
       providers: [
         {provide: RideListService, useValue: rideListServiceStub},

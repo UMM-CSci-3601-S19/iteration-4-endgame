@@ -4,7 +4,7 @@ export interface Ride {
   _id?: {
     $oid: string;
   };
-  driver: string;
+  driver?: string;
   ownerId?: string;
   ownerData?: User;
   riders?: string;

@@ -30,10 +30,10 @@ import {RouterModule} from "@angular/router";
 
 @NgModule({
   imports: [
-    BrowserModule,
-    HttpClientModule,
     Routing,
     RouterModule,
+    BrowserModule,
+    HttpClientModule,
     CustomModule,
     MatCheckboxModule,
     MatRadioModule,

@@ -3,7 +3,7 @@
 </div>
 
 <div id="wrapper">
-<div layout-gt-sm="row">
+<div *ngIf="users" layout-gt-sm="row">
   <div flex-gt-sm="80" flex-offset-gt-sm="10">
     <mat-card>
       <mat-card-title id="ride-list-title">Available Listings</mat-card-title>
@@ -72,10 +72,10 @@
             <br/>
 
             <div id="buttonContainer">
-              <a mat-raised-button id="goToUser"
+              <button id="goToUser" mat-raised-button
                       routerLink="users/{{ride.ownerData._id.$oid}}">
                 User Information
-              </a>
+              </button>
               <button id="deleteRide" mat-raised-button
                       (click)="openDeleteDialog(ride._id.$oid)">
                 Delete Ride
