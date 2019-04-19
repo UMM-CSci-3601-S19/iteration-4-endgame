@@ -79,9 +79,9 @@ public class Server {
     // User Endpoints ///////////////////////////////////
     /////////////////////////////////////////////////////
     get("api/users", userRequestHandler::getUsers);
-    get("api/users/:id", userRequestHandler::getUserJSON);
     get("api/user/:id", userRequestHandler::getUserJSON);
-    post("api/users/rate", userRequestHandler::rateUser);
+    post("api/user/editProfile", userRequestHandler::editUserProfile);
+//    post("api/user/rate", userRequestHandler::rateUser);
 
 
     // An example of throwing an unhandled exception so you can see how the

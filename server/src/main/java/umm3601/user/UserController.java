@@ -54,20 +54,36 @@ public class UserController {
       .collect(Collectors.joining(", ", "[", "]"));
   }
 
-  Boolean rateUser(String id, Integer reviewScore, Integer numReviews) {
-    ObjectId objId = new ObjectId(id);
-    Document filter = new Document("_id", objId);
+  Boolean editInfo(String id, String bio, String phoneNumber) {
+    ObjectId userId = new ObjectId(id);
+    Document filter = new Document("_id", userId);
     Document updateFields = new Document();
-    updateFields.append("reviewScore", reviewScore);
-    updateFields.append("numReviews", numReviews);
+    updateFields.append("bio", bio);
+    updateFields.append("phoneNumber", phoneNumber);
 
     Document updateDoc = new Document("$set", updateFields);
-    try{
+    try {
       UpdateResult out = userCollection.updateOne(filter, updateDoc);
       return out.getModifiedCount() != 0;
-    }catch(MongoException e){
+    } catch(MongoException e) {
       e.printStackTrace();
       return false;
     }
   }
+//  Boolean rateUser(String id, Integer reviewScore, Integer numReviews) {
+//    ObjectId objId = new ObjectId(id);
+//    Document filter = new Document("_id", objId);
+//    Document updateFields = new Document();
+//    updateFields.append("reviewScore", reviewScore);
+//    updateFields.append("numReviews", numReviews);
+//
+//    Document updateDoc = new Document("$set", updateFields);
+//    try{
+//      UpdateResult out = userCollection.updateOne(filter, updateDoc);
+//      return out.getModifiedCount() != 0;
+//    }catch(MongoException e){
+//      e.printStackTrace();
+//      return false;
+//    }
+//  }
 }

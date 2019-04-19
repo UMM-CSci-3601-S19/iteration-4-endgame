@@ -43,13 +43,24 @@ public class UserRequestHandler {
     return userController.getUsers(req.queryMap().toMap());
   }
 
-  public Boolean rateUser(Request req, Response res) {
+  public Boolean editUserProfile(Request req, Response res) {
     res.type("application/json");
 
-    Document rateUser = Document.parse(req.body());
+    Document editInfo = Document.parse(req.body());
 
-    String id = rateUser.getObjectId("_id").toHexString();
-    return userController.rateUser(id, rateUser.getInteger("reviewScores"), rateUser.getInteger("numReviews"));
+    String id = editInfo.getObjectId("_id").toHexString();
+    String bio = editInfo.getString("bio");
+    String phoneNumber = editInfo.getString("phoneNumber");
+
+    return userController.editInfo(id, bio, phoneNumber);
   }
+//  public Boolean rateUser(Request req, Response res) {
+//    res.type("application/json");
+//
+//    Document rateUser = Document.parse(req.body());
+//
+//    String id = rateUser.getObjectId("_id").toHexString();
+//    return userController.rateUser(id, rateUser.getInteger("reviewScores"), rateUser.getInteger("numReviews"));
+//  }
 
 }
