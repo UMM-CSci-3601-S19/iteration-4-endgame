@@ -1,4 +1,7 @@
 import {Component} from '@angular/core';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {environment} from "../../environments/environment";
+import {Observable} from "rxjs/Observable";
 
 //Declare pulls the variable from the html/js environment, so our gapi we declared in index gets pulled here.
 declare let gapi: any;
@@ -17,18 +20,24 @@ export class HomeComponent {
   public text: string;
   private user;
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.text = 'MoRide';
   }
 
-  onSignIn() {
-    console.log("We did it!");
+  checkUser(): Observable<Object> {
+    let authInstance = gapi.auth2.getAuthInstance();
+    let idtoken = authInstance.currentUser.get().getAuthResponse().id_token;
+    console.log(idtoken);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      responseType: 'text' as 'json'
+    };
+    console.log(environment.API_URL + 'signin');
+    return this.http.post<string>(environment.API_URL + 'signin', {idtoken: idtoken}, httpOptions);
   }
 
-  checkUser() {
-    let authInstance = gapi.auth2.getAuthInstance();
-    console.log(authInstance.currentUser.get().getAuthResponse().id_token);
-  }
   signIn() {
     console.log("Signing in");
     let authInstance = gapi.auth2.getAuthInstance();

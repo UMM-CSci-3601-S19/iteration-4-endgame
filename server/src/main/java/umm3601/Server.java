@@ -2,6 +2,8 @@ package umm3601;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.util.JSON;
+import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -15,6 +17,8 @@ import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
 import java.io.InputStream;
+
+import org.bson.Document;
 
 public class Server {
 
@@ -82,6 +86,18 @@ public class Server {
     get("api/users/:id", userRequestHandler::getUserJSON);
     get("api/user/:id", userRequestHandler::getUserJSON);
     post("api/users/rate", userRequestHandler::rateUser);
+
+    post("api/signin", (Request req, Response res) -> {
+      res.type("application/json");
+      System.out.println("signin!");
+      System.out.println(req.body());
+      Document body = Document.parse(req.body());
+      System.out.println(body);
+      String token = body.getString("idtoken");
+      System.out.println(token);
+      res.body(token);
+      return res;
+    });
 
 
     // An example of throwing an unhandled exception so you can see how the
