@@ -1,11 +1,34 @@
 <div>
-  <span> Are you sure you want to rate this user? </span>
-  <mat-dialog-actions layout="row">
+  <form [formGroup]="editInfoForm">
+    <mat-dialog-actions layout="row">
     <!--[mat-dialog-close]="data.id['$oid']"-->
-    <button mat-raised-button id="confirmRateUserButton" [mat-dialog-close]="data.user"
-            type="button" color="primary">Rate!
+
+    <mat-form-field flex>
+      <textarea matInput #input id="bioField" placeholder="Biography" [(ngModel)]="data.user.bio" formControlName="bio"></textarea>
+      <mat-error *ngFor="let validation of edit_info_validation_messages.bio">
+        <mat-error class="error-message" id="bio-error"
+                   *ngIf="editInfoForm.get('bio').hasError(validation.type) && (editInfoForm.get('bio').dirty || editInfoForm.get('bio').touched)">
+          {{validation.message}}
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field flex>
+      <input matInput #input id="phoneNumberField" placeholder="Phone Number" [(ngModel)]="data.user.phoneNumber" formControlName="phoneNumber"
+             required>
+      <mat-error *ngFor="let validation of edit_info_validation_messages.phoneNumber">
+        <mat-error class="error-message" id="phoneNumber-error"
+                   *ngIf="editInfoForm.get('phoneNumber').hasError(validation.type) && (editInfoForm.get('phoneNumber').dirty || editInfoForm.get('phoneNumber').touched)">
+          {{validation.message}}
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button id="confirmEditInfoButton" [mat-dialog-close]="data.user"
+            type="button" color="primary">Edit!
     </button>
 
-    <button mat-raised-button id="exitWithoutRatingButton" [mat-dialog-close]="null" type="button">Cancel</button>
-  </mat-dialog-actions>
+    <button mat-raised-button id="exitWithoutEditingButton" [mat-dialog-close]="null" type="button">Cancel</button>
+    </mat-dialog-actions>
+  </form>
 </div>
