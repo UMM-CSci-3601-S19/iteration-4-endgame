@@ -1,0 +1,10 @@
+<div>
+  <span> Are you sure you want to rate this ride? </span>
+  <mat-dialog-actions layout="row">
+    <button mat-raised-button id="confirmRateProfileButton" [mat-dialog-close]="data.user"
+            type="button" color="primary">Rate Profile
+    </button>
+
+    <button mat-raised-button id="exitWithoutRatingButton" [mat-dialog-close]="null" type="button">Cancel</button>
+  </mat-dialog-actions>
+</div>

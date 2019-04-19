@@ -25,6 +25,7 @@ import {UserProfileComponent} from "./users/user-profile.component";
 import {UserService} from "./users/user-service";
 import {EditUserComponent} from "./users/edit-user.component";
 import {RouterModule} from "@angular/router";
+import {RateUserComponent} from "./users/rate-user.component";
 
 
 
@@ -50,6 +51,7 @@ import {RouterModule} from "@angular/router";
     AddRideComponent,
     EditRideComponent,
     EditUserComponent,
+    RateUserComponent,
     DeleteRideComponent
   ],
   providers: [
@@ -61,6 +63,7 @@ import {RouterModule} from "@angular/router";
     AddRideComponent,
     EditRideComponent,
     EditUserComponent,
+    RateUserComponent,
     DeleteRideComponent
   ],
   bootstrap: [AppComponent]
