@@ -15,29 +15,13 @@ export class UserService {
   }
 
   getUserById(userID: string): Observable<User> {
-    let url: string = this.userUrl + "/" + userID;
-    return this.http.get<User>(url);
+    return this.http.get<User>(this.userUrl + "/" + userID);
   }
 
   getUsers(): Observable<User[]> {
     let url: string = this.userUrl;
     return this.http.get<User[]>(url);
   }
-
-  // private parameterPresent(searchParam: string) {
-  //   return this.userUrl.indexOf(searchParam) !== -1;
-  // }
-  //
-  // private removeParameter(searchParam: string) {
-  //   let start = this.userUrl.indexOf(searchParam);
-  //   let end = 0;
-  //   if (this.userUrl.indexOf('&') !== -1) {
-  //     end = this.userUrl.indexOf('&', start) + 1;
-  //   } else {
-  //     end = this.userUrl.indexOf('&', start);
-  //   }
-  //   this.userUrl = this.userUrl.substring(0, start) + this.userUrl.substring(end);
-  // }
 
   editUser(editedUser: User): Observable<string> {
     const httpOptions = {
@@ -60,4 +44,19 @@ export class UserService {
 
     return this.http.post<string>(this.userUrl + '/rateProfile', ratedUser, httpOptions);
   }
+
+  // private parameterPresent(searchParam: string) {
+  //   return this.userUrl.indexOf(searchParam) !== -1;
+  // }
+  //
+  // private removeParameter(searchParam: string) {
+  //   let start = this.userUrl.indexOf(searchParam);
+  //   let end = 0;
+  //   if (this.userUrl.indexOf('&') !== -1) {
+  //     end = this.userUrl.indexOf('&', start) + 1;
+  //   } else {
+  //     end = this.userUrl.indexOf('&', start);
+  //   }
+  //   this.userUrl = this.userUrl.substring(0, start) + this.userUrl.substring(end);
+  // }
 }

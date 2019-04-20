@@ -30,11 +30,6 @@ export class RideListComponent implements OnInit {
   constructor(public rideListService: RideListService, public dialog: MatDialog) {
   }
 
-  isHighlighted(ride: Ride): boolean {
-    return ride.destination === this.highlightedDestination;
-  }
-
-
   openAddDialog(): void {
     const newRide: Ride = {driver: '', destination: '', origin: '', roundTrip: false, driving: false, departureDate: '', departureTime: '', mpg: null, notes: ''};
 
@@ -189,9 +184,12 @@ export class RideListComponent implements OnInit {
     );
   }
 
-
   ngOnInit(): void {
     this.refreshRides();
     this.refreshUsers();
   }
+
+  // isHighlighted(ride: Ride): boolean {
+  //   return ride.destination === this.highlightedDestination;
+  // }
 }
