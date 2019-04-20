@@ -19,7 +19,7 @@ declare let gapi: any;
 })
 
 export class HomeComponent {
-  private auth: AuthService;
+  public auth: AuthService;
   public text: string;
   public buttonSource1: string;
 

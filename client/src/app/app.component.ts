@@ -8,7 +8,7 @@ import {AuthService} from "./auth.service";
 })
 export class AppComponent {
   title = 'Mongo-Angular-Spark lab';
-  private auth: AuthService;
+  public auth: AuthService;
 
   constructor(private authService: AuthService) {
     this.auth = authService;

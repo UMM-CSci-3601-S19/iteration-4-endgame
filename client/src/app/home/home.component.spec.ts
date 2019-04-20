@@ -3,6 +3,7 @@ import {HomeComponent} from './home.component';
 import {DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {CustomModule} from '../custom.module';
+import {AuthService} from "../auth.service";
 
 describe('Home', () => {
 
@@ -11,10 +12,21 @@ describe('Home', () => {
   let de: DebugElement;
   let el: HTMLElement;
 
+  let authServiceStub: {
+    isSignedIn: () => boolean;
+  };
+
   beforeEach(() => {
+    authServiceStub = {
+      isSignedIn: () => true
+    }
+
     TestBed.configureTestingModule({
       imports: [CustomModule],
-      declarations: [HomeComponent], // declare the test component
+      declarations: [HomeComponent],
+      providers: [
+        {provide: AuthService, useValue: authServiceStub},
+      ]
     });
 
     fixture = TestBed.createComponent(HomeComponent);

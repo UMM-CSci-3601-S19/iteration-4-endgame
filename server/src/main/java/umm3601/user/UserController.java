@@ -91,7 +91,7 @@ public class UserController {
     }
   }
 
-  public String login(String userId, String email, String fullName, String pictureUrl){
+  public String login(String userId, String email, String name, String pictureUrl){
     Document filterDoc = new Document();
 
     Document contentRegQuery = new Document();
@@ -108,7 +108,7 @@ public class UserController {
       newUser.append("_id", id);
       newUser.append("userId", userId);
       newUser.append("email", email);
-      newUser.append("fullName", fullName);
+      newUser.append("name", name);
       newUser.append("pictureUrl", pictureUrl);
       try {
         userCollection.insertOne(newUser);
@@ -116,9 +116,9 @@ public class UserController {
         Document userInfo = new Document();
         userInfo.append("_id", matchingUsers.first().get("_id"));
         userInfo.append("email", matchingUsers.first().get("email"));
-        userInfo.append("name", matchingUsers.first().get("fullName"));
+        userInfo.append("name", matchingUsers.first().get("name"));
         userInfo.append("pictureUrl", matchingUsers.first().get("pictureUrl"));
-        System.err.println("Successfully added new user [_id=" + id + ", userId=" + userId + " email=" + email + " fullName=" + fullName + " pictureUrl " + pictureUrl + "]");
+        System.err.println("Successfully added new user [_id=" + id + ", userId=" + userId + " email=" + email + " name=" + name + " pictureUrl " + pictureUrl + "]");
       }catch(MongoException e){
         e.printStackTrace();
         return null;
@@ -127,9 +127,9 @@ public class UserController {
       Document userInfo = new Document();
       userInfo.append("_id", matchingUsers.first().get("_id"));
       userInfo.append("email", matchingUsers.first().get("email"));
-      userInfo.append("fullName", matchingUsers.first().get("fullName"));
+      userInfo.append("name", matchingUsers.first().get("name"));
       userInfo.append("pictureUrl", matchingUsers.first().get("pictureUrl"));
-      System.out.println("Logged in user: " + fullName);
+      System.out.println("Logged in user: " + name);
       return JSON.serialize(userInfo);
     }
     return "";
