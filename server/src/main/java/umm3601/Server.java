@@ -97,11 +97,15 @@ public class Server {
     get("api/user/:id", userRequestHandler::getUserJSON);
     post("api/users/rate", userRequestHandler::rateUser);
 
-    post("api/signin", (Request req, Response res) -> {
+    post("api/signin", (Request req, Response res) -> { //хорошо
       res.type("application/json");
       System.out.println("signin!");
+      Document body = Document.parse(req.body());
+      String token = body.getString("idtoken"); //key formerly 'code'
+      System.out.println(token);
       try {
-        GoogleClientSecrets clientSecrets =
+
+        /*GoogleClientSecrets clientSecrets =
           GoogleClientSecrets.load(JacksonFactory.getDefaultInstance(), new FileReader(CLIENT_SECRET_FILE));
         String clientSecret = clientSecrets.getDetails().getClientSecret();
         GoogleTokenResponse tokenResponse =
@@ -111,25 +115,37 @@ public class Server {
             "https://oauth2.googleapis.com/token",
             clientSecrets.getDetails().getClientId(),
             clientSecret,
-            authCode,
-            "http://localhost:9000").execute();
+            token, //formerly authCode
+            "http://localhost:9000").execute();*/
+
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, JacksonFactory.getDefaultInstance())
-          .setAudience(Collections.singletonList(clientSecret))
           // Specify the CLIENT_ID of the app that accesses the backend:
           .setAudience(Collections.singletonList(CLIENT_ID))
           // Or, if multiple clients access the backend:
           //.setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
           .build();
-        GoogleIdToken idToken = verifier.verify(tokenResponse)
+        GoogleIdToken idToken = verifier.verify(token);
+        if (idToken != null) {
+          GoogleIdToken.Payload payload = idToken.getPayload();
+
+
+          // Print user identifier
+          String userId = payload.getSubject();
+          System.out.println("User ID: " + userId);
+          String email = payload.getEmail();
+          boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
+          String name = (String) payload.get("name");
+          System.out.println("Welcome " + name + " owo!");
+          String pictureUrl = (String) payload.get("picture");
+          res.body(userId);
+          return res;
+        }
+
       } catch (Exception e) {
-        System.err.println("Client secret not found uwu");
+        System.err.println("Invalid ID token uwu");
         e.printStackTrace();
       }
-      Document body = Document.parse(req.body());
-      String token = body.getString("idtoken");
-      System.out.println(token);
-      res.body(token);
-      return res;
+      return null;
     });
 
 
