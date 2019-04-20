@@ -55,6 +55,7 @@
     "mpg": 30
   },
   {
+    "_id": {"$oid": "1234567890abcdeffedcba09"},
     "ownerId": "5cb8bee01dcce624e181efca",
     "destination": "Duluth",
     "origin": "Union Street",
@@ -154,6 +155,7 @@
     "mpg": 37
   },
   {
+    "_id": {"$oid": "0987654321fedcbaabcdef90"},
     "ownerId": "5cb8bee08f7394657ba3c2e9",
     "destination": "Alexandria",
     "origin": "Ryder Street",
@@ -198,6 +200,7 @@
     "mpg": 55
   },
   {
+    "_id": {"$oid": "fedcbafedcbafedcbafedcba"},
     "ownerId": "5cb8bee01faacab569eac688",
     "destination": "Alexandria",
     "origin": "Hinsdale Street",

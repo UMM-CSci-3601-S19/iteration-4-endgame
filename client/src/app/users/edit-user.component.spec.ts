@@ -1,17 +1,18 @@
-import {async, ComponentFixture, TestBed} from "@angular/core/testing";
-import {EditUserComponent} from "./edit-user.component";
-import {PhoneMaskDirective} from "./phone-mask.directive";
-import {By} from "@angular/platform-browser";
-import {RouterTestingModule} from "@angular/router/testing";
-import {CustomModule} from "../custom.module";
-import {FormsModule} from "@angular/forms";
-import {UserService} from "./user-service";
-import {MAT_DIALOG_DATA, MatDialog} from "@angular/material";
-import {User} from "./user";
-import {Observable} from "rxjs/Observable";
-import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from "@angular/platform-browser-dynamic/testing";
+// import {async, ComponentFixture, TestBed} from "@angular/core/testing";
+// import {EditUserComponent} from "./edit-user.component";
+// import {PhoneMaskDirective} from "./phone-mask.directive";
+// import {By} from "@angular/platform-browser";
+// import {RouterTestingModule} from "@angular/router/testing";
+// import {CustomModule} from "../custom.module";
+// import {FormsModule} from "@angular/forms";
+// import {UserService} from "./user-service";
+// import {MAT_DIALOG_DATA, MatDialog} from "@angular/material";
+// import {User} from "./user";
+// import {Observable} from "rxjs/Observable";
+// import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from "@angular/platform-browser-dynamic/testing";
 
 // TODO: An attempt at testing the phone-mask directive, its close but not quite there, could use some work
+// TODO: Also covers parts of edit-user.component, while that wasn't the main focus
 // describe('edit user component', () => {
 //
 //   let directive;
