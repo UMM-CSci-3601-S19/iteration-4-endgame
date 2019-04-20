@@ -1,7 +1,12 @@
 package umm3601;
 
+import com.google.api.client.googleapis.auth.oauth2.*;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.util.JSON;
+import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -14,13 +19,21 @@ import umm3601.user.UserRequestHandler;
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
+import java.io.FileReader;
 import java.io.InputStream;
+import java.util.Collections;
+
+import org.bson.Document;
 
 public class Server {
 
   private static final int serverPort = 4567;
 
   private static final String databaseName = "dev";
+
+  private static final String CLIENT_ID = "375549452265-kpv6ds6lpfc0ibasgeqcgq1r6t6t6sth.apps.googleusercontent.com";
+
+  private static final String CLIENT_SECRET_FILE = "../secret.json";
 
   public static void main(String[] args) {
 
@@ -32,6 +45,7 @@ public class Server {
     UserController userController = new UserController(database);
     UserRequestHandler userRequestHandler = new UserRequestHandler(userController);
 
+    NetHttpTransport transport = new NetHttpTransport();
 
     //Configure Spark
     port(serverPort);
@@ -82,6 +96,59 @@ public class Server {
     get("api/user/:id", userRequestHandler::getUserJSON);
     post("api/user/editProfile", userRequestHandler::editUserProfile);
     post("api/user/rateProfile", userRequestHandler::rateUser);
+
+    post("api/signin", (Request req, Response res) -> { //хорошо
+      res.type("application/json");
+      System.out.println("signin!");
+      Document body = Document.parse(req.body());
+      String token = body.getString("idtoken"); //key formerly 'code'
+      System.out.println(token);
+      try {
+
+        /*GoogleClientSecrets clientSecrets =
+          GoogleClientSecrets.load(JacksonFactory.getDefaultInstance(), new FileReader(CLIENT_SECRET_FILE));
+        String clientSecret = clientSecrets.getDetails().getClientSecret();
+        GoogleTokenResponse tokenResponse =
+          new GoogleAuthorizationCodeTokenRequest(
+            transport,
+            JacksonFactory.getDefaultInstance(),
+            "https://oauth2.googleapis.com/token",
+            clientSecrets.getDetails().getClientId(),
+            clientSecret,
+            token, //formerly authCode
+            "http://localhost:9000").execute();*/
+
+        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, JacksonFactory.getDefaultInstance())
+          // Specify the CLIENT_ID of the app that accesses the backend:
+          .setAudience(Collections.singletonList(CLIENT_ID))
+          // Or, if multiple clients access the backend:
+          //.setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
+          .build();
+        GoogleIdToken idToken = verifier.verify(token);
+        if (idToken != null) {
+          GoogleIdToken.Payload payload = idToken.getPayload();
+
+
+          // Print user identifier
+          String userId = payload.getSubject();
+          System.out.println("User ID: " + userId);
+          String email = payload.getEmail();
+          System.out.println(email);
+          boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
+          String name = (String) payload.get("name");
+          System.out.println("Welcome " + name + " owo!");
+          String pictureUrl = (String) payload.get("picture");
+          return userController.login(userId, email, name, pictureUrl);
+        }
+
+
+
+      } catch (Exception e) {
+        System.err.println("Invalid ID token uwu");
+        e.printStackTrace();
+      }
+      return null;
+    });
 
 
     // An example of throwing an unhandled exception so you can see how the

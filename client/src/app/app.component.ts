@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {AuthService} from "./auth.service";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,9 @@ import {Component} from '@angular/core';
 })
 export class AppComponent {
   title = 'Mongo-Angular-Spark lab';
+  private auth: AuthService;
+
+  constructor(private authService: AuthService) {
+    this.auth = authService;
+  }
 }

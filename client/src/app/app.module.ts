@@ -28,6 +28,8 @@ import {RouterModule} from "@angular/router";
 import {RateUserComponent} from "./users/rate-user.component";
 import {PhoneMaskDirective} from "./users/phone-mask.directive";
 
+import {AuthService} from "./auth.service";
+
 
 
 @NgModule({
@@ -62,7 +64,8 @@ import {PhoneMaskDirective} from "./users/phone-mask.directive";
   providers: [
     RideListService,
     UserService,
-    {provide: APP_BASE_HREF, useValue: '/'},
+    AuthService,
+    {provide: APP_BASE_HREF, useValue: '/'}
   ],
   entryComponents: [
     AddRideComponent,
