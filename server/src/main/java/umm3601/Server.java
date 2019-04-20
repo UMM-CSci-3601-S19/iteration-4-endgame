@@ -133,6 +133,7 @@ public class Server {
           String userId = payload.getSubject();
           System.out.println("User ID: " + userId);
           String email = payload.getEmail();
+          System.out.println(email);
           boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
           String name = (String) payload.get("name");
           System.out.println("Welcome " + name + " owo!");
