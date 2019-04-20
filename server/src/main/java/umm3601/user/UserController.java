@@ -71,7 +71,7 @@ public class UserController {
     }
   }
 
-  Boolean rateUser(String id, Integer totalReviewScore, Integer numReviews, Double avgScore) {
+  Boolean rateUser(String id, Integer totalReviewScore, Integer numReviews, Integer avgScore) {
     ObjectId objId = new ObjectId(id);
     Document filter = new Document("_id", objId);
     Document updateFields = new Document();

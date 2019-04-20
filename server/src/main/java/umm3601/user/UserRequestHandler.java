@@ -63,7 +63,7 @@ public class UserRequestHandler {
     String id = rateUser.getObjectId("_id").toHexString();
     Integer totalReviewScore = rateUser.getInteger("totalReviewScore");
     Integer numReviews = rateUser.getInteger("numReviews");
-    Double avgScore = rateUser.getDouble("avgScore");
+    Integer avgScore = rateUser.getInteger("avgScore");
 
     return userController.rateUser(id, totalReviewScore, numReviews, avgScore);
   }

@@ -68,7 +68,7 @@ export class UserProfileComponent implements OnInit {
             + "\nNew Rating: " + newRating + "\nOld Average: " + cAvgScore);
     cTotalReviewScore = cTotalReviewScore + newRating;
     cNumReviews += 1;
-    cAvgScore = cTotalReviewScore/cNumReviews;
+    cAvgScore = Math.ceil(cTotalReviewScore/cNumReviews);
     console.log("New Total Rating: " + cTotalReviewScore + "\nNew Number of Reviews: " + cNumReviews + "\nNew Average: " + cAvgScore);
 
     const cUser: User = {
