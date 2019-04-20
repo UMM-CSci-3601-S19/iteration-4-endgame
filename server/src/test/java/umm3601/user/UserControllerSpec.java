@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 public class UserControllerSpec {
   private UserController userController;
@@ -54,6 +55,7 @@ public class UserControllerSpec {
     BasicDBObject knownObj = new BasicDBObject("_id", knownId);
     knownObj = knownObj
       .append("name", "Marci Sears III")
+      .append("bio", "Hey look I have a bio ;>")
       .append("email", "sear999@umn.edu")
       .append("phoneNumber", "320 320 3200");
     userDocuments.insertOne(Document.parse(knownObj.toJson()));
@@ -77,6 +79,8 @@ public class UserControllerSpec {
     BsonDocument doc = val.asDocument();
     return ((BsonString) doc.get(attribute)).getValue();
   }
+
+  private static String getName(BsonValue val){ return getAttribute(val, "name"); }
 
   @Test
   public void getAllUsers() {
@@ -103,15 +107,32 @@ public class UserControllerSpec {
   }
 
   @Test
+  public void editUser() {
+    Map<String, String[]> emptyMap = new HashMap<>();
+
+    Boolean resp = userController.editInfo(knownId.toString(),"I have 2 droids, R2UwU-D2UwU and c-3POwO", "(123) 456-7890");
+    assertTrue("Successful edit should return true", resp);
+
+    String singleResultJson = userController.getUser(knownId.toString());
+    Document singleResult = Document.parse(singleResultJson);
+    assertEquals("Name should match", "Marci Sears III", singleResult.get("name"));
+    assertEquals("Bio should match", "I have 2 droids, R2UwU-D2UwU and c-3POwO", singleResult.get("bio"));
+    assertEquals("Email should match", "sear999@umn.edu", singleResult.get("email"));
+    assertEquals("Phone Number should match", "(123) 456-7890", singleResult.get("phoneNumber"));
+  }
+
+  @Test
   public void rateUser() {
     String jsonResultNoReviews = userController.getUser(knownId.toString());
     Document resultNoReviews = Document.parse(jsonResultNoReviews);
     assertFalse("User should have no reviews", resultNoReviews.containsKey("numReviews"));
-    assertFalse("User should have no review score", resultNoReviews.containsKey("reviewScore"));
-    userController.rateUser(knownId.toString(), 12, 3, 4.0);
+    assertFalse("User should have no review score", resultNoReviews.containsKey("totalReviewScore"));
+    assertFalse("User should have no average score", resultNoReviews.containsKey("avgScore"));
+    userController.rateUser(knownId.toString(), 12, 3, 4);
     String jsonResult = userController.getUser(knownId.toString());
     Document result = Document.parse(jsonResult);
     assertEquals("Number of reviews should be 3", 3, (int) result.getInteger("numReviews"));
     assertEquals("Aggregate review score should be 12", 12, (int) result.getInteger("totalReviewScore"));
+    assertEquals("Average review score should be 4", 4, (int) result.getInteger("avgScore"));
   }
 }
