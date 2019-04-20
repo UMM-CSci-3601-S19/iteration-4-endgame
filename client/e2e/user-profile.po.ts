@@ -3,7 +3,7 @@ import {Key} from 'selenium-webdriver';
 
 export class UserPage {
   navigateTo(): promise.Promise<any> {
-    return browser.get('/users');
+    return browser.get('/rides/users/5cb8bee01faacab569eac688');
   }
 
   highlightElement(byObject) {
@@ -26,6 +26,15 @@ export class UserPage {
     return title;
   }
 
+  field(idOfField: string) {
+    return element(by.id(idOfField));
+  }
+
+  button(idOfButton: string) {
+    this.highlightElement(by.id(idOfButton));
+    return element(by.id(idOfButton));
+  }
+
   selectDropdown(targetField: string) {
     return element(by.css(targetField)).click();
   }
@@ -39,7 +48,7 @@ export class UserPage {
   }
 
   slowTime(ms: number) {
-    return protractor.promise.delayed(ms);
+    return browser.sleep(ms);
   }
 
   getUniqueUser(name: string) {
@@ -62,6 +71,23 @@ export class UserPage {
   click(idOfButton: string): promise.Promise<void> {
     this.highlightElement(by.id(idOfButton));
     return element(by.id(idOfButton)).click();
+  }
+
+  getTextFromField(idOfField: string) {
+    this.highlightElement(by.id(idOfField));
+    return element(by.id(idOfField)).getText();
+  }
+
+  getBio() {
+    const profile = element(by.id('nameBox')).getText();
+    this.highlightElement(by.id('nameBox'));
+    return profile;
+  }
+
+  getPhoneNumber() {
+    const profile = element(by.id('contactInfoBox')).getText();
+    this.highlightElement(by.id('contactInfoBox'));
+    return profile;
   }
 
 }
