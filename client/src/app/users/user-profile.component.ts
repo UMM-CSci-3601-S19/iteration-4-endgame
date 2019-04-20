@@ -122,14 +122,5 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshUser();
-    // this.route.params.subscribe(params => {
-    //   const userId = params['userId'];
-    //   this.userService
-    //     .getUserById(userId)
-    //     .subscribe(user => {
-    //       console.log(JSON.stringify(user));
-    //       this.user = user
-    //     });
-    // });
   }
 }
