@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+//Todo: Maybe find something not deprecated.
+import com.mongodb.util.JSON;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -70,4 +72,49 @@ public class UserController {
       return false;
     }
   }
+
+  public String login(String userId, String email, String fullName, String pictureUrl){
+    Document filterDoc = new Document();
+
+    Document contentRegQuery = new Document();
+    contentRegQuery.append("$regex", userId);
+    contentRegQuery.append("$options", "i");
+    filterDoc = filterDoc.append("userId", contentRegQuery);
+
+    FindIterable<Document> matchingUsers = userCollection.find(filterDoc);
+
+    if(JSON.serialize(matchingUsers).equals("[ ]")) {
+      ObjectId id = new ObjectId();
+
+      Document newUser = new Document();
+      newUser.append("_id", id);
+      newUser.append("userId", userId);
+      newUser.append("email", email);
+      newUser.append("fullName", fullName);
+      newUser.append("pictureUrl", pictureUrl);
+      try {
+        userCollection.insertOne(newUser);
+        // return JSON.serialize(newUser);
+        Document userInfo = new Document();
+        userInfo.append("_id", matchingUsers.first().get("_id"));
+        userInfo.append("email", matchingUsers.first().get("email"));
+        userInfo.append("name", matchingUsers.first().get("fullName"));
+        userInfo.append("pictureUrl", matchingUsers.first().get("pictureUrl"));
+        System.err.println("Successfully added new user [_id=" + id + ", userId=" + userId + " email=" + email + " fullName=" + fullName + " pictureUrl " + pictureUrl + "]");
+      }catch(MongoException e){
+        e.printStackTrace();
+        return null;
+      }
+    }else{
+      Document userInfo = new Document();
+      userInfo.append("_id", matchingUsers.first().get("_id"));
+      userInfo.append("email", matchingUsers.first().get("email"));
+      userInfo.append("fullName", matchingUsers.first().get("fullName"));
+      userInfo.append("pictureUrl", matchingUsers.first().get("pictureUrl"));
+      System.out.println("Logged in user: " + fullName);
+      return JSON.serialize(userInfo);
+    }
+    return "";
+  }
+
 }

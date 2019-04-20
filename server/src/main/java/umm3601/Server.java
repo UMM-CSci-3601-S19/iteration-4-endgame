@@ -138,9 +138,10 @@ public class Server {
           String name = (String) payload.get("name");
           System.out.println("Welcome " + name + " owo!");
           String pictureUrl = (String) payload.get("picture");
-          res.body(userId);
-          return res;
+          return userController.login(userId, email, name, pictureUrl);
         }
+
+
 
       } catch (Exception e) {
         System.err.println("Invalid ID token uwu");

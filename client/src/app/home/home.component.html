@@ -3,10 +3,10 @@
     <mat-card>
       <mat-card-title id="MoRide">{{ this.text }}</mat-card-title>
       <mat-card-subtitle>Welcome to MoRide! The Morris community car-pooling application</mat-card-subtitle>
-      <button id="signIn" (click)="auth.signIn()">
+      <button id="signIn" *ngIf="!auth.isSignedIn()" (click)="auth.signIn()">
         <input type="image" [src]="buttonSource1">
       </button>
-      <button (click)="auth.signOut()">sign out of google :(</button>
+      <button *ngIf="auth.isSignedIn()" (click)="auth.signOut()">sign out of google :(</button>
       <br>
       <button (click)="auth.checkUser()">Check the google status uwu</button>
       <mat-divider></mat-divider>

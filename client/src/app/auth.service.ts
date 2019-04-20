@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {environment} from "../environments/environment";
+import {CanActivate, Router} from "@angular/router";
 
 //Declare pulls the variable from the html/js environment, so our gapi we declared in index gets pulled here.
 declare let gapi: any;
@@ -13,10 +14,11 @@ declare let gapi: any;
 //The google oauth biblé https://developers.google.com/identity/sign-in/web/reference
 
 @Injectable()
-export class AuthService {
+export class AuthService implements CanActivate {
   private http: HttpClient;
+  private status: boolean;
 
-  constructor(private client: HttpClient) {
+  constructor(private client: HttpClient, public router: Router) {
     this.http = client;
   }
 
@@ -39,11 +41,26 @@ export class AuthService {
     console.log("Signing in");
     let authInstance = gapi.auth2.getAuthInstance();
     authInstance.signIn();
+    //If the user doesn't log in (ie closes the dialog box), we think they're logged in right now.
+    this.status = true;
   }
 
   signOut() {
     console.log("Signing out");
     let authInstance = gapi.auth2.getAuthInstance();
     authInstance.signOut();
+    this.status = false;
+  }
+
+  isSignedIn(): boolean {
+    return(this.status);
+  }
+
+  canActivate(): boolean {
+    if (!this.status) {
+      this.router.navigate(['']);
+      return false;
+    }
+    return true;
   }
 }

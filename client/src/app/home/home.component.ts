@@ -21,17 +21,11 @@ declare let gapi: any;
 export class HomeComponent {
   private auth: AuthService;
   public text: string;
-  public status: boolean;
   public buttonSource1: string;
-  public buttonSource2: string;
 
   constructor(private authService: AuthService) {
     this.text = 'MoRide';
     this.auth = authService;
-    /*this.status = gapi.auth2.getAuthInstance().isSignedIn.get();*/
     this.buttonSource1 = "../../assets/GoogleButtons/btn_google_signin_light_normal_web.png";
-    this.buttonSource2 = "../../assets/GoogleButtons/btn_google_signin_light_pressed_web.png";
   }
-
-
 }
