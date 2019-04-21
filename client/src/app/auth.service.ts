@@ -22,7 +22,7 @@ export class AuthService implements CanActivate {
     this.http = client;
   }
 
-  static getUserId(): string{
+  static getUserId(): string {
     return gapi.auth2.getAuthInstance().currentUser.get().getId();
   }
 
@@ -61,7 +61,6 @@ export class AuthService implements CanActivate {
           });
         this.status = true;
       });
-    // this.status = true;
   }
 
   signUp() {
