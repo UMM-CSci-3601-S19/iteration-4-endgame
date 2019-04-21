@@ -13,3 +13,14 @@
   background: none;
   border: none;
 }
+
+button {
+  margin: 5px;
+  background-color: white;
+  color: #7a0019;
+}
+
+button:hover {
+  background-color: #ffc107;
+  color: #000000;
+}

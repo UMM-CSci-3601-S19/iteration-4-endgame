@@ -23,8 +23,6 @@ export class AuthService implements CanActivate {
   }
 
   static getUserId(): string{
-    console.log("Getting user Id");
-    console.log(gapi.auth2.getAuthInstance().currentUser.get().getId());
     return gapi.auth2.getAuthInstance().currentUser.get().getId();
   }
 
@@ -63,6 +61,7 @@ export class AuthService implements CanActivate {
           });
         this.status = true;
       });
+    // this.status = true;
   }
 
   signUp() {

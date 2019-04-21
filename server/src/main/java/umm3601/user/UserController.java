@@ -91,7 +91,7 @@ public class UserController {
     }
   }
 
-  public String login(String userId, String email, String name, String pictureUrl){
+  String signup(String userId, String email, String name, String pictureUrl){
     Document filterDoc = new Document();
 
     Document contentRegQuery = new Document();
