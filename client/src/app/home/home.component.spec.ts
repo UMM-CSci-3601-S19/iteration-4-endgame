@@ -19,7 +19,7 @@ describe('Home', () => {
   beforeEach(() => {
     authServiceStub = {
       isSignedIn: () => true
-    }
+    };
 
     TestBed.configureTestingModule({
       imports: [CustomModule],

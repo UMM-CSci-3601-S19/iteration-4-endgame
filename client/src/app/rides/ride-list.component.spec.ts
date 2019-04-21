@@ -11,11 +11,16 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
 import {User} from "../users/user";
 import {RouterTestingModule} from "@angular/router/testing";
+import {AuthService} from "../auth.service";
 
 describe('Ride list', () => {
 
   let rideList: RideListComponent;
   let fixture: ComponentFixture<RideListComponent>;
+
+  let authServiceStub: {
+    isSignedIn: () => boolean;
+  };
 
   let rideListServiceStub: {
     getRides: () => Observable<Ride[]>,
@@ -23,6 +28,9 @@ describe('Ride list', () => {
   };
 
   beforeEach(()=> {
+    authServiceStub = {
+      isSignedIn: () => true
+    };
     rideListServiceStub = {
       getRides: () => Observable.of([
         {
@@ -153,7 +161,10 @@ describe('Ride list', () => {
     TestBed.configureTestingModule({
       imports: [CustomModule, RouterTestingModule],
       declarations: [RideListComponent],
-      providers: [{provide: RideListService, useValue: rideListServiceStub}]
+      providers: [
+        {provide: RideListService, useValue: rideListServiceStub},
+        {provide: AuthService, useValue: authServiceStub}
+      ]
     });
   });
 
@@ -286,12 +297,19 @@ describe('Misbehaving Ride List',() => {
   let rideList: RideListComponent;
   let fixture: ComponentFixture<RideListComponent>;
 
+  let authServiceStub: {
+    isSignedIn: () => boolean;
+  };
+
   let rideListServiceStub: {
     getRides: () => Observable<Ride[]>,
     getUsers: () => Observable<User[]>
   };
 
   beforeEach(() => {
+    authServiceStub = {
+      isSignedIn: () => true
+    };
     rideListServiceStub = {
       getRides: () => Observable.create(observer => {
         observer.error('Error-prone observable');
@@ -304,7 +322,10 @@ describe('Misbehaving Ride List',() => {
     TestBed.configureTestingModule( {
       imports: [FormsModule, CustomModule, RouterTestingModule],
       declarations: [RideListComponent],
-      providers: [{provide: RideListService, useValue: rideListServiceStub}]
+      providers: [
+        {provide: RideListService, useValue: rideListServiceStub},
+        {provide: AuthService, useValue: authServiceStub}
+      ]
     });
   });
 
@@ -337,6 +358,9 @@ describe('Adding a ride',()=> {
 
   let calledRide: Ride;
 
+  let authServiceStub: {
+    isSignedIn: () => boolean;
+  };
   let rideListServiceStub: {
     getRides: () => Observable<Ride[]>,
     getUsers: () => Observable<User[]>,
@@ -350,6 +374,9 @@ describe('Adding a ride',()=> {
 
   beforeEach(() => {
     calledRide = null;
+    authServiceStub = {
+      isSignedIn: () => true
+    };
     rideListServiceStub = {
       getRides: () => Observable.of([]),
       addNewRide: (newRide: Ride) => {
@@ -376,6 +403,7 @@ describe('Adding a ride',()=> {
       providers: [
         {provide: RideListService, useValue: rideListServiceStub},
         {provide: MatDialog, useValue: mockMatDialog},
+        {provide: AuthService, useValue: authServiceStub}
       ]
     });
   });
@@ -414,6 +442,10 @@ describe('Editing a ride',()=> {
 
   let calledRide: Ride;
 
+  let authServiceStub: {
+    isSignedIn: () => boolean;
+  };
+
   let rideListServiceStub: {
     getRides: () => Observable<Ride[]>,
     editRide: (currentRide: Ride) => Observable<{ '$oid': string}>,
@@ -427,6 +459,9 @@ describe('Editing a ride',()=> {
 
   beforeEach(() => {
     calledRide = null;
+    authServiceStub = {
+      isSignedIn: () => true
+    };
     rideListServiceStub = {
       getRides: () => Observable.of([]),
       editRide: (currentRide: Ride) => {
@@ -463,6 +498,7 @@ describe('Editing a ride',()=> {
       providers: [
         {provide: RideListService, useValue: rideListServiceStub},
         {provide: MatDialog, useValue: mockMatDialog},
+        {provide: AuthService, useValue: authServiceStub}
       ]
     });
   });
@@ -500,6 +536,9 @@ describe('Deleting a ride',()=> {
 
   let calledRide: Ride;
 
+  let authServiceStub: {
+    isSignedIn: () => boolean;
+  };
   let rideListServiceStub: {
     getRides: () => Observable<Ride[]>,
     deleteRide: (currentRide: Ride) => Observable<{ '$oid': string}>,
@@ -513,6 +552,9 @@ describe('Deleting a ride',()=> {
 
   beforeEach(() => {
     calledRide = null;
+    authServiceStub = {
+      isSignedIn: () => true
+    };
     rideListServiceStub = {
       getRides: () => Observable.of([]),
       deleteRide: (currentRide: Ride) => {
@@ -549,6 +591,7 @@ describe('Deleting a ride',()=> {
       providers: [
         {provide: RideListService, useValue: rideListServiceStub},
         {provide: MatDialog, useValue: mockMatDialog},
+        {provide: AuthService, useValue: authServiceStub}
       ]
     });
   });

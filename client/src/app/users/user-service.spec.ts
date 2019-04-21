@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 
 import {User} from "./user";
 import {UserService} from "./user-service";
+import {AuthService} from "../auth.service";
 
 
 describe('User list service: ', () => {
@@ -42,10 +43,20 @@ describe('User list service: ', () => {
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
 
+  let authServiceStub: {
+    isSignedIn: () => boolean;
+  };
+
   beforeEach(() => {
+    authServiceStub = {
+      isSignedIn: () => true
+    };
 
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule]
+      imports: [HttpClientTestingModule],
+      providers: [
+        {provide: AuthService, useValue: authServiceStub},
+      ]
     });
 
     httpClient = TestBed.get(HttpClient);

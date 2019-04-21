@@ -9,10 +9,15 @@ import {MatDialog, MatSelectModule} from "@angular/material";
 import {RouterTestingModule} from "@angular/router/testing";
 import {EditUserComponent} from "./edit-user.component";
 import {RateUserComponent} from "./rate-user.component";
+import {AuthService} from "../auth.service";
 
 describe( 'User Profile', () => {
   let userProfile: UserProfileComponent;
   let fixture: ComponentFixture<UserProfileComponent>;
+
+  let authServiceStub: {
+    isSignedIn: () => boolean;
+  };
 
   let userServiceStub: {
     getUsers: () => Observable<User>;
@@ -20,6 +25,9 @@ describe( 'User Profile', () => {
   };
 
   beforeEach(() => {
+    authServiceStub = {
+      isSignedIn: () => true
+    }
     userServiceStub = {
       getUsers: () => Observable.of(
         {
@@ -52,7 +60,10 @@ describe( 'User Profile', () => {
     TestBed.configureTestingModule({
       imports: [CustomModule, MatSelectModule, RouterTestingModule],
       declarations: [UserProfileComponent],
-      providers: [{provide: UserService, useValue: userServiceStub}]
+      providers: [
+        {provide: UserService, useValue: userServiceStub},
+        {provide: AuthService, useValue: authServiceStub}
+      ]
     });
   });
 
@@ -97,12 +108,19 @@ describe('Misbehaving User Profiles',() => {
   let userProfile: UserProfileComponent;
   let fixture: ComponentFixture<UserProfileComponent>;
 
+  let authServiceStub: {
+    isSignedIn: () => boolean;
+  };
+
   let userServiceStub: {
     getUsers: () => Observable<User[]>
     getUserById: () => Observable<User>
   };
 
   beforeEach(() => {
+    authServiceStub = {
+      isSignedIn: () => true
+    };
     userServiceStub = {
       getUsers: () => Observable.create(observer => {
         observer.error('Error-prone observable');
@@ -115,7 +133,10 @@ describe('Misbehaving User Profiles',() => {
     TestBed.configureTestingModule( {
       imports: [FormsModule, CustomModule, MatSelectModule, RouterTestingModule],
       declarations: [UserProfileComponent],
-      providers: [{provide: UserService, useValue: userServiceStub}]
+      providers: [
+        {provide: UserService, useValue: userServiceStub},
+        {provide: AuthService, useValue: authServiceStub}
+      ]
     });
   });
 
@@ -149,6 +170,10 @@ describe('Editing a user', ()=> {
   const newId = 'Becky_id';
   let calledUser: User;
 
+  let authServiceStub: {
+    isSignedIn: () => boolean;
+  };
+
   let userServiceStub: {
     getUserById: () => Observable<User>,
     editUser: (currentUser: User) => Observable<{ '$oid': string }>,
@@ -162,6 +187,10 @@ describe('Editing a user', ()=> {
 
   beforeEach(() => {
     calledUser = null;
+    authServiceStub = {
+      isSignedIn: () => true
+    };
+
     userServiceStub = {
       getUserById: () => Observable.of(),
       editUser: (currentUser: User) => {
@@ -187,7 +216,8 @@ describe('Editing a user', ()=> {
       declarations: [UserProfileComponent],
       providers: [
         {provide: UserService, useValue: userServiceStub},
-        {provide: MatDialog, useValue: mockMatDialog}
+        {provide: MatDialog, useValue: mockMatDialog},
+        {provide: AuthService, useValue: authServiceStub}
       ]
     });
   });
@@ -225,6 +255,10 @@ describe('Rating a user', ()=> {
   const newId = 'Ridley_id';
   let calledUser: User;
 
+  let authServiceStub: {
+    isSignedIn: () => boolean;
+  };
+
   let userServiceStub: {
     getUserById: () => Observable<User>,
     rateUser: (currentUser: User) => Observable<{ '$oid': string}>
@@ -238,6 +272,11 @@ describe('Rating a user', ()=> {
 
   beforeEach(() => {
     calledUser = null;
+
+    authServiceStub = {
+      isSignedIn: () => true
+    };
+
     userServiceStub = {
       getUserById: () => Observable.of(),
       rateUser: (currentUser: User) => {
@@ -263,7 +302,8 @@ describe('Rating a user', ()=> {
       declarations: [UserProfileComponent],
       providers: [
         {provide: UserService, useValue: userServiceStub},
-        {provide: MatDialog, useValue: mockMatDialog}
+        {provide: MatDialog, useValue: mockMatDialog},
+        {provide: AuthService, useValue: authServiceStub}
       ]
     });
   });
