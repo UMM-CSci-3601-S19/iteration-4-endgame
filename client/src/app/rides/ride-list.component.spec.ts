@@ -52,7 +52,9 @@ describe('Ride list', () => {
           departureTime: '20:00',
           driving: true,
           notes: 'I like do drive with loud music.',
-          mpg: 50
+          mpg: 50,
+          numSeats: 4,
+          riderList: ['0']
         },
         {
           _id: {$oid: 'bobId'},
@@ -73,7 +75,9 @@ describe('Ride list', () => {
           departureTime: '14:00',
           driving: true,
           notes: 'I am down to play some music.',
-          mpg: 60
+          mpg: 60,
+          numSeats: 4,
+          riderList: ['0']
         },
         {
           _id: {$oid: 'jonId'},
@@ -94,7 +98,9 @@ describe('Ride list', () => {
           departureTime: '03:00',
           driving: false,
           notes: 'I am down to play some music.',
-          mpg: 12
+          mpg: 12,
+          numSeats: 4,
+          riderList: ['0']
         },
         {
           _id: {$oid: 'billId'},
@@ -115,45 +121,47 @@ describe('Ride list', () => {
           departureTime: '14:00',
           driving: false,
           notes: 'I am fine with driving large groups of people.',
-          mpg: 43
+          mpg: 43,
+          numSeats: 4,
+          riderList: ['0']
         }
       ]),
       getUsers: () => Observable.of([
         {
-          "_id": {
+          _id: {
             "$oid": "5ca243f0ef2bf9b410bb5672"
           },
-          "name": "Rosario Shaffer",
-          "bio": "This person does not have a bio written",
-          "email": "Venoflex19@gmail.com",
-          "phoneNumber": "(928) 480-3646"
+          name: "Rosario Shaffer",
+          bio: "This person does not have a bio written",
+          email: "Venoflex19@gmail.com",
+          phoneNumber: "(928) 480-3646"
         },
         {
-          "_id": {
+          _id: {
             "$oid": "5ca243f0662128b361c92055"
           },
-          "name": "Trina Ramsey",
-          "bio": "This person does not have a bio written",
-          "email": "Isologia30@hotmail.com",
-          "phoneNumber": "(963) 498-3516"
+          name: "Trina Ramsey",
+          bio: "This person does not have a bio written",
+          email: "Isologia30@hotmail.com",
+          phoneNumber: "(963) 498-3516"
         },
         {
-          "_id": {
+          _id: {
             "$oid": "5ca243f0daa0cc10e6f90b76"
           },
-          "name": "Elvira Wiley",
-          "bio": "This person does not have a bio written",
-          "email": "Musaphics29@yahoo.com",
-          "phoneNumber": "(904) 578-2784"
+          name: "Elvira Wiley",
+          bio: "This person does not have a bio written",
+          email: "Musaphics29@yahoo.com",
+          phoneNumber: "(904) 578-2784"
         },
         {
-          "_id": {
+          _id: {
             "$oid": "5ca243f0797d9e845106b25e"
           },
-          "name": "Hatfield Daniels",
-          "bio": "This person does not have a bio written",
-          "email": "Extragen25@gmail.com",
-          "phoneNumber": "(830) 410-3952"
+          name: "Hatfield Daniels",
+          bio: "This person does not have a bio written",
+          email: "Extragen25@gmail.com",
+          phoneNumber: "(830) 410-3952"
         }
       ])
     };
@@ -352,7 +360,9 @@ describe('Adding a ride',()=> {
     roundTrip: true,
     departureTime: '05:00',
     departureDate: '2019-12-25T00:00:00.000Z',
-    notes: 'I do not like the smell of smoke.'
+    notes: 'I do not like the smell of smoke.',
+    numSeats: 4,
+    riderList: ['0']
   };
   const newId = 'Danial_id';
 
@@ -436,7 +446,9 @@ describe('Editing a ride',()=> {
     driving: true,
     departureTime: '05:00',
     departureDate: '2019-12-25T00:00:00.000Z',
-    notes: 'I do not like the smell of smoke.'
+    notes: 'I do not like the smell of smoke.',
+    numSeats: 4,
+    riderList: ['0']
   };
   const newId = 'Danial_id';
 
@@ -513,7 +525,7 @@ describe('Editing a ride',()=> {
 
   it('calls RideListService.editRide', () => {
     let exp1 = expect(calledRide).toBeNull();
-    rideList.openEditDialog(currentRide._id.$oid, currentRide.driver, currentRide.destination, currentRide.origin, currentRide.roundTrip, currentRide.driving, currentRide.departureDate, currentRide.departureTime, currentRide.mpg, currentRide.notes);
+    rideList.openEditDialog(currentRide._id.$oid, currentRide.driver, currentRide.destination, currentRide.origin, currentRide.roundTrip, currentRide.driving, currentRide.departureDate, currentRide.departureTime, currentRide.mpg, currentRide.notes, currentRide.numSeats, currentRide.riderList);
     let exp2 = expect(calledRide).toEqual(currentRide);
     return exp1 && exp2;
   });
@@ -530,7 +542,9 @@ describe('Deleting a ride',()=> {
     roundTrip: true,
     departureTime: '05:00',
     departureDate: '2019-12-25T00:00:00.000Z',
-    notes: 'I do not like the smell of smoke.'
+    notes: 'I do not like the smell of smoke.',
+    numSeats: 4,
+    riderList: ['0']
   };
   const newId = 'Danial_id';
 
