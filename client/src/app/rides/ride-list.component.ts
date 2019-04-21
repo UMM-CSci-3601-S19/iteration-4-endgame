@@ -7,6 +7,7 @@ import {EditRideComponent} from "./edit-ride.component";
 import {MatDialog, MatDialogConfig} from "@angular/material";
 import {DeleteRideComponent} from "./delete-ride.component";
 import {User} from "../users/user";
+import {AuthService} from "../auth.service";
 
 @Component({
   selector: 'ride-list-component',
@@ -17,9 +18,11 @@ import {User} from "../users/user";
 
 export class RideListComponent implements OnInit {
 
+  public auth: AuthService;
   public rides: Ride[];
   public filteredRides: Ride[];
   public users: User[];
+  public loggedId: string;
 
   public rideDestination: string;
   public rideDriving: string;
@@ -27,7 +30,8 @@ export class RideListComponent implements OnInit {
   private highlightedDestination: string = '';
 
 
-  constructor(public rideListService: RideListService, public dialog: MatDialog) {
+  constructor(public rideListService: RideListService, public dialog: MatDialog, private authService: AuthService) {
+    this.auth = authService;
   }
 
   openAddDialog(): void {
@@ -149,6 +153,7 @@ export class RideListComponent implements OnInit {
 
   refreshRides(): Observable<Ride[]> {
     const rides: Observable<Ride[]> = this.rideListService.getRides();
+    this.loggedId = AuthService.getUserId();
     rides.subscribe(
       rides => {
         this.rides = rides;

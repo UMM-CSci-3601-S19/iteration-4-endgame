@@ -76,11 +76,11 @@
                       routerLink="users/{{ride.ownerData._id.$oid}}">
                 User Information
               </button>
-              <button id="deleteRide" mat-raised-button
+              <button *ngIf="loggedId === ride.ownerData.userId" id="deleteRide" mat-raised-button
                       (click)="openDeleteDialog(ride._id.$oid)">
                 Delete Ride
               </button>
-              <button id="editRide" mat-raised-button
+              <button *ngIf="loggedId === ride.ownerData.userId" id="editRide" mat-raised-button
                       (click)="openEditDialog(ride._id.$oid, ride.driver, ride.destination, ride.origin, ride.roundTrip, ride.driving, ride.departureDate, ride.departureTime, ride.mpg, ride.notes)">
                 Edit Ride
               </button>

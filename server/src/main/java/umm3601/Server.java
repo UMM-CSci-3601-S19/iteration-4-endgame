@@ -136,7 +136,7 @@ public class Server {
           System.out.println(email);
           boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
           String name = (String) payload.get("name");
-          System.out.println("Welcome " + name + " owo!");
+          System.out.println("Welcome " + name);
           String pictureUrl = (String) payload.get("picture");
           return userController.login(userId, email, name, pictureUrl);
         }
@@ -144,7 +144,7 @@ public class Server {
 
 
       } catch (Exception e) {
-        System.err.println("Invalid ID token uwu");
+        System.err.println("Invalid ID token");
         e.printStackTrace();
       }
       return null;
