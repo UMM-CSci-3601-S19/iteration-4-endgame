@@ -56,6 +56,7 @@ export class RideListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(newRide => {
       if (newRide != null) {
+        newRide.numSeats = "" + newRide.numSeats;
         console.log(newRide);
         this.rideListService.addNewRide(newRide).subscribe(
           result => {
@@ -78,7 +79,6 @@ export class RideListComponent implements OnInit {
       currentRiderList.push(newRiderId);
     }
     currentRiderList.push(newRiderId);
-    console.log(currentRiderList);
     currentNumSeats -= 1;
 
     const currentRide: Ride = {
@@ -106,6 +106,7 @@ export class RideListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(currentRide => {
       if (currentRide != null) {//RideListComponent
+        currentRide.numSeats = "" + currentRide.numSeats;
         currentRide.mpg = "" + currentRide.mpg;
         this.rideListService.joinRide(currentRide).subscribe(
           result => {
@@ -148,6 +149,7 @@ export class RideListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(currentRide => {
       if (currentRide != null) {//RideListComponent
+        currentRide.numSeats = "" + currentRide.numSeats;
         currentRide.mpg = "" + currentRide.mpg;
         this.rideListService.editRide(currentRide).subscribe(
           result => {

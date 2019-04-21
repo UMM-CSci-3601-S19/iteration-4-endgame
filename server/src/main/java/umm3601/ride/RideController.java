@@ -84,7 +84,7 @@ public class RideController {
       .collect(Collectors.joining(", ", "[", "]"));
   }
 
-  String addNewRide(String driver, String destination, String origin, Boolean roundTrip, Boolean driving, String departureDate, String departureTime, String mpg, String notes, String ownerId, List<String> riderList, Integer numSeats) {
+  String addNewRide(String driver, String destination, String origin, Boolean roundTrip, Boolean driving, String departureDate, String departureTime, String mpg, String notes, String ownerId, List<String> riderList, String numSeatsString) {
     System.out.println(ownerId);
     Document newRide = new Document();
     newRide.append("driver", driver);
@@ -106,7 +106,10 @@ public class RideController {
     }
     newRide.append("notes", notes);
     newRide.append("ownerId", ownerId);
+
+    int numSeats = Integer.parseInt(numSeatsString);
     newRide.append("numSeats", numSeats);
+
     newRide.append("riderList", riderList);
 
     try {
@@ -133,7 +136,7 @@ public class RideController {
     }
   }
 
-  Boolean updateRide(String id, String driver, String destination, String origin, Boolean roundTrip, Boolean driving, String departureDate, String departureTime, String mpg, String notes){
+  Boolean updateRide(String id, String driver, String destination, String origin, Boolean roundTrip, Boolean driving, String departureDate, String departureTime, String mpgString, String notes, String numSeatsString){
     ObjectId objId = new ObjectId(id);
     Document filter = new Document("_id", objId);
     Document updateFields = new Document();
@@ -144,17 +147,18 @@ public class RideController {
     updateFields.append("roundTrip", roundTrip);
     updateFields.append("departureDate", departureDate);
     updateFields.append("departureTime", departureTime);
-    if (mpg != null) {
-      if (mpg.isEmpty()) {
-        updateFields.append("mpg", null);
-      } else {
-        int mpgInt = Integer.parseInt(mpg);
-        updateFields.append("mpg", mpgInt);
-      }
-    } else {
+    if (mpgString != null || !mpgString.isEmpty()) {
+      int mpg = Integer.parseInt(mpgString);
       updateFields.append("mpg", mpg);
+    } else {
+      updateFields.append("mpg", mpgString);
     }
     updateFields.append("notes", notes);
+
+    int numSeats = Integer.parseInt(numSeatsString);
+    updateFields.append("numSeats", numSeats);
+
+    System.out.println(updateFields.toString());
     Document updateDoc = new Document("$set", updateFields);
     try{
       UpdateResult out = rideCollection.updateOne(filter, updateDoc);
@@ -186,7 +190,7 @@ public class RideController {
     if (iterator.hasNext()) {
       Document ride = iterator.next();
       String name = ride.getString("name");
-      System.out.println("name " + name + "userId: " + userId);
+      System.out.println("adding " + name + " to the ride");
       return name;
     } else {
       System.out.println("We didn\'t find the desired user");
@@ -200,7 +204,6 @@ public class RideController {
     Document updateFields = new Document();
 
     newRider = getName(newRider);
-    System.out.println(newRider);
 
     riderList.set(riderList.size()-1, newRider);
 

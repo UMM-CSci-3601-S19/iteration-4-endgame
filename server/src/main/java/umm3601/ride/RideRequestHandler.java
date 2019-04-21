@@ -87,7 +87,7 @@ public class RideRequestHandler {
     String mpg = newRide.getString("mpg");
     String notes = newRide.getString("notes");
     List<String> riderList = newRide.getList("riderList", String.class);
-    Integer numSeats = Integer.parseInt(newRide.getString("numSeats"));
+    String numSeats = newRide.getString("numSeats");
     String ownerId;
     if(newRide.containsKey("ownerId")){
       ownerId = newRide.getString("ownerId");
@@ -115,10 +115,11 @@ public class RideRequestHandler {
     String departureTime = editRide.getString("departureTime");
     String mpg = editRide.getString("mpg");
     String notes = editRide.getString("notes");
+    String numSeats = editRide.getString("numSeats");
 
 
     System.err.println("Editing ride [id=" + id + " driver=" + driver + " destination=" + destination + " origin=" + origin + " roundTrip=" + roundTrip + " driving=" + driving + " departureDate=" + departureDate + " departureTime=" + departureTime + " notes=" + notes + ']');
-    return rideController.updateRide(id, driver, destination, origin, roundTrip, driving, departureDate, departureTime, mpg, notes);
+    return rideController.updateRide(id, driver, destination, origin, roundTrip, driving, departureDate, departureTime, mpg, notes, numSeats);
   }
 
   public Boolean deleteRide(Request req, Response res){
@@ -138,11 +139,9 @@ public class RideRequestHandler {
 
     String id = addedRider.getObjectId("_id").toHexString();
     List<String> riderList = addedRider.getList("riderList", String.class);
-    System.out.println("riderList: " + riderList);
-    System.out.println("riderList.size(): " + riderList.size());
     String newRider = riderList.get(riderList.size() - 1);
     Integer numSeats = addedRider.getInteger("numSeats");
-    System.out.println("id: " + id + " riderList: " + riderList + " newRider: " + newRider + " numSeats: " + numSeats);
+    System.out.println("ride id: " + id + " riderList: " + riderList + " newRiderUserId: " + newRider + " numSeats: " + numSeats);
     return rideController.addRider(id, riderList, newRider, numSeats);
   }
 }
