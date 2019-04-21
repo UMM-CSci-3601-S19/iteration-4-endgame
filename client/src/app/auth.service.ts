@@ -43,12 +43,6 @@ export class AuthService implements CanActivate {
     this.http.post<string>(environment.API_URL + 'signin', {idtoken: idtoken}, httpOptions)
       .subscribe(data => {
         console.log("Data: " + data);
-        localStorage.setItem("test", "Does this work");
-        localStorage.setItem("userId", data["userId"]);
-        localStorage.setItem("name", data["name"]);
-        console.log(localStorage.getItem("userId"));
-        console.log(localStorage.getItem("name"));
-        console.log(localStorage.getItem("test"));
       });
   }
 

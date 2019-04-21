@@ -6,6 +6,7 @@ import {MatDialog, MatDialogConfig} from '@angular/material';
 import {EditUserComponent} from "./edit-user.component";
 import {ActivatedRoute} from "@angular/router";
 import {RateUserComponent} from "./rate-user.component";
+import {AuthService} from "../auth.service";
 
 @Component({
   selector: 'user-profile-component',
@@ -17,6 +18,7 @@ export class UserProfileComponent implements OnInit {
 
   rating;
   user: User;
+  loggedId: string;
 
   // Inject the UserListService into this component.
   constructor(private route: ActivatedRoute, public userService: UserService, public dialog: MatDialog) {
@@ -109,6 +111,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   refreshUser(): void {
+    this.loggedId = AuthService.getUserId();
     this.route.params.subscribe(params => {
       const userId = params['userId'];
       this.userService

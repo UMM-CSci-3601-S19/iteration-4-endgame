@@ -4,7 +4,7 @@
     <mat-card #elem *ngIf="user" [id]="user._id.$oid">
       <mat-card-title [id]="user.name">
         {{user.name}}'s Profile
-        <button mat-raised-button id="editProfile" #input type="button"
+        <button *ngIf="loggedId === user.userId" mat-raised-button id="editProfile" #input type="button"
                 (click)="editUserDialog(user._id.$oid, user.name, user.bio, user.email, user.phoneNumber, user.totalReviewScore, user.numReviews, user.avgScore)">
           Edit Profile
         </button>
