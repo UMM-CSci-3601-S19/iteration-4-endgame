@@ -60,5 +60,54 @@
         </div>
       </mat-card-content>
     </mat-card>
+    <mat-card id="listContainer">
+      <mat-card-content *ngFor="let ride of rides">
+        <mat-card class="postCard" multi="true" *ngIf="rides; else ridesError" [id]="ride._id.$oid" [ngSwitch]="ride.driving">
+          <mat-card-title *ngSwitchDefault [id]="ride.destination">
+            <mat-icon style="color: #34C234"> drive_eta </mat-icon> &nbsp; {{ride.origin}}  <mat-icon style="color: #34C234">play_arrow</mat-icon>  {{ride.destination}}
+            <br/>
+            <div *ngIf="ride.roundTrip"><mat-icon style="color: #34C234">swap_horiz</mat-icon> &nbsp; Round trip</div>
+            <div class="seats-left">
+              <small *ngIf="ride.numSeats === 1"> {{ride.numSeats}} SEAT LEFT </small>
+              <small *ngIf="ride.numSeats > 1"> {{ride.numSeats}} SEATS LEFT </small>
+            </div>
+          </mat-card-title>
+          <mat-card-title *ngSwitchCase=false [id]="ride.destination">
+            <mat-icon style="color: #6EB5FF"> airline_seat_recline_extra </mat-icon> &nbsp; {{ride.origin}}  <mat-icon style="color: #6EB5FF">play_arrow</mat-icon>  {{ride.destination}}
+            <br/>
+            <div *ngIf="ride.roundTrip"><mat-icon style="color: #6EB5FF">swap_horiz</mat-icon> &nbsp; Round trip</div>
+            <div class="seats-left">
+              <small *ngIf="ride.numSeats === 1"> {{ride.numSeats}} SEAT LEFT </small>
+              <small *ngIf="ride.numSeats > 1"> {{ride.numSeats}} SEATS LEFT </small>
+            </div>
+          </mat-card-title>
+
+          <mat-divider></mat-divider>
+
+          <mat-card-content>
+
+            <br/> Departure Date: {{ride.departureDate | date}}
+            <br/> Departure Time: {{ride.departureTime}}
+            <br/> RiderList: {{ride.riderList}}
+            <br/> MPG: {{ride.mpg}}
+            <br/>
+            <br/>Notes: {{ride.notes}}
+
+            <br/>
+            <br/>
+
+          </mat-card-content>
+        </mat-card>
+
+        <ng-template #ridesError>
+          <mat-error>
+            There was a problem loading the rides. Possibly the server is down or perhaps there are network issues.
+          </mat-error>
+          <mat-error>
+            Please wait a bit and try again or start the server.
+          </mat-error>
+        </ng-template>
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>

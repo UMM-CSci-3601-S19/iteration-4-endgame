@@ -62,7 +62,25 @@ public class RideRequestHandler {
     return rideController.getRides(req.queryMap().toMap());
   }
 
-
+  public String getUserRides(Request req, Response res) {
+    res.type("application/json");
+    String userId = req.params("userId");
+    String userRides;
+    try {
+      userRides = rideController.getUserRides(userId);
+    } catch (IllegalArgumentException e) {
+      res.status(400);
+      res.body("Could not find the userId " + userId);
+      return "";
+    }
+    if (userRides != null) {
+      return userRides;
+    } else {
+      res.status(404);
+      res.body("The requested user with userId " + userId + " was not found");
+      return "";
+    }
+  }
   /**
    * Method called from Server when the 'api/rides/new' endpoint is received.
    * Gets specified ride info from request and calls addNewRide helper method

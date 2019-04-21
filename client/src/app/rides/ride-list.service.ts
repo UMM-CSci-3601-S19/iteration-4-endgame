@@ -20,6 +20,10 @@ export class RideListService {
     return this.http.get<Ride[]>(url);
   }
 
+  getUserRides(userId: string): Observable<Ride[]> {
+    return this.http.get<Ride[]>(environment.API_URL + 'rides/' + userId);
+  }
+
   //This could be changed into a getRideById if we decide to ad id as a field
   getRideByDestination(destination: string): Observable<Ride> {
     return this.http.get<Ride>(this.rideUrl + '/' + destination);
@@ -50,33 +54,6 @@ export class RideListService {
       }
     }
   }
-
-
-  // filterByDestination(rideDestination?: string): void {
-  //   if (!(rideDestination == null || rideDestination === '')) {
-  //     if (this.parameterPresent('destination=')) {
-  //       // there was a previous search by destination that we need to clear
-  //       this.removeParameter('destination=');
-  //     }
-  //     if (this.rideUrl.indexOf('?') !== -1) {
-  //       // there was already some information passed in this url
-  //       this.rideUrl += 'destination=' + rideDestination + '&';
-  //     } else {
-  //       // this was the first bit of information to pass in the url
-  //       this.rideUrl += '?destination=' + rideDestination + '&';
-  //     }
-  //   } else {
-  //     // there was nothing in the box to put onto the URL... reset
-  //     if (this.parameterPresent('destination=')) {
-  //       let start = this.rideUrl.indexOf('destination=');
-  //       const end = this.rideUrl.indexOf('&', start);
-  //       if (this.rideUrl.substring(start - 1, start) === '?') {
-  //         start = start - 1;
-  //       }
-  //       this.rideUrl = this.rideUrl.substring(0, start) + this.rideUrl.substring(end + 1);
-  //     }
-  //   }
-  // }
 
   private parameterPresent(searchParam: string) {
     return this.rideUrl.indexOf(searchParam) !== -1;

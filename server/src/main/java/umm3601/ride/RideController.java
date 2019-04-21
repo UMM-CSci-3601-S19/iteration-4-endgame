@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static com.mongodb.client.model.Filters.eq;
-
+import static com.mongodb.client.model.Filters.in;
 
 
 public class RideController {
@@ -69,7 +69,22 @@ public class RideController {
     return serializeIterable(ridesWithUsers);
   }
 
+  String getUserRides(String userId) {
 
+    System.out.println("We are attempting to gather results");
+
+    BasicDBObject orQuery = new BasicDBObject();
+    List<BasicDBObject> params = new ArrayList<BasicDBObject>();
+    params.add(new BasicDBObject("ownerId", getStringField(userId, "_id")));
+    params.add(new BasicDBObject("riderList", getStringField(userId, "name")));
+    orQuery.put("$or", params);
+
+    System.out.println(orQuery);
+
+    FindIterable<Document> matchingRides = rideCollection.find(orQuery);
+
+    return serializeIterable(matchingRides);
+  }
   /*
    * Take an iterable collection of documents, turn each into JSON string
    * using `document.toJson`, and then join those strings into a single
@@ -199,10 +214,8 @@ public class RideController {
       System.out.println("Got user: " + userId + " " + field + " = " + fieldInfo);
 
       return fieldInfo;
-    } else {
-      System.out.println("We didn\'t find the desired user");
-      return null;
     }
+    return "User Not Found";
   }
 
   Boolean addRider(String id, List<String> riderList, String newRider, Integer numSeats) {

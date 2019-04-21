@@ -7,6 +7,8 @@ import {EditUserComponent} from "./edit-user.component";
 import {ActivatedRoute} from "@angular/router";
 import {RateUserComponent} from "./rate-user.component";
 import {AuthService} from "../auth.service";
+import {Ride} from "../rides/ride";
+import {RideListService} from "../rides/ride-list.service";
 
 @Component({
   selector: 'user-profile-component',
@@ -19,10 +21,19 @@ export class UserProfileComponent implements OnInit {
   rating;
   user: User;
   loggedId: string;
+  public rides: Ride[];
 
   // Inject the UserListService into this component.
-  constructor(private route: ActivatedRoute, public userService: UserService, public dialog: MatDialog) {
+  constructor(private route: ActivatedRoute, public userService: UserService, public rideListService: RideListService, public dialog: MatDialog) {
 
+  }
+
+  check(list: string[]): boolean {
+    if(list.length == 0 ) {
+      return true;
+    } else {
+      return (list.indexOf(this.loggedId) != -1);
+    }
   }
 
   editUserDialog(cId: string, cName: string, cBio: string, cEmail: string, cPhoneNumber: string,
@@ -110,6 +121,22 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  refreshRides(): Observable<Ride[]> {
+    const rides: Observable<Ride[]> = this.rideListService.getUserRides(this.loggedId);
+    rides.subscribe(
+      rides => {
+        this.rides = rides.sort(function (a, b) {
+          if (+new Date(a.departureDate) - +new Date(b.departureDate) != 0) {
+            return +new Date(a.departureDate) - +new Date(b.departureDate);
+          } else return a.departureTime.localeCompare(b.departureTime);
+        });
+      },
+      err => {
+        console.log(err);
+      });
+    return rides;
+  }
+
   refreshUser(): void {
     this.loggedId = AuthService.getUserId();
     this.route.params.subscribe(params => {
@@ -125,5 +152,6 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshUser();
+    this.refreshRides();
   }
 }

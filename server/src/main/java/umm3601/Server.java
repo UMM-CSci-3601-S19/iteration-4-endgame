@@ -77,6 +77,7 @@ public class Server {
     /////////////////////////////////////////////
 
     get("api/rides", rideRequestHandler::getRides);
+    get("api/rides/:userId", rideRequestHandler::getUserRides);
     //get("api/rides/:destination", rideRequestHandler::getRideJSON);
     post("api/rides/new", rideRequestHandler::addNewRide);
     post("api/rides/update", rideRequestHandler::updateRide);
