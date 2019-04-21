@@ -16,4 +16,6 @@ export interface Ride {
   driving?: boolean;
   notes: string;
   mpg?: number;
+  numSeats: number;
+  riderList: string[];
 }

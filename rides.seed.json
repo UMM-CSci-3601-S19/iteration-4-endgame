@@ -8,7 +8,9 @@
     "departureTime": "01:00",
     "driving": false,
     "notes": "No pet allowed",
-    "mpg": 30
+    "mpg": 30,
+    "numSeats": 4,
+    "riderList": []
   },
   {
     "ownerId": "5cb8bee0fb6321d5c408c17d",
@@ -19,7 +21,9 @@
     "departureTime": "02:00",
     "driving": true,
     "notes": "Im driving and I like to eat at the same time",
-    "mpg": 49
+    "mpg": 49,
+    "numSeats": 4,
+    "riderList": []
   },
   {
     "ownerId": "5cb8bee09ab85ac5f581b03a",
@@ -30,7 +34,9 @@
     "departureTime": "15:00",
     "driving": false,
     "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy",
-    "mpg": 55
+    "mpg": 55,
+    "numSeats": 4,
+    "riderList": []
   },
   {
     "ownerId": "5cb8bee0fc8510c466d1689c",
@@ -41,7 +47,9 @@
     "departureTime": "12:00",
     "driving": false,
     "notes": "Im driving and I like to eat at the same time",
-    "mpg": 58
+    "mpg": 58,
+    "numSeats": 4,
+    "riderList": []
   },
   {
     "ownerId": "5cb8bee087f744e61fba62a3",
@@ -52,7 +60,9 @@
     "departureTime": "08:00",
     "driving": true,
     "notes": "No pet allowed",
-    "mpg": 30
+    "mpg": 30,
+    "numSeats": 4,
+    "riderList": []
   },
   {
     "_id": {"$oid": "1234567890abcdeffedcba09"},
@@ -64,7 +74,9 @@
     "departureTime": "13:00",
     "driving": true,
     "notes": "I love to crank the volume up to 11",
-    "mpg": 60
+    "mpg": 60,
+    "numSeats": 4,
+    "riderList": []
   },
   {
     "ownerId": "5cb8bee08f7394657ba3c2e9",
@@ -75,7 +87,9 @@
     "departureTime": "06:00",
     "driving": true,
     "notes": "No pet allowed",
-    "mpg": 28
+    "mpg": 28,
+    "numSeats": 4,
+    "riderList": []
   },
   {
     "ownerId": "5cb8bee0e5d75c539ece2fe5",
@@ -86,7 +100,9 @@
     "departureTime": "08:00",
     "driving": false,
     "notes": "I like to drive with no air conditioning",
-    "mpg": 63
+    "mpg": 63,
+    "numSeats": 4,
+    "riderList": []
   },
   {
     "ownerId": "5cb8bee09ab85ac5f581b03a",
@@ -97,7 +113,9 @@
     "departureTime": "12:00",
     "driving": false,
     "notes": "I like to drive with no air conditioning",
-    "mpg": 29
+    "mpg": 29,
+    "numSeats": 4,
+    "riderList": []
   },
   {
     "ownerId": "5cb8bee08f7394657ba3c2e9",
@@ -108,7 +126,9 @@
     "departureTime": "20:00",
     "driving": true,
     "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy",
-    "mpg": 26
+    "mpg": 26,
+    "numSeats": 4,
+    "riderList": []
   },
   {
     "ownerId": "5cb8bee0b552830549caef0a",
@@ -119,7 +139,9 @@
     "departureTime": "18:00",
     "driving": false,
     "notes": "No pet allowed",
-    "mpg": 35
+    "mpg": 35,
+    "numSeats": 4,
+    "riderList": []
   },
   {
     "ownerId": "5cb8bee01faacab569eac688",
@@ -130,7 +152,9 @@
     "departureTime": "18:00",
     "driving": true,
     "notes": "No pet allowed",
-    "mpg": 36
+    "mpg": 36,
+    "numSeats": 4,
+    "riderList": []
   },
   {
     "ownerId": "5cb8bee0b552830549caef0a",
@@ -141,7 +165,9 @@
     "departureTime": "21:00",
     "driving": false,
     "notes": "No pet allowed",
-    "mpg": 49
+    "mpg": 49,
+    "numSeats": 4,
+    "riderList": []
   },
   {
     "ownerId": "5cb8bee0889cc09ffc7a0205",
@@ -152,7 +178,9 @@
     "departureTime": "09:00",
     "driving": false,
     "notes": "I like to drive with no air conditioning",
-    "mpg": 37
+    "mpg": 37,
+    "numSeats": 4,
+    "riderList": []
   },
   {
     "_id": {"$oid": "0987654321fedcbaabcdef90"},
@@ -164,7 +192,9 @@
     "departureTime": "14:00",
     "driving": true,
     "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy",
-    "mpg": 25
+    "mpg": 25,
+    "numSeats": 4,
+    "riderList": []
   },
   {
     "ownerId": "5cb8bee01dcce624e181efca",
@@ -175,7 +205,9 @@
     "departureTime": "08:00",
     "driving": true,
     "notes": "I love to crank the volume up to 11",
-    "mpg": 63
+    "mpg": 63,
+    "numSeats": 4,
+    "riderList": []
   },
   {
     "ownerId": "5cb8bee0fb6321d5c408c17d",
@@ -186,7 +218,9 @@
     "departureTime": "14:00",
     "driving": true,
     "notes": "Im driving and I like to eat at the same time",
-    "mpg": 46
+    "mpg": 46,
+    "numSeats": 4,
+    "riderList": []
   },
   {
     "ownerId": "5cb8bee0fb6321d5c408c17d",
@@ -197,7 +231,9 @@
     "departureTime": "04:00",
     "driving": true,
     "notes": "No room in the trunk of my car",
-    "mpg": 55
+    "mpg": 55,
+    "numSeats": 4,
+    "riderList": []
   },
   {
     "_id": {"$oid": "fedcbafedcbafedcbafedcba"},
@@ -209,7 +245,9 @@
     "departureTime": "06:00",
     "driving": true,
     "notes": "No room in the trunk of my car",
-    "mpg": 49
+    "mpg": 49,
+    "numSeats": 4,
+    "riderList": []
   },
   {
     "ownerId": "5cb8bee01dcce624e181efca",
@@ -220,7 +258,9 @@
     "departureTime": "05:00",
     "driving": false,
     "notes": "No room in the trunk of my car",
-    "mpg": 63
+    "mpg": 63,
+    "numSeats": 4,
+    "riderList": []
   },
   {
     "ownerId": "5cb8bee0e5d75c539ece2fe5",
@@ -231,7 +271,9 @@
     "departureTime": "20:00",
     "driving": true,
     "notes": "I like to drive with no air conditioning",
-    "mpg": 26
+    "mpg": 26,
+    "numSeats": 4,
+    "riderList": []
   },
   {
     "ownerId": "5cb8bee01dcce624e181efca",
@@ -242,7 +284,9 @@
     "departureTime": "07:00",
     "driving": false,
     "notes": "I love to crank the volume up to 11",
-    "mpg": 62
+    "mpg": 62,
+    "numSeats": 4,
+    "riderList": []
   },
   {
     "ownerId": "5cb8bee01dcce624e181efca",
@@ -253,7 +297,9 @@
     "departureTime": "12:00",
     "driving": true,
     "notes": "I will pay for lunch for anyone who is riding with me and I am a cool guy",
-    "mpg": 33
+    "mpg": 33,
+    "numSeats": 4,
+    "riderList": []
   },
   {
     "ownerId": "5cb8bee0889cc09ffc7a0205",
@@ -264,7 +310,9 @@
     "departureTime": "16:00",
     "driving": true,
     "notes": "No pet allowed",
-    "mpg": 37
+    "mpg": 37,
+    "numSeats": 4,
+    "riderList": []
   },
   {
     "ownerId": "5cb8bee0fc8510c466d1689c",
@@ -275,6 +323,8 @@
     "departureTime": "05:00",
     "driving": true,
     "notes": "I like to drive with no air conditioning",
-    "mpg": 32
+    "mpg": 32,
+    "numSeats": 4,
+    "riderList": []
   }
 ]
