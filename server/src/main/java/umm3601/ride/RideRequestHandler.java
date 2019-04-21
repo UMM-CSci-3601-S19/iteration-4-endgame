@@ -87,7 +87,7 @@ public class RideRequestHandler {
     String mpg = newRide.getString("mpg");
     String notes = newRide.getString("notes");
     List<String> riderList = newRide.getList("riderList", String.class);
-    Integer numSeats = newRide.getInteger("numSeats");
+    Integer numSeats = Integer.parseInt(newRide.getString("numSeats"));
     String ownerId;
     if(newRide.containsKey("ownerId")){
       ownerId = newRide.getString("ownerId");

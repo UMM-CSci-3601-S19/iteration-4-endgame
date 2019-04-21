@@ -179,17 +179,17 @@ public class RideController {
     return ridesWithUsers;
   }
 
-  private String getOid(String userId) {
+  private String getName(String userId) {
     FindIterable<Document> jsonRides = userCollection.find(eq("userId", userId));
 
     Iterator<Document> iterator = jsonRides.iterator();
     if (iterator.hasNext()) {
       Document ride = iterator.next();
-      String oid = ride.getObjectId("_id").toHexString();
-      System.out.println("$oid: " + oid + "userId: " + userId);
-      return oid;
+      String name = ride.getString("name");
+      System.out.println("name " + name + "userId: " + userId);
+      return name;
     } else {
-      System.out.println("We didn\'t find the desired ride");
+      System.out.println("We didn\'t find the desired user");
       return null;
     }
   }
@@ -199,7 +199,7 @@ public class RideController {
     Document filter = new Document("_id", objId);
     Document updateFields = new Document();
 
-    newRider = getOid(newRider);
+    newRider = getName(newRider);
     System.out.println(newRider);
 
     riderList.set(riderList.size()-1, newRider);
