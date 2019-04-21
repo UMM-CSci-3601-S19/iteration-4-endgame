@@ -44,15 +44,13 @@ export class RideListComponent implements OnInit {
   }
 
   openAddDialog(): void {
-    const newRide: Ride = {driver: '', destination: '', origin: '', roundTrip: false, driving: false, departureDate: '', departureTime: '', mpg: null, notes: '', numSeats: 0, riderList: []};
+    const newRide: Ride = {driver: this.loggedId, destination: '', origin: '', roundTrip: false, driving: false, departureDate: '', departureTime: '', mpg: null, notes: '', numSeats: 0, riderList: []};
 
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {ride:newRide, users: this.users};
     dialogConfig.width = '500px';
 
     const dialogRef = this.dialog.open(AddRideComponent, dialogConfig);
-
-
 
     dialogRef.afterClosed().subscribe(newRide => {
       if (newRide != null) {

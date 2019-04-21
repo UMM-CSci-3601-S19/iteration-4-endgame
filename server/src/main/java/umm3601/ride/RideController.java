@@ -13,7 +13,6 @@ import org.bson.codecs.DocumentCodec;
 import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.types.ObjectId;
-import umm3601.user.UserController;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -87,6 +86,8 @@ public class RideController {
   String addNewRide(String driver, String destination, String origin, Boolean roundTrip, Boolean driving, String departureDate, String departureTime, String mpg, String notes, String ownerId, List<String> riderList, String numSeatsString) {
     System.out.println(ownerId);
     Document newRide = new Document();
+    ownerId = getStringField(driver, "_id");
+    System.out.println(ownerId);
     newRide.append("driver", driver);
     newRide.append("destination", destination);
     newRide.append("origin", origin);
@@ -183,15 +184,21 @@ public class RideController {
     return ridesWithUsers;
   }
 
-  private String getName(String userId) {
+  private String getStringField(String userId, String field) {
     FindIterable<Document> jsonRides = userCollection.find(eq("userId", userId));
 
     Iterator<Document> iterator = jsonRides.iterator();
     if (iterator.hasNext()) {
+      String fieldInfo;
       Document ride = iterator.next();
-      String name = ride.getString("name");
-      System.out.println("adding " + name + " to the ride");
-      return name;
+      if (field.equals("_id")) {
+        fieldInfo = ride.getObjectId(field).toHexString();
+      } else {
+        fieldInfo = ride.getString(field);
+      }
+      System.out.println("Got user: " + userId + " " + field + " = " + fieldInfo);
+
+      return fieldInfo;
     } else {
       System.out.println("We didn\'t find the desired user");
       return null;
@@ -203,7 +210,8 @@ public class RideController {
     Document filter = new Document("_id", objId);
     Document updateFields = new Document();
 
-    newRider = getName(newRider);
+    newRider = getStringField(newRider, "name");
+    System.out.println("adding " + newRider + " to the ride");
 
     riderList.set(riderList.size()-1, newRider);
 

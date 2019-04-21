@@ -63,20 +63,20 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field id="ownerField" flex>
-        <mat-label>Owner</mat-label>
-        <mat-select id="owner" [(ngModel)]="data.ride.ownerId" formControlName="ownerId">
-          <mat-option *ngFor="let user of data.users" value="{{user._id['$oid']}}">
-            {{user.name}}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngFor="let validation of add_ride_validation_messages.ownerId">
-          <mat-error class="error-message" id="owner-error"
-                     *ngIf="addRideForm.get('ownerId').hasError(validation.type) && (addRideForm.get('ownerId').dirty || addRideForm.get('ownerId').touched)">
-            {{validation.message}}
-          </mat-error>
-        </mat-error>
-      </mat-form-field>
+      <!--<mat-form-field id="ownerField" flex>-->
+        <!--<mat-label>Owner</mat-label>-->
+        <!--<mat-select id="owner" [(ngModel)]="data.ride.ownerId" formControlName="ownerId">-->
+          <!--<mat-option *ngFor="let user of data.users" value="{{user._id['$oid']}}">-->
+            <!--{{user.name}}-->
+          <!--</mat-option>-->
+        <!--</mat-select>-->
+        <!--<mat-error *ngFor="let validation of add_ride_validation_messages.ownerId">-->
+          <!--<mat-error class="error-message" id="owner-error"-->
+                     <!--*ngIf="addRideForm.get('ownerId').hasError(validation.type) && (addRideForm.get('ownerId').dirty || addRideForm.get('ownerId').touched)">-->
+            <!--{{validation.message}}-->
+          <!--</mat-error>-->
+        <!--</mat-error>-->
+      <!--</mat-form-field>-->
 
       <mat-form-field flex>
         <input matInput #input id="numSeatsField" placeholder="Available Seats" [(ngModel)]="data.ride.numSeats" formControlName="numSeats"
