@@ -52,6 +52,17 @@
       </mat-form-field>
 
       <mat-form-field flex>
+        <input matInput #input id="numSeatsField" placeholder="Available Seats" [(ngModel)]="data.ride.numSeats" formControlName="numSeats"
+        >
+        <mat-error *ngFor="let validation of edit_ride_validation_messages.numSeats">
+          <mat-error class="error-message" id="numSeats-error"
+                     *ngIf="editRideForm.get('numSeats').hasError(validation.type) && (editRideForm.get('numSeats').dirty || editRideForm.get('numSeats').touched)">
+            {{validation.message}}
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field flex>
         <input matInput #input id="notesField" placeholder="Notes" [(ngModel)]="data.ride.notes" formControlName="notes"
               >
         <mat-error *ngFor="let validation of edit_ride_validation_messages.notes">

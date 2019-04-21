@@ -35,7 +35,7 @@ export class RideListComponent implements OnInit {
   }
 
   openAddDialog(): void {
-    const newRide: Ride = {driver: '', destination: '', origin: '', roundTrip: false, driving: false, departureDate: '', departureTime: '', mpg: null, notes: ''};
+    const newRide: Ride = {driver: '', destination: '', origin: '', roundTrip: false, driving: false, departureDate: '', departureTime: '', mpg: null, notes: '', numSeats: 0, riderList: []};
 
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {ride:newRide, users: this.users};
@@ -63,7 +63,7 @@ export class RideListComponent implements OnInit {
     });
   }
 
-  openEditDialog(currentId: string, currentDriver: string, currentDestination: string, currentOrigin: string, currentRoundTrip: boolean, currentDriving: boolean, currentDepartureDate: string, currentDepartureTime: string, currentMPG: number, currentNotes: string): void {
+  openEditDialog(currentId: string, currentDriver: string, currentDestination: string, currentOrigin: string, currentRoundTrip: boolean, currentDriving: boolean, currentDepartureDate: string, currentDepartureTime: string, currentMPG: number, currentNotes: string, currentNumSeats: number, currentRiderList: string[]): void {
     const currentRide: Ride = {
       _id: {
         $oid: currentId
@@ -76,7 +76,9 @@ export class RideListComponent implements OnInit {
       departureDate: currentDepartureDate,
       departureTime: currentDepartureTime,
       mpg: currentMPG,
-      notes: currentNotes
+      notes: currentNotes,
+      numSeats: currentNumSeats,
+      riderList: currentRiderList
     };
 
     const dialogConfig = new MatDialogConfig();

@@ -7,7 +7,6 @@ export interface Ride {
   driver?: string;
   ownerId?: string;
   ownerData?: User;
-  riders?: string;
   destination: string;
   origin: string;
   roundTrip: boolean;

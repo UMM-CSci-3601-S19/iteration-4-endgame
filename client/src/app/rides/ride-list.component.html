@@ -41,11 +41,19 @@
             <mat-icon style="color: #34C234"> drive_eta </mat-icon> &nbsp; {{ride.origin}}  <mat-icon style="color: #34C234">play_arrow</mat-icon>  {{ride.destination}}
             <br/>
             <div *ngIf="ride.roundTrip"><mat-icon style="color: #34C234">swap_horiz</mat-icon> &nbsp; Round trip</div>
+            <div class="seats-left">
+              <small *ngIf="ride.numSeats === 1"> {{ride.numSeats}} SEAT LEFT </small>
+              <small *ngIf="ride.numSeats > 1"> {{ride.numSeats}} SEATS LEFT </small>
+            </div>
           </mat-card-title>
           <mat-card-title *ngSwitchCase=false [id]="ride.destination">
             <mat-icon style="color: #6EB5FF"> airline_seat_recline_extra </mat-icon> &nbsp; {{ride.origin}}  <mat-icon style="color: #6EB5FF">play_arrow</mat-icon>  {{ride.destination}}
             <br/>
             <div *ngIf="ride.roundTrip"><mat-icon style="color: #6EB5FF">swap_horiz</mat-icon> &nbsp; Round trip</div>
+            <div class="seats-left">
+              <small *ngIf="ride.numSeats === 1"> {{ride.numSeats}} SEAT LEFT </small>
+              <small *ngIf="ride.numSeats > 1"> {{ride.numSeats}} SEATS LEFT </small>
+            </div>
           </mat-card-title>
 
           <mat-divider></mat-divider>
@@ -81,7 +89,7 @@
                 Delete Ride
               </button>
               <button *ngIf="loggedId === ride.ownerData.userId" id="editRide" mat-raised-button
-                      (click)="openEditDialog(ride._id.$oid, ride.driver, ride.destination, ride.origin, ride.roundTrip, ride.driving, ride.departureDate, ride.departureTime, ride.mpg, ride.notes)">
+                      (click)="openEditDialog(ride._id.$oid, ride.driver, ride.destination, ride.origin, ride.roundTrip, ride.driving, ride.departureDate, ride.departureTime, ride.mpg, ride.notes, ride.numSeats, ride.riderList)">
                 Edit Ride
               </button>
             </div>
