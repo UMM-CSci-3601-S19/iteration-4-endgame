@@ -119,10 +119,28 @@ public class UserController {
         userInfo.append("name", matchingUsers.first().get("name"));
         userInfo.append("pictureUrl", matchingUsers.first().get("pictureUrl"));
         System.err.println("Successfully added new user [_id=" + id + ", userId=" + userId + " email=" + email + " name=" + name + " pictureUrl " + pictureUrl + "]");
+        return "New User added";
       }catch(MongoException e){
         e.printStackTrace();
-        return null;
+        return "Error trying to create user";
       }
+    }else {
+      return "User already exists";
+    }
+  }
+
+  String signin(String userId, String email, String name, String pictureUrl){
+    Document filterDoc = new Document();
+
+    Document contentRegQuery = new Document();
+    contentRegQuery.append("$regex", userId);
+    contentRegQuery.append("$options", "i");
+    filterDoc = filterDoc.append("userId", contentRegQuery);
+
+    FindIterable<Document> matchingUsers = userCollection.find(filterDoc);
+
+    if(JSON.serialize(matchingUsers).equals("[ ]")) {
+      return "User already exists";
     }else{
       Document userInfo = new Document();
       userInfo.append("_id", matchingUsers.first().get("_id"));
@@ -132,7 +150,5 @@ public class UserController {
       System.out.println("Logged in user: " + name);
       return JSON.serialize(userInfo);
     }
-    return "";
   }
-
 }
