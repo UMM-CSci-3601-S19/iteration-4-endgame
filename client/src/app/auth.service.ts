@@ -74,19 +74,4 @@ export class AuthService implements CanActivate {
     }
     return true;
   }
-
-  // getLoggedUser(): Observable<User> {
-  //   let authInstance = gapi.auth2.getAuthInstance();
-  //   let idtoken = authInstance.currentUser.get().getAuthResponse().id_token;
-  //   let loggedUser;
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({
-  //       'Content-Type': 'application/json'
-  //     }),
-  //     responseType: 'text' as 'json'
-  //   };
-  //   loggedUser = this.http.post<string>(environment.API_URL + "loggedIn",{idtoken: idtoken}, httpOptions);
-  //   console.log("loggedUser: " + JSON.stringify(loggedUser));
-  //   return loggedUser;
-  // }
 }
