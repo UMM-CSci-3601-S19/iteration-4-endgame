@@ -30,7 +30,8 @@ export class AuthService implements CanActivate {
         'Content-Type': 'application/json'
       }),
       responseType: 'text' as 'json'
-    };
+    };    //If the user doesn't log in (ie closes the dialog box), we think they're logged in right now.
+
     this.http.post<string>(environment.API_URL + 'signin', {idtoken: idtoken}, httpOptions)
       .subscribe((data) => {
         console.log(data);
@@ -40,11 +41,44 @@ export class AuthService implements CanActivate {
   signIn() {
     console.log("Signing in");
     let authInstance = gapi.auth2.getAuthInstance();
-    authInstance.signIn();
-    //If the user doesn't log in (ie closes the dialog box), we think they're logged in right now.
-    this.status = true;
+    authInstance.signIn()
+      .then((data) => {
+        let idtoken = data.getAuthResponse().id_token;
+        const httpOptions = {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json'
+          }),
+          responseType: 'text' as 'json'
+        };    //If the user doesn't log in (ie closes the dialog box), we think they're logged in right now.
+
+        this.http.post<string>(environment.API_URL + 'signin', {idtoken: idtoken}, httpOptions)
+          .subscribe((data) => {
+            console.log(data);
+          });
+        this.status = true;
+      });
   }
 
+  signUp() {
+    console.log("Signing up");
+    let authInstance = gapi.auth2.getAuthInstance();
+    authInstance.signIn()
+      .then((data) => {
+        let idtoken = data.getAuthResponse().id_token;
+        const httpOptions = {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json'
+          }),
+          responseType: 'text' as 'json'
+        };    //If the user doesn't log in (ie closes the dialog box), we think they're logged in right now.
+
+        this.http.post<string>(environment.API_URL + 'signup', {idtoken: idtoken}, httpOptions)
+          .subscribe((data) => {
+            console.log(data);
+          });
+        this.status = true;
+      });
+  }
   signOut() {
     console.log("Signing out");
     let authInstance = gapi.auth2.getAuthInstance();

@@ -6,6 +6,9 @@
       <button id="signIn" *ngIf="!auth.isSignedIn()" (click)="auth.signIn()">
         <input type="image" [src]="buttonSource1">
       </button>
+      <button id="signUp" *ngIf="!auth.isSignedIn()" (click)="auth.signUp()">
+        Sign up With Gowogle!
+      </button>
       <button *ngIf="auth.isSignedIn()" (click)="auth.signOut()">sign out of google :(</button>
       <br>
       <button (click)="auth.checkUser()">Check the google status uwu</button>
