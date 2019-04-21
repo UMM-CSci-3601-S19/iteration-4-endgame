@@ -81,6 +81,7 @@ public class Server {
     post("api/rides/new", rideRequestHandler::addNewRide);
     post("api/rides/update", rideRequestHandler::updateRide);
     post("api/rides/remove", rideRequestHandler::deleteRide);
+    post("api/rides/addRider", rideRequestHandler::addRider);
 
     // User Endpoints ///////////////////////////////////
     /////////////////////////////////////////////////////

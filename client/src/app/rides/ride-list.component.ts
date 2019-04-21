@@ -35,6 +35,14 @@ export class RideListComponent implements OnInit {
     this.auth = authService;
   }
 
+  check(list: string[]): boolean {
+    if(list.length == 0 ) {
+      return true;
+    } else {
+      return (list.indexOf(this.loggedId) != -1);
+    }
+  }
+
   openAddDialog(): void {
     const newRide: Ride = {driver: '', destination: '', origin: '', roundTrip: false, driving: false, departureDate: '', departureTime: '', mpg: null, notes: '', numSeats: 0, riderList: []};
 
@@ -65,8 +73,13 @@ export class RideListComponent implements OnInit {
   }
 
   openJoinDialog(currentId: string, currentDriver: string, currentDestination: string, currentOrigin: string, currentRoundTrip: boolean, currentDriving: boolean, currentDepartureDate: string, currentDepartureTime: string, currentMPG: number, currentNotes: string, currentNumSeats: number, currentRiderList: string[], newRiderId: string): void {
+    if(currentRiderList==null) {
+      currentRiderList = [];
+      currentRiderList.push(newRiderId);
+    }
     currentRiderList.push(newRiderId);
     console.log(currentRiderList);
+    currentNumSeats -= 1;
 
     const currentRide: Ride = {
       _id: {

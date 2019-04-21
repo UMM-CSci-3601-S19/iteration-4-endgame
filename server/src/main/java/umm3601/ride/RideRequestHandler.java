@@ -5,6 +5,8 @@ import org.bson.types.ObjectId;
 import spark.Request;
 import spark.Response;
 
+import java.util.List;
+
 public class RideRequestHandler {
 
   private final RideController rideController;
@@ -84,6 +86,8 @@ public class RideRequestHandler {
     String departureTime = newRide.getString("departureTime");
     String mpg = newRide.getString("mpg");
     String notes = newRide.getString("notes");
+    List<String> riderList = newRide.getList("riderList", String.class);
+    Integer numSeats = newRide.getInteger("numSeats");
     String ownerId;
     if(newRide.containsKey("ownerId")){
       ownerId = newRide.getString("ownerId");
@@ -93,7 +97,7 @@ public class RideRequestHandler {
 
 
     System.err.println("Adding new ride [driver=" + driver + " ownerId=" + ownerId + " destination=" + destination + " origin=" + origin + " roundTrip=" + roundTrip + " driving=" + driving + " departureDate=" + departureDate + " departureTime=" + departureTime + " mpg=" + mpg + " notes=" + notes + ']');
-    return rideController.addNewRide(driver, destination, origin, roundTrip, driving, departureDate, departureTime, mpg, notes, ownerId);
+    return rideController.addNewRide(driver, destination, origin, roundTrip, driving, departureDate, departureTime, mpg, notes, ownerId, riderList, numSeats);
   }
 
   public Boolean updateRide(Request req, Response res) {
@@ -125,5 +129,20 @@ public class RideRequestHandler {
     String id = deleteRide.getString("_id");
     System.err.println("Deleting ride id=" + id);
     return rideController.deleteRide(id);
+  }
+
+  public Boolean addRider(Request req, Response res) {
+    res.type("application/json");
+
+    Document addedRider = Document.parse(req.body());
+
+    String id = addedRider.getObjectId("_id").toHexString();
+    List<String> riderList = addedRider.getList("riderList", String.class);
+    System.out.println("riderList: " + riderList);
+    System.out.println("riderList.size(): " + riderList.size());
+    String newRider = riderList.get(riderList.size() - 1);
+    Integer numSeats = addedRider.getInteger("numSeats");
+    System.out.println("id: " + id + " riderList: " + riderList + " newRider: " + newRider + " numSeats: " + numSeats);
+    return rideController.addRider(id, riderList, newRider, numSeats);
   }
 }

@@ -54,10 +54,6 @@
               <small *ngIf="ride.numSeats === 1"> {{ride.numSeats}} SEAT LEFT </small>
               <small *ngIf="ride.numSeats > 1"> {{ride.numSeats}} SEATS LEFT </small>
             </div>
-            <button *ngIf="loggedId === ride.ownerData.userId" id="joinRide" mat-raised-button
-                    (click)="openJoinDialog(ride._id.$oid, ride.driver, ride.destination, ride.origin, ride.roundTrip, ride.driving, ride.departureDate, ride.departureTime, ride.mpg, ride.notes, ride.numSeats, ride.riderList, loggedId)">
-              Join Ride
-            </button>
           </mat-card-title>
 
           <mat-divider></mat-divider>
@@ -75,7 +71,7 @@
 
             <br/> Departure Date: {{ride.departureDate | date}}
             <br/> Departure Time: {{ride.departureTime}}
-            <!--<br/> Pickup at: {{ride.origin}}-->
+            <br/> RiderList: {{ride.riderList}}
             <br/> MPG: {{ride.mpg}}
             <br/>
             <br/>Notes: {{ride.notes}}
@@ -87,6 +83,10 @@
               <button id="goToUser" mat-raised-button
                       routerLink="users/{{ride.ownerData._id.$oid}}">
                 User Information
+              </button>
+              <button *ngIf="(loggedId !== ride.ownerData.userId) && ride.numSeats > 0 && check(ride.riderList)" id="joinRide" mat-raised-button
+                      (click)="openJoinDialog(ride._id.$oid, ride.driver, ride.destination, ride.origin, ride.roundTrip, ride.driving, ride.departureDate, ride.departureTime, ride.mpg, ride.notes, ride.numSeats, ride.riderList, loggedId)">
+                Join Ride
               </button>
               <button *ngIf="loggedId === ride.ownerData.userId" id="deleteRide" mat-raised-button
                       (click)="openDeleteDialog(ride._id.$oid)">

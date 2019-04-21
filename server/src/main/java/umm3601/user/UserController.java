@@ -107,8 +107,12 @@ public class UserController {
       Document newUser = new Document();
       newUser.append("_id", id);
       newUser.append("userId", userId);
-      newUser.append("email", email);
       newUser.append("name", name);
+      newUser.append("bio", "Nothing here yet");
+      newUser.append("email", email);
+      newUser.append("totalReviewScore", 0);
+      newUser.append("numReviews", 0);
+
       newUser.append("pictureUrl", pictureUrl);
       try {
         userCollection.insertOne(newUser);

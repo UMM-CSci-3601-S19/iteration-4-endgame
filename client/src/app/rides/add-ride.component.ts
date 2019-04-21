@@ -55,6 +55,7 @@ export class AddRideComponent implements OnInit {
       {type: 'pattern', message: 'MPG must be a number'}
     ],
     'numSeats': [
+      {type: 'required', message: 'Enter 0 or more seats'},
       {type: 'min', message: 'You cannot have negative seats'},
       {type: 'max', message: 'Available seats is too high!'},
       {type: 'pattern', message: 'numSeats must be a number'}
@@ -96,6 +97,7 @@ export class AddRideComponent implements OnInit {
         Validators.pattern('\\d+')
       ])),
       numSeats: new FormControl('numSeats', Validators.compose([
+        Validators.required,
         Validators.min(0),
         Validators.max(12),
         Validators.pattern('\\d+')

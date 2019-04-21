@@ -13,11 +13,9 @@ import org.bson.codecs.DocumentCodec;
 import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.types.ObjectId;
+import umm3601.user.UserController;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -86,7 +84,7 @@ public class RideController {
       .collect(Collectors.joining(", ", "[", "]"));
   }
 
-  String addNewRide(String driver, String destination, String origin, Boolean roundTrip, Boolean driving, String departureDate, String departureTime, String mpg, String notes, String ownerId) {
+  String addNewRide(String driver, String destination, String origin, Boolean roundTrip, Boolean driving, String departureDate, String departureTime, String mpg, String notes, String ownerId, List<String> riderList, Integer numSeats) {
     System.out.println(ownerId);
     Document newRide = new Document();
     newRide.append("driver", driver);
@@ -108,6 +106,8 @@ public class RideController {
     }
     newRide.append("notes", notes);
     newRide.append("ownerId", ownerId);
+    newRide.append("numSeats", numSeats);
+    newRide.append("riderList", riderList);
 
     try {
       rideCollection.insertOne(newRide);
@@ -177,5 +177,47 @@ public class RideController {
       ridesWithUsers.add(ride);
     }
     return ridesWithUsers;
+  }
+
+  private String getOid(String userId) {
+    FindIterable<Document> jsonRides = userCollection.find(eq("userId", userId));
+
+    Iterator<Document> iterator = jsonRides.iterator();
+    if (iterator.hasNext()) {
+      Document ride = iterator.next();
+      String oid = ride.getObjectId("_id").toHexString();
+      System.out.println("$oid: " + oid + "userId: " + userId);
+      return oid;
+    } else {
+      System.out.println("We didn\'t find the desired ride");
+      return null;
+    }
+  }
+
+  Boolean addRider(String id, List<String> riderList, String newRider, Integer numSeats) {
+    ObjectId objId = new ObjectId(id);
+    Document filter = new Document("_id", objId);
+    Document updateFields = new Document();
+
+    newRider = getOid(newRider);
+    System.out.println(newRider);
+
+    riderList.set(riderList.size()-1, newRider);
+
+    System.out.println(riderList);
+
+    updateFields.append("riderList", riderList);
+    updateFields.append("numSeats", numSeats);
+
+    Document updateDoc = new Document("$set", updateFields);
+
+    try{
+      UpdateResult out = rideCollection.updateOne(filter, updateDoc);
+      //returns false if no documents were modified, true otherwise
+      return out.getModifiedCount() != 0;
+    }catch(MongoException e){
+      e.printStackTrace();
+      return false;
+    }
   }
 }
