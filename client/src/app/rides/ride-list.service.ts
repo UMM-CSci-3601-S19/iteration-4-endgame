@@ -121,6 +121,16 @@ export class RideListService {
     return this.http.post<string>(this.rideUrl + '/update', editedRide, httpOptions);
   }
 
+  joinRide(joinedRide: Ride): Observable<string> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      responseType: 'text' as 'json'
+    };
+
+    return this.http.post<string>(this.rideUrl + '/addRider', joinedRide, httpOptions);
+  }
 
   deleteRide(deleteId: String): Observable<string> {
     const httpOptions = {

@@ -29,6 +29,7 @@ import {RateUserComponent} from "./users/rate-user.component";
 import {PhoneMaskDirective} from "./users/phone-mask.directive";
 
 import {AuthService} from "./auth.service";
+import {JoinRideComponent} from "./rides/join-ride.component";
 
 
 
@@ -53,6 +54,7 @@ import {AuthService} from "./auth.service";
     RideListComponent,
     AddRideComponent,
     EditRideComponent,
+    JoinRideComponent,
     EditUserComponent,
     RateUserComponent,
     DeleteRideComponent,
@@ -70,6 +72,7 @@ import {AuthService} from "./auth.service";
   entryComponents: [
     AddRideComponent,
     EditRideComponent,
+    JoinRideComponent,
     EditUserComponent,
     RateUserComponent,
     DeleteRideComponent

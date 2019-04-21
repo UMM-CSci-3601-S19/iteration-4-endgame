@@ -1,0 +1,10 @@
+<div>
+  <span> Are you sure you want to join this ride? </span>
+  <mat-dialog-actions layout="row">
+    <button mat-raised-button id="confirmJoinRideButton" [mat-dialog-close]="data.id['$oid']"
+            type="button" color="primary">Join Ride
+    </button>
+
+    <button mat-raised-button id="exitWithoutJoiningButton" [mat-dialog-close]="null" type="button">Cancel</button>
+  </mat-dialog-actions>
+</div>

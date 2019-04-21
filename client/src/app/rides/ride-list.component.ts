@@ -8,6 +8,7 @@ import {MatDialog, MatDialogConfig} from "@angular/material";
 import {DeleteRideComponent} from "./delete-ride.component";
 import {User} from "../users/user";
 import {AuthService} from "../auth.service";
+import {JoinRideComponent} from "./join-ride.component";
 
 @Component({
   selector: 'ride-list-component',
@@ -57,6 +58,51 @@ export class RideListComponent implements OnInit {
             // This should probably be turned into some sort of meaningful response.
             console.log('There was an error adding the ride.');
             console.log('The newRide or dialogResult was ' + JSON.stringify(newRide));
+            console.log('The error was ' + JSON.stringify(err));
+          });
+      }
+    });
+  }
+
+  openJoinDialog(currentId: string, currentDriver: string, currentDestination: string, currentOrigin: string, currentRoundTrip: boolean, currentDriving: boolean, currentDepartureDate: string, currentDepartureTime: string, currentMPG: number, currentNotes: string, currentNumSeats: number, currentRiderList: string[], newRiderId: string): void {
+    currentRiderList.push(newRiderId);
+    console.log(currentRiderList);
+
+    const currentRide: Ride = {
+      _id: {
+        $oid: currentId
+      },
+      driver: currentDriver,
+      destination: currentDestination,
+      origin: currentOrigin,
+      roundTrip: currentRoundTrip,
+      driving: currentDriving,
+      departureDate: currentDepartureDate,
+      departureTime: currentDepartureTime,
+      mpg: currentMPG,
+      notes: currentNotes,
+      numSeats: currentNumSeats,
+      riderList: currentRiderList
+    };
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {ride: currentRide};
+    dialogConfig.width = '500px';
+
+    const dialogRef = this.dialog.open(JoinRideComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(currentRide => {
+      if (currentRide != null) {//RideListComponent
+        currentRide.mpg = "" + currentRide.mpg;
+        this.rideListService.joinRide(currentRide).subscribe(
+          result => {
+            this.highlightedDestination = result;
+            console.log("The result is " + result);
+            this.refreshRides();
+          },
+          err => {
+            console.log('There was an error joining the ride.');
+            console.log('The currentRide or dialogResult was ' + JSON.stringify(currentRide));
             console.log('The error was ' + JSON.stringify(err));
           });
       }

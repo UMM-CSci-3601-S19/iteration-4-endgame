@@ -54,6 +54,10 @@
               <small *ngIf="ride.numSeats === 1"> {{ride.numSeats}} SEAT LEFT </small>
               <small *ngIf="ride.numSeats > 1"> {{ride.numSeats}} SEATS LEFT </small>
             </div>
+            <button *ngIf="loggedId === ride.ownerData.userId" id="joinRide" mat-raised-button
+                    (click)="openJoinDialog(ride._id.$oid, ride.driver, ride.destination, ride.origin, ride.roundTrip, ride.driving, ride.departureDate, ride.departureTime, ride.mpg, ride.notes, ride.numSeats, ride.riderList, loggedId)">
+              Join Ride
+            </button>
           </mat-card-title>
 
           <mat-divider></mat-divider>
