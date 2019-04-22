@@ -10,6 +10,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {EditUserComponent} from "./edit-user.component";
 import {RateUserComponent} from "./rate-user.component";
 import {AuthService} from "../auth.service";
+import {RideListService} from "../rides/ride-list.service";
 
 describe( 'User Profile', () => {
   let userProfile: UserProfileComponent;
@@ -17,6 +18,10 @@ describe( 'User Profile', () => {
 
   let authServiceStub: {
     isSignedIn: () => boolean;
+  };
+
+  let rideListServiceStub: {
+
   };
 
   let userServiceStub: {
@@ -27,7 +32,10 @@ describe( 'User Profile', () => {
   beforeEach(() => {
     authServiceStub = {
       isSignedIn: () => true
-    }
+    };
+    rideListServiceStub = {
+
+    };
     userServiceStub = {
       getUsers: () => Observable.of(
         {
@@ -62,7 +70,8 @@ describe( 'User Profile', () => {
       declarations: [UserProfileComponent],
       providers: [
         {provide: UserService, useValue: userServiceStub},
-        {provide: AuthService, useValue: authServiceStub}
+        {provide: AuthService, useValue: authServiceStub},
+        {provide: RideListService, useValue: rideListServiceStub}
       ]
     });
   });
@@ -112,6 +121,10 @@ describe('Misbehaving User Profiles',() => {
     isSignedIn: () => boolean;
   };
 
+  let rideListServiceStub: {
+
+  };
+
   let userServiceStub: {
     getUsers: () => Observable<User[]>
     getUserById: () => Observable<User>
@@ -120,6 +133,9 @@ describe('Misbehaving User Profiles',() => {
   beforeEach(() => {
     authServiceStub = {
       isSignedIn: () => true
+    };
+    rideListServiceStub = {
+
     };
     userServiceStub = {
       getUsers: () => Observable.create(observer => {
@@ -135,7 +151,8 @@ describe('Misbehaving User Profiles',() => {
       declarations: [UserProfileComponent],
       providers: [
         {provide: UserService, useValue: userServiceStub},
-        {provide: AuthService, useValue: authServiceStub}
+        {provide: AuthService, useValue: authServiceStub},
+        {provide: RideListService, useValue: rideListServiceStub}
       ]
     });
   });
@@ -174,6 +191,10 @@ describe('Editing a user', ()=> {
     isSignedIn: () => boolean;
   };
 
+  let rideListServiceStub: {
+
+  };
+
   let userServiceStub: {
     getUserById: () => Observable<User>,
     editUser: (currentUser: User) => Observable<{ '$oid': string }>,
@@ -189,6 +210,10 @@ describe('Editing a user', ()=> {
     calledUser = null;
     authServiceStub = {
       isSignedIn: () => true
+    };
+
+    rideListServiceStub = {
+
     };
 
     userServiceStub = {
@@ -217,7 +242,8 @@ describe('Editing a user', ()=> {
       providers: [
         {provide: UserService, useValue: userServiceStub},
         {provide: MatDialog, useValue: mockMatDialog},
-        {provide: AuthService, useValue: authServiceStub}
+        {provide: AuthService, useValue: authServiceStub},
+        {provide: RideListService, useValue: rideListServiceStub}
       ]
     });
   });
@@ -259,6 +285,10 @@ describe('Rating a user', ()=> {
     isSignedIn: () => boolean;
   };
 
+  let rideListServiceStub: {
+
+  };
+
   let userServiceStub: {
     getUserById: () => Observable<User>,
     rateUser: (currentUser: User) => Observable<{ '$oid': string}>
@@ -287,6 +317,10 @@ describe('Rating a user', ()=> {
       }
     };
 
+    rideListServiceStub = {
+
+    };
+
     mockMatDialog = {
       open: () => {
         return {
@@ -303,7 +337,8 @@ describe('Rating a user', ()=> {
       providers: [
         {provide: UserService, useValue: userServiceStub},
         {provide: MatDialog, useValue: mockMatDialog},
-        {provide: AuthService, useValue: authServiceStub}
+        {provide: AuthService, useValue: authServiceStub},
+        {provide: RideListService, useValue: rideListServiceStub}
       ]
     });
   });

@@ -16,7 +16,9 @@ describe( 'Ride list service: ', () => {
       departureDate: '2019-03-13T00:00:00.000Z',
       departureTime: '05:00',
       driving: false,
-      notes: 'I will be arriving in a flying motorcycle'
+      notes: 'I will be arriving in a flying motorcycle',
+      numSeats: 4,
+      riderList: ['0']
     },
     {
       driver: 'Lucy',
@@ -26,7 +28,9 @@ describe( 'Ride list service: ', () => {
       departureDate: '2019-03-19T00:00:00.000Z',
       departureTime: '09:00',
       driving: true,
-      notes: 'Dress for cold'
+      notes: 'Dress for cold',
+      numSeats: 4,
+      riderList: ['0']
     },
     {
       driver: 'Student',
@@ -36,7 +40,9 @@ describe( 'Ride list service: ', () => {
       departureDate: '2019-04-01T00:00:00.000Z',
       departureTime: '12:00',
       driving: true,
-      notes: 'There is no escaping Morris'
+      notes: 'There is no escaping Morris',
+      numSeats: 4,
+      riderList: ['0']
     }
   ];
   const testUsers: User[] = [
@@ -174,7 +180,9 @@ describe( 'Ride list service: ', () => {
       roundTrip: false,
       departureDate: 'March 18th, 2019',
       departureTime: 'August',
-      notes: 'There is no escaping Morris'
+      notes: 'There is no escaping Morris',
+      numSeats: 4,
+      riderList: ['0']
     };
 
     rideListService.addNewRide(newRide).subscribe(
@@ -213,7 +221,9 @@ describe( 'Ride list service: ', () => {
       roundTrip: false,
       departureDate: '2019-03-18T00:00:00.000Z',
       departureTime: '05:00',
-      notes: 'There is no escaping Morris'
+      notes: 'There is no escaping Morris',
+      numSeats: 4,
+      riderList: ['0']
     };
 
     rideListService.editRide(editedRide).subscribe(
@@ -242,7 +252,9 @@ describe( 'Ride list service: ', () => {
       roundTrip: false,
       departureDate: '2019-03-18T00:00:00.000Z',
       departureTime: '05:00',
-      notes: 'There is no escaping the lab'
+      notes: 'There is no escaping the lab',
+      numSeats: 4,
+      riderList: ['0']
     };
 
     rideListService.deleteRide(deletedRide._id.toString()).subscribe(
