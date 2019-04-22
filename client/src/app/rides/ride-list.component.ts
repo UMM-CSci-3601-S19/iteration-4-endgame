@@ -104,7 +104,6 @@ export class RideListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(currentRide => {
       if (currentRide != null) {//RideListComponent
-        currentRide.numSeats = "" + currentRide.numSeats;
         currentRide.mpg = "" + currentRide.mpg;
         this.rideListService.joinRide(currentRide).subscribe(
           result => {

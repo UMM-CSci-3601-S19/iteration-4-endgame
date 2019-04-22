@@ -13,7 +13,7 @@ export interface Ride {
   departureDate: string;
   departureTime?: string;
   driving?: boolean;
-  notes: string;
+  notes?: string;
   mpg?: number;
   numSeats: number;
   riderList: string[];

@@ -1,7 +1,7 @@
 <div layout-gt-sm="row">
   <div flex-gt-sm="80" flex-offset-gt-sm="10">
 
-    <mat-card #elem *ngIf="user" [id]="user._id.$oid">
+    <mat-card #elem class="userCard" *ngIf="user" [id]="user._id.$oid">
       <mat-card-title [id]="user.name">
         {{user.name}}'s Profile
         <button *ngIf="loggedId === user.userId" mat-raised-button id="editProfile" #input type="button"
@@ -41,7 +41,7 @@
               <span class="star" *ngIf="user.avgScore >= 4.5"><mat-icon id="starID5">star_rate</mat-icon></span>
             </div>
           </div>
-          <div class="boxes" id="ReviewBox" [style.grid-area]="'review'">
+          <div *ngIf="user.userId !== loggedId" class="boxes" id="ReviewBox" [style.grid-area]="'review'">
             <mat-form-field>
               <mat-label>Leave a Rating</mat-label>
               <mat-select id="ratingSelect" [(value)]="rating">
@@ -85,16 +85,18 @@
           <mat-divider></mat-divider>
 
           <mat-card-content>
-
-            <br/> Departure Date: {{ride.departureDate | date}}
+                  Departure Date: {{ride.departureDate | date}}
             <br/> Departure Time: {{ride.departureTime}}
-            <br/> RiderList: {{ride.riderList}}
             <br/> MPG: {{ride.mpg}}
             <br/>
-            <br/>Notes: {{ride.notes}}
+            <br/> Notes: {{ride.notes}}
 
             <br/>
             <br/>
+
+            <div *ngIf="user.userId === loggedId">
+                 RiderList: {{ride.riderList}}
+            </div>
 
           </mat-card-content>
         </mat-card>

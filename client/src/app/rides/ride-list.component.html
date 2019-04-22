@@ -61,8 +61,6 @@
           <mat-card-content>
             <div *ngIf="ride.ownerData">
               <div>Owner: {{ride.ownerData.name}}</div>
-              <!--<div *ngIf="ride.ownerData.phoneNumber">Phone Number: {{ride.ownerData.phoneNumber}}</div>-->
-              <!--<div *ngIf="ride.ownerData.email">Email: {{ride.ownerData.email}}</div>-->
             </div>
 
             <div *ngIf="!ride.ownerData">
@@ -71,7 +69,6 @@
 
             <br/> Departure Date: {{ride.departureDate | date}}
             <br/> Departure Time: {{ride.departureTime}}
-            <br/> RiderList: {{ride.riderList}}
             <br/> MPG: {{ride.mpg}}
             <br/>
             <br/>Notes: {{ride.notes}}

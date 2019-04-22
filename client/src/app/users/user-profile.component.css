@@ -72,3 +72,33 @@ img {
   background: #ffc107;
   color: #000000;
 }
+
+#listContainer {
+  color: #000000;
+}
+
+.mat-card {
+  background-color: #ffc107;
+  color: #ffffff;
+}
+
+.mat-card .postCard {
+  background-color: #2e2e2e;
+  margin: 0;
+  font-family: "Verdana", sans-serif;
+}
+
+.mat-card .postCard .mat-card-title {
+  background: #7a0019;
+  padding: 16px;
+  margin: 0;
+  font-family: "Arial Black", sans-serif;
+}
+
+.mat-card-content.mat-card-content.ng-star-inserted {
+  margin: 0;
+}
+
+.userCard {
+  background-color: #2e2e2e;
+}
