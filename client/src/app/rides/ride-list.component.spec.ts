@@ -12,15 +12,12 @@ import 'rxjs/add/operator/do';
 import {User} from "../users/user";
 import {RouterTestingModule} from "@angular/router/testing";
 import {AuthService} from "../auth.service";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('Ride list', () => {
 
   let rideList: RideListComponent;
   let fixture: ComponentFixture<RideListComponent>;
-
-  let authServiceStub: {
-    isSignedIn: () => boolean;
-  };
 
   let rideListServiceStub: {
     getRides: () => Observable<Ride[]>,
@@ -28,9 +25,6 @@ describe('Ride list', () => {
   };
 
   beforeEach(()=> {
-    authServiceStub = {
-      isSignedIn: () => true
-    };
     rideListServiceStub = {
       getRides: () => Observable.of([
         {
@@ -167,11 +161,11 @@ describe('Ride list', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [CustomModule, RouterTestingModule],
+      imports: [CustomModule, RouterTestingModule, HttpClientModule],
       declarations: [RideListComponent],
       providers: [
         {provide: RideListService, useValue: rideListServiceStub},
-        {provide: AuthService, useValue: authServiceStub}
+        AuthService
       ]
     });
   });
@@ -181,6 +175,10 @@ describe('Ride list', () => {
       fixture = TestBed.createComponent(RideListComponent);
       rideList = fixture.componentInstance;
       fixture.detectChanges();
+      window['gapi'] = {
+        load() {
+          return null;
+        }};
     });
   }));
 
@@ -307,6 +305,8 @@ describe('Misbehaving Ride List',() => {
 
   let authServiceStub: {
     isSignedIn: () => boolean;
+    gapi: any;
+    loadClient: () => void;
   };
 
   let rideListServiceStub: {
@@ -316,7 +316,9 @@ describe('Misbehaving Ride List',() => {
 
   beforeEach(() => {
     authServiceStub = {
-      isSignedIn: () => true
+      isSignedIn: () => true,
+      gapi: "",
+      loadClient: () => null
     };
     rideListServiceStub = {
       getRides: () => Observable.create(observer => {
@@ -343,6 +345,10 @@ describe('Misbehaving Ride List',() => {
       rideList = fixture.componentInstance;
       fixture.detectChanges();
     });
+    window['gapi'] = {
+      load() {
+        return null;
+      }};
   }));
 
   it('generates an error if we don\'t set up a RideListService',() => {
@@ -368,9 +374,6 @@ describe('Adding a ride',()=> {
 
   let calledRide: Ride;
 
-  let authServiceStub: {
-    isSignedIn: () => boolean;
-  };
   let rideListServiceStub: {
     getRides: () => Observable<Ride[]>,
     getUsers: () => Observable<User[]>,
@@ -384,9 +387,6 @@ describe('Adding a ride',()=> {
 
   beforeEach(() => {
     calledRide = null;
-    authServiceStub = {
-      isSignedIn: () => true
-    };
     rideListServiceStub = {
       getRides: () => Observable.of([]),
       addNewRide: (newRide: Ride) => {
@@ -408,12 +408,12 @@ describe('Adding a ride',()=> {
     };
 
     TestBed.configureTestingModule({
-      imports: [FormsModule, CustomModule, RouterTestingModule],
+      imports: [FormsModule, CustomModule, RouterTestingModule, HttpClientModule],
       declarations: [RideListComponent],
       providers: [
         {provide: RideListService, useValue: rideListServiceStub},
         {provide: MatDialog, useValue: mockMatDialog},
-        {provide: AuthService, useValue: authServiceStub}
+        AuthService
       ]
     });
   });
@@ -424,6 +424,10 @@ describe('Adding a ride',()=> {
       rideList = fixture.componentInstance;
       fixture.detectChanges();
     });
+    window['gapi'] = {
+      load() {
+        return null;
+      }};
   }));
 
   it('calls RideListService.addNewRide', () => {
@@ -454,10 +458,6 @@ describe('Editing a ride',()=> {
 
   let calledRide: Ride;
 
-  let authServiceStub: {
-    isSignedIn: () => boolean;
-  };
-
   let rideListServiceStub: {
     getRides: () => Observable<Ride[]>,
     editRide: (currentRide: Ride) => Observable<{ '$oid': string}>,
@@ -471,9 +471,6 @@ describe('Editing a ride',()=> {
 
   beforeEach(() => {
     calledRide = null;
-    authServiceStub = {
-      isSignedIn: () => true
-    };
     rideListServiceStub = {
       getRides: () => Observable.of([]),
       editRide: (currentRide: Ride) => {
@@ -505,12 +502,12 @@ describe('Editing a ride',()=> {
     };
 
     TestBed.configureTestingModule({
-      imports: [FormsModule, CustomModule, RouterTestingModule],
+      imports: [FormsModule, CustomModule, RouterTestingModule, HttpClientModule],
       declarations: [RideListComponent],
       providers: [
         {provide: RideListService, useValue: rideListServiceStub},
         {provide: MatDialog, useValue: mockMatDialog},
-        {provide: AuthService, useValue: authServiceStub}
+        AuthService
       ]
     });
   });
@@ -521,6 +518,10 @@ describe('Editing a ride',()=> {
       rideList = fixture.componentInstance;
       fixture.detectChanges();
     });
+    window['gapi'] = {
+      load() {
+        return null;
+      }};
   }));
 
   it('calls RideListService.editRide', () => {
@@ -550,9 +551,6 @@ describe('Deleting a ride',()=> {
 
   let calledRide: Ride;
 
-  let authServiceStub: {
-    isSignedIn: () => boolean;
-  };
   let rideListServiceStub: {
     getRides: () => Observable<Ride[]>,
     deleteRide: (currentRide: Ride) => Observable<{ '$oid': string}>,
@@ -566,9 +564,6 @@ describe('Deleting a ride',()=> {
 
   beforeEach(() => {
     calledRide = null;
-    authServiceStub = {
-      isSignedIn: () => true
-    };
     rideListServiceStub = {
       getRides: () => Observable.of([]),
       deleteRide: (currentRide: Ride) => {
@@ -600,12 +595,12 @@ describe('Deleting a ride',()=> {
     };
 
     TestBed.configureTestingModule({
-      imports: [FormsModule, CustomModule, RouterTestingModule],
+      imports: [FormsModule, CustomModule, RouterTestingModule, HttpClientModule],
       declarations: [RideListComponent],
       providers: [
         {provide: RideListService, useValue: rideListServiceStub},
         {provide: MatDialog, useValue: mockMatDialog},
-        {provide: AuthService, useValue: authServiceStub}
+        AuthService
       ]
     });
   });
@@ -616,6 +611,11 @@ describe('Deleting a ride',()=> {
       rideList = fixture.componentInstance;
       fixture.detectChanges();
     });
+    window['gapi'] = {
+      load() {
+        return
+      }
+    };
   }));
 
   it('calls RideListService.deleteRide', () => {

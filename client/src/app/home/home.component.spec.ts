@@ -4,6 +4,8 @@ import {DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {CustomModule} from '../custom.module';
 import {AuthService} from "../auth.service";
+import {HttpClientModule} from "@angular/common/http";
+import {RouterTestingModule} from "@angular/router/testing";
 
 describe('Home', () => {
 
@@ -12,20 +14,13 @@ describe('Home', () => {
   let de: DebugElement;
   let el: HTMLElement;
 
-  let authServiceStub: {
-    isSignedIn: () => boolean;
-  };
-
   beforeEach(() => {
-    authServiceStub = {
-      isSignedIn: () => true
-    };
 
     TestBed.configureTestingModule({
-      imports: [CustomModule],
+      imports: [CustomModule, HttpClientModule, RouterTestingModule],
       declarations: [HomeComponent],
       providers: [
-        {provide: AuthService, useValue: authServiceStub},
+        AuthService
       ]
     });
 
