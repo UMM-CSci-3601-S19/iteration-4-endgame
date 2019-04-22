@@ -24,6 +24,7 @@ export class RideListComponent implements OnInit {
   public filteredRides: Ride[];
   public users: User[];
   public loggedId: string;
+  public loggedName: string;
 
   public rideDestination: string;
   public rideDriving: string;
@@ -39,7 +40,7 @@ export class RideListComponent implements OnInit {
     if(list.length == 0 ) {
       return true;
     } else {
-      return (list.indexOf(this.loggedId) != -1);
+      return (list.indexOf(this.loggedName) == -1);
     }
   }
 
@@ -214,6 +215,7 @@ export class RideListComponent implements OnInit {
   refreshRides(): Observable<Ride[]> {
     const rides: Observable<Ride[]> = this.rideListService.getRides();
     this.loggedId = AuthService.getUserId();
+    this.loggedName = AuthService.getUserName();
     rides.subscribe(
       rides => {
         this.rides = rides;
@@ -249,7 +251,12 @@ export class RideListComponent implements OnInit {
     );
   }
 
+  initGapi(): void {
+    this.authService.loadClient();
+  }
+
   ngOnInit(): void {
+    this.initGapi();
     this.refreshRides();
     this.refreshUsers();
   }

@@ -163,7 +163,7 @@ public class RideController {
     updateFields.append("roundTrip", roundTrip);
     updateFields.append("departureDate", departureDate);
     updateFields.append("departureTime", departureTime);
-    if (mpgString != null || !mpgString.isEmpty()) {
+    if (mpgString != null && !mpgString.isEmpty()) {
       int mpg = Integer.parseInt(mpgString);
       updateFields.append("mpg", mpg);
     } else {

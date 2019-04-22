@@ -28,4 +28,12 @@ export class HomeComponent {
     this.auth = authService;
     this.buttonSource1 = "../../assets/GoogleButtons/btn_google_signin_light_normal_web.png";
   }
+
+  initGapi(): void {
+    this.authService.loadClient();
+  }
+
+  ngOnInit(): void {
+    this.initGapi();
+  }
 }

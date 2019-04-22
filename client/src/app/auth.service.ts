@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import {Injectable, NgZone, OnInit} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {environment} from "../environments/environment";
@@ -14,12 +14,16 @@ declare let gapi: any;
 //The google oauth biblé https://developers.google.com/identity/sign-in/web/reference
 
 @Injectable()
-export class AuthService implements CanActivate {
+export class AuthService implements CanActivate, OnInit{
   private http: HttpClient;
   private status: boolean;
 
   constructor(private client: HttpClient, public router: Router) {
     this.http = client;
+  }
+
+  static getUserName(): string {
+    return gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getName();
   }
 
   static getUserId(): string {
@@ -44,6 +48,8 @@ export class AuthService implements CanActivate {
 
   signIn() {
     console.log("Signing in");
+    console.log("gapi " + gapi.toString());
+    console.log("gapi.auth2 " + gapi.auth2);
     let authInstance = gapi.auth2.getAuthInstance();
     authInstance.signIn()
       .then((data) => {
@@ -101,5 +107,19 @@ export class AuthService implements CanActivate {
       return false;
     }
     return true;
+  }
+
+  loadClient() {
+    console.log("gapi follows:");
+    console.log(gapi);
+    gapi.load('auth2', function() {
+      gapi.auth2.init({
+        'clientId': '375549452265-kpv6ds6lpfc0ibasgeqcgq1r6t6t6sth.apps.googleusercontent.com'
+      });
+    });
+  }
+
+  ngOnInit() {
+    this.loadClient();
   }
 }
