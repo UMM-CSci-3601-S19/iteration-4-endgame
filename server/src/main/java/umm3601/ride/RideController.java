@@ -163,7 +163,6 @@ public class RideController {
     updateFields.append("roundTrip", roundTrip);
     updateFields.append("departureDate", departureDate);
     updateFields.append("departureTime", departureTime);
-    //TODO: when mpg field is untouched breaks, but works fine if it is touched then deleted
     if (mpgString.equals("null")) {
       System.out.println("I AM A NULL STRING");
       updateFields.append("mpg", null);
