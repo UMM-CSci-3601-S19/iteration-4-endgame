@@ -1,21 +1,7 @@
 import {RidePage} from './ride-list.po';
 import {browser, protractor, element, by} from 'protractor';
-
-const origFn = browser.driver.controlFlow().execute;
-
-browser.driver.controlFlow().execute = function () {
- let args = arguments;
-
- // queue 100ms wait between test
- // This delay is only put here so that you can watch the browser do its thing.
- // If you're tired of it taking long you can remove this call or change the delay
- // to something smaller (even 0).
- origFn.call(browser.driver.controlFlow(), () => {
-   return protractor.promise.delayed(10);
- });
-
- return origFn.apply(browser.driver.controlFlow(), args);
-};
+import {RideListComponent} from "../src/app/rides/ride-list.component";
+import {AuthService} from "../src/app/auth.service";
 
 describe('Ride List', () => {
   let page: RidePage;
@@ -32,10 +18,10 @@ describe('Ride List', () => {
 
   it('should type something in Filter by Destination box and check that it returned correct element', () => {
     page.typeADestination('dul');
-    let exp1 = expect(page.getUniqueRide('5cb129c060bd26f72fbc2958')).toMatch('Grand Street.*');
+    let exp1 = expect(page.getUniqueRide('1234567890abcdeffedcba09')).toMatch('Union Street.*');
     page.backspace();page.backspace();page.backspace();
     page.typeADestination('Alexandria');
-    let exp2 = expect(page.getUniqueRide('5cb129c060bd26f72fbc294a')).toMatch('Folsom Place.*');
+    let exp2 = expect(page.getUniqueRide('0987654321fedcbaabcdef90')).toMatch('Ryder Street.*');
     return exp1 && exp2;
   });
 
@@ -60,25 +46,25 @@ describe('Ride List', () => {
 
     it('Should actually add the ride with the information we put in the fields', () => {
       page.field('destinationField').sendKeys('New York');
-      let st1 = page.slowTime(1000);
+      page.slowTime(1000);
       page.selectDropdown('#ownerField');
       page.selectDownKey();
       page.selectEnterKey();
-      let st2 = page.slowTime(500);
+      page.slowTime(500);
 
       page.field('dateField').sendKeys('5/31/2025');
-      let st3 = page.slowTime(500);
+      page.slowTime(500);
       page.field('timeField').sendKeys('1250PM');
-      let st8 = page.slowTime(500);
+      page.slowTime(500);
 
       page.field('originField').sendKeys('Morris');
-      let st4 = page.slowTime(500);
+      page.slowTime(500);
       page.field('mpgField').sendKeys('40');
-      let st5 = page.slowTime(500);
+      page.slowTime(500);
       page.field('notesField').sendKeys('I do not pick up my trash');
-      let st6 = page.slowTime(500);
+      page.slowTime(500);
       page.click('roundTripCheckBox');
-      let st7 = page.slowTime(500);
+      page.slowTime(500);
       let exp1 = expect(page.button('confirmAddRideButton').isEnabled()).toBe(true);
       page.click('confirmAddRideButton');
 
@@ -86,7 +72,7 @@ describe('Ride List', () => {
       browser.wait(protractor.ExpectedConditions.presenceOf(new_york_element), 10000);
 
       let exp2 = expect(page.getRideByDestination('New York')).toMatch('New York.*');
-      return st1 && st2 && st3 && st8 && st4 && st5 && st6 && st7 && exp1 && exp2;
+      return exp1 && exp2;
     });
 
     describe('Add Ride (Validation)', () => {
@@ -121,13 +107,13 @@ describe('Ride List', () => {
       it('Should show the validation error message about the requirement of owner', () => {
         let exp1 = expect(page.elementExistsWithId('ownerField')).toBeTruthy('There should be a owner field');
         page.selectDropdown('#ownerField');
-        let st1 = page.slowTime(500);
+        page.slowTime(500);
         page.selectTabKey();
-        let st2 = page.slowTime(500);
+        page.slowTime(500);
         let exp2 = expect(page.button('confirmAddRideButton').isEnabled()).toBe(false);
         //clicking somewhere else will make the error appear
         let exp3 = expect(page.getTextFromField('owner-error')).toBe('Owner is required');
-        return st1 && st2 && exp1 && exp2 && exp3;
+        return exp1 && exp2 && exp3;
       });
 
       it('Should show the validation error message about origin format', () => {
@@ -168,11 +154,11 @@ describe('Ride List', () => {
       });
 
       it('Should show the validation error message about the format of notes', () => {
-        let exp1 = expect(element(by.id('notesField')).isPresent()).toBeTruthy('notes must contain only english and certain symbols');
+        let exp1 = expect(element(by.id('notesField')).isPresent()).toBeTruthy('Notes must contain only english and certain symbols');
         page.field('notesField').sendKeys('片仮名');
         let exp2 = expect(page.button('confirmAddRideButton').isEnabled()).toBe(false);
         page.field('notesField').click();
-        let exp3 = expect(page.getTextFromField('notes-error')).toBe('notes must contain only english and certain symbols');
+        let exp3 = expect(page.getTextFromField('notes-error')).toBe('Notes must contain only english and certain symbols');
         return exp1 && exp2 && exp3;
       });
     });
@@ -180,14 +166,11 @@ describe('Ride List', () => {
 
   describe('Edit Ride', () => {
 
-    let st1;
-    let st2;
-
     beforeEach(() => {
       page.typeADestination('Maplegrove');
-      st1 = page.slowTime(100);
+      page.slowTime(100);
       page.click('Maplegrove');
-      st2 = page.slowTime(1000);
+      page.slowTime(1000);
       page.click('editRide');
     });
 
@@ -195,30 +178,30 @@ describe('Ride List', () => {
 
       page.field('destinationField').clear();
       page.field('destinationField').sendKeys('Japan');
-      let st3 = page.slowTime(100);
+      page.slowTime(1000);
       page.field('dateField').clear();
       page.field('dateField').sendKeys('5/31/2020');
-      let st10 = page.slowTime(100);
+      page.slowTime(500);
       page.field('timeField').clear();
       page.field('timeField').sendKeys('1250PM');
-      let st11 = page.slowTime(100);
+      page.slowTime(500);
       page.field('originField').clear();
       page.field('originField').sendKeys('America');
-      let st4 = page.slowTime(100);
+      page.slowTime(500);
       page.field('mpgField').clear();
       page.field('mpgField').sendKeys('199');
-      let st5 = page.slowTime(100);
+      page.slowTime(500);
       page.field('notesField').clear();
       page.field('notesField').sendKeys('We be travelin by map');
-      let st6 = page.slowTime(100);
+      page.slowTime(500);
       page.click('roundTripCheckBox');
-      let st7 = page.slowTime(100);
+      page.slowTime(500);
       page.click('drivingCheckBox');
-      let st8 = page.slowTime(100);
+      page.slowTime(500);
 
       let exp1 = expect(page.button('confirmEditRideButton').isEnabled()).toBe(true);
       page.click('confirmEditRideButton');
-      let st9 = page.slowTime(100);
+      page.slowTime(500);
 
       page.field('rideDestination').clear();
       page.typeADestination('Japan');
@@ -227,7 +210,7 @@ describe('Ride List', () => {
       browser.wait(protractor.ExpectedConditions.presenceOf(japan_element), 10000);
 
       let exp2 = expect(page.getRideByDestination('Japan')).toMatch('Japan.*');
-      return st1 && st2 && st3 && st10 && st11 && st4 && st5 && st6 && st7 && st8 && st9 && exp1 && exp2;
+      return exp1 && exp2;
     });
 
     describe('Edit Ride (Validation)', () => {
@@ -272,10 +255,12 @@ describe('Ride List', () => {
         return exp1 && exp2 && exp3;
       });
 
-      it('Should show the validation error message about the format of dateFiled when editing a ride', () => {
+      // TODO: Sometimes fails due to date being entered in origin field
+      it('Should show the validation error message about the format of dateField when editing a ride', () => {
         let exp1 = expect(element(by.id('dateField')).isPresent()).toBeTruthy('There should be a departureDate field');
         page.field('dateField').clear();
-        page.field('dateField').sendKeys('5');
+        page.field('dateField').sendKeys('12/12/2010');
+        page.slowTime(500);
         let exp2 = expect(page.button('confirmEditRideButton').isEnabled()).toBe(false);
         page.field('mpgField').click();
         let exp3 = expect(page.getTextFromField('departureDate-error')).toBe('Date of departure cannot have already occurred');
@@ -303,27 +288,38 @@ describe('Ride List', () => {
 
   });
 
-  describe('Delete Ride', () => {
-
-    let st1;
-    let st2;
-
+  describe('User Information Redirect', () => {
     beforeEach(() => {
       page.field('rideDestination').clear();
-      st1 = page.slowTime(100);
+      page.slowTime(100);
       page.typeADestination('Duluth');
-      st2 = page.slowTime(100);
-      page.click('5cb129c060bd26f72fbc2958');
+      page.slowTime(100);
+      page.click('1234567890abcdeffedcba09');
+    });
 
+    it('Redirects to a specific User Profile', () => {
+      page.click('goToUser');
+
+      page.slowTime(1000);
+      return expect(page.elementExistsWithId('Meghan Sweeney')).toBeTruthy("The Profile of Meghan Sweeney was not found");
+    })
+  })
+
+  describe('Delete Ride', () => {
+    beforeEach(() => {
+      page.field('rideDestination').clear();
+      page.slowTime(100);
+      page.typeADestination('Duluth');
+      page.slowTime(100);
+      page.click('1234567890abcdeffedcba09');
     });
 
     it('Deletes an existing ride', () => {
       page.click('deleteRide');
 
       page.click('confirmDeleteRideButton');
-      let st3 = page.slowTime(1000);
-      let exp1 = expect(page.elementExistsWithCss('Grand Street')).toBeFalsy("The ride should not exist as it was deleted");
-      return st1 && st2 && st3 && exp1;
+      page.slowTime(1000);
+      return expect(page.elementExistsWithCss('Union Street')).toBeFalsy("The ride should not exist as it was deleted");
     });
   });
 });

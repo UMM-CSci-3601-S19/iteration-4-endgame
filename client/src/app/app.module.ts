@@ -17,20 +17,28 @@ import {MatFormFieldModule} from '@angular/material';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
+import {MatDatepickerModule, MatNativeDateModule} from "@angular/material";
 
 import {CustomModule} from './custom.module';
+
 import {UserProfileComponent} from "./users/user-profile.component";
 import {UserService} from "./users/user-service";
 import {EditUserComponent} from "./users/edit-user.component";
-import {MatDatepickerModule, MatNativeDateModule} from "@angular/material";
+import {RouterModule} from "@angular/router";
+import {RateUserComponent} from "./users/rate-user.component";
+import {PhoneMaskDirective} from "./users/phone-mask.directive";
+
+import {AuthService} from "./auth.service";
+import {JoinRideComponent} from "./rides/join-ride.component";
 
 
 
 @NgModule({
   imports: [
+    Routing,
+    RouterModule,
     BrowserModule,
     HttpClientModule,
-    Routing,
     CustomModule,
     MatCheckboxModule,
     MatRadioModule,
@@ -46,18 +54,27 @@ import {MatDatepickerModule, MatNativeDateModule} from "@angular/material";
     RideListComponent,
     AddRideComponent,
     EditRideComponent,
+    JoinRideComponent,
     EditUserComponent,
-    DeleteRideComponent
+    RateUserComponent,
+    DeleteRideComponent,
+    PhoneMaskDirective
+  ],
+  exports: [
+    PhoneMaskDirective
   ],
   providers: [
     RideListService,
     UserService,
-    {provide: APP_BASE_HREF, useValue: '/'},
+    AuthService,
+    {provide: APP_BASE_HREF, useValue: '/'}
   ],
   entryComponents: [
     AddRideComponent,
     EditRideComponent,
+    JoinRideComponent,
     EditUserComponent,
+    RateUserComponent,
     DeleteRideComponent
   ],
   bootstrap: [AppComponent]

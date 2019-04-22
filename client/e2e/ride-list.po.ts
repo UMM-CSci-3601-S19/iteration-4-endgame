@@ -95,7 +95,7 @@ export class RidePage {
   }
 
   slowTime(ms: number) {
-    return protractor.promise.delayed(ms);
+    return browser.sleep(ms);
   }
 
 }

@@ -3,81 +3,100 @@
 </div>
 
 <div id="wrapper">
-<div layout-gt-sm="row">
+<div *ngIf="users" layout-gt-sm="row">
   <div flex-gt-sm="80" flex-offset-gt-sm="10">
     <mat-card>
       <mat-card-title id="ride-list-title">Available Listings</mat-card-title>
     </mat-card>
+
     <mat-card id="filterLocation">
       <mat-card-content>
         <mat-form-field color="accent">
          <input matInput id="rideDestination" #input placeholder="Filter by Destination"
                 (input)="rideDestination = $event.target.value">
         </mat-form-field>
-      </mat-card-content>
-    </mat-card>
-    <mat-card id="listContainer">
-      <mat-card-content>
-
-        <br>
+        <br/>
 
         <mat-radio-group class="radioGroup" [(ngModel)] = "rideDriving">
           Search for rides that have...
-          <br><mat-radio-button id="isDriving" [value] = "true"> <mat-icon style="color:green"> drive_eta</mat-icon> </mat-radio-button> Drivers &nbsp;
-          <br><mat-radio-button id="isNotDriving" [value] = "false"> <mat-icon style="color: #6EB5FF"> airline_seat_recline_extra </mat-icon> </mat-radio-button> Riders &nbsp;
-          <br><mat-radio-button id="isEither" [value] = "null"> Riders and Drivers </mat-radio-button>
+          <br/><mat-radio-button id="isDriving" [value] = "true"> <mat-icon style="color:#34C234"> drive_eta</mat-icon> </mat-radio-button> Drivers &nbsp;
+          <br/><mat-radio-button id="isNotDriving" [value] = "false"> <mat-icon style="color: #6EB5FF"> airline_seat_recline_extra </mat-icon> </mat-radio-button> Riders &nbsp;
+          <br/><mat-radio-button id="isEither" [value] = "null"> Riders and Drivers </mat-radio-button>
         </mat-radio-group>
-        <br>
-        <br>
+
+        <br/>
+        <br/>
 
         <button class="filterButton" mat-raised-button id="submit" #input type="button" (click)="loadService()">
           Filter by driving / riding
         </button>
-        <br>
-        <br>
 
-        <mat-accordion class="postCard" multi="true" *ngIf="rides; else ridesError">
-          <mat-expansion-panel #elem class="rides" [id]="ride._id.$oid"
-                               *ngFor="let ride of this.filterRides(rideDestination)" [ngSwitch]="ride.driving">
-            <mat-expansion-panel-header *ngSwitchDefault style="color: #008000">
-              <mat-panel-title [id]="ride.destination">
-                <mat-icon style="color: #008000"> drive_eta </mat-icon> &nbsp; {{ride.origin}} &nbsp; <mat-icon style="color: #008000">play_arrow</mat-icon> &nbsp; {{ride.destination}}
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <mat-expansion-panel-header *ngSwitchCase=false style="color: #6EB5FF">
-              <mat-panel-title [id]="ride.destination">
-                <mat-icon style="color: #6EB5FF"> airline_seat_recline_extra </mat-icon> &nbsp; {{ride.origin}} &nbsp; <mat-icon style="color: #6EB5FF">play_arrow</mat-icon> &nbsp; {{ride.destination}}
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <br />
-            <div *ngIf="ride.ownerData">
-              <mat-panel-description>Owner: {{ride.ownerData.name}}</mat-panel-description>
-              <mat-panel-description *ngIf="ride.ownerData.phoneNumber">Phone Number: {{ride.ownerData.phoneNumber}}</mat-panel-description>
-              <mat-panel-description *ngIf="ride.ownerData.email">Email: {{ride.ownerData.email}}</mat-panel-description>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card id="listContainer">
+      <mat-card-content *ngFor="let ride of this.filterRides(rideDestination)">
+        <mat-card class="postCard" multi="true" *ngIf="rides; else ridesError" [id]="ride._id.$oid" [ngSwitch]="ride.driving">
+          <mat-card-title *ngSwitchDefault [id]="ride.destination">
+            <mat-icon style="color: #34C234"> drive_eta </mat-icon> &nbsp; {{ride.origin}}  <mat-icon style="color: #34C234">play_arrow</mat-icon>  {{ride.destination}}
+            <br/>
+            <div *ngIf="ride.roundTrip"><mat-icon style="color: #34C234">swap_horiz</mat-icon> &nbsp; Round trip</div>
+            <div class="seats-left">
+              <small *ngIf="ride.numSeats === 1"> {{ride.numSeats}} SEAT LEFT </small>
+              <small *ngIf="ride.numSeats > 1"> {{ride.numSeats}} SEATS LEFT </small>
             </div>
+          </mat-card-title>
+          <mat-card-title *ngSwitchCase=false [id]="ride.destination">
+            <mat-icon style="color: #6EB5FF"> airline_seat_recline_extra </mat-icon> &nbsp; {{ride.origin}}  <mat-icon style="color: #6EB5FF">play_arrow</mat-icon>  {{ride.destination}}
+            <br/>
+            <div *ngIf="ride.roundTrip"><mat-icon style="color: #6EB5FF">swap_horiz</mat-icon> &nbsp; Round trip</div>
+            <div class="seats-left">
+              <small *ngIf="ride.numSeats === 1"> {{ride.numSeats}} SEAT LEFT </small>
+              <small *ngIf="ride.numSeats > 1"> {{ride.numSeats}} SEATS LEFT </small>
+            </div>
+          </mat-card-title>
+
+          <mat-divider></mat-divider>
+
+          <mat-card-content>
+            <div *ngIf="ride.ownerData">
+              <div>Owner: {{ride.ownerData.name}}</div>
+            </div>
+
             <div *ngIf="!ride.ownerData">
               <mat-panel-description>Owner data not found</mat-panel-description>
             </div>
-            <mat-panel-description>
-              <br> Round Trip: {{ride.roundTrip}}
-              <br> Departure Date: {{ride.departureDate | date}}
-              <br> Departure Time: {{ride.departureTime}}
-              <br> Pickup at: {{ride.origin}}
-              <br> MPG: {{ride.mpg}}
-            </mat-panel-description>
-            <br />
-            <mat-panel-description>Notes: {{ride.notes}}</mat-panel-description>
+
+            <br/> Departure Date: {{ride.departureDate | date}}
+            <br/> Departure Time: {{ride.departureTime}}
+            <br/> MPG: {{ride.mpg}}
+            <br/>
+            <br/>Notes: {{ride.notes}}
+
+            <br/>
+            <br/>
+
             <div id="buttonContainer">
-              <br>
-              <button id="editRide" mat-raised-button
-                      (click)="openEditDialog(ride._id.$oid, ride.driver, ride.destination, ride.origin, ride.roundTrip, ride.driving, ride.departureDate, ride.departureTime, ride.mpg, ride.notes)">
+              <button id="goToUser" mat-raised-button
+                      routerLink="users/{{ride.ownerData._id.$oid}}">
+                User Information
+              </button>
+              <button *ngIf="(loggedId !== ride.ownerData.userId) && ride.numSeats > 0 && check(ride.riderList)" id="joinRide" mat-raised-button
+                      (click)="openJoinDialog(ride._id.$oid, ride.driver, ride.destination, ride.origin, ride.roundTrip, ride.driving, ride.departureDate, ride.departureTime, ride.mpg, ride.notes, ride.numSeats, ride.riderList, loggedId)">
+                Join Ride
+              </button>
+              <button *ngIf="loggedId === ride.ownerData.userId" id="deleteRide" mat-raised-button
+                      (click)="openDeleteDialog(ride._id.$oid)">
+                Delete Ride
+              </button>
+              <button *ngIf="loggedId === ride.ownerData.userId" id="editRide" mat-raised-button
+                      (click)="openEditDialog(ride._id.$oid, ride.driver, ride.destination, ride.origin, ride.roundTrip, ride.driving, ride.departureDate, ride.departureTime, ride.mpg, ride.notes, ride.numSeats, ride.riderList)">
                 Edit Ride
               </button>
-              <button id="deleteRide" mat-raised-button (click)="openDeleteDialog(ride._id.$oid)">Delete Ride</button>
             </div>
 
-          </mat-expansion-panel>
-        </mat-accordion>
+          </mat-card-content>
+        </mat-card>
 
         <ng-template #ridesError>
           <mat-error>

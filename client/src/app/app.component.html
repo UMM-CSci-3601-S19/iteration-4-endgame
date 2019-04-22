@@ -8,13 +8,13 @@
       <a id="navRides" mat-list-item [routerLink]="['/rides']" (click)="layout.close()" routerLinkActive="nav-active">
         <mat-icon id="carNav">directions_car</mat-icon>
         Available Listings</a>
-      <a id="navProfile" mat-list-item [routerLink]="['/users']" (click)="layout.close()" routerLinkActive="nav-active">
-        <mat-icon id="profileNav">account_circle</mat-icon>
-        Profile</a>
+      <!--<a id="navProfile" mat-list-item [routerLink]="['/rides/users']" (click)="layout.close()" routerLinkActive="nav-active">-->
+        <!--<mat-icon id="profileNav">account_circle</mat-icon>-->
+        <!--Profile</a>-->
     </mat-nav-list>
   </td-navigation-drawer>
   <td-layout-nav toolbarTitle="MoRide" navigationRoute="/">
-    <button mat-icon-button td-menu-button tdLayoutToggle>
+    <button *ngIf="auth.isSignedIn()" mat-icon-button td-menu-button tdLayoutToggle>
       <mat-icon>menu</mat-icon>
     </button>
     <router-outlet></router-outlet>

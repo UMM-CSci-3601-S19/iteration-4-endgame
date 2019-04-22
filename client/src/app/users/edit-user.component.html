@@ -1,11 +1,39 @@
 <div>
-  <span> Are you sure you want to rate this user? </span>
-  <mat-dialog-actions layout="row">
-    <!--[mat-dialog-close]="data.id['$oid']"-->
-    <button mat-raised-button id="confirmRateUserButton" [mat-dialog-close]="data.user"
-            type="button" color="primary">Rate!
-    </button>
+  <form [formGroup]="editInfoForm">
+    <mat-dialog-actions layout="row">
 
-    <button mat-raised-button id="exitWithoutRatingButton" [mat-dialog-close]="null" type="button">Cancel</button>
-  </mat-dialog-actions>
+    <mat-form-field flex style="margin: 10px">
+      <textarea style="height: 300px" matInput #input id="bioField" placeholder="Biography" [(ngModel)]="data.user.bio" formControlName="bio"></textarea>
+      <mat-error *ngFor="let validation of edit_info_validation_messages.bio">
+        <mat-error class="error-message" id="bio-error"
+                   *ngIf="editInfoForm.get('bio').hasError(validation.type) && (editInfoForm.get('bio').dirty || editInfoForm.get('bio').touched)">
+          {{validation.message}}
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field flex style="margin: 10px">
+      <input class="form-control" matInput #input id="phoneNumberField" type="tel" appPhoneMask placeholder="Phone Number" [(ngModel)]="data.user.phoneNumber" formControlName="phoneNumber">
+      <mat-error *ngFor="let validation of edit_info_validation_messages.phoneNumber">
+        <mat-error class="error-message" id="phoneNumber-error"
+                   *ngIf="editInfoForm.get('phoneNumber').hasError(validation.type) && (editInfoForm.get('phoneNumber').dirty || editInfoForm.get('phoneNumber').touched)">
+          {{validation.message}}
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+
+    </mat-dialog-actions>
+
+    <br/>
+
+    <div>
+      <button mat-raised-button id="confirmEditInfoButton" [mat-dialog-close]="data.user" type="button" color="primary" [disabled]="!editInfoForm.valid">
+        Edit!
+      </button>
+
+      <button mat-raised-button id="exitWithoutEditingButton" [mat-dialog-close]="null" type="button">
+        Cancel
+      </button>
+    </div>
+  </form>
 </div>

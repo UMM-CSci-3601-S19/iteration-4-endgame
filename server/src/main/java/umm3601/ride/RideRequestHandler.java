@@ -5,6 +5,8 @@ import org.bson.types.ObjectId;
 import spark.Request;
 import spark.Response;
 
+import java.util.List;
+
 public class RideRequestHandler {
 
   private final RideController rideController;
@@ -60,7 +62,25 @@ public class RideRequestHandler {
     return rideController.getRides(req.queryMap().toMap());
   }
 
-
+  public String getUserRides(Request req, Response res) {
+    res.type("application/json");
+    String userId = req.params("userId");
+    String userRides;
+    try {
+      userRides = rideController.getUserRides(userId);
+    } catch (IllegalArgumentException e) {
+      res.status(400);
+      res.body("Could not find the userId " + userId);
+      return "";
+    }
+    if (userRides != null) {
+      return userRides;
+    } else {
+      res.status(404);
+      res.body("The requested user with userId " + userId + " was not found");
+      return "";
+    }
+  }
   /**
    * Method called from Server when the 'api/rides/new' endpoint is received.
    * Gets specified ride info from request and calls addNewRide helper method
@@ -84,6 +104,8 @@ public class RideRequestHandler {
     String departureTime = newRide.getString("departureTime");
     String mpg = newRide.getString("mpg");
     String notes = newRide.getString("notes");
+    List<String> riderList = newRide.getList("riderList", String.class);
+    String numSeats = newRide.getString("numSeats");
     String ownerId;
     if(newRide.containsKey("ownerId")){
       ownerId = newRide.getString("ownerId");
@@ -93,7 +115,7 @@ public class RideRequestHandler {
 
 
     System.err.println("Adding new ride [driver=" + driver + " ownerId=" + ownerId + " destination=" + destination + " origin=" + origin + " roundTrip=" + roundTrip + " driving=" + driving + " departureDate=" + departureDate + " departureTime=" + departureTime + " mpg=" + mpg + " notes=" + notes + ']');
-    return rideController.addNewRide(driver, destination, origin, roundTrip, driving, departureDate, departureTime, mpg, notes, ownerId);
+    return rideController.addNewRide(driver, destination, origin, roundTrip, driving, departureDate, departureTime, mpg, notes, ownerId, riderList, numSeats);
   }
 
   public Boolean updateRide(Request req, Response res) {
@@ -111,10 +133,11 @@ public class RideRequestHandler {
     String departureTime = editRide.getString("departureTime");
     String mpg = editRide.getString("mpg");
     String notes = editRide.getString("notes");
+    String numSeats = editRide.getString("numSeats");
 
 
     System.err.println("Editing ride [id=" + id + " driver=" + driver + " destination=" + destination + " origin=" + origin + " roundTrip=" + roundTrip + " driving=" + driving + " departureDate=" + departureDate + " departureTime=" + departureTime + " notes=" + notes + ']');
-    return rideController.updateRide(id, driver, destination, origin, roundTrip, driving, departureDate, departureTime, mpg, notes);
+    return rideController.updateRide(id, driver, destination, origin, roundTrip, driving, departureDate, departureTime, mpg, notes, numSeats);
   }
 
   public Boolean deleteRide(Request req, Response res){
@@ -125,5 +148,18 @@ public class RideRequestHandler {
     String id = deleteRide.getString("_id");
     System.err.println("Deleting ride id=" + id);
     return rideController.deleteRide(id);
+  }
+
+  public Boolean addRider(Request req, Response res) {
+    res.type("application/json");
+
+    Document addedRider = Document.parse(req.body());
+
+    String id = addedRider.getObjectId("_id").toHexString();
+    List<String> riderList = addedRider.getList("riderList", String.class);
+    String newRider = riderList.get(riderList.size() - 1);
+    Integer numSeats = addedRider.getInteger("numSeats");
+    System.out.println("ride id: " + id + " riderList: " + riderList + " newRiderUserId: " + newRider + " numSeats: " + numSeats);
+    return rideController.addRider(id, riderList, newRider, numSeats);
   }
 }

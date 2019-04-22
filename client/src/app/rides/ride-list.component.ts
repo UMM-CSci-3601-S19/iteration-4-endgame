@@ -7,6 +7,8 @@ import {EditRideComponent} from "./edit-ride.component";
 import {MatDialog, MatDialogConfig} from "@angular/material";
 import {DeleteRideComponent} from "./delete-ride.component";
 import {User} from "../users/user";
+import {AuthService} from "../auth.service";
+import {JoinRideComponent} from "./join-ride.component";
 
 @Component({
   selector: 'ride-list-component',
@@ -17,9 +19,12 @@ import {User} from "../users/user";
 
 export class RideListComponent implements OnInit {
 
+  public auth: AuthService;
   public rides: Ride[];
   public filteredRides: Ride[];
   public users: User[];
+  public loggedId: string;
+  public loggedName: string;
 
   public rideDestination: string;
   public rideDriving: string;
@@ -27,16 +32,20 @@ export class RideListComponent implements OnInit {
   private highlightedDestination: string = '';
 
 
-  constructor(public rideListService: RideListService, public dialog: MatDialog) {
+  constructor(public rideListService: RideListService, public dialog: MatDialog, private authService: AuthService) {
+    this.auth = authService;
   }
 
-  isHighlighted(ride: Ride): boolean {
-    return ride.destination === this.highlightedDestination;
+  check(list: string[]): boolean {
+    if(list.length == 0 ) {
+      return true;
+    } else {
+      return (list.indexOf(this.loggedName) == -1);
+    }
   }
-
 
   openAddDialog(): void {
-    const newRide: Ride = {driver: '', destination: '', origin: '', roundTrip: false, driving: false, departureDate: '', departureTime: '', mpg: null, notes: ''};
+    const newRide: Ride = {driver: this.loggedId, destination: '', origin: '', roundTrip: false, driving: false, departureDate: '', departureTime: '', mpg: null, notes: '', numSeats: 0, riderList: []};
 
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {ride:newRide, users: this.users};
@@ -44,10 +53,9 @@ export class RideListComponent implements OnInit {
 
     const dialogRef = this.dialog.open(AddRideComponent, dialogConfig);
 
-
-
     dialogRef.afterClosed().subscribe(newRide => {
       if (newRide != null) {
+        newRide.numSeats = "" + newRide.numSeats;
         console.log(newRide);
         this.rideListService.addNewRide(newRide).subscribe(
           result => {
@@ -64,7 +72,14 @@ export class RideListComponent implements OnInit {
     });
   }
 
-  openEditDialog(currentId: string, currentDriver: string, currentDestination: string, currentOrigin: string, currentRoundTrip: boolean, currentDriving: boolean, currentDepartureDate: string, currentDepartureTime: string, currentMPG: number, currentNotes: string): void {
+  openJoinDialog(currentId: string, currentDriver: string, currentDestination: string, currentOrigin: string, currentRoundTrip: boolean, currentDriving: boolean, currentDepartureDate: string, currentDepartureTime: string, currentMPG: number, currentNotes: string, currentNumSeats: number, currentRiderList: string[], newRiderId: string): void {
+    if(currentRiderList==null) {
+      currentRiderList = [];
+      currentRiderList.push(newRiderId);
+    }
+    currentRiderList.push(newRiderId);
+    currentNumSeats -= 1;
+
     const currentRide: Ride = {
       _id: {
         $oid: currentId
@@ -77,7 +92,51 @@ export class RideListComponent implements OnInit {
       departureDate: currentDepartureDate,
       departureTime: currentDepartureTime,
       mpg: currentMPG,
-      notes: currentNotes
+      notes: currentNotes,
+      numSeats: currentNumSeats,
+      riderList: currentRiderList
+    };
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {ride: currentRide};
+    dialogConfig.width = '500px';
+
+    const dialogRef = this.dialog.open(JoinRideComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(currentRide => {
+      if (currentRide != null) {//RideListComponent
+        currentRide.mpg = "" + currentRide.mpg;
+        this.rideListService.joinRide(currentRide).subscribe(
+          result => {
+            this.highlightedDestination = result;
+            console.log("The result is " + result);
+            this.refreshRides();
+          },
+          err => {
+            console.log('There was an error joining the ride.');
+            console.log('The currentRide or dialogResult was ' + JSON.stringify(currentRide));
+            console.log('The error was ' + JSON.stringify(err));
+          });
+      }
+    });
+  }
+
+  openEditDialog(currentId: string, currentDriver: string, currentDestination: string, currentOrigin: string, currentRoundTrip: boolean, currentDriving: boolean, currentDepartureDate: string, currentDepartureTime: string, currentMPG: number, currentNotes: string, currentNumSeats: number, currentRiderList: string[]): void {
+    const currentRide: Ride = {
+      _id: {
+        $oid: currentId
+      },
+      driver: currentDriver,
+      destination: currentDestination,
+      origin: currentOrigin,
+      roundTrip: currentRoundTrip,
+      driving: currentDriving,
+      departureDate: currentDepartureDate,
+      departureTime: currentDepartureTime,
+      mpg: currentMPG,
+      notes: currentNotes,
+      numSeats: currentNumSeats,
+      riderList: currentRiderList
     };
 
     const dialogConfig = new MatDialogConfig();
@@ -88,6 +147,7 @@ export class RideListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(currentRide => {
       if (currentRide != null) {//RideListComponent
+        currentRide.numSeats = "" + currentRide.numSeats;
         currentRide.mpg = "" + currentRide.mpg;
         this.rideListService.editRide(currentRide).subscribe(
           result => {
@@ -149,11 +209,13 @@ export class RideListComponent implements OnInit {
         if (+new Date(a.departureDate) - +new Date(b.departureDate) != 0) {
           return +new Date(a.departureDate) - +new Date(b.departureDate);
         } else return a.departureTime.localeCompare(b.departureTime);
-      })
+      });
   }
 
   refreshRides(): Observable<Ride[]> {
     const rides: Observable<Ride[]> = this.rideListService.getRides();
+    this.loggedId = AuthService.getUserId();
+    this.loggedName = AuthService.getUserName();
     rides.subscribe(
       rides => {
         this.rides = rides;
@@ -189,9 +251,17 @@ export class RideListComponent implements OnInit {
     );
   }
 
+  initGapi(): void {
+    this.authService.loadClient();
+  }
 
   ngOnInit(): void {
+    this.initGapi();
     this.refreshRides();
     this.refreshUsers();
   }
+
+  // isHighlighted(ride: Ride): boolean {
+  //   return ride.destination === this.highlightedDestination;
+  // }
 }

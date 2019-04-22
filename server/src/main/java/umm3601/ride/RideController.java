@@ -14,15 +14,12 @@ import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.types.ObjectId;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static com.mongodb.client.model.Filters.eq;
-
+import static com.mongodb.client.model.Filters.in;
 
 
 public class RideController {
@@ -72,7 +69,22 @@ public class RideController {
     return serializeIterable(ridesWithUsers);
   }
 
+  String getUserRides(String userId) {
 
+    System.out.println("We are attempting to gather results");
+
+    BasicDBObject orQuery = new BasicDBObject();
+    List<BasicDBObject> params = new ArrayList<BasicDBObject>();
+    params.add(new BasicDBObject("ownerId", getStringField(userId, "_id")));
+    params.add(new BasicDBObject("riderList", getStringField(userId, "name")));
+    orQuery.put("$or", params);
+
+    System.out.println(orQuery);
+
+    FindIterable<Document> matchingRides = rideCollection.find(orQuery);
+
+    return serializeIterable(matchingRides);
+  }
   /*
    * Take an iterable collection of documents, turn each into JSON string
    * using `document.toJson`, and then join those strings into a single
@@ -86,9 +98,11 @@ public class RideController {
       .collect(Collectors.joining(", ", "[", "]"));
   }
 
-  String addNewRide(String driver, String destination, String origin, Boolean roundTrip, Boolean driving, String departureDate, String departureTime, String mpg, String notes, String ownerId) {
+  String addNewRide(String driver, String destination, String origin, Boolean roundTrip, Boolean driving, String departureDate, String departureTime, String mpg, String notes, String ownerId, List<String> riderList, String numSeatsString) {
     System.out.println(ownerId);
     Document newRide = new Document();
+    ownerId = getStringField(driver, "_id");
+    System.out.println(ownerId);
     newRide.append("driver", driver);
     newRide.append("destination", destination);
     newRide.append("origin", origin);
@@ -108,6 +122,11 @@ public class RideController {
     }
     newRide.append("notes", notes);
     newRide.append("ownerId", ownerId);
+
+    int numSeats = Integer.parseInt(numSeatsString);
+    newRide.append("numSeats", numSeats);
+
+    newRide.append("riderList", riderList);
 
     try {
       rideCollection.insertOne(newRide);
@@ -133,7 +152,7 @@ public class RideController {
     }
   }
 
-  Boolean updateRide(String id, String driver, String destination, String origin, Boolean roundTrip, Boolean driving, String departureDate, String departureTime, String mpg, String notes){
+  Boolean updateRide(String id, String driver, String destination, String origin, Boolean roundTrip, Boolean driving, String departureDate, String departureTime, String mpgString, String notes, String numSeatsString){
     ObjectId objId = new ObjectId(id);
     Document filter = new Document("_id", objId);
     Document updateFields = new Document();
@@ -144,17 +163,23 @@ public class RideController {
     updateFields.append("roundTrip", roundTrip);
     updateFields.append("departureDate", departureDate);
     updateFields.append("departureTime", departureTime);
-    if (mpg != null) {
-      if (mpg.isEmpty()) {
+    if (mpgString.equals("null")) {
+      System.out.println("I AM A NULL STRING");
+      updateFields.append("mpg", null);
+    } else if (mpgString.isEmpty()) {
+      System.out.println("I AM AN EMPTY STRING");
         updateFields.append("mpg", null);
-      } else {
-        int mpgInt = Integer.parseInt(mpg);
-        updateFields.append("mpg", mpgInt);
-      }
     } else {
-      updateFields.append("mpg", mpg);
+        System.out.println("I HAVE VALUE: " + mpgString);
+        int mpgInt = Integer.parseInt(mpgString);
+        updateFields.append("mpg", mpgInt);
     }
     updateFields.append("notes", notes);
+
+    int numSeats = Integer.parseInt(numSeatsString);
+    updateFields.append("numSeats", numSeats);
+
+    System.out.println(updateFields.toString());
     Document updateDoc = new Document("$set", updateFields);
     try{
       UpdateResult out = rideCollection.updateOne(filter, updateDoc);
@@ -177,5 +202,51 @@ public class RideController {
       ridesWithUsers.add(ride);
     }
     return ridesWithUsers;
+  }
+
+  private String getStringField(String userId, String field) {
+    FindIterable<Document> jsonRides = userCollection.find(eq("userId", userId));
+
+    Iterator<Document> iterator = jsonRides.iterator();
+    if (iterator.hasNext()) {
+      String fieldInfo;
+      Document ride = iterator.next();
+      if (field.equals("_id")) {
+        fieldInfo = ride.getObjectId(field).toHexString();
+      } else {
+        fieldInfo = ride.getString(field);
+      }
+      System.out.println("Got user: " + userId + " " + field + " = " + fieldInfo);
+
+      return fieldInfo;
+    }
+    return "User Not Found";
+  }
+
+  Boolean addRider(String id, List<String> riderList, String newRider, Integer numSeats) {
+    ObjectId objId = new ObjectId(id);
+    Document filter = new Document("_id", objId);
+    Document updateFields = new Document();
+
+    newRider = getStringField(newRider, "name");
+    System.out.println("adding " + newRider + " to the ride");
+
+    riderList.set(riderList.size()-1, newRider);
+
+    System.out.println(riderList);
+
+    updateFields.append("riderList", riderList);
+    updateFields.append("numSeats", numSeats);
+
+    Document updateDoc = new Document("$set", updateFields);
+
+    try{
+      UpdateResult out = rideCollection.updateOne(filter, updateDoc);
+      //returns false if no documents were modified, true otherwise
+      return out.getModifiedCount() != 0;
+    }catch(MongoException e){
+      e.printStackTrace();
+      return false;
+    }
   }
 }

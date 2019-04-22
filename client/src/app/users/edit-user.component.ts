@@ -1,7 +1,7 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, EventEmitter, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material';
 import {User} from './user';
-import {FormControl, Validators, FormGroup, FormBuilder} from "@angular/forms";
+import {FormControl, Validators, FormGroup, FormBuilder, ReactiveFormsModule, NgControl} from "@angular/forms";
 
 
 @Component({
@@ -10,13 +10,39 @@ import {FormControl, Validators, FormGroup, FormBuilder} from "@angular/forms";
 })
 
 export class EditUserComponent implements OnInit {
-  currentId: string;
+
+  editInfoForm: FormGroup;
 
   public user: User[];
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder) {
+    @Inject(MAT_DIALOG_DATA) public data: {user: User}, private fb: FormBuilder) {
+    this.editInfoForm=fb.group({
+      phoneNumber:['']
+    })
   }
+
+  edit_info_validation_messages = {
+    'bio': [
+      {type: 'maxlength', message: 'Limit of 1500 characters'}
+    ],
+    'phoneNumber': [
+
+    ]
+  };
+
+  createForms() {
+    this.editInfoForm = this.fb.group({
+      bio: new FormControl('bio', Validators.compose([
+        Validators.maxLength(1500)
+      ])),
+      phoneNumber: new FormControl('phoneNumber', Validators.compose([
+
+      ]))
+    })
+  }
+
   ngOnInit(): void {
+    this.createForms();
   }
 }

@@ -1,7 +1,12 @@
 package umm3601;
 
+import com.google.api.client.googleapis.auth.oauth2.*;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.util.JSON;
+import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -16,11 +21,13 @@ import static spark.debug.DebugScreen.enableDebugScreen;
 
 import java.io.InputStream;
 
+
 public class Server {
 
   private static final int serverPort = 4567;
 
   private static final String databaseName = "dev";
+
 
   public static void main(String[] args) {
 
@@ -31,7 +38,6 @@ public class Server {
     RideRequestHandler rideRequestHandler = new RideRequestHandler(rideController);
     UserController userController = new UserController(database);
     UserRequestHandler userRequestHandler = new UserRequestHandler(userController);
-
 
     //Configure Spark
     port(serverPort);
@@ -71,18 +77,26 @@ public class Server {
     /////////////////////////////////////////////
 
     get("api/rides", rideRequestHandler::getRides);
+    get("api/rides/:userId", rideRequestHandler::getUserRides);
     //get("api/rides/:destination", rideRequestHandler::getRideJSON);
     post("api/rides/new", rideRequestHandler::addNewRide);
     post("api/rides/update", rideRequestHandler::updateRide);
     post("api/rides/remove", rideRequestHandler::deleteRide);
+    post("api/rides/addRider", rideRequestHandler::addRider);
 
     // User Endpoints ///////////////////////////////////
     /////////////////////////////////////////////////////
     get("api/users", userRequestHandler::getUsers);
-    get("api/users/:id", userRequestHandler::getUserJSON);
     get("api/user/:id", userRequestHandler::getUserJSON);
-    post("api/users/rate", userRequestHandler::rateUser);
+    post("api/user/editProfile", userRequestHandler::editUserProfile);
+    post("api/user/rateProfile", userRequestHandler::rateUser);
 
+    post("api/login", userRequestHandler::login/*(Request req, Response res) -> {
+      return userRequestHandler.login(req, res);*/);
+
+//    post("api/signup", (req, res) -> {
+//      return userRequestHandler.signup(req, res);
+//    });
 
     // An example of throwing an unhandled exception so you can see how the
     // Java Spark debugger displays errors like this.

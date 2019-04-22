@@ -6,7 +6,7 @@ import {User} from "./user";
 
 @Injectable()
 export class UserService {
-  readonly baseUrl: string = environment.API_URL + 'users';
+  readonly baseUrl: string = environment.API_URL + 'user';
   private userUrl: string = this.baseUrl;
   private http: HttpClient;
 
@@ -14,16 +14,35 @@ export class UserService {
     this.http = client;
   }
 
-  getUsers(userID?: string): Observable<User[]> {
-    // this.filterByUserID(userID);
-    // return this.http.get<User[]>(this.userUrl);
-    if (userID == null) {
-      let url: string = this.userUrl;
-      return this.http.get<User[]>(url);
-    } else {
-      let url: string = this.userUrl + "/" + userID;
-      return this.http.get<User[]>(url);
-    }
+  getUserById(userID: string): Observable<User> {
+    return this.http.get<User>(this.userUrl + "/" + userID);
+  }
+
+  getUsers(): Observable<User[]> {
+    let url: string = this.userUrl;
+    return this.http.get<User[]>(url);
+  }
+
+  editUser(editedUser: User): Observable<string> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      responseType: 'text' as 'json'
+    };
+
+    return this.http.post<string>(this.userUrl + '/editProfile', editedUser, httpOptions);
+  }
+
+  rateUser(ratedUser: User): Observable<string> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      responseType: 'text' as 'json'
+    };
+
+    return this.http.post<string>(this.userUrl + '/rateProfile', ratedUser, httpOptions);
   }
 
   // private parameterPresent(searchParam: string) {
@@ -40,15 +59,4 @@ export class UserService {
   //   }
   //   this.userUrl = this.userUrl.substring(0, start) + this.userUrl.substring(end);
   // }
-
-  editUser(editedUser: User): Observable<string> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      }),
-      responseType: 'text' as 'json'
-    };
-
-    return this.http.post<string>(this.userUrl + '/rate', editedUser, httpOptions);
-  }
 }

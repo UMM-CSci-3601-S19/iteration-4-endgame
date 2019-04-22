@@ -2,75 +2,68 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from './user-service';
 import {User} from './user';
 import {Observable} from 'rxjs/Observable';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatDialogConfig} from '@angular/material';
 import {EditUserComponent} from "./edit-user.component";
+import {ActivatedRoute} from "@angular/router";
+import {RateUserComponent} from "./rate-user.component";
+import {AuthService} from "../auth.service";
+import {Ride} from "../rides/ride";
+import {RideListService} from "../rides/ride-list.service";
 
 @Component({
   selector: 'user-profile-component',
   templateUrl: 'user-profile.component.html',
-  styleUrls: ['./user-profile.component.css'],
+  styleUrls: ['./user-profile.component.css']
 })
 
 export class UserProfileComponent implements OnInit {
-  // These are public so that tests can reference them (.spec.ts)
-  public users: User[];
-  public filteredUsers: User[];
 
-  public selected: string;
+  rating;
+  user: User;
+  loggedId: string;
+  public rides: Ride[];
 
   // Inject the UserListService into this component.
-  constructor(public userService: UserService, public dialog: MatDialog) {
+  constructor(private route: ActivatedRoute, public userService: UserService, public rideListService: RideListService, public dialog: MatDialog) {
 
-  };
-
-  public filterUsers(searchOid: string): User[] {
-
-    this.filteredUsers = this.users;
-
-    if (searchOid != null) {
-      searchOid = searchOid.toLocaleLowerCase();
-
-      this.filteredUsers = this.filteredUsers.filter(user => {
-        return !searchOid || user._id.$oid.indexOf(searchOid) !== -1;
-      });
-    }
-
-    return this.filteredUsers;
   }
 
-  editUserReviewDialog(currentId: string, currentName: string, currentEmail: string, currentPhoneNumber: string, reviewScore: number, rating: string, numReviews: number): void {
-    let newRating: number = parseInt(rating);
-    console.log("Old Rating: " + reviewScore + "  Number of Reviews: " + numReviews + "  New Rating: " + newRating);
-    if (reviewScore == null) {
-      reviewScore = newRating;
+  check(list: string[]): boolean {
+    if(list.length == 0 ) {
+      return true;
     } else {
-      reviewScore = reviewScore + newRating;
+      return (list.indexOf(this.loggedId) != -1);
     }
+  }
 
-    const currentUser: User = {
+  editUserDialog(cId: string, cName: string, cBio: string, cEmail: string, cPhoneNumber: string,
+                 cTotalReviewScore: number, cNumReviews: number, cAvgScore: number): void {
+    const cInfo: User = {
       _id: {
-        $oid: currentId
+        $oid: cId
       },
-      name: currentName,
-      email: currentEmail,
-      phoneNumber: currentPhoneNumber,
-      // Tests work when removing the s in the reviewScores changing this to reviewScore.  However, doing this causes the review system to break.
-      reviewScores: reviewScore,
-      numReviews: numReviews + 1 || 1
+      name: cName,
+      bio: cBio,
+      email: cEmail,
+      phoneNumber: cPhoneNumber,
+      totalReviewScore: cTotalReviewScore,
+      numReviews: cNumReviews,
+      avgScore: cAvgScore
     };
 
-    const dialogRef = this.dialog.open(EditUserComponent, {
-      width: '500px',
-      data: {user: currentUser}
-    });
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {user: cInfo};
+    dialogConfig.width = '1000px';
 
-    console.log("Dialog Ref " + dialogRef);
+    const dialogRef = this.dialog.open(EditUserComponent, dialogConfig);
+
+    console.log("Dialog Ref " + dialogRef.toString());
     dialogRef.afterClosed().subscribe(currentUser => {
       if (currentUser != null) {
         this.userService.editUser(currentUser).subscribe(
           result => {
             console.log("The result is " + result);
-            this.refreshUsers();
+            this.refreshUser();
           },
           err => {
             console.log('There was an error editing the ride.');
@@ -81,38 +74,84 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  refreshUsers(): Observable<User[]> {
-    // Get Users returns an Observable, basically a "promise" that
-    // we will get the data from the server.
-    //
-    // Subscribe waits until the data is fully downloaded, then
-    // performs an action on it (the first lambda)
+  editUserReviewDialog(cId: string, cName: string, cBio: string, cEmail: string, cPhoneNumber: string,
+                       cTotalReviewScore: number, cNumReviews: number, cAvgScore: number, cRating: string): void {
+    let newRating: number = parseInt(cRating);
+    console.log("Old Total Rating: " + cTotalReviewScore + "\nOld Number of Reviews: " + cNumReviews
+            + "\nNew Rating: " + newRating + "\nOld Average: " + cAvgScore);
+    cTotalReviewScore = cTotalReviewScore + newRating;
+    cNumReviews += 1;
+    cAvgScore = Math.ceil(cTotalReviewScore/cNumReviews);
+    console.log("New Total Rating: " + cTotalReviewScore + "\nNew Number of Reviews: " + cNumReviews + "\nNew Average: " + cAvgScore);
 
-    const users: Observable<User[]> = this.userService.getUsers();
-    users.subscribe(
-      users => {
-        this.users = users;
+    const cUser: User = {
+      _id: {
+        $oid: cId
+      },
+      name: cName,
+      bio: cBio,
+      email: cEmail,
+      phoneNumber: cPhoneNumber,
+      totalReviewScore: cTotalReviewScore,
+      numReviews: cNumReviews,
+      avgScore: cAvgScore
+    };
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {user: cUser};
+    dialogConfig.width = '500px';
+
+    const dialogRef = this.dialog.open(RateUserComponent, dialogConfig);
+
+    console.log("Dialog Ref " + dialogRef.toString());
+    dialogRef.afterClosed().subscribe(cUser => {
+      if (cUser != null) {
+        this.userService.rateUser(cUser).subscribe(
+          result => {
+            console.log("The result is " + result);
+            this.refreshUser();
+          },
+          err => {
+            console.log('There was an error editing the ride.');
+            console.log('The currentRide or dialogResult was ' + JSON.stringify(cUser));
+            console.log('The error was ' + JSON.stringify(err));
+          }
+        );
+      }
+    });
+  }
+
+  refreshRides(): Observable<Ride[]> {
+    const rides: Observable<Ride[]> = this.rideListService.getUserRides(this.loggedId);
+    rides.subscribe(
+      rides => {
+        this.rides = rides.sort(function (a, b) {
+          if (+new Date(a.departureDate) - +new Date(b.departureDate) != 0) {
+            return +new Date(a.departureDate) - +new Date(b.departureDate);
+          } else return a.departureTime.localeCompare(b.departureTime);
+        });
       },
       err => {
         console.log(err);
       });
-    return users;
+    return rides;
   }
 
-  loadService(): void {
-    this.userService.getUsers().subscribe(
-      users => {
-        this.users = users;
-        this.filteredUsers = this.users;
-      },
-      err => {
-        console.log(err);
-      }
-    );
+  refreshUser(): void {
+    this.loggedId = AuthService.getUserId();
+    this.route.params.subscribe(params => {
+      const userId = params['userId'];
+      this.userService
+        .getUserById(userId)
+        .subscribe(subscribedUser => {
+          console.log(JSON.stringify(subscribedUser));
+          this.user = subscribedUser
+        });
+    });
   }
 
   ngOnInit(): void {
-    this.refreshUsers();
-    this.loadService();
+    this.refreshUser();
+    this.refreshRides();
   }
 }

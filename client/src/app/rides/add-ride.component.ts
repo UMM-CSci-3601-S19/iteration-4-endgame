@@ -54,10 +54,16 @@ export class AddRideComponent implements OnInit {
       {type: 'max', message: 'MPG is too high, are you crazy!?'},
       {type: 'pattern', message: 'MPG must be a number'}
     ],
+    'numSeats': [
+      {type: 'required', message: 'Enter 0 or more seats'},
+      {type: 'min', message: 'You cannot have negative seats'},
+      {type: 'max', message: 'Available seats is too high!'},
+      {type: 'pattern', message: 'numSeats must be a number'}
+    ],
     'notes': [
       {type: 'minlength', message: 'Notes must be at least 2 characters long'},
       {type: 'maxlength', message: 'Notes cannot be more than 150 characters long'},
-      {type: 'pattern', message: 'notes must contain only english and certain symbols'}
+      {type: 'pattern', message: 'Notes must contain only english and certain symbols'}
     ]
   };
 
@@ -88,6 +94,12 @@ export class AddRideComponent implements OnInit {
       mpg: new FormControl('mpg', Validators.compose([
         Validators.min(1),
         Validators.max(200),
+        Validators.pattern('\\d+')
+      ])),
+      numSeats: new FormControl('numSeats', Validators.compose([
+        Validators.required,
+        Validators.min(0),
+        Validators.max(12),
         Validators.pattern('\\d+')
       ])),
       notes: new FormControl('notes', Validators.compose([
