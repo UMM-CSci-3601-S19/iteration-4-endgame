@@ -29,6 +29,9 @@ export class HomeComponent {
     this.buttonSource1 = "../../assets/GoogleButtons/btn_google_signin_light_normal_web.png";
   }
 
+  //TODO: Need a way to check refresh after clicking sign in
+  //TODO: Also potentially look into signing out on every refresh
+
   initGapi(): void {
     this.authService.loadClient();
   }

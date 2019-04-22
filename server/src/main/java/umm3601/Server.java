@@ -91,12 +91,12 @@ public class Server {
     post("api/user/editProfile", userRequestHandler::editUserProfile);
     post("api/user/rateProfile", userRequestHandler::rateUser);
 
-    post("api/signin", (Request req, Response res) -> {
-      return userRequestHandler.login(req, res);
-    });
-    post("api/signup", (req, res) -> {
-      return userRequestHandler.signup(req, res);
-    });
+    post("api/login", userRequestHandler::login/*(Request req, Response res) -> {
+      return userRequestHandler.login(req, res);*/);
+
+//    post("api/signup", (req, res) -> {
+//      return userRequestHandler.signup(req, res);
+//    });
 
     // An example of throwing an unhandled exception so you can see how the
     // Java Spark debugger displays errors like this.

@@ -163,11 +163,17 @@ public class RideController {
     updateFields.append("roundTrip", roundTrip);
     updateFields.append("departureDate", departureDate);
     updateFields.append("departureTime", departureTime);
-    if (mpgString != null && !mpgString.isEmpty()) {
-      int mpg = Integer.parseInt(mpgString);
-      updateFields.append("mpg", mpg);
+    //TODO: when mpg field is untouched breaks, but works fine if it is touched then deleted
+    if (mpgString.equals("null")) {
+      System.out.println("I AM A NULL STRING");
+      updateFields.append("mpg", null);
+    } else if (mpgString.isEmpty()) {
+      System.out.println("I AM AN EMPTY STRING");
+        updateFields.append("mpg", null);
     } else {
-      updateFields.append("mpg", mpgString);
+        System.out.println("I HAVE VALUE: " + mpgString);
+        int mpgInt = Integer.parseInt(mpgString);
+        updateFields.append("mpg", mpgInt);
     }
     updateFields.append("notes", notes);
 

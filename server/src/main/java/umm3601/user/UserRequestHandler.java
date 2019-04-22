@@ -98,11 +98,10 @@ public class UserRequestHandler {
         String userId = payload.getSubject();
         String email = payload.getEmail();
         String name = (String) payload.get("name");
-        String pictureUrl = (String) payload.get("picture");
-        return userController.signin(userId, email, name, pictureUrl);
+        return userController.login(userId, email, name);
       }
     } catch (Exception e) {
-      System.err.println("Invalid ID token uwu");
+      System.err.println("Invalid ID token");
       e.printStackTrace();
     }
     return null;

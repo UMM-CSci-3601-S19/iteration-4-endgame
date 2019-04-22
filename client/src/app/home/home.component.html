@@ -6,13 +6,8 @@
       <button id="signIn" *ngIf="!auth.isSignedIn()" (click)="auth.signIn()">
         <input type="image" [src]="buttonSource1">
       </button>
-      <br/>
-      <button mat-raised-button id="signUp" *ngIf="!auth.isSignedIn()" (click)="auth.signUp()">
-        Sign up With Google!
-      </button>
       <button mat-raised-button id="signOut" *ngIf="auth.isSignedIn()" (click)="auth.signOut()">Sign out</button>
       <br/>
-      <button mat-raised-button id="status" (click)="auth.checkUser()">Check the google status</button>
       <mat-divider></mat-divider>
       <mat-card-content>
         Helping people carpool since 2019!

@@ -16,7 +16,7 @@ declare let gapi: any;
 @Injectable()
 export class AuthService implements CanActivate, OnInit{
   private http: HttpClient;
-  private status: boolean;
+  private signedInFlag: boolean;
 
   constructor(private client: HttpClient, public router: Router) {
     this.http = client;
@@ -28,22 +28,6 @@ export class AuthService implements CanActivate, OnInit{
 
   static getUserId(): string {
     return gapi.auth2.getAuthInstance().currentUser.get().getId();
-  }
-
-  checkUser() {
-    let authInstance = gapi.auth2.getAuthInstance();
-    let idtoken = authInstance.currentUser.get().getAuthResponse().id_token;
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      }),
-      responseType: 'text' as 'json'
-    };    //If the user doesn't log in (ie closes the dialog box), we think they're logged in right now.
-
-    this.http.post<string>(environment.API_URL + 'signin', {idtoken: idtoken}, httpOptions)
-      .subscribe(data => {
-        console.log("Data: " + data);
-      });
   }
 
   signIn() {
@@ -61,48 +45,28 @@ export class AuthService implements CanActivate, OnInit{
           responseType: 'text' as 'json'
         };    //If the user doesn't log in (ie closes the dialog box), we think they're logged in right now.
 
-        this.http.post<string>(environment.API_URL + 'signin', {idtoken: idtoken}, httpOptions)
+        this.http.post<string>(environment.API_URL + 'login', {idtoken: idtoken}, httpOptions)
           .subscribe((data) => {
             console.log(data);
           });
-        this.status = true;
+        this.signedInFlag = true;
       });
   }
 
-  signUp() {
-    console.log("Signing up");
-    let authInstance = gapi.auth2.getAuthInstance();
-    authInstance.signIn()
-      .then((data) => {
-        let idtoken = data.getAuthResponse().id_token;
-        const httpOptions = {
-          headers: new HttpHeaders({
-            'Content-Type': 'application/json'
-          }),
-          responseType: 'text' as 'json'
-        };    //If the user doesn't log in (ie closes the dialog box), we think they're logged in right now.
-
-        this.http.post<string>(environment.API_URL + 'signup', {idtoken: idtoken}, httpOptions)
-          .subscribe((data) => {
-            console.log(data);
-          });
-        this.status = true;
-      });
-  }
 
   signOut() {
     console.log("Signing out");
     let authInstance = gapi.auth2.getAuthInstance();
     authInstance.signOut();
-    this.status = false;
+    this.signedInFlag = false;
   }
 
   isSignedIn(): boolean {
-    return(this.status);
+    return this.signedInFlag;
   }
 
   canActivate(): boolean {
-    if (!this.status) {
+    if (!this.isSignedIn()) {
       this.router.navigate(['']);
       return false;
     }
