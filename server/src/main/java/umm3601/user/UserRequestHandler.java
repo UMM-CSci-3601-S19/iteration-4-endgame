@@ -7,6 +7,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import org.bson.Document;
 import spark.Request;
 import spark.Response;
+import umm3601.Server;
 import umm3601.user.UserController;
 
 import java.util.Collections;
@@ -85,52 +86,31 @@ public class UserRequestHandler {
 
     Document body = Document.parse(req.body());
     String token = body.getString("idtoken"); //key formerly 'code'
-    try {
-      GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, JacksonFactory.getDefaultInstance())
-        // Specify the CLIENT_ID of the app that accesses the backend:
-        .setAudience(Collections.singletonList(CLIENT_ID))
-        // Or, if multiple clients access the backend:
-        //.setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
-        .build();
-      GoogleIdToken idToken = verifier.verify(token);
-      if (idToken != null) {
-        GoogleIdToken.Payload payload = idToken.getPayload();
-        String userId = payload.getSubject();
-        String email = payload.getEmail();
-        String name = (String) payload.get("name");
-        return userController.login(userId, email, name);
-      }
-    } catch (Exception e) {
-      System.err.println("Invalid ID token");
-      e.printStackTrace();
+    GoogleIdToken idToken = Server.auth(token);
+    if (idToken != null) {
+      GoogleIdToken.Payload payload = idToken.getPayload();
+      String userId = payload.getSubject();
+      String email = payload.getEmail();
+      String name = (String) payload.get("name");
+      return userController.login(userId, email, name);
+    } else {
+      return null;
     }
-    return null;
   }
   public String signup(Request req, Response res) {
     res.type("application/json");
 
     Document body = Document.parse(req.body());
-    String token = body.getString("idtoken"); //key formerly 'code'
-    try {
-      GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, JacksonFactory.getDefaultInstance())
-        // Specify the CLIENT_ID of the app that accesses the backend:
-        .setAudience(Collections.singletonList(CLIENT_ID))
-        // Or, if multiple clients access the backend:
-        //.setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
-        .build();
-      GoogleIdToken idToken = verifier.verify(token);
-      if (idToken != null) {
-        GoogleIdToken.Payload payload = idToken.getPayload();
-        String userId = payload.getSubject();
-        String email = payload.getEmail();
-        String name = (String) payload.get("name");
-        String pictureUrl = (String) payload.get("picture");
-        return userController.signup(userId, email, name, pictureUrl);
-      }
-    } catch (Exception e) {
-      System.err.println("Invalid ID token uwu");
-      e.printStackTrace();
+    GoogleIdToken idToken = Server.auth(body);
+    if (idToken != null) {
+      GoogleIdToken.Payload payload = idToken.getPayload();
+      String userId = payload.getSubject();
+      String email = payload.getEmail();
+      String name = (String) payload.get("name");
+      String pictureUrl = (String) payload.get("picture");
+      return userController.signup(userId, email, name, pictureUrl);
+    }else{
+      return null;
     }
-    return null;
   }
 }

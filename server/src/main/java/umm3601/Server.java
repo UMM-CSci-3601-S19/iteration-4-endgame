@@ -6,6 +6,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.util.JSON;
+import org.bson.Document;
 import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
@@ -20,6 +21,7 @@ import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
 import java.io.InputStream;
+import java.util.Collections;
 
 
 public class Server {
@@ -28,6 +30,18 @@ public class Server {
 
   private static final String databaseName = "dev";
 
+  private static final String CLIENT_ID = "375549452265-kpv6ds6lpfc0ibasgeqcgq1r6t6t6sth.apps.googleusercontent.com";
+
+  private static final String CLIENT_SECRET_FILE = "../secret.json";
+
+  private static final NetHttpTransport transport = new NetHttpTransport();
+
+  private static final GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, JacksonFactory.getDefaultInstance())
+    // Specify the CLIENT_ID of the app that accesses the backend:
+    .setAudience(Collections.singletonList(CLIENT_ID))
+    // Or, if multiple clients access the backend:
+    //.setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
+    .build();
 
   public static void main(String[] args) {
 
@@ -119,6 +133,22 @@ public class Server {
       res.status(404);
       return "Sorry, we couldn't find that!";
     });
+  }
+
+  public static GoogleIdToken auth(Request req){
+    return auth(Document.parse(req.body()));
+  }
+  public static GoogleIdToken auth(Document body){
+    return auth(body.getString("idtoken"));
+  }
+  public static GoogleIdToken auth(String token){
+    try {
+      return verifier.verify(token);
+    } catch (Exception e) {
+      System.err.println("Invalid ID token");
+      e.printStackTrace();
+      return null;
+    }
   }
 
   // Enable GZIP for all responses
