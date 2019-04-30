@@ -24,6 +24,12 @@
 //     getUsers: () => Observable<User[]>
 //   };
 //
+//   window['gapi'] = {
+//     load() {
+//       return null;
+//     }
+//   };
+//
 //   beforeEach(()=> {
 //     rideListServiceStub = {
 //       getRides: () => Observable.of([

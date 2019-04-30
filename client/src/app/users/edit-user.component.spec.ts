@@ -10,9 +10,9 @@
 // import {User} from "./user";
 // import {Observable} from "rxjs/Observable";
 // import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from "@angular/platform-browser-dynamic/testing";
-
-// TODO: An attempt at testing the phone-mask directive, its close but not quite there, could use some work
-// TODO: Also covers parts of edit-user.component, while that wasn't the main focus
+//
+// // TODO: An attempt at testing the phone-mask directive, its close but not quite there, could use some work
+// // TODO: Also covers parts of edit-user.component, while that wasn't the main focus
 // describe('edit user component', () => {
 //
 //   let directive;
