@@ -11,6 +11,8 @@ import {User} from "../users/user";
 import {RouterTestingModule} from "@angular/router/testing";
 import {AuthService} from "../auth.service";
 import {HttpClientModule} from "@angular/common/http";
+import {FormsModule} from "@angular/forms";
+import {MatDialog} from "@angular/material";
 
 describe('Ride list', () => {
 
@@ -164,11 +166,13 @@ describe('Ride list', () => {
         }
       ])
     };
+
     authServiceStub = {
       getUserId: () => "MI6007",
       getUserName: () => "James Bond",
       loadClient: () => null,
     };
+
     TestBed.configureTestingModule({
       imports: [CustomModule, RouterTestingModule, HttpClientModule],
       declarations: [RideListComponent],
@@ -311,340 +315,379 @@ describe('Ride list', () => {
 });
 
 // TODO: This is currently not letting the build work due to the error: Cannot read property 'sort' of undefined
-// describe('Misbehaving Ride List',() => {
-//   let rideList: RideListComponent;
-//   let fixture: ComponentFixture<RideListComponent>;
-//
-//   let authServiceStub: {
-//     getUserId: () => Observable<String>,
-//     getUserName: () => Observable<String>,
-//     loadClient: () => void,
-//       isSignedIn: () => boolean,
-//       gapi: any
-//   };
-//
-//   // let authServiceStub: {
-//   //   isSignedIn: () => boolean;
-//   //   gapi: any;
-//   //   loadClient: () => void;
-//   // };
-//
-//   let rideListServiceStub: {
-//     getRides: () => Observable<Ride[]>,
-//     getUsers: () => Observable<User[]>
-//   };
-//
-//   beforeEach(() => {
-//
-//     authServiceStub = {
-//       getUserId: () => Observable.of("MI6007"),
-//       getUserName: () => Observable.of("James Bond"),
-//       loadClient: () => null,
-//       isSignedIn: () => true,
-//       gapi: ""
-//     };
-//     rideListServiceStub = {
-//       getRides: () => Observable.create(observer => {
-//         observer.error('Error-prone observable');
-//       }),
-//       getUsers: () => Observable.create(observer => {
-//         observer.error('Error-prone observable');
-//       })
-//     };
-//
-//     TestBed.configureTestingModule( {
-//       imports: [FormsModule, CustomModule, RouterTestingModule],
-//       declarations: [RideListComponent],
-//       providers: [
-//         {provide: RideListService, useValue: rideListServiceStub},
-//         {provide: AuthService, useValue: authServiceStub}
-//       ]
-//     });
-//   });
-//
-//   beforeEach(async(() => {
-//     TestBed.compileComponents().then(() => {
-//       fixture = TestBed.createComponent(RideListComponent);
-//       rideList = fixture.componentInstance;
-//       fixture.detectChanges();
-//     });
-//     window['gapi'] = {
-//       load() {
-//         return null;
-//       }};
-//   }));
-//
-//   it('generates an error if we don\'t set up a RideListService',() => {
-//     return expect(rideList.rides).toBeUndefined();
-//   });
-// });
-//
-// describe('Adding a ride',()=> {
-//   let rideList: RideListComponent;
-//   let fixture: ComponentFixture<RideListComponent>;
-//   const newRide: Ride = {
-//     driver: 'Danial Donald',
-//     destination: 'Becker',
-//     origin: 'Morris',
-//     roundTrip: true,
-//     departureTime: '05:00',
-//     departureDate: '2019-12-25T00:00:00.000Z',
-//     notes: 'I do not like the smell of smoke.',
-//     numSeats: 4,
-//     riderList: ['0']
-//   };
-//   const newId = 'Danial_id';
-//
-//   let calledRide: Ride;
-//
-//   let rideListServiceStub: {
-//     getRides: () => Observable<Ride[]>,
-//     getUsers: () => Observable<User[]>,
-//     addNewRide: (newRide: Ride) => Observable<{ '$oid': string}>
-//   };
-//   let mockMatDialog: {
-//     open: (AddRideComponent, any) => {
-//       afterClosed: () => Observable<Ride>
-//     };
-//   };
-//
-//   beforeEach(() => {
-//     calledRide = null;
-//     rideListServiceStub = {
-//       getRides: () => Observable.of([]),
-//       addNewRide: (newRide: Ride) => {
-//         calledRide = newRide;
-//         return Observable.of({
-//           '$oid': newId
-//         });
-//       },
-//       getUsers: () => Observable.of([])
-//     };
-//     mockMatDialog = {
-//       open: () => {
-//         return {
-//           afterClosed: () => {
-//             return Observable.of(newRide);
-//           }
-//         };
-//       }
-//     };
-//
-//     TestBed.configureTestingModule({
-//       imports: [FormsModule, CustomModule, RouterTestingModule, HttpClientModule],
-//       declarations: [RideListComponent],
-//       providers: [
-//         {provide: RideListService, useValue: rideListServiceStub},
-//         {provide: MatDialog, useValue: mockMatDialog},
-//         AuthService
-//       ]
-//     });
-//   });
-//
-//   beforeEach(async(()=> {
-//     TestBed.compileComponents().then(()=> {
-//       fixture = TestBed.createComponent(RideListComponent);
-//       rideList = fixture.componentInstance;
-//       fixture.detectChanges();
-//     });
-//     window['gapi'] = {
-//       load() {
-//         return null;
-//       }};
-//   }));
-//
-//   it('calls RideListService.addNewRide', () => {
-//     let exp1 = expect(calledRide).toBeNull();
-//     rideList.openAddDialog();
-//     let exp2 = expect(calledRide).toEqual(newRide);
-//     return exp1 && exp2;
-//   });
-// });
-//
-// describe('Editing a ride',()=> {
-//   let rideList: RideListComponent;
-//   let fixture: ComponentFixture<RideListComponent>;
-//   const currentRide: Ride = {
-//     _id: {$oid: 'Danial_id'},
-//     driver: 'Danial Donald',
-//     destination: 'Becker',
-//     origin: 'Morris',
-//     roundTrip: true,
-//     driving: true,
-//     departureTime: '05:00',
-//     departureDate: '2019-12-25T00:00:00.000Z',
-//     notes: 'I do not like the smell of smoke.',
-//     numSeats: 4,
-//     riderList: ['0']
-//   };
-//   const newId = 'Danial_id';
-//
-//   let calledRide: Ride;
-//
-//   let rideListServiceStub: {
-//     getRides: () => Observable<Ride[]>,
-//     editRide: (currentRide: Ride) => Observable<{ '$oid': string}>,
-//     getUsers: () => Observable<User[]>
-//   };
-//   let mockMatDialog: {
-//     open: (EditRideComponent, any) => {
-//       afterClosed: () => Observable<Ride>
-//     };
-//   };
-//
-//   beforeEach(() => {
-//     calledRide = null;
-//     rideListServiceStub = {
-//       getRides: () => Observable.of([]),
-//       editRide: (currentRide: Ride) => {
-//         calledRide = currentRide;
-//         return Observable.of({
-//           '$oid': newId
-//         });
-//       },
-//       getUsers: () => Observable.of([
-//         {
-//           _id: {
-//             '$oid': '5ca243f0712ed630c21a8407'
-//           },
-//           name: 'Sydney Stevens',
-//           bio: 'This person does not have a bio written',
-//           phoneNumber: '320 555 5555',
-//           email: 'Stevens@google.com',
-//         }
-//       ])
-//     };
-//     mockMatDialog = {
-//       open: () => {
-//         return {
-//           afterClosed: () => {
-//             return Observable.of(currentRide);
-//           }
-//         };
-//       }
-//     };
-//
-//     TestBed.configureTestingModule({
-//       imports: [FormsModule, CustomModule, RouterTestingModule, HttpClientModule],
-//       declarations: [RideListComponent],
-//       providers: [
-//         {provide: RideListService, useValue: rideListServiceStub},
-//         {provide: MatDialog, useValue: mockMatDialog},
-//         AuthService
-//       ]
-//     });
-//   });
-//
-//   beforeEach(async(()=> {
-//     TestBed.compileComponents().then(()=> {
-//       fixture = TestBed.createComponent(RideListComponent);
-//       rideList = fixture.componentInstance;
-//       fixture.detectChanges();
-//     });
-//     window['gapi'] = {
-//       load() {
-//         return null;
-//       }};
-//   }));
-//
-//   it('calls RideListService.editRide', () => {
-//     let exp1 = expect(calledRide).toBeNull();
-//     rideList.openEditDialog(currentRide._id.$oid, currentRide.driver, currentRide.destination, currentRide.origin, currentRide.roundTrip, currentRide.driving, currentRide.departureDate, currentRide.departureTime, currentRide.mpg, currentRide.notes, currentRide.numSeats, currentRide.riderList);
-//     let exp2 = expect(calledRide).toEqual(currentRide);
-//     return exp1 && exp2;
-//   });
-// });
-//
-// describe('Deleting a ride',()=> {
-//   let rideList: RideListComponent;
-//   let fixture: ComponentFixture<RideListComponent>;
-//   const currentRide: Ride = {
-//     _id: {$oid: 'Danial_id'},
-//     driver: 'Danial Donald',
-//     destination: 'Becker',
-//     origin: 'Morris',
-//     roundTrip: true,
-//     departureTime: '05:00',
-//     departureDate: '2019-12-25T00:00:00.000Z',
-//     notes: 'I do not like the smell of smoke.',
-//     numSeats: 4,
-//     riderList: ['0']
-//   };
-//   const newId = 'Danial_id';
-//
-//   let calledRide: Ride;
-//
-//   let rideListServiceStub: {
-//     getRides: () => Observable<Ride[]>,
-//     deleteRide: (currentRide: Ride) => Observable<{ '$oid': string}>,
-//     getUsers: () => Observable<User[]>
-//   };
-//   let mockMatDialog: {
-//     open: (DeleteRideComponent, any) => {
-//       afterClosed: () => Observable<Ride>
-//     };
-//   };
-//
-//   beforeEach(() => {
-//     calledRide = null;
-//     rideListServiceStub = {
-//       getRides: () => Observable.of([]),
-//       deleteRide: (currentRide: Ride) => {
-//         calledRide = currentRide;
-//         return Observable.of({
-//           '$oid': newId
-//         });
-//       },
-//       getUsers: () => Observable.of([
-//       {
-//         _id: {
-//           '$oid': '5ca243f0712ed630c21a8407'
-//         },
-//         name: 'Sydney Stevens',
-//         bio: 'This person does not have a bio written',
-//         phoneNumber: '320 555 5555',
-//         email: 'Stevens@google.com',
-//       }
-//     ])
-//     };
-//     mockMatDialog = {
-//       open: () => {
-//         return {
-//           afterClosed: () => {
-//             return Observable.of(currentRide);
-//           }
-//         };
-//       }
-//     };
-//
-//     TestBed.configureTestingModule({
-//       imports: [FormsModule, CustomModule, RouterTestingModule, HttpClientModule],
-//       declarations: [RideListComponent],
-//       providers: [
-//         {provide: RideListService, useValue: rideListServiceStub},
-//         {provide: MatDialog, useValue: mockMatDialog},
-//         AuthService
-//       ]
-//     });
-//   });
-//
-//   beforeEach(async(()=> {
-//     TestBed.compileComponents().then(()=> {
-//       fixture = TestBed.createComponent(RideListComponent);
-//       rideList = fixture.componentInstance;
-//       fixture.detectChanges();
-//     });
-//     window['gapi'] = {
-//       load() {
-//         return
-//       }
-//     };
-//   }));
-//
-//   it('calls RideListService.deleteRide', () => {
-//     let exp1 = expect(calledRide).toBeNull();
-//     rideList.openDeleteDialog(currentRide._id.$oid);
-//     let exp2 = expect(calledRide).toEqual(currentRide);
-//     return exp1 && exp2;
-//   });
-// });
+describe('Misbehaving Ride List',() => {
+  let rideList: RideListComponent;
+  let fixture: ComponentFixture<RideListComponent>;
+
+  let authServiceStub: {
+    getUserId: () => Observable<String>,
+    getUserName: () => Observable<String>,
+    loadClient: () => void,
+      isSignedIn: () => boolean,
+      gapi: any
+  };
+
+  // let authServiceStub: {
+  //   isSignedIn: () => boolean;
+  //   gapi: any;
+  //   loadClient: () => void;
+  // };
+
+  let rideListServiceStub: {
+    getRides: () => Observable<Ride[]>,
+    getUsers: () => Observable<User[]>
+  };
+
+  beforeEach(() => {
+
+    authServiceStub = {
+      getUserId: () => Observable.of("MI6007"),
+      getUserName: () => Observable.of("James Bond"),
+      loadClient: () => null,
+      isSignedIn: () => true,
+      gapi: ""
+    };
+    rideListServiceStub = {
+      getRides: () => Observable.create(observer => {
+        observer.error('Error-prone observable');
+      }),
+      getUsers: () => Observable.create(observer => {
+        observer.error('Error-prone observable');
+      })
+    };
+
+    TestBed.configureTestingModule( {
+      imports: [FormsModule, CustomModule, RouterTestingModule],
+      declarations: [RideListComponent],
+      providers: [
+        {provide: RideListService, useValue: rideListServiceStub},
+        {provide: AuthService, useValue: authServiceStub}
+      ]
+    });
+  });
+
+  beforeEach(async(() => {
+    TestBed.compileComponents().then(() => {
+      fixture = TestBed.createComponent(RideListComponent);
+      rideList = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+    window['gapi'] = {
+      load() {
+        return null;
+      }};
+  }));
+
+  it('generates an error if we don\'t set up a RideListService',() => {
+    return expect(rideList.rides).toBeUndefined();
+  });
+});
+
+
+describe('Adding a ride',()=> {
+  let rideList: RideListComponent;
+  let fixture: ComponentFixture<RideListComponent>;
+  const newRide: Ride = {
+    driver: 'Danial Donald',
+    destination: 'Becker',
+    origin: 'Morris',
+    roundTrip: true,
+    departureTime: '05:00',
+    departureDate: '2019-12-25T00:00:00.000Z',
+    notes: 'I do not like the smell of smoke.',
+    numSeats: 4,
+    riderList: ['0']
+  };
+  const newId = 'Danial_id';
+
+  let calledRide: Ride;
+
+  let rideListServiceStub: {
+    getRides: () => Observable<Ride[]>,
+    getUsers: () => Observable<User[]>,
+    addNewRide: (newRide: Ride) => Observable<{ '$oid': string}>
+  };
+
+  let authServiceStub: {
+    getUserId: () => String,
+    getUserName: () => String,
+    loadClient: () => null;
+  };
+
+  let mockMatDialog: {
+    open: (AddRideComponent, any) => {
+      afterClosed: () => Observable<Ride>
+    };
+  };
+
+  beforeEach(() => {
+    calledRide = null;
+    rideListServiceStub = {
+      getRides: () => Observable.of([]),
+      addNewRide: (newRide: Ride) => {
+        calledRide = newRide;
+        return Observable.of({
+          '$oid': newId
+        });
+      },
+      getUsers: () => Observable.of([])
+    };
+
+    authServiceStub = {
+      getUserId: () => "MI6007",
+      getUserName: () => "James Bond",
+      loadClient: () => null,
+    };
+
+    mockMatDialog = {
+      open: () => {
+        return {
+          afterClosed: () => {
+            return Observable.of(newRide);
+          }
+        };
+      }
+    };
+
+    TestBed.configureTestingModule({
+      imports: [FormsModule, CustomModule, RouterTestingModule, HttpClientModule],
+      declarations: [RideListComponent],
+      providers: [
+        {provide: RideListService, useValue: rideListServiceStub},
+        {provide: AuthService, useValue: authServiceStub},
+        {provide: MatDialog, useValue: mockMatDialog},
+        // AuthService
+      ]
+    });
+  });
+
+  beforeEach(async(()=> {
+    TestBed.compileComponents().then(()=> {
+      fixture = TestBed.createComponent(RideListComponent);
+      rideList = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+    window['gapi'] = {
+      load() {
+        return null;
+      }};
+  }));
+
+  it('calls RideListService.addNewRide', () => {
+    let exp1 = expect(calledRide).toBeNull();
+    rideList.openAddDialog();
+    let exp2 = expect(calledRide).toEqual(newRide);
+    return exp1 && exp2;
+  });
+});
+
+
+describe('Editing a ride',()=> {
+  let rideList: RideListComponent;
+  let fixture: ComponentFixture<RideListComponent>;
+  const currentRide: Ride = {
+    _id: {$oid: 'Danial_id'},
+    driver: 'Danial Donald',
+    destination: 'Becker',
+    origin: 'Morris',
+    roundTrip: true,
+    driving: true,
+    departureTime: '05:00',
+    departureDate: '2019-12-25T00:00:00.000Z',
+    notes: 'I do not like the smell of smoke.',
+    numSeats: 4,
+    riderList: ['0']
+  };
+  const newId = 'Danial_id';
+
+  let calledRide: Ride;
+
+  let rideListServiceStub: {
+    getRides: () => Observable<Ride[]>,
+    editRide: (currentRide: Ride) => Observable<{ '$oid': string}>,
+    getUsers: () => Observable<User[]>
+  };
+  let authServiceStub: {
+    getUserId: () => String,
+    getUserName: () => String,
+    loadClient: () => null;
+  };
+  let mockMatDialog: {
+    open: (EditRideComponent, any) => {
+      afterClosed: () => Observable<Ride>
+    };
+  };
+
+  beforeEach(() => {
+    calledRide = null;
+    rideListServiceStub = {
+      getRides: () => Observable.of([]),
+      editRide: (currentRide: Ride) => {
+        calledRide = currentRide;
+        return Observable.of({
+          '$oid': newId
+        });
+      },
+      getUsers: () => Observable.of([
+        {
+          _id: {
+            '$oid': '5ca243f0712ed630c21a8407'
+          },
+          name: 'Sydney Stevens',
+          bio: 'This person does not have a bio written',
+          phoneNumber: '320 555 5555',
+          email: 'Stevens@google.com',
+        }
+      ])
+    };
+    authServiceStub = {
+      getUserId: () => "MI6007",
+      getUserName: () => "James Bond",
+      loadClient: () => null,
+    };
+    mockMatDialog = {
+      open: () => {
+        return {
+          afterClosed: () => {
+            return Observable.of(currentRide);
+          }
+        };
+      }
+    };
+
+    TestBed.configureTestingModule({
+      imports: [FormsModule, CustomModule, RouterTestingModule, HttpClientModule],
+      declarations: [RideListComponent],
+      providers: [
+        {provide: RideListService, useValue: rideListServiceStub},
+        {provide: MatDialog, useValue: mockMatDialog},
+        {provide: AuthService, useValue: authServiceStub},
+        // AuthService
+      ]
+    });
+  });
+
+  beforeEach(async(()=> {
+    TestBed.compileComponents().then(()=> {
+      fixture = TestBed.createComponent(RideListComponent);
+      rideList = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+    window['gapi'] = {
+      load() {
+        return null;
+      }};
+  }));
+
+  it('calls RideListService.editRide', () => {
+    let exp1 = expect(calledRide).toBeNull();
+    rideList.openEditDialog(currentRide._id.$oid, currentRide.driver, currentRide.destination, currentRide.origin, currentRide.roundTrip, currentRide.driving, currentRide.departureDate, currentRide.departureTime, currentRide.mpg, currentRide.notes, currentRide.numSeats, currentRide.riderList);
+    let exp2 = expect(calledRide).toEqual(currentRide);
+    return exp1 && exp2;
+  });
+});
+
+describe('Deleting a ride',()=> {
+  let rideList: RideListComponent;
+  let fixture: ComponentFixture<RideListComponent>;
+  const currentRide: Ride = {
+    _id: {$oid: 'Danial_id'},
+    driver: 'Danial Donald',
+    destination: 'Becker',
+    origin: 'Morris',
+    roundTrip: true,
+    departureTime: '05:00',
+    departureDate: '2019-12-25T00:00:00.000Z',
+    notes: 'I do not like the smell of smoke.',
+    numSeats: 4,
+    riderList: ['0']
+  };
+  const newId = 'Danial_id';
+
+  let calledRide: Ride;
+
+  let rideListServiceStub: {
+    getRides: () => Observable<Ride[]>,
+    deleteRide: (currentRide: Ride) => Observable<{ '$oid': string}>,
+    getUsers: () => Observable<User[]>
+  };
+  let authServiceStub: {
+    getUserId: () => String,
+    getUserName: () => String,
+    loadClient: () => null;
+  };
+  let mockMatDialog: {
+    open: (DeleteRideComponent, any) => {
+      afterClosed: () => Observable<Ride>
+    };
+  };
+
+  beforeEach(() => {
+    calledRide = null;
+    rideListServiceStub = {
+      getRides: () => Observable.of([]),
+      deleteRide: (currentRide: Ride) => {
+        calledRide = currentRide;
+        return Observable.of({
+          '$oid': newId
+        });
+      },
+      getUsers: () => Observable.of([
+      {
+        _id: {
+          '$oid': '5ca243f0712ed630c21a8407'
+        },
+        name: 'Sydney Stevens',
+        bio: 'This person does not have a bio written',
+        phoneNumber: '320 555 5555',
+        email: 'Stevens@google.com',
+      }
+    ])
+    };
+    authServiceStub = {
+      getUserId: () => "MI6007",
+      getUserName: () => "James Bond",
+      loadClient: () => null,
+    };
+    mockMatDialog = {
+      open: () => {
+        return {
+          afterClosed: () => {
+            return Observable.of(currentRide);
+          }
+        };
+      }
+    };
+
+    TestBed.configureTestingModule({
+      imports: [FormsModule, CustomModule, RouterTestingModule, HttpClientModule],
+      declarations: [RideListComponent],
+      providers: [
+        {provide: RideListService, useValue: rideListServiceStub},
+        {provide: MatDialog, useValue: mockMatDialog},
+        {provide: AuthService, useValue: authServiceStub},
+        // AuthService
+      ]
+    });
+  });
+
+  beforeEach(async(()=> {
+    TestBed.compileComponents().then(()=> {
+      fixture = TestBed.createComponent(RideListComponent);
+      rideList = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+    window['gapi'] = {
+      load() {
+        return
+      }
+    };
+  }));
+
+  it('calls RideListService.deleteRide', () => {
+    let exp1 = expect(calledRide).toBeNull();
+    rideList.openDeleteDialog(currentRide._id.$oid);
+    let exp2 = expect(calledRide).toEqual(currentRide);
+    return exp1 && exp2;
+  });
+});
