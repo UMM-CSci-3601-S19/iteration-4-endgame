@@ -30,7 +30,8 @@ describe( 'User Profile', () => {
   let rideListServiceStub: {
     getRides: () => Observable<Ride[]>,
     deleteRide: (currentRide: Ride) => Observable<{ '$oid': string}>,
-    getUsers: () => Observable<User[]>
+    getUsers: () => Observable<User[]>,
+    getUserRides: () => Observable<Ride[]>
   };
 
   let userServiceStub: {
@@ -62,6 +63,11 @@ describe( 'User Profile', () => {
           phoneNumber: '320 555 5555',
           email: 'Stevens@google.com',
         }
+      ]),
+      getUserRides: () => Observable.of([
+        {
+
+        }
       ])
     };
 
@@ -80,27 +86,7 @@ describe( 'User Profile', () => {
       getUserName: () => "James Bond",
       loadClient: () => null,
     };
-
-    rideListServiceStub = {
-      getRides: () => Observable.of([]),
-      deleteRide: (currentRide: Ride) => {
-        calledRide = currentRide;
-        return Observable.of({
-          '$oid': newId
-        });
-      },
-      getUsers: () => Observable.of([
-        {
-          _id: {
-            '$oid': '5ca243f0712ed630c21a8407'
-          },
-          name: 'Sydney Stevens',
-          bio: 'This person does not have a bio written',
-          phoneNumber: '320 555 5555',
-          email: 'Stevens@google.com',
-        }
-      ])
-    };
+    
     userServiceStub = {
       getUsers: () => Observable.of(
         {
