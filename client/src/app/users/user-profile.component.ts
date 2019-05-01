@@ -10,6 +10,7 @@ import {AuthService} from "../auth.service";
 import {Ride} from "../rides/ride";
 import {RideListService} from "../rides/ride-list.service";
 
+
 @Component({
   selector: 'user-profile-component',
   templateUrl: 'user-profile.component.html',
