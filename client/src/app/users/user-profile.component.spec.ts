@@ -82,7 +82,24 @@ describe( 'User Profile', () => {
     };
 
     rideListServiceStub = {
-
+      getRides: () => Observable.of([]),
+      deleteRide: (currentRide: Ride) => {
+        calledRide = currentRide;
+        return Observable.of({
+          '$oid': newId
+        });
+      },
+      getUsers: () => Observable.of([
+        {
+          _id: {
+            '$oid': '5ca243f0712ed630c21a8407'
+          },
+          name: 'Sydney Stevens',
+          bio: 'This person does not have a bio written',
+          phoneNumber: '320 555 5555',
+          email: 'Stevens@google.com',
+        }
+      ])
     };
     userServiceStub = {
       getUsers: () => Observable.of(
@@ -296,8 +313,6 @@ describe('Editing a user', ()=> {
     };
   };
 
-  const newId = 'Danial_id';
-
   let calledRide: Ride;
 
   beforeEach(() => {
@@ -421,8 +436,6 @@ describe('Rating a user', ()=> {
     };
   };
 
-  const newId = 'Danial_id';
-
   let calledRide: Ride;
 
   beforeEach(() => {
@@ -466,7 +479,24 @@ describe('Rating a user', ()=> {
     };
 
     rideListServiceStub = {
-
+      getRides: () => Observable.of([]),
+      deleteRide: (currentRide: Ride) => {
+        calledRide = currentRide;
+        return Observable.of({
+          '$oid': newId
+        });
+      },
+      getUsers: () => Observable.of([
+        {
+          _id: {
+            '$oid': '5ca243f0712ed630c21a8407'
+          },
+          name: 'Sydney Stevens',
+          bio: 'This person does not have a bio written',
+          phoneNumber: '320 555 5555',
+          email: 'Stevens@google.com',
+        }
+      ])
     };
 
     mockMatDialog = {
