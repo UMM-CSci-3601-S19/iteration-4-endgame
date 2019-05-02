@@ -585,10 +585,14 @@ describe('Editing a ride',()=> {
 
   it('calls RideListService.editRide', () => {
     let exp1 = expect(calledRide).toBeNull();
+
     rideList.openEditDialog(currentRide._id.$oid, currentRide.driver, currentRide.destination, currentRide.origin, currentRide.roundTrip, currentRide.driving, currentRide.departureDate, currentRide.departureTime, currentRide.mpg, currentRide.notes, currentRide.numSeats, currentRide.riderList);
+    
     let exp2 = expect(calledRide).toEqual(currentRide);
     return exp1 && exp2;
+
   });
+
 });
 
 describe('Deleting a ride',()=> {

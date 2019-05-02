@@ -77,26 +77,27 @@ describe('edit user component', () => {
     });
   });
 
-  it('should be able to test directive', async(() => {
-    TestBed.overrideComponent(EditUserComponent, {
-      set: {
-        template: '<input appPhoneMask>'
-      }
-    });
+  // it('should be able to test directive', async(() => {
+  //   TestBed.overrideComponent(EditUserComponent, {
+  //     set: {
+  //       template: '<input appPhoneMask>'
+  //     }
+  //   });
+  //
+  //   TestBed.compileComponents().then(() => {
+  //     fixture = TestBed.createComponent(EditUserComponent);
+  //     directive = fixture.debugElement.query(By.directive(PhoneMaskDirective));
+  //     let exp1 = expect(directive).toBeTruthy('Something unexpected occurred when using the input mask');
+  //
+  //     const directiveInstance = directive.injector.get(PhoneMaskDirective);
+  //     let exp2 = expect(directiveInstance(new Event('ngModelChange'), false).toBe(''));
+  //     // directive.nativeElement.value = '1234567890';
+  //     // fixture.detectChanges();
+  //     // directive.nativeElement.dispatchEvent(new Event('ngModelChange'));
+  //     // fixture.detectChanges();
+  //     // let exp2 = expect(directive.nativeElement.value).toBe('(123) 456-7890');
+  //     return exp1 && exp2;
+  //   });
+  // }));
 
-    TestBed.compileComponents().then(() => {
-      fixture = TestBed.createComponent(EditUserComponent);
-      directive = fixture.debugElement.query(By.directive(PhoneMaskDirective));
-      let exp1 = expect(directive).toBeTruthy('Something unexpected occurred when using the input mask');
-
-      const directiveInstance = directive.injector.get(PhoneMaskDirective);
-      let exp2 = expect(directiveInstance(new Event('ngModelChange'), false).toBe(''));
-      // directive.nativeElement.value = '1234567890';
-      // fixture.detectChanges();
-      // directive.nativeElement.dispatchEvent(new Event('ngModelChange'));
-      // fixture.detectChanges();
-      // let exp2 = expect(directive.nativeElement.value).toBe('(123) 456-7890');
-      return exp1 && exp2;
-    });
-  }));
 });
