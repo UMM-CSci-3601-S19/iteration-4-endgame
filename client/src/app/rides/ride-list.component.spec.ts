@@ -581,10 +581,23 @@ describe('Editing a ride',()=> {
 
   it('calls RideListService.editRide', () => {
     let exp1 = expect(calledRide).toBeNull();
+    console.log("Here is called ride (1) " + calledRide.toLocaleString());
+    console.log("Here is currentRide (1)" + currentRide.toLocaleString());
+
     rideList.openEditDialog(currentRide._id.$oid, currentRide.driver, currentRide.destination, currentRide.origin, currentRide.roundTrip, currentRide.driving, currentRide.departureDate, currentRide.departureTime, currentRide.mpg, currentRide.notes, currentRide.numSeats, currentRide.riderList);
+
+    console.log("Here is called ride (1.5) " + calledRide.toLocaleString());
+    console.log("Here is currentRide (1.5)" + currentRide.toLocaleString());
+
     let exp2 = expect(calledRide).toEqual(currentRide);
+
+    console.log("Here is called ride (2) " + calledRide.toLocaleString());
+    console.log("Here is currentRide (2)" + currentRide.toLocaleString());
+
     return exp1 && exp2;
+
   });
+
 });
 
 describe('Deleting a ride',()=> {
