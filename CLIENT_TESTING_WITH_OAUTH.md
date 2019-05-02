@@ -115,7 +115,7 @@ Lastly, don't forget to provide the service and declare its useValue in the Test
   };
 ```
 
-Additionally, the following may need to be in some of the beforeEach() clauses fo some tests. 
+Additionally, the following may need to be in some of the beforeEach() clauses for some tests. 
 
 ```typescript
     window['gapi'] = {
