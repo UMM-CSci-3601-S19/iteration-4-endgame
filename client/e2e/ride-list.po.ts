@@ -3,6 +3,8 @@ import {Key} from 'selenium-webdriver';
 
 export class RidePage {
   navigateTo(): promise.Promise<any> {
+    const input = element(by.id('signIn'));
+    input.click();
     return browser.get('/rides');
   }
 
