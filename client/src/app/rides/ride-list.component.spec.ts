@@ -36,6 +36,7 @@ describe('Ride list', () => {
       getRides: () => Observable.of([
         {
           _id: {$oid: 'wendyId'},
+          driver: 'Wendy Huebert',
           ownerId: "5ca243f0ef2bf9b410bb5672",
           ownerData: {
             "_id": {
@@ -105,6 +106,7 @@ describe('Ride list', () => {
         },
         {
           _id: {$oid: 'billId'},
+          driver: 'Bill Williams',
           ownerId: "5ca243f0797d9e845106b25e",
           ownerData: {
             "_id": {
@@ -207,17 +209,19 @@ describe('Ride list', () => {
     return expect(rideList.rides.length).toBe(4);
   });
 
-  // it('contains a ride driver \'Wendy Huebert\'', () => {
-  //   return expect(rideList.rides.some((ride: Ride) => ride.driver === 'Wendy Huebert')).toBe(true);
-  // });
+
   //
-  // it('contains a ride driver \'Bill Williams\'', () => {
-  //   return expect(rideList.rides.some((ride: Ride) => ride.driver === 'Bill Williams')).toBe(true);
-  // });
-  //
-  // it('Does not contain a ride driver \'Bilbo Baggins\'', () => {
-  //   return expect(rideList.rides.some((ride: Ride) => ride.driver === 'Bilbo Baggins')).toBe(false);
-  // });
+  it('contains a ride driver \'Wendy Huebert\'', () => {
+    return expect(rideList.rides.some((ride: Ride) => ride.driver === 'Wendy Huebert')).toBe(true);
+  });
+
+  it('contains a ride driver \'Bill Williams\'', () => {
+    return expect(rideList.rides.some((ride: Ride) => ride.driver === 'Bill Williams')).toBe(true);
+  });
+
+  it('Does not contain a ride driver \'Bilbo Baggins\'', () => {
+    return expect(rideList.rides.some((ride: Ride) => ride.driver === 'Bilbo Baggins')).toBe(false);
+  });
 
   it('contains a ride destination \'Big Lake\'', () => {
     return expect(rideList.rides.some((ride: Ride) => ride.destination === 'Big Lake')).toBe(true);

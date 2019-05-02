@@ -30,7 +30,8 @@ describe( 'User Profile', () => {
   let rideListServiceStub: {
     getRides: () => Observable<Ride[]>,
     deleteRide: (currentRide: Ride) => Observable<{ '$oid': string}>,
-    getUsers: () => Observable<User[]>
+    getUsers: () => Observable<User[]>,
+    // getUserRides: () => Observable<Ride[]>
   };
 
   let userServiceStub: {
@@ -81,9 +82,6 @@ describe( 'User Profile', () => {
       loadClient: () => null,
     };
 
-    rideListServiceStub = {
-
-    };
     userServiceStub = {
       getUsers: () => Observable.of(
         {
@@ -282,12 +280,13 @@ describe('Editing a user', ()=> {
   let rideListServiceStub: {
     getRides: () => Observable<Ride[]>,
     deleteRide: (currentRide: Ride) => Observable<{ '$oid': string}>,
-    getUsers: () => Observable<User[]>
+    getUsers: () => Observable<User[]>,
+    getUserRides: () => Observable<Ride[]>
   };
 
   let userServiceStub: {
     getUserById: () => Observable<User>,
-    editUser: (currentUser: User) => Observable<{ '$oid': string }>,
+    editUser: (currentUser: User) => Observable<{ '$oid': string }>
   };
 
   let mockMatDialog: {
@@ -295,8 +294,6 @@ describe('Editing a user', ()=> {
       afterClosed: () => Observable<User>
     };
   };
-
-  const newId = 'Danial_id';
 
   let calledRide: Ride;
 
@@ -329,6 +326,21 @@ describe('Editing a user', ()=> {
           bio: 'This person does not have a bio written',
           phoneNumber: '320 555 5555',
           email: 'Stevens@google.com',
+        }
+      ]),
+      getUserRides: () => Observable.of([
+        {
+          "ownerId": "5cb8bee01dcce624e181efca",
+          "destination": "Alexandria",
+          "origin": "Debevoise Avenue",
+          "roundTrip": false,
+          "departureDate": "2020-05-08T05:00:00.000Z",
+          "departureTime": "01:00",
+          "driving": false,
+          "notes": "No pet allowed",
+          "mpg": 30,
+          "numSeats": 4,
+          "riderList": []
         }
       ])
     };
@@ -421,8 +433,6 @@ describe('Rating a user', ()=> {
     };
   };
 
-  const newId = 'Danial_id';
-
   let calledRide: Ride;
 
   beforeEach(() => {
@@ -466,7 +476,24 @@ describe('Rating a user', ()=> {
     };
 
     rideListServiceStub = {
-
+      getRides: () => Observable.of([]),
+      deleteRide: (currentRide: Ride) => {
+        calledRide = currentRide;
+        return Observable.of({
+          '$oid': newId
+        });
+      },
+      getUsers: () => Observable.of([
+        {
+          _id: {
+            '$oid': '5ca243f0712ed630c21a8407'
+          },
+          name: 'Sydney Stevens',
+          bio: 'This person does not have a bio written',
+          phoneNumber: '320 555 5555',
+          email: 'Stevens@google.com',
+        }
+      ])
     };
 
     mockMatDialog = {
