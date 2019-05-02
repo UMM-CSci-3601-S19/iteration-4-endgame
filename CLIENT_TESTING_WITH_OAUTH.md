@@ -97,6 +97,39 @@ Lastly, don't forget to provide the service and declare its useValue in the Test
     });
 ```
 
+### Additional information that may be needed in the stubs
+
+```typescript
+  let authServiceStub: {
+    ///...
+    isSignedIn: () => boolean,     
+    gapi: any                      
+  };
+
+  //...
+
+  authServiceStub = {
+    //...
+    isSignedIn: () => true,
+    gapi: ""
+  };
+```
+
+Additionally, the following may need to be in some of the beforeEach() clauses fo some tests. 
+
+```typescript
+    window['gapi'] = {
+      load() {
+        return null;
+      }};
+```
+
+
+
+
+
+
+
 
 
 
