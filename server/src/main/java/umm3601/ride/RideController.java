@@ -1,5 +1,6 @@
 package umm3601.ride;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.mongodb.*;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
@@ -139,10 +140,14 @@ public class RideController {
     }
   }
 
-  Boolean deleteRide(String id){
+  Boolean deleteRide(String id, GoogleIdToken token){
     ObjectId objId = new ObjectId(id);
     try{
+      Document deleteDoc = new Document();
+      deleteDoc.append("_id", objId);
+      //deleteDoc.append("ownerId", token.getPayload().getSu)
       DeleteResult out = rideCollection.deleteOne(new Document("_id", objId));
+
       //Returns true if at least 1 document was deleted
       return out.getDeletedCount() != 0;
     }
@@ -205,7 +210,7 @@ public class RideController {
   }
 
   private String getStringField(String userId, String field) {
-    FindIterable<Document> jsonRides = userCollection.find(eq("userId", userId));
+    FindIterable<Document> jsonRides = userCollection.find(eq("userId", userId)); //this userId is probably a mongo object id and not a google subject thing
 
     Iterator<Document> iterator = jsonRides.iterator();
     if (iterator.hasNext()) {

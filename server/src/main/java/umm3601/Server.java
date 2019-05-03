@@ -36,7 +36,7 @@ public class Server {
     MongoClient mongoClient = new MongoClient();
     MongoDatabase database = mongoClient.getDatabase(databaseName);
 
-    GoogleAuth gauth = new GoogleAuth();
+    GoogleAuth gauth = new GoogleAuth(database);
     RideController rideController = new RideController(database);
     RideRequestHandler rideRequestHandler = new RideRequestHandler(rideController, gauth);
     UserController userController = new UserController(database);

@@ -4,13 +4,16 @@ import {Observable} from 'rxjs/Observable';
 import {environment} from '../../environments/environment';
 import {Ride} from "./ride";
 import {User} from "../users/user"
+import {AuthService} from "../auth.service";
 
 @Injectable()
 export class RideListService {
   readonly baseUrl: string = environment.API_URL + 'rides';
   private rideUrl: string = this.baseUrl;
+  private auth: AuthService;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService) {
+    this.auth = authService;
   }
 
   getRides(rideDriving?: string): Observable<Ride[]> {
@@ -116,8 +119,13 @@ export class RideListService {
       }),
       responseType: 'text' as 'json'
     };
-    let deleteDoc: string = "{ \"_id\": \"" + deleteId + "\"}";
-
+    //let deleteDoc: string = "{ \"_id\": \"" + deleteId + "\"}";
+    /*let deleteDoc: Document = new Document();
+    deleteDoc;*/
+    let deleteDoc: Object = new Object({
+      _id: deleteId,
+      idtoken: this.auth.getIdToken(),
+    });
     return this.http.post<string>(this.rideUrl + '/remove', deleteDoc, httpOptions);
   }
 

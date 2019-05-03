@@ -4,10 +4,15 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 import spark.Request;
 
 import java.util.Collections;
+import java.util.Iterator;
 
 public class GoogleAuth {
   private static final String CLIENT_ID = "375549452265-kpv6ds6lpfc0ibasgeqcgq1r6t6t6sth.apps.googleusercontent.com";
@@ -22,6 +27,12 @@ public class GoogleAuth {
     // Or, if multiple clients access the backend:
     //.setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
     .build();
+
+  private final MongoCollection<Document> userCollection;
+
+  public GoogleAuth(MongoDatabase database) {
+    this.userCollection = database.getCollection("Users");
+  }
 
   public GoogleIdToken auth(Request req){
     return auth(Document.parse(req.body()));
@@ -52,5 +63,17 @@ public class GoogleAuth {
   public String getPicture(String token){
     return (String) auth(token).getPayload().get("picture");
   }
+
+  public String getUserMongoId(String googleSubjectId) {
+    Document filterDoc = new Document("userId", googleSubjectId);
+    FindIterable<Document> matchingUser = userCollection.find(filterDoc);
+    Iterator<Document> iterator = matchingUser.iterator();
+    if (iterator.hasNext()) {
+      Document user = iterator.next();
+      String userMongoId = user.getObjectId("_id").toHexString();
+      System.out.println("Got user's mongo ID: " + userMongoId);
+      }
+      return "";
+    }
 
 }
