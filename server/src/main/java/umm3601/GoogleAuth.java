@@ -38,4 +38,19 @@ public class GoogleAuth {
       return null;
     }
   }
+
+  public String getEmail(String token){
+    return auth(token).getPayload().getEmail();
+  }
+  public String getName(String token){
+    return (String) auth(token).getPayload().get("name");
+  }
+
+  public String getUserId(String token){
+    return (String) auth(token).getPayload().getSubject();
+  }
+  public String getPicture(String token){
+    return (String) auth(token).getPayload().get("picture");
+  }
+
 }
