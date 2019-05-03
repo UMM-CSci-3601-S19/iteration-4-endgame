@@ -1,0 +1,16 @@
+API LOCKDOWN NOTES
+
+Api testing possibilities
+
+Curl
+https://www.codingpedia.org/ama/how-to-test-a-rest-api-from-command-line-with-curl/#11_What_is_curl
+Insomnia
+https://www.google.com/search?q=insomnia+api+testing&oq=insomnia+api+testing&aqs=chrome..69i57.2119j0j7&sourceid=chrome&ie=UTF-8
+Postman
+https://www.guru99.com/postman-tutorial.html
+
+
+
+Questions:
+
+Can we generate session-specific access tokens?
