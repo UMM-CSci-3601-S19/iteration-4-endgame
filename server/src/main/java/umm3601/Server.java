@@ -30,28 +30,17 @@ public class Server {
 
   private static final String databaseName = "dev";
 
-  private static final String CLIENT_ID = "375549452265-kpv6ds6lpfc0ibasgeqcgq1r6t6t6sth.apps.googleusercontent.com";
-
-  private static final String CLIENT_SECRET_FILE = "../secret.json";
-
-  private static final NetHttpTransport transport = new NetHttpTransport();
-
-  private static final GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, JacksonFactory.getDefaultInstance())
-    // Specify the CLIENT_ID of the app that accesses the backend:
-    .setAudience(Collections.singletonList(CLIENT_ID))
-    // Or, if multiple clients access the backend:
-    //.setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
-    .build();
 
   public static void main(String[] args) {
 
     MongoClient mongoClient = new MongoClient();
     MongoDatabase database = mongoClient.getDatabase(databaseName);
 
+    GoogleAuth gauth = new GoogleAuth();
     RideController rideController = new RideController(database);
-    RideRequestHandler rideRequestHandler = new RideRequestHandler(rideController);
+    RideRequestHandler rideRequestHandler = new RideRequestHandler(rideController, gauth);
     UserController userController = new UserController(database);
-    UserRequestHandler userRequestHandler = new UserRequestHandler(userController);
+    UserRequestHandler userRequestHandler = new UserRequestHandler(userController, gauth);
 
     //Configure Spark
     port(serverPort);
@@ -135,21 +124,7 @@ public class Server {
     });
   }
 
-  public static GoogleIdToken auth(Request req){
-    return auth(Document.parse(req.body()));
-  }
-  public static GoogleIdToken auth(Document body){
-    return auth(body.getString("idtoken"));
-  }
-  public static GoogleIdToken auth(String token){
-    try {
-      return verifier.verify(token);
-    } catch (Exception e) {
-      System.err.println("Invalid ID token");
-      e.printStackTrace();
-      return null;
-    }
-  }
+
 
   // Enable GZIP for all responses
   private static void addGzipHeader(Request request, Response response) {

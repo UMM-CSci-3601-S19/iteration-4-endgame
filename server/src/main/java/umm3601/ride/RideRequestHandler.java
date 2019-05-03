@@ -4,15 +4,18 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 import spark.Request;
 import spark.Response;
+import umm3601.GoogleAuth;
 
 import java.util.List;
 
 public class RideRequestHandler {
 
   private final RideController rideController;
+  private final GoogleAuth gauth;
 
-  public RideRequestHandler(RideController rideController) {
+  public RideRequestHandler(RideController rideController, GoogleAuth gauth) {
     this.rideController = rideController;
+    this.gauth = gauth;
   }
 
   /**

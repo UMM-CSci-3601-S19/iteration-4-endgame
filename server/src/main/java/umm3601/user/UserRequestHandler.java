@@ -7,6 +7,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import org.bson.Document;
 import spark.Request;
 import spark.Response;
+import umm3601.GoogleAuth;
 import umm3601.Server;
 import umm3601.user.UserController;
 
@@ -15,6 +16,7 @@ import java.util.List;
 
 public class UserRequestHandler {
   private final UserController userController;
+  private final GoogleAuth gauth;
 
 
   private static final String CLIENT_ID = "375549452265-kpv6ds6lpfc0ibasgeqcgq1r6t6t6sth.apps.googleusercontent.com";
@@ -23,8 +25,9 @@ public class UserRequestHandler {
 
   private static NetHttpTransport transport = new NetHttpTransport();
 
-  public UserRequestHandler(UserController userController) {
+  public UserRequestHandler(UserController userController, GoogleAuth gauth) {
     this.userController = userController;
+    this.gauth = gauth;
   }
 
   public String getUserJSON(Request req, Response res) {
@@ -86,7 +89,7 @@ public class UserRequestHandler {
 
     Document body = Document.parse(req.body());
     String token = body.getString("idtoken"); //key formerly 'code'
-    GoogleIdToken idToken = Server.auth(token);
+    GoogleIdToken idToken = gauth.auth(token);
     if (idToken != null) {
       GoogleIdToken.Payload payload = idToken.getPayload();
       String userId = payload.getSubject();
@@ -101,7 +104,7 @@ public class UserRequestHandler {
     res.type("application/json");
 
     Document body = Document.parse(req.body());
-    GoogleIdToken idToken = Server.auth(body);
+    GoogleIdToken idToken = gauth.auth(body);
     if (idToken != null) {
       GoogleIdToken.Payload payload = idToken.getPayload();
       String userId = payload.getSubject();
