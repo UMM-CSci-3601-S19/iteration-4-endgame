@@ -42,6 +42,7 @@ public class GoogleAuth {
   }
   public GoogleIdToken auth(String token){
     try {
+      System.out.println(token);
       return verifier.verify(token);
     } catch (Exception e) {
       System.err.println("Invalid ID token");
@@ -64,7 +65,7 @@ public class GoogleAuth {
     return (String) auth(token).getPayload().get("picture");
   }
 
-  public String getUserMongoId(String googleSubjectId) {
+  public String getUserMongoIdBySubject(String googleSubjectId) {
     Document filterDoc = new Document("userId", googleSubjectId);
     FindIterable<Document> matchingUser = userCollection.find(filterDoc);
     Iterator<Document> iterator = matchingUser.iterator();
@@ -72,8 +73,13 @@ public class GoogleAuth {
       Document user = iterator.next();
       String userMongoId = user.getObjectId("_id").toHexString();
       System.out.println("Got user's mongo ID: " + userMongoId);
-      }
-      return "";
+      return userMongoId;
+    } else {
+      return null;
     }
+  }
 
+  public String getUserMongoId(String token) { //may be pointless
+    return getUserMongoIdBySubject(auth(token).getPayload().getSubject());
+  }
 }

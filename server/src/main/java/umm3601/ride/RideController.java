@@ -140,21 +140,45 @@ public class RideController {
     }
   }
 
-  Boolean deleteRide(String id, GoogleIdToken token){
-    ObjectId objId = new ObjectId(id);
+  Boolean deleteRide(String rideId, String userMongoId){
+    System.out.println("********");
+    System.out.println(userMongoId);
+    System.out.println("88");
+    ObjectId objId = new ObjectId(rideId);
     try{
+      System.out.println(userMongoId);
       Document deleteDoc = new Document();
+      System.out.println(deleteDoc);
       deleteDoc.append("_id", objId);
-      //deleteDoc.append("ownerId", token.getPayload().getSu)
-      DeleteResult out = rideCollection.deleteOne(new Document("_id", objId));
-
-      //Returns true if at least 1 document was deleted
-      return out.getDeletedCount() != 0;
+      System.out.println(deleteDoc);
+      deleteDoc.append("ownerId", userMongoId);
+      System.out.println(deleteDoc);
+      System.out.println(userMongoId);
+      FindIterable<Document> rideDocs = rideCollection.find(new Document("_id", objId));
+      Iterator<Document> iterator = rideDocs.iterator();
+      if (iterator.hasNext()) {
+        System.out.println("It is not size 0");
+        DeleteResult deleteDocs = rideCollection.deleteOne(deleteDoc);
+        if(deleteDocs.getDeletedCount() != 0){
+          System.out.println("it delet");
+          return true;
+        }else{
+          System.out.println("IT UNAUTH");
+          //Return "Unauthorized"
+          return false;
+        }
+      }else{
+        System.out.println("it not founjd");
+        //Return some "Document not found" error
+        return false;
+      }
     }
     catch(MongoException e){
+      System.out.println("*Notices your error* owo whats this");
       e.printStackTrace();
       return false;
     }
+
   }
 
   Boolean updateRide(String id, String driver, String destination, String origin, Boolean roundTrip, Boolean driving, String departureDate, String departureTime, String mpgString, String notes, String numSeatsString){

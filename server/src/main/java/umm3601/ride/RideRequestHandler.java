@@ -149,11 +149,17 @@ public class RideRequestHandler {
     GoogleIdToken token = gauth.auth(req);
     if(token == null){
       return false;
-    }else{
+    } else {
+      String userId = token.getPayload().getSubject();
+      String userMongoId = gauth.getUserMongoIdBySubject(userId);
+      if(userMongoId == null){
+        return false;
+      }
+
       Document deleteRide = Document.parse(req.body());
-      String id = deleteRide.getString("_id");
-      System.err.println("Deleting ride id=" + id);
-      return rideController.deleteRide(id, token);
+      String rideId = deleteRide.getString("_id");
+      System.err.println("Deleting ride id=" + rideId);
+      return rideController.deleteRide(rideId, userMongoId);
     }
   }
 
