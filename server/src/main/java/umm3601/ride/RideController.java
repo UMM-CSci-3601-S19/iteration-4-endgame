@@ -1,5 +1,6 @@
 package umm3601.ride;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.mongodb.*;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
@@ -98,40 +99,12 @@ public class RideController {
       .collect(Collectors.joining(", ", "[", "]"));
   }
 
-  String addNewRide(String driver, String destination, String origin, Boolean roundTrip, Boolean driving, String departureDate, String departureTime, String mpg, String notes, String ownerId, List<String> riderList, String numSeatsString) {
-    System.out.println(ownerId);
-    Document newRide = new Document();
-    ownerId = getStringField(driver, "_id");
-    System.out.println(ownerId);
-    newRide.append("driver", driver);
-    newRide.append("destination", destination);
-    newRide.append("origin", origin);
-    newRide.append("roundTrip", roundTrip);
-    newRide.append("driving", driving);
-    newRide.append("departureDate", departureDate);
-    newRide.append("departureTime", departureTime);
-    if (mpg != null) {
-      if (mpg.isEmpty()) {
-        newRide.append("mpg", null);
-      } else {
-        int mpgInt = Integer.parseInt(mpg);
-        newRide.append("mpg", mpgInt);
-      }
-    } else {
-      newRide.append("mpg", mpg);
-    }
-    newRide.append("notes", notes);
-    newRide.append("ownerId", ownerId);
-
-    int numSeats = Integer.parseInt(numSeatsString);
-    newRide.append("numSeats", numSeats);
-
-    newRide.append("riderList", riderList);
+  String addNewRide(Document rideInfo) {
 
     try {
-      rideCollection.insertOne(newRide);
-      ObjectId _id = newRide.getObjectId("_id");
-      System.err.println("Successfully added new ride [_id=" + _id + ", driver=" + driver + ", destination=" + destination + ", origin=" + origin + ", roundTrip=" + roundTrip + ", driving=" + driving + " departureDate=" + departureDate + " departureTime=" + departureTime + " mpg=" + mpg + " notes=" + notes + ']');
+      rideCollection.insertOne(rideInfo);
+      ObjectId _id = rideInfo.getObjectId("_id");
+      System.err.println("Successfully added new ride [_id=" + _id + ']');
       return _id.toHexString();
     } catch (MongoException me) {
       me.printStackTrace();
@@ -139,17 +112,44 @@ public class RideController {
     }
   }
 
-  Boolean deleteRide(String id){
-    ObjectId objId = new ObjectId(id);
+  Boolean deleteRide(String rideId, String userMongoId){
+    ObjectId objId = new ObjectId(rideId);
     try{
-      DeleteResult out = rideCollection.deleteOne(new Document("_id", objId));
-      //Returns true if at least 1 document was deleted
-      return out.getDeletedCount() != 0;
+      Document deleteDoc = new Document();
+      deleteDoc.append("_id", objId);
+      deleteDoc.append("ownerId", userMongoId);
+      //Try to delete the ride (Requires correct ride id and user id)
+      DeleteResult deleteDocs = rideCollection.deleteOne(deleteDoc);
+      //If delete was successful, we're done; return true.
+      if(deleteDocs.getDeletedCount() != 0){
+        return true;
+      //Otherwise, try to find out why it didn't work
+      //This isn't necessary, but in an ideal world we would return either
+      //404 Ride not found
+      //403 Forbidden
+      }else{
+        //Check if the ride exists
+        //This code doesn't really do anything right now, but is useful for server logging
+        //As well as future implementation
+        FindIterable<Document> rideDocs = rideCollection.find(new Document("_id", objId));
+        Iterator<Document> iterator = rideDocs.iterator();
+        if (iterator.hasNext()) {
+          //The ride exists, ideally we would return 403
+          System.out.println("User unauthorized to delete");
+          return false;
+        }else {
+          //The ride doesn't exist, ideally we would return 404
+          System.out.println("Ride does not exist");
+          return false;
+        }
+      }
     }
     catch(MongoException e){
+      System.out.println("An error occurred while deleting ride.");
       e.printStackTrace();
       return false;
     }
+
   }
 
   Boolean updateRide(String id, String driver, String destination, String origin, Boolean roundTrip, Boolean driving, String departureDate, String departureTime, String mpgString, String notes, String numSeatsString){
@@ -205,7 +205,7 @@ public class RideController {
   }
 
   private String getStringField(String userId, String field) {
-    FindIterable<Document> jsonRides = userCollection.find(eq("userId", userId));
+    FindIterable<Document> jsonRides = userCollection.find(eq("userId", userId)); //this userId is probably a mongo object id and not a google subject thing
 
     Iterator<Document> iterator = jsonRides.iterator();
     if (iterator.hasNext()) {

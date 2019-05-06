@@ -4,13 +4,16 @@ import {Observable} from 'rxjs/Observable';
 import {environment} from '../../environments/environment';
 import {Ride} from "./ride";
 import {User} from "../users/user"
+import {AuthService} from "../auth.service";
 
 @Injectable()
 export class RideListService {
   readonly baseUrl: string = environment.API_URL + 'rides';
   private rideUrl: string = this.baseUrl;
+  private auth: AuthService;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService) {
+    this.auth = authService;
   }
 
   getRides(rideDriving?: string): Observable<Ride[]> {
@@ -71,7 +74,7 @@ export class RideListService {
     this.rideUrl = this.rideUrl.substring(0, start) + this.rideUrl.substring(end);
   }
 
-  addNewRide(newRide: Ride): Observable<string> {
+  addNewRide(newRide: object): Observable<string> {
     const httpOptions = {
       headers: new HttpHeaders({
         // We're sending JSON
@@ -82,6 +85,9 @@ export class RideListService {
       // so we know how to find/access that ride again later.
       responseType: 'text' as 'json'
     };
+    let idtoken = this.auth.getIdToken();
+    //Intellij doesn't know what it's talking about, this is right.
+    newRide.idtoken = idtoken;
 
     // Send post request to add a new ride with the ride data as the body with specified headers.
     return this.http.post<string>(this.rideUrl + '/new', newRide, httpOptions);
@@ -116,8 +122,10 @@ export class RideListService {
       }),
       responseType: 'text' as 'json'
     };
-    let deleteDoc: string = "{ \"_id\": \"" + deleteId + "\"}";
-
+    let deleteDoc: Object = new Object({
+      _id: deleteId,
+      idtoken: this.auth.getIdToken(),
+    });
     return this.http.post<string>(this.rideUrl + '/remove', deleteDoc, httpOptions);
   }
 
