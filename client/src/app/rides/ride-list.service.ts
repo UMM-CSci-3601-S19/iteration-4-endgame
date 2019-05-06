@@ -74,7 +74,7 @@ export class RideListService {
     this.rideUrl = this.rideUrl.substring(0, start) + this.rideUrl.substring(end);
   }
 
-  addNewRide(newRide: Ride): Observable<string> {
+  addNewRide(newRide: object): Observable<string> {
     const httpOptions = {
       headers: new HttpHeaders({
         // We're sending JSON
@@ -85,6 +85,9 @@ export class RideListService {
       // so we know how to find/access that ride again later.
       responseType: 'text' as 'json'
     };
+    let idtoken = this.auth.getIdToken();
+    //Intellij doesn't know what it's talking about, this is right.
+    newRide.idtoken = idtoken;
 
     // Send post request to add a new ride with the ride data as the body with specified headers.
     return this.http.post<string>(this.rideUrl + '/new', newRide, httpOptions);
@@ -119,9 +122,6 @@ export class RideListService {
       }),
       responseType: 'text' as 'json'
     };
-    //let deleteDoc: string = "{ \"_id\": \"" + deleteId + "\"}";
-    /*let deleteDoc: Document = new Document();
-    deleteDoc;*/
     let deleteDoc: Object = new Object({
       _id: deleteId,
       idtoken: this.auth.getIdToken(),

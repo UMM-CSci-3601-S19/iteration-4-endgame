@@ -99,40 +99,12 @@ public class RideController {
       .collect(Collectors.joining(", ", "[", "]"));
   }
 
-  String addNewRide(String driver, String destination, String origin, Boolean roundTrip, Boolean driving, String departureDate, String departureTime, String mpg, String notes, String ownerId, List<String> riderList, String numSeatsString) {
-    System.out.println(ownerId);
-    Document newRide = new Document();
-    ownerId = getStringField(driver, "_id");
-    System.out.println(ownerId);
-    newRide.append("driver", driver);
-    newRide.append("destination", destination);
-    newRide.append("origin", origin);
-    newRide.append("roundTrip", roundTrip);
-    newRide.append("driving", driving);
-    newRide.append("departureDate", departureDate);
-    newRide.append("departureTime", departureTime);
-    if (mpg != null) {
-      if (mpg.isEmpty()) {
-        newRide.append("mpg", null);
-      } else {
-        int mpgInt = Integer.parseInt(mpg);
-        newRide.append("mpg", mpgInt);
-      }
-    } else {
-      newRide.append("mpg", mpg);
-    }
-    newRide.append("notes", notes);
-    newRide.append("ownerId", ownerId);
-
-    int numSeats = Integer.parseInt(numSeatsString);
-    newRide.append("numSeats", numSeats);
-
-    newRide.append("riderList", riderList);
+  String addNewRide(Document rideInfo) {
 
     try {
-      rideCollection.insertOne(newRide);
-      ObjectId _id = newRide.getObjectId("_id");
-      System.err.println("Successfully added new ride [_id=" + _id + ", driver=" + driver + ", destination=" + destination + ", origin=" + origin + ", roundTrip=" + roundTrip + ", driving=" + driving + " departureDate=" + departureDate + " departureTime=" + departureTime + " mpg=" + mpg + " notes=" + notes + ']');
+      rideCollection.insertOne(rideInfo);
+      ObjectId _id = rideInfo.getObjectId("_id");
+      System.err.println("Successfully added new ride [_id=" + _id + ']');
       return _id.toHexString();
     } catch (MongoException me) {
       me.printStackTrace();

@@ -66,6 +66,10 @@ public class GoogleAuth {
     return (String) auth(token).getPayload().get("picture");
   }
 
+  public String getUserMongoIdBySubject(GoogleIdToken token){
+    return getUserMongoIdBySubject(token.getPayload().getSubject());
+  }
+
   public String getUserMongoIdBySubject(String googleSubjectId) {
     Document filterDoc = new Document("userId", googleSubjectId);
     FindIterable<Document> matchingUser = userCollection.find(filterDoc);

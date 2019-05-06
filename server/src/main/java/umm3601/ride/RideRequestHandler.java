@@ -97,29 +97,36 @@ public class RideRequestHandler {
   public String addNewRide(Request req, Response res) {
     res.type("application/json");
 
+    GoogleIdToken token = gauth.auth(req);
+
     Document newRide = Document.parse(req.body());
 
-    String driver = newRide.getString("driver");
-    String destination = newRide.getString("destination");
-    String origin = newRide.getString("origin");
-    Boolean roundTrip = newRide.getBoolean("roundTrip");
-    Boolean driving = newRide.getBoolean("driving");
-    String departureDate = newRide.getString("departureDate");
-    String departureTime = newRide.getString("departureTime");
-    String mpg = newRide.getString("mpg");
-    String notes = newRide.getString("notes");
-    List<String> riderList = newRide.getList("riderList", String.class);
-    String numSeats = newRide.getString("numSeats");
-    String ownerId;
-    if(newRide.containsKey("ownerId")){
-      ownerId = newRide.getString("ownerId");
-    }else{
-      ownerId = new ObjectId().toHexString();
+    Document rideInfo = new Document();
+
+    rideInfo.append("destination", newRide.getString("destination"));
+    rideInfo.append("origin", newRide.getString("origin"));
+    rideInfo.append("roundTrip", newRide.getBoolean("roundTrip"));
+    rideInfo.append("departureDate", newRide.getString("departureDate"));
+    rideInfo.append("departureTime", newRide.getString("departureTime"));
+    String seats = newRide.getString("numSeats");
+    if (seats != null && ! seats.isEmpty()) {
+      int numSeats = Integer.parseInt(seats);
+      rideInfo.append("numSeats", numSeats);
+    } else {
+      newRide.append("numSeats", null);
     }
+    String mpg = newRide.getString("mpg");
+    if (mpg != null && ! mpg.isEmpty()) {
+      int mpgInt = Integer.parseInt(mpg);
+      rideInfo.append("mpg", mpgInt);
+    } else {
+      newRide.append("mpg", null);
+    }
+    rideInfo.append("notes", newRide.getString("notes"));
+    rideInfo.append("riderList", newRide.getList("riderList", String.class));
+    rideInfo.append("ownerId", gauth.getUserMongoIdBySubject(token));
 
-
-    System.err.println("Adding new ride [driver=" + driver + " ownerId=" + ownerId + " destination=" + destination + " origin=" + origin + " roundTrip=" + roundTrip + " driving=" + driving + " departureDate=" + departureDate + " departureTime=" + departureTime + " mpg=" + mpg + " notes=" + notes + ']');
-    return rideController.addNewRide(driver, destination, origin, roundTrip, driving, departureDate, departureTime, mpg, notes, ownerId, riderList, numSeats);
+    return rideController.addNewRide(rideInfo);
   }
 
   public Boolean updateRide(Request req, Response res) {
