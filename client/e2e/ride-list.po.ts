@@ -1,10 +1,9 @@
 import {browser, element, by, promise, ElementFinder, protractor} from 'protractor';
 import {Key} from 'selenium-webdriver';
 
+
 export class RidePage {
   navigateTo(): promise.Promise<any> {
-    const input = element(by.id('signIn'));
-    input.click();
     return browser.get('/rides');
   }
 
@@ -19,6 +18,10 @@ export class RidePage {
     }
 
     return browser.executeScript(setStyle, element(byObject).getWebElement(), 'color: red; background-color: yellow;');
+  }
+
+  getElementById(id: string) {
+    return element(by.id(id));
   }
 
   getTitle(){
@@ -59,6 +62,10 @@ export class RidePage {
 
   elementExistsWithCss(cssOfElement: string): promise.Promise<boolean> {
     return element(by.css(cssOfElement)).isPresent();
+  }
+
+  elementExistsWithClass(classOfElement: string): promise.Promise<boolean> {
+    return element(by.className(classOfElement)).isPresent();
   }
 
   click(idOfButton: string): promise.Promise<void> {
