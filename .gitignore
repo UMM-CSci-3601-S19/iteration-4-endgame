@@ -76,7 +76,7 @@ gradle-app.setting
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
 
-# A Google Auth page Object that will include out test gmail and password
-GOAuth.po.ts
+# Where the refresh token will be stored for end to end testing Google OAuth
+refreshToken.ts
 
 # End of https://www.gitignore.io/api/java,angular,intellij+all,gradle
