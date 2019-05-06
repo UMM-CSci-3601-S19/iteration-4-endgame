@@ -45,6 +45,7 @@ public class GoogleAuth {
       System.out.println(token);
       return verifier.verify(token);
     } catch (Exception e) {
+      //Should return 401: Unauthorized
       System.err.println("Invalid ID token");
       e.printStackTrace();
       return null;
