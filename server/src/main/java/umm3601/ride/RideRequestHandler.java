@@ -124,7 +124,7 @@ public class RideRequestHandler {
     }
     rideInfo.append("notes", newRide.getString("notes"));
     rideInfo.append("riderList", newRide.getList("riderList", String.class));
-    rideInfo.append("ownerId", gauth.getUserMongoIdBySubject(token));
+    rideInfo.append("ownerId", gauth.getUserMongoId(token));
 
     return rideController.addNewRide(rideInfo);
   }
@@ -158,7 +158,7 @@ public class RideRequestHandler {
       return false;
     } else {
       String userId = token.getPayload().getSubject();
-      String userMongoId = gauth.getUserMongoIdBySubject(userId);
+      String userMongoId = gauth.getUserMongoId(userId);
       if(userMongoId == null){
         return false;
       }
