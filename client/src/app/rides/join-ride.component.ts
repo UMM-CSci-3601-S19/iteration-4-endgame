@@ -9,10 +9,10 @@ import {Ride} from "./ride";
 })
 
 export class JoinRideComponent implements OnInit {
-  currentId: string;
+  rideId: string;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { ride : Ride }, private fb: FormBuilder) {
+    @Inject(MAT_DIALOG_DATA) public data: { rideId : String }, private fb: FormBuilder) {
   }
   ngOnInit(): void {
   }
