@@ -1,3 +1,4 @@
+//TODO: See documentation about why this is commented out before bringing it back in: (url)
 // import {async, ComponentFixture, TestBed} from "@angular/core/testing";
 // import {EditUserComponent} from "./edit-user.component";
 // import {PhoneMaskDirective} from "./phone-mask.directive";
@@ -10,9 +11,9 @@
 // import {User} from "./user";
 // import {Observable} from "rxjs/Observable";
 // import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from "@angular/platform-browser-dynamic/testing";
-
-// TODO: An attempt at testing the phone-mask directive, its close but not quite there, could use some work
-// TODO: Also covers parts of edit-user.component, while that wasn't the main focus
+//
+// // TODO: An attempt at testing the phone-mask directive, its close but not quite there, could use some work
+// // TODO: Also covers parts of edit-user.component, while that wasn't the main focus
 // describe('edit user component', () => {
 //
 //   let directive;
@@ -77,26 +78,27 @@
 //     });
 //   });
 //
-//   it('should be able to test directive', async(() => {
-//     TestBed.overrideComponent(EditUserComponent, {
-//       set: {
-//         template: '<input appPhoneMask>'
-//       }
-//     });
+//   // it('should be able to test directive', async(() => {
+//   //   TestBed.overrideComponent(EditUserComponent, {
+//   //     set: {
+//   //       template: '<input appPhoneMask>'
+//   //     }
+//   //   });
+//   //
+//   //   TestBed.compileComponents().then(() => {
+//   //     fixture = TestBed.createComponent(EditUserComponent);
+//   //     directive = fixture.debugElement.query(By.directive(PhoneMaskDirective));
+//   //     let exp1 = expect(directive).toBeTruthy('Something unexpected occurred when using the input mask');
+//   //
+//   //     const directiveInstance = directive.injector.get(PhoneMaskDirective);
+//   //     let exp2 = expect(directiveInstance(new Event('ngModelChange'), false).toBe(''));
+//   //     // directive.nativeElement.value = '1234567890';
+//   //     // fixture.detectChanges();
+//   //     // directive.nativeElement.dispatchEvent(new Event('ngModelChange'));
+//   //     // fixture.detectChanges();
+//   //     // let exp2 = expect(directive.nativeElement.value).toBe('(123) 456-7890');
+//   //     return exp1 && exp2;
+//   //   });
+//   // }));
 //
-//     TestBed.compileComponents().then(() => {
-//       fixture = TestBed.createComponent(EditUserComponent);
-//       directive = fixture.debugElement.query(By.directive(PhoneMaskDirective));
-//       let exp1 = expect(directive).toBeTruthy('Something unexpected occurred when using the input mask');
-//
-//       const directiveInstance = directive.injector.get(PhoneMaskDirective);
-//       let exp2 = expect(directiveInstance(new Event('ngModelChange'), false).toBe(''));
-//       // directive.nativeElement.value = '1234567890';
-//       // fixture.detectChanges();
-//       // directive.nativeElement.dispatchEvent(new Event('ngModelChange'));
-//       // fixture.detectChanges();
-//       // let exp2 = expect(directive.nativeElement.value).toBe('(123) 456-7890');
-//       return exp1 && exp2;
-//     });
-//   }));
 // });
