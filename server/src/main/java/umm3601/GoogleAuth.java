@@ -66,11 +66,11 @@ public class GoogleAuth {
     return (String) auth(token).getPayload().get("picture");
   }
 
-  public String getUserMongoIdBySubject(GoogleIdToken token){
-    return getUserMongoIdBySubject(token.getPayload().getSubject());
+  public String getUserMongoId(GoogleIdToken token){
+    return getUserMongoId(token.getPayload().getSubject());
   }
 
-  public String getUserMongoIdBySubject(String googleSubjectId) {
+  public String getUserMongoId(String googleSubjectId) {
     Document filterDoc = new Document("userId", googleSubjectId);
     FindIterable<Document> matchingUser = userCollection.find(filterDoc);
     Iterator<Document> iterator = matchingUser.iterator();
@@ -84,7 +84,4 @@ public class GoogleAuth {
     }
   }
 
-  public String getUserMongoId(String token) { //may be pointless
-    return getUserMongoIdBySubject(auth(token).getPayload().getSubject());
-  }
 }
