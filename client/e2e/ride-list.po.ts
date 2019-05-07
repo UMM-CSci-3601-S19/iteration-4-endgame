@@ -1,65 +1,13 @@
 import {browser, element, by, promise, ElementFinder, protractor} from 'protractor';
 import {Key} from 'selenium-webdriver';
 
-let fs = require('fs');
-let secretObject;
 
 export class RidePage {
 
-  get_access_token_using_saved_refresh_token(): void {
-
-    fs.readFile('./e2e/googleSecrets.json', function read(err, data) {
-      if (err) {
-        throw err;
-      }
-      secretObject = data;
-      let secretJSON = JSON.parse( secretObject.toString() );
-      let refresh_token = secretJSON['refresh_token'];
-      let client_id = secretJSON['client_id'];
-      let client_secret = secretJSON['client_secret'];
-      console.log("refresh_token = " + refresh_token);
-      console.log("client_id = " + client_id);
-      console.log("client_secret = " + client_secret);
-    });
-
-    // from the oauth playground
-    const refresh_token = null; //add a fxn to extract from file
-
-    // from the API console
-    const client_id = null; // use existing fxnlty to get this stuff
-    const client_secret = null;// same thing
-
-    const refresh_url = "https://www.googleapis.com/oauth2/v4/token";
-
-    const post_body = `grant_type=refresh_token&client_id=${
-      encodeURIComponent(client_id)}&client_secret=${
-      encodeURIComponent(client_secret)}&refresh_token=${
-      encodeURIComponent(refresh_token)}`;
-
-    let refresh_request = {
-      body: post_body,
-      method: "POST",
-      headers: new Headers({
-        'Content-Type': 'application/x-www-form-urlencoded'
-      })
-    };
-
-    // post to the refresh endpoint, parse the json response and use the
-    // access token to call files.list
-    fetch(refresh_url, refresh_request).then( response => {
-      return(response.json());
-    }).then( response_json =>  {
-      console.log(response_json);
-      console.log("Above is response, below is .acces_token");
-      console.log(response_json.access_token);
-    });
-
-  }
 
   navigateTo(): promise.Promise<any> {
     return browser.get('/rides');
   };
-
 
 
   highlightElement(byObject) {

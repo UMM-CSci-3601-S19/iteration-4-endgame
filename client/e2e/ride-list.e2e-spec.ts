@@ -18,6 +18,7 @@ describe('Ride List', () => {
   let page: RidePage;
 
   beforeEach(() => {
+
     page = new RidePage();
     page.navigateTo();
   });
