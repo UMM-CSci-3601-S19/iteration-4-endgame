@@ -131,24 +131,36 @@ public class RideRequestHandler {
 
   public Boolean updateRide(Request req, Response res) {
     res.type("application/json");
-
-    Document editRide = Document.parse(req.body());
-
-    String id = editRide.getObjectId("_id").toHexString();
-    String driver = editRide.getString("driver");
-    String destination = editRide.getString("destination");
-    String origin = editRide.getString("origin");
-    Boolean roundTrip = editRide.getBoolean("roundTrip");
-    Boolean driving = editRide.getBoolean("driving");
-    String departureDate = editRide.getString("departureDate");
-    String departureTime = editRide.getString("departureTime");
-    String mpg = editRide.getString("mpg");
-    String notes = editRide.getString("notes");
-    String numSeats = editRide.getString("numSeats");
-
-
-    System.err.println("Editing ride [id=" + id + " driver=" + driver + " destination=" + destination + " origin=" + origin + " roundTrip=" + roundTrip + " driving=" + driving + " departureDate=" + departureDate + " departureTime=" + departureTime + " notes=" + notes + ']');
-    return rideController.updateRide(id, driver, destination, origin, roundTrip, driving, departureDate, departureTime, mpg, notes, numSeats);
+    System.out.println(req.body());
+    GoogleIdToken token = gauth.auth(req);
+    Document updatedRide = Document.parse(req.body());
+    System.out.println(updatedRide);
+    Document rideInfo = new Document();
+    rideInfo.append("_id", updatedRide.getObjectId("_id").toHexString());
+    rideInfo.append("destination", updatedRide.getString("destination"));
+    rideInfo.append("origin", updatedRide.getString("origin"));
+    rideInfo.append("roundTrip", updatedRide.getBoolean("roundTrip"));
+    rideInfo.append("departureDate", updatedRide.getString("departureDate"));
+    rideInfo.append("departureTime", updatedRide.getString("departureTime"));
+    String seats = updatedRide.getString("numSeats");
+    if (seats != null && ! seats.isEmpty()) {
+      int numSeats = Integer.parseInt(seats);
+      rideInfo.append("numSeats", numSeats);
+    } else {
+      updatedRide.append("numSeats", null);
+    }
+    String mpg = updatedRide.getString("mpg");
+    if (mpg != null && ! mpg.isEmpty() && ! mpg.equals("undefined")) {
+      int mpgInt = Integer.parseInt(mpg);
+      rideInfo.append("mpg", mpgInt);
+    } else {
+      updatedRide.append("mpg", null);
+    }
+    rideInfo.append("notes", updatedRide.getString("notes"));
+    rideInfo.append("riderList", updatedRide.getList("riderList", String.class));
+    rideInfo.append("ownerId", gauth.getUserMongoId(token));
+    System.err.println("Editing ride [id="+ updatedRide.getObjectId("_id").toHexString() + ']');
+    return rideController.updateRide(rideInfo);
   }
 
   public Boolean deleteRide(Request req, Response res){

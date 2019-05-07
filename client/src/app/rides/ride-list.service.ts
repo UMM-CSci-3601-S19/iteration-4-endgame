@@ -85,21 +85,20 @@ export class RideListService {
       // so we know how to find/access that ride again later.
       responseType: 'text' as 'json'
     };
-    let idtoken = this.auth.getIdToken();
-    newRide.idtoken = idtoken;
+    newRide.idtoken = this.auth.getIdToken();
 
     // Send post request to add a new ride with the ride data as the body with specified headers.
     return this.http.post<string>(this.rideUrl + '/new', newRide, httpOptions);
   }
 
-  editRide(editedRide: Ride): Observable<string> {
+  editRide(editedRide: any): Observable<string> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
       responseType: 'text' as 'json'
     };
-
+    editedRide.idtoken = this.auth.getIdToken();
     return this.http.post<string>(this.rideUrl + '/update', editedRide, httpOptions);
   }
 
