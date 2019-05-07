@@ -4,32 +4,11 @@ import {Key} from 'selenium-webdriver';
 let fs = require('fs');
 let secretObject;
 
-/*let handleJSONFile = function(err, data) {
-  if (err) {
-    console.log("PRIMTIVE DEBUG STMT")
-    throw err;
-  }
-  secretObject = JSON.parse(data);
-};*/
 export class RidePage {
-
-
-  /*loadJSON(callback) {
-
-    var xobj = new XMLHttpRequest();
-    xobj.overrideMimeType("application/json");
-    xobj.open('GET', 'googleSecrets.json', true); // Replace 'my_data' with the path to your file
-    xobj.onreadystatechange = function () {
-      if (xobj.readyState == 4 && xobj.status == "200") {
-        // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
-        callback(xobj.responseText);
-      }
-    };
-    xobj.send(null);
-  }*/
 
   get_access_token_using_saved_refresh_token(): void {
 
+    /////////////////////////////////////////////////////////////////////////////////
     // from the oauth playground
     const refresh_token = null; //add a fxn to extract from file
 
@@ -80,6 +59,7 @@ export class RidePage {
     });
     return browser.get('/rides');
   };
+  //////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
