@@ -4,6 +4,31 @@ import {Key} from 'selenium-webdriver';
 
 export class RidePage {
 
+  logIn(): void {
+    // Get to home page
+    browser.get('/');
+    // Click on Sign In button
+    element(by.id("signIn")).click();
+    // handlesPromise is getting all the windows that are open
+    let handlesPromise = browser.driver.getAllWindowHandles();
+    handlesPromise.then(function(handles){
+      // We switch to the sign in window
+      let signInHandle = handles[1];
+      browser.driver.switchTo().window(signInHandle);
+      browser.waitForAngularEnabled(false);
+      element(by.id("identifierId")).sendKeys("username");
+      browser.actions().sendKeys(Key.ENTER).perform();
+      //element(by.id("identifierNext")).click();
+      element(by.name("password")).sendKeys("password");
+      browser.actions().sendKeys(Key.ENTER).perform();
+      //element(by.id("passwordNext")).click();
+
+      // We switch back to the first window
+      browser.driver.switchTo().window(handles[0]);
+    })
+
+
+  };
 
   navigateTo(): promise.Promise<any> {
     return browser.get('/rides');

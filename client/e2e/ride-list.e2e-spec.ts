@@ -17,11 +17,14 @@ browser.driver.controlFlow().execute = function () {
 describe('Ride List', () => {
   let page: RidePage;
 
-  beforeEach(() => {
-
+  beforeAll(() => {
     page = new RidePage();
-    page.navigateTo();
+    page.logIn();
   });
+
+  /*beforeEach(()=> {
+    page.navigateTo();
+  });*/
 
   it('should have a Rides title', () => {
     return expect(page.getTitle()).toEqual('Available Listings');
