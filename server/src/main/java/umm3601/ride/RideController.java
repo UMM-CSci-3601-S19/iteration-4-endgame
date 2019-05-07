@@ -34,6 +34,20 @@ public class RideController {
 
   }
 
+  Boolean rideExists(String id){
+    FindIterable<Document> rideDocs = rideCollection.find(new Document("_id", id));
+    Iterator<Document> iterator = rideDocs.iterator();
+    if (iterator.hasNext()) {
+      //The ride exists
+      System.out.println("User unauthorized to delete");
+      return true;
+    }else {
+      //The ride doesn't exist
+      System.out.println("Ride does not exist");
+      return false;
+    }
+  }
+
   String getRide(String id) {
     FindIterable<Document> jsonRides = rideCollection.find(eq("_id", new ObjectId(id)));
 
@@ -114,32 +128,29 @@ public class RideController {
 
   Boolean deleteRide(String rideId, String userMongoId){
     ObjectId objId = new ObjectId(rideId);
-    try{
+    try {
       Document deleteDoc = new Document();
       deleteDoc.append("_id", objId);
       deleteDoc.append("ownerId", userMongoId);
       //Try to delete the ride (Requires correct ride id and user id)
       DeleteResult deleteDocs = rideCollection.deleteOne(deleteDoc);
       //If delete was successful, we're done; return true.
-      if(deleteDocs.getDeletedCount() != 0){
+      if (deleteDocs.getDeletedCount() != 0) {
         return true;
-      //Otherwise, try to find out why it didn't work
-      //This isn't necessary, but in an ideal world we would return either
-      //404 Ride not found
-      //403 Forbidden
-      }else{
+        //Otherwise, try to find out why it didn't work
+        //This isn't necessary, but in an ideal world we would return either
+        //404 Ride not found
+        //403 Forbidden
+        //instead of just false
+      } else {
         //Check if the ride exists
         //This code doesn't really do anything right now, but is useful for server logging
         //As well as future implementation
-        FindIterable<Document> rideDocs = rideCollection.find(new Document("_id", objId));
-        Iterator<Document> iterator = rideDocs.iterator();
-        if (iterator.hasNext()) {
+        if (rideExists(objId.toHexString())) {
           //The ride exists, ideally we would return 403
-          System.out.println("User unauthorized to delete");
           return false;
-        }else {
-          //The ride doesn't exist, ideally we would return 404
-          System.out.println("Ride does not exist");
+        } else {
+          //The ride does not exist, ideally we would return 404
           return false;
         }
       }
@@ -152,40 +163,39 @@ public class RideController {
 
   }
 
-  Boolean updateRide(String id, String driver, String destination, String origin, Boolean roundTrip, Boolean driving, String departureDate, String departureTime, String mpgString, String notes, String numSeatsString){
-    ObjectId objId = new ObjectId(id);
-    Document filter = new Document("_id", objId);
-    Document updateFields = new Document();
-    updateFields.append("driver", driver);
-    updateFields.append("destination", destination);
-    updateFields.append("origin", origin);
-    updateFields.append("driving", driving);
-    updateFields.append("roundTrip", roundTrip);
-    updateFields.append("departureDate", departureDate);
-    updateFields.append("departureTime", departureTime);
-    if (mpgString.equals("null")) {
-      System.out.println("I AM A NULL STRING");
-      updateFields.append("mpg", null);
-    } else if (mpgString.isEmpty()) {
-      System.out.println("I AM AN EMPTY STRING");
-        updateFields.append("mpg", null);
-    } else {
-        System.out.println("I HAVE VALUE: " + mpgString);
-        int mpgInt = Integer.parseInt(mpgString);
-        updateFields.append("mpg", mpgInt);
-    }
-    updateFields.append("notes", notes);
-
-    int numSeats = Integer.parseInt(numSeatsString);
-    updateFields.append("numSeats", numSeats);
-
-    System.out.println(updateFields.toString());
-    Document updateDoc = new Document("$set", updateFields);
+  Boolean updateRide(Document updatedRide){
+    String idString = updatedRide.getString("_id");
+    Document filter = new Document("_id", new ObjectId(updatedRide.getString("_id")));
+    filter.append("ownerId", updatedRide.get("ownerId"));
+    updatedRide.remove("_id");
+    Document updateDoc = new Document("$set", updatedRide);
     try{
-      UpdateResult out = rideCollection.updateOne(filter, updateDoc);
-      //returns false if no documents were modified, true otherwise
-      return out.getModifiedCount() != 0;
-    }catch(MongoException e){
+      UpdateResult update = rideCollection.updateOne(filter, updateDoc);
+      //If update was successful, we're done; return true.
+      if(update.getModifiedCount() != 0){
+        return true;
+        //Otherwise, try to find out why it didn't work
+        //This isn't necessary, but in an ideal world we would return either
+        //404 Ride not found
+        //403 Forbidden
+        //instead of just false
+      }else{
+        //Check if the ride exists
+        //This code doesn't really do anything right now, but is useful for server logging
+        //As well as future implementation
+        if(rideExists(idString)){
+          //The ride exists, ideally we would return 403
+          return false;
+        }else{
+          //The ride does not exist, ideally we would return 404
+          return false;
+        }
+
+
+      }
+    }
+    catch(MongoException e){
+      System.out.println("An error occurred while deleting ride.");
       e.printStackTrace();
       return false;
     }
