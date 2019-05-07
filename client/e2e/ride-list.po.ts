@@ -22,7 +22,6 @@ export class RidePage {
       element(by.name("password")).sendKeys("password");
       browser.actions().sendKeys(Key.ENTER).perform();
       //element(by.id("passwordNext")).click();
-
       // We switch back to the first window
       browser.driver.switchTo().window(handles[0]);
     })
