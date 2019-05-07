@@ -1,5 +1,5 @@
 import {RidePage} from './ride-list.po';
-import {browser, protractor, element, by, ExpectedConditions} from 'protractor';
+import {browser, protractor, element, by} from 'protractor';
 import {By, Key, until, WebDriver} from 'selenium-webdriver';
 import {RideListComponent} from "../src/app/rides/ride-list.component";
 import {AuthService} from "../src/app/auth.service";
