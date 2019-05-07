@@ -34,6 +34,31 @@ public class RideController {
 
   }
 
+  Boolean userExists(String id){ //may not be useful at all, given that checking for the nullity of the access token should tell us whether the user exists
+    FindIterable<Document> userDocs = userCollection.find(new Document("_id", id));
+    Iterator<Document> iterator = userDocs.iterator();
+    if (iterator.hasNext()) {
+      //The user exists
+      return true;
+    }else {
+      //The user doesn't exist
+      return false;
+    }
+  }
+
+  Boolean userMatchesRide(String rideId, String userId){
+    Document matchDoc = new Document();
+    matchDoc.append("_id", new ObjectId(rideId));
+    matchDoc.append("ownderId", userId);
+    FindIterable<Document> matchDocs = rideCollection.find(matchDoc);
+    Iterator<Document> iterator = matchDocs.iterator();
+    if (iterator.hasNext()){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   Boolean rideExists(String id){
     FindIterable<Document> rideDocs = rideCollection.find(new Document("_id", id));
     Iterator<Document> iterator = rideDocs.iterator();
@@ -233,7 +258,7 @@ public class RideController {
     return "User Not Found";
   }
 
-  Boolean addRider(String id, List<String> riderList, String newRider, Integer numSeats) {
+  Boolean addRider(String id, List<String> riderList, String newRider, Integer numSeats) {//could use refactoring as with add and edit
     ObjectId objId = new ObjectId(id);
     Document filter = new Document("_id", objId);
     Document updateFields = new Document();
@@ -249,7 +274,8 @@ public class RideController {
     updateFields.append("numSeats", numSeats);
 
     Document updateDoc = new Document("$set", updateFields);
-
+    System.out.println(filter);
+    System.out.println(updateDoc);
     try{
       UpdateResult out = rideCollection.updateOne(filter, updateDoc);
       //returns false if no documents were modified, true otherwise
