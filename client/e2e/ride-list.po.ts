@@ -1,10 +1,33 @@
 import {browser, element, by, promise, ElementFinder, protractor} from 'protractor';
 import {Key} from 'selenium-webdriver';
 
+let fs = require('fs');
+let secretObject;
+
+let username = '';
+let password = '';
 
 export class RidePage {
 
+  get_username_and_password(): void {
+
+    fs.readFile('./e2e/googleSecrets.json', function read(err, data) {
+      if (err) {
+        throw err;
+      }
+
+      secretObject = data;
+      let secretJSON = JSON.parse( secretObject.toString() );
+      username = secretJSON['username'];
+      password = secretJSON['password'];
+      console.log("username = " + username);
+      console.log("password = " + password);
+    });
+
+  }
+
   logIn(): void {
+    this.get_username_and_password();
     // Get to home page
     browser.get('/');
     // Click on Sign In button
@@ -16,17 +39,15 @@ export class RidePage {
       let signInHandle = handles[1];
       browser.driver.switchTo().window(signInHandle);
       browser.waitForAngularEnabled(false);
-      element(by.id("identifierId")).sendKeys("username");
+      element(by.id("identifierId")).sendKeys(username);
       browser.actions().sendKeys(Key.ENTER).perform();
       //element(by.id("identifierNext")).click();
-      element(by.name("password")).sendKeys("password");
+      element(by.name("password")).sendKeys(password);
       browser.actions().sendKeys(Key.ENTER).perform();
       //element(by.id("passwordNext")).click();
       // We switch back to the first window
       browser.driver.switchTo().window(handles[0]);
     })
-
-
   };
 
   navigateTo(): promise.Promise<any> {
