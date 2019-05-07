@@ -30,6 +30,20 @@ export class RidePage {
 
   get_access_token_using_saved_refresh_token(): void {
 
+    fs.readFile('./e2e/googleSecrets.json', function read(err, data) {
+      if (err) {
+        throw err;
+      }
+      secretObject = data;
+      let secretJSON = JSON.parse( secretObject.toString() );
+      let refresh_token = secretJSON['refresh_token'];
+      let client_id = secretJSON['client_id'];
+      let client_secret = secretJSON['client_secret'];
+      console.log("refresh_token = " + refresh_token);
+      console.log("client_id = " + client_id);
+      console.log("client_secret = " + client_secret);
+    });
+
     // from the oauth playground
     const refresh_token = null; //add a fxn to extract from file
 
@@ -65,19 +79,6 @@ export class RidePage {
   }
 
   navigateTo(): promise.Promise<any> {
-    fs.readFile('./e2e/googleSecrets.json', function read(err, data) {
-      if (err) {
-        throw err;
-    }
-    secretObject = data;
-      let secretJSON = JSON.parse( secretObject.toString() );
-      let refresh_token = secretJSON['refresh_token'];
-      let client_id = secretJSON['client_id'];
-      let client_secret = secretJSON['client_secret'];
-      console.log("refresh_token = " + refresh_token);
-      console.log("client_id = " + client_id);
-      console.log("client_secret = " + client_secret);
-    });
     return browser.get('/rides');
   };
 
