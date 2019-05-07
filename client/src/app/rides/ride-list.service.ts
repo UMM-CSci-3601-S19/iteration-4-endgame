@@ -109,8 +109,10 @@ export class RideListService {
       }),
       responseType: 'text' as 'json'
     };
-    joinedRide.idtoken = this.auth.getIdToken();
-    return this.http.post<string>(this.rideUrl + '/addRider', joinedRide, httpOptions);
+    let document: any = {};
+    document.rideId = joinedRide;
+    document.idtoken = this.auth.getIdToken();
+    return this.http.post<string>(this.rideUrl + '/addRider', document, httpOptions);
   }
 
   deleteRide(deleteId: String): Observable<string> {

@@ -184,20 +184,11 @@ public class RideRequestHandler {
 
   public Boolean addRider(Request req, Response res) {
     res.type("application/json");
-    GoogleIdToken token = gauth.auth(req);
-    System.out.println("*************");
-    System.out.println(req.body());
-    if(token == null){
-      return false;
-    } else {
-      Document addedRider = Document.parse(req.body());
-      //Document rideInfo = new Document();
-      String id = addedRider.getObjectId("_id").toHexString();
-      List<String> riderList = addedRider.getList("riderList", String.class);
-      String newRider = riderList.get(riderList.size() - 1);
-      Integer numSeats = addedRider.getInteger("numSeats");
-      System.out.println("ride id: " + id + " riderList: " + riderList + " newRiderUserId: " + newRider + " numSeats: " + numSeats);
-      return rideController.addRider(id, riderList, newRider, numSeats);
-    }
+    Document body = Document.parse(req.body());
+    System.out.println(body);
+    GoogleIdToken token = gauth.auth(body);
+    String name = gauth.getName(body);
+    String id = gauth.getUserMongoId(token);
+    return rideController.addRider(body.getString("rideId"), id,name);
   }
 }

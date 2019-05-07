@@ -241,7 +241,6 @@ public class RideController {
 
   private String getStringField(String userId, String field) {
     FindIterable<Document> jsonRides = userCollection.find(eq("userId", userId)); //this userId is probably a mongo object id and not a google subject thing
-
     Iterator<Document> iterator = jsonRides.iterator();
     if (iterator.hasNext()) {
       String fieldInfo;
@@ -258,26 +257,19 @@ public class RideController {
     return "User Not Found";
   }
 
-  Boolean addRider(String id, List<String> riderList, String newRider, Integer numSeats) {//could use refactoring as with add and edit
-    ObjectId objId = new ObjectId(id);
+  Boolean addRider(String rideId, String riderId, String riderName) {
+    ObjectId objId = new ObjectId(rideId);
     Document filter = new Document("_id", objId);
-    Document updateFields = new Document();
-
-    newRider = getStringField(newRider, "name");
-    System.out.println("adding " + newRider + " to the ride");
-
-    riderList.set(riderList.size()-1, newRider);
-
-    System.out.println(riderList);
-
-    updateFields.append("riderList", riderList);
-    updateFields.append("numSeats", numSeats);
-
-    Document updateDoc = new Document("$set", updateFields);
-    System.out.println(filter);
-    System.out.println(updateDoc);
+    //Cannot check this because the riderList only stores names.
+    //filter.append("riderList", "{$not: '" + newRiderId +"' }");
+    filter.append("ownerId", new Document("$not", new Document("$eq", riderId)));
+    Document updateDoc = new Document();
+    updateDoc.append("$push", new Document("riderList", riderName));
     try{
+      System.out.println(filter);
+      System.out.println(updateDoc);
       UpdateResult out = rideCollection.updateOne(filter, updateDoc);
+      System.out.println(out);
       //returns false if no documents were modified, true otherwise
       return out.getModifiedCount() != 0;
     }catch(MongoException e){

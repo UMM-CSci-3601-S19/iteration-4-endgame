@@ -106,7 +106,7 @@ export class RideListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(currentRide => {
       if (currentRide != null) {//RideListComponent
         currentRide.mpg = "" + currentRide.mpg;
-        this.rideListService.joinRide(currentRide).subscribe(
+        this.rideListService.joinRide(currentRide._id.$oid).subscribe(
           result => {
             this.highlightedDestination = result;
             console.log("The result is " + result);
