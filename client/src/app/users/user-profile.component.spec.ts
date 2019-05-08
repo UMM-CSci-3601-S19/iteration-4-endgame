@@ -1,3 +1,4 @@
+//TODO: See documentation about why this is commented out before bringing it back in: (url)
 // import {UserProfileComponent} from "./user-profile.component";
 // import {async, ComponentFixture, TestBed} from "@angular/core/testing";
 // import {Observable} from "rxjs/Observable";
@@ -31,7 +32,7 @@
 //     getRides: () => Observable<Ride[]>,
 //     deleteRide: (currentRide: Ride) => Observable<{ '$oid': string}>,
 //     getUsers: () => Observable<User[]>,
-//     // getUserRides: () => Observable<Ride[]>
+//     getUserRides: () => Observable<Ride[]>
 //   };
 //
 //   let userServiceStub: {
@@ -62,6 +63,24 @@
 //           bio: 'This person does not have a bio written',
 //           phoneNumber: '320 555 5555',
 //           email: 'Stevens@google.com',
+//         }
+//       ]),
+//       getUserRides: () => Observable.of([
+//         {
+//           _id: {
+//             '$oid': '5ccc7f02bb2d3b38131f5c55'
+//           },
+//           ownerId: '5cb8bee0fc8510c466d1689c',
+//           destination: 'Willy\'s',
+//           origin: 'Cougar Circle',
+//           roundTrip: false,
+//           departureDate: '2020-09-18T05:00:00.000Z',
+//           departureTime: '12:00',
+//           driving : false,
+//           notes: 'I love classic rock and I play it loud!',
+//           mpg: 55,
+//           numSeats: 3,
+//           riderList: ["Bob Marcy"],
 //         }
 //       ])
 //     };
@@ -419,7 +438,8 @@
 //   let rideListServiceStub: {
 //     getRides: () => Observable<Ride[]>,
 //     deleteRide: (currentRide: Ride) => Observable<{ '$oid': string}>,
-//     getUsers: () => Observable<User[]>
+//     getUsers: () => Observable<User[]>,
+//     getUserRides: () => Observable<Ride[]>
 //   };
 //
 //   let userServiceStub: {
@@ -442,27 +462,6 @@
 //       getUserId: () => "MI6007",
 //       getUserName: () => "James Bond",
 //       loadClient: () => null,
-//     };
-//
-//     rideListServiceStub = {
-//       getRides: () => Observable.of([]),
-//       deleteRide: (currentRide: Ride) => {
-//         calledRide = currentRide;
-//         return Observable.of({
-//           '$oid': newId
-//         });
-//       },
-//       getUsers: () => Observable.of([
-//         {
-//           _id: {
-//             '$oid': '5ca243f0712ed630c21a8407'
-//           },
-//           name: 'Sydney Stevens',
-//           bio: 'This person does not have a bio written',
-//           phoneNumber: '320 555 5555',
-//           email: 'Stevens@google.com',
-//         }
-//       ])
 //     };
 //
 //     userServiceStub = {
@@ -493,7 +492,26 @@
 //           phoneNumber: '320 555 5555',
 //           email: 'Stevens@google.com',
 //         }
+//       ]),
+//       getUserRides: () => Observable.of([
+//         {
+//           _id: {
+//             '$oid': '5ccc7f02bb2d3b38131f5c55'
+//           },
+//           ownerId: '5cb8bee0fc8510c466d1689c',
+//           destination: 'Willy\'s',
+//           origin: 'Cougar Circle',
+//           roundTrip: false,
+//           departureDate: '2020-09-18T05:00:00.000Z',
+//           departureTime: '12:00',
+//           driving : false,
+//           notes: 'I love classic rock and I play it loud!',
+//           mpg: 55,
+//           numSeats: 3,
+//           riderList: ["Bob Marcy"],
+//         }
 //       ])
+//
 //     };
 //
 //     mockMatDialog = {
