@@ -13,8 +13,8 @@
         <!--Profile</a>-->
     </mat-nav-list>
   </td-navigation-drawer>
-  <td-layout-nav toolbarTitle="MoRide" navigationRoute="/">
-    <button *ngIf="auth.isSignedIn()" mat-icon-button td-menu-button tdLayoutToggle>
+  <td-layout-nav toolbarTitle="MoRide" navigationRoute="/" id="title">
+    <button *ngIf="auth.isSignedIn()" id="menuButton" mat-icon-button td-menu-button tdLayoutToggle>
       <mat-icon>menu</mat-icon>
     </button>
     <router-outlet></router-outlet>
