@@ -105,12 +105,14 @@ public class RideController {
     return serializeIterable(ridesWithUsers);
   }
 
+  //This code is untested because it is a part of user profiles, which we decided was out of scope for our security group's iteration
   String getUserRides(String userId) {
 
     System.out.println("We are attempting to gather results");
 
     BasicDBObject orQuery = new BasicDBObject();
     List<BasicDBObject> params = new ArrayList<BasicDBObject>();
+
     params.add(new BasicDBObject("ownerId", getStringField(userId, "_id")));
     params.add(new BasicDBObject("riderList", getStringField(userId, "name")));
     orQuery.put("$or", params);
@@ -239,6 +241,7 @@ public class RideController {
     return ridesWithUsers;
   }
 
+  //This code is untested because it is a part of user profiles, which we decided was out of scope for our security group's iteration
   private String getStringField(String userId, String field) {
     FindIterable<Document> jsonRides = userCollection.find(eq("userId", userId)); //this userId is probably a mongo object id and not a google subject thing
     Iterator<Document> iterator = jsonRides.iterator();

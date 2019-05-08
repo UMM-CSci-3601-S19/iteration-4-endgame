@@ -27,11 +27,7 @@ public class RideControllerSpec {
   private RideController rideController;
   private ObjectId knownId;
 
-  //Todo: This functionality is not implemented
-  //Add protection against entries with improper or empty ownerId field
-  //Todo: This functionality is not tested
-  //Check ownerData has been properly added (Involve
-
+  //Todo: Test getUserRides Method
 
   @Before
   public void clearAndPopulateDB(){
@@ -93,6 +89,7 @@ public class RideControllerSpec {
       .append("departureTime", "06:12")
       .append("driving", true)
       .append("mpg", 15)
+      .append("riderList", new ArrayList())
       .append("notes", "I will pay for lunch for anyone who is riding with me and I am a cool guy");
     rideDocuments.insertOne(Document.parse(knownObj.toJson()));
 
@@ -274,6 +271,18 @@ public class RideControllerSpec {
     assertEquals("Should have 4 riders after failed update", 4, docs.size());
     assertEquals("Drivers should match after failed update", expectedDrivers, drivers);
 
+  }
+
+  @Test
+  public void addRider(){
+    //Bad Request: User requesting to be added owns the ride
+    Boolean badResp = rideController.addRider(knownId.toString(), "5ca243f0db41ec9258d40336", "James");
+    assertFalse("Rider should not add themselves to their ride", badResp);
+    //Good Request: User is added to ride
+    Boolean goodResp = rideController.addRider(knownId.toString(), new ObjectId().toHexString(), "James James");
+    assertTrue("Rider can join a ride", goodResp);
+    Document ride = Document.parse(rideController.getRide(knownId.toString()));
+    assertEquals("Rider is now added to the ride", "[James James]", ride.get("riderList").toString());
   }
 }
 

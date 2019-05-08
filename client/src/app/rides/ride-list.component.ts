@@ -120,7 +120,7 @@ export class RideListComponent implements OnInit {
       }
     });
   }
-wdm
+
   openEditDialog(currentId: string, currentDriver: string, currentDestination: string, currentOrigin: string, currentRoundTrip: boolean, currentDriving: boolean, currentDepartureDate: string, currentDepartureTime: string, currentMPG: number, currentNotes: string, currentNumSeats: number, currentRiderList: string[]): void {
     const currentRide: Ride = {
       _id: {

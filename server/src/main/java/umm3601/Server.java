@@ -89,6 +89,8 @@ public class Server {
 
     // User Endpoints ///////////////////////////////////
     /////////////////////////////////////////////////////
+    //These user endpoints have not been secured.
+
     get("api/users", userRequestHandler::getUsers);
     get("api/user/:id", userRequestHandler::getUserJSON);
     post("api/user/editProfile", userRequestHandler::editUserProfile);
