@@ -20,11 +20,14 @@ describe('Ride List', () => {
   beforeAll(() => {
     page = new RidePage();
     page.logIn();
+    element(by.id("MoRide")).click();
+    element(by.id("menuButton")).click();
+    browser.driver.sleep(5000);
   });
 
-  /*beforeEach(()=> {
-    page.navigateTo();
-  });*/
+  // beforeEach(()=> {
+  //
+  // });
 
   it('should have a Rides title', () => {
     return expect(page.getTitle()).toEqual('Available Listings');
