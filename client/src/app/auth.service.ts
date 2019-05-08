@@ -34,6 +34,10 @@ export class AuthService implements CanActivate, OnInit{
     return gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token;
   }
 
+  setRedirect(): string {
+    return gapi.auth2.SigninOptionsBuilder().setRedirect();
+  }
+
   signIn() {
     console.log("Signing in");
     console.log("gapi " + gapi.toString());
