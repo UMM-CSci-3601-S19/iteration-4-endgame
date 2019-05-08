@@ -28,32 +28,49 @@ export class RidePage {
 
   logIn(): void {
     this.get_username_and_password();
-    // Get to home page
+
+    // Go to the home page
     browser.get('/');
+
     // Click on Sign In button
-    element(by.id("signIn")).click();
-    // handlesPromise is getting all the windows that are open
+    this.click("signIn");
+
+    // Now we must switch to the log-in window that pops up.
+
+    // 'handlesPromise' is getting all the windows that are open
     let handlesPromise = browser.driver.getAllWindowHandles();
+
     handlesPromise.then(function(handles){
+
       // We switch to the sign in window
       let signInHandle = handles[1];
       browser.driver.switchTo().window(signInHandle);
+
+      // Setting this allows Protractor to deal with navigation to non-Angular things. This is necessary.
       browser.waitForAngularEnabled(false);
+
+      // Enter username into textfield and click the 'next' button
       element(by.id("identifierId")).sendKeys(username);
       browser.actions().sendKeys(Key.ENTER).perform();
       //element(by.id("identifierNext")).click();
+
+      // Also enter the password....
       element(by.name("password")).sendKeys(password);
       browser.actions().sendKeys(Key.ENTER).perform();
       //element(by.id("passwordNext")).click();
+
+
       // We switch back to the first window
       browser.driver.switchTo().window(handles[0]);
+
+      browser.driver.sleep(1000);
+
     })
   };
 
   navigateTo(): promise.Promise<any> {
     return browser.get('/rides');
   };
-
 
   highlightElement(byObject) {
     function setStyle(element, style) {
