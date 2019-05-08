@@ -30,7 +30,9 @@ describe('Ride List', () => {
   // });
 
   it('should have a Rides title', () => {
+    element(by.id("navRides")).click();
     return expect(page.getTitle()).toEqual('Available Listings');
+    browser.driver.sleep(5000);
   });
 
 
