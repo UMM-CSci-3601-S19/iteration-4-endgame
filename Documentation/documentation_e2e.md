@@ -133,7 +133,9 @@ let handlesPromise = browser.driver.getAllWindowHandles();
             ...
 ```
 
-Clicking the Google sign-in button SHOULD open a seperate window for you to enter your username and password. The problem is that our e2e test is focused on the first window. We can change that with browser.driver.getAllWindowHandles(). It returns a promise of all the windows that the test has opened, and the sign-in window should be handles[1]. We then call switchTo.window(signInHandle) to focus the test on the new window.
+Clicking the Google sign-in button SHOULD open a separate window for you to enter your username and password. The problem is that our e2e test is focused on the first window. We can change that with browser.driver.getAllWindowHandles(). It returns a promise of all the windows that the test has opened, and the sign-in window should be handles[1]. We then call switchTo.window(signInHandle) to focus the test on the new window.
+
+If your Google sign-in is NOT opening a popup window, but redirecting the main window instead, you can change this (if you want). The gapi.auth.init method can take a configuration parameter called 'ux_mode'. Without explicitly specifying this parameter, the default value is 'popup'. You can change this using "ux_mode" = "redirect". If you're using redirect, just remove any code that has "browser.driver.switchTo()."
 
 The next thing is small but very important:
 
@@ -164,7 +166,17 @@ We select an element with the id of "identifierId" and type the username variabl
 
 Again, this should come from a secret file. The 'username' and 'password' variables should have been successfully retrieved by the first function.
 
-Now that you are succesfully signed in, you *ought* to be able to interact with parts of the application that are gated behind the sign-in. In our implementation, there are couple things that might need to be explained. Let's take a look at the corresponding file that does the actual testing (near the top of the file).
+Finally, we switch back to our default window since we don't need the sign-in window anymore.
+
+#####ride-list.po.ts (logIn)
+```javascript
+...
+browser.driver.switchTo().window(handles[0]);
+...
+````
+Again, if you're using ux_mode = redirect in the gapi.auth.init(), you should remove this code. 
+
+Now that you are succesfully signed in, you *should*  be able to interact with parts of the application that are gated behind the sign-in. In our implementation, there are couple things that might need to be explained. Let's take a look at the corresponding file that does the actual testing (near the top of the file).
 
 #####ride-list.e2e-spec.ts 
 ```javascript
