@@ -10,6 +10,7 @@ import {AuthService} from "../auth.service";
 import {Ride} from "../rides/ride";
 import {RideListService} from "../rides/ride-list.service";
 
+
 @Component({
   selector: 'user-profile-component',
   templateUrl: 'user-profile.component.html',
@@ -22,10 +23,11 @@ export class UserProfileComponent implements OnInit {
   user: User;
   loggedId: string;
   public rides: Ride[];
+  public auth: AuthService;
 
   // Inject the UserListService into this component.
-  constructor(private route: ActivatedRoute, public userService: UserService, public rideListService: RideListService, public dialog: MatDialog) {
-
+  constructor(private route: ActivatedRoute, public userService: UserService, public rideListService: RideListService, public dialog: MatDialog, private authService: AuthService) {
+    this.auth = authService;
   }
 
   check(list: string[]): boolean {
@@ -138,7 +140,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   refreshUser(): void {
-    this.loggedId = AuthService.getUserId();
+    this.loggedId = this.auth.getUserId();
     this.route.params.subscribe(params => {
       const userId = params['userId'];
       this.userService

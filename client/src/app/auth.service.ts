@@ -22,11 +22,11 @@ export class AuthService implements CanActivate, OnInit{
     this.http = client;
   }
 
-  static getUserName(): string {
+  getUserName(): string {
     return gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getName();
   }
 
-  static getUserId(): string {
+  getUserId(): string {
     return gapi.auth2.getAuthInstance().currentUser.get().getId();
   }
 

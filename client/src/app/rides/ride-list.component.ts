@@ -214,8 +214,8 @@ export class RideListComponent implements OnInit {
 
   refreshRides(): Observable<Ride[]> {
     const rides: Observable<Ride[]> = this.rideListService.getRides();
-    this.loggedId = AuthService.getUserId();
-    this.loggedName = AuthService.getUserName();
+    this.loggedId = this.auth.getUserId();
+    this.loggedName = this.auth.getUserName();
     rides.subscribe(
       rides => {
         this.rides = rides;
@@ -251,12 +251,8 @@ export class RideListComponent implements OnInit {
     );
   }
 
-  initGapi(): void {
-    this.authService.loadClient();
-  }
 
   ngOnInit(): void {
-    this.initGapi();
     this.refreshRides();
     this.refreshUsers();
   }
