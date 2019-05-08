@@ -33,7 +33,10 @@ public class RideController {
     userCollection = database.getCollection("Users");
 
   }
-
+  //This code isn't used, but could be useful. We aren't going to test it (it is out of scope for our current project)
+  //We want to leave it here so you, dear contributor, can utilize it in ways we could not.
+  //Or so you can delete it later. That would be fine too.
+  /*
   Boolean userExists(String id){ //may not be useful at all, given that checking for the nullity of the access token should tell us whether the user exists
     FindIterable<Document> userDocs = userCollection.find(new Document("_id", id));
     Iterator<Document> iterator = userDocs.iterator();
@@ -58,13 +61,14 @@ public class RideController {
       return false;
     }
   }
-
+  */
   Boolean rideExists(String id){
-    FindIterable<Document> rideDocs = rideCollection.find(new Document("_id", id));
+    FindIterable<Document> rideDocs = rideCollection.find(new Document("_id", new ObjectId(id)));
     Iterator<Document> iterator = rideDocs.iterator();
+
     if (iterator.hasNext()) {
       //The ride exists
-      System.out.println("User unauthorized to delete");
+      System.out.println("Ride does exist");
       return true;
     }else {
       //The ride doesn't exist
@@ -89,14 +93,6 @@ public class RideController {
   String getRides(Map<String, String[]> queryParams) {
 
     Document filterDoc = new Document();
-
-    if (queryParams.containsKey("driver")) {
-      String targetContent = (queryParams.get("driver")[0]);
-      Document contentRegQuery = new Document();
-      contentRegQuery.append("$regex", targetContent);
-      contentRegQuery.append("$options", "i");
-      filterDoc = filterDoc.append("driver", contentRegQuery);
-    }
 
     if (queryParams.containsKey("driving")) {
       Boolean targetBool = Boolean.parseBoolean(queryParams.get("driving")[0]);
@@ -173,9 +169,11 @@ public class RideController {
         //As well as future implementation
         if (rideExists(objId.toHexString())) {
           //The ride exists, ideally we would return 403
+          System.out.println(403);
           return false;
         } else {
           //The ride does not exist, ideally we would return 404
+          System.out.println(404);
           return false;
         }
       }
@@ -190,7 +188,7 @@ public class RideController {
 
   Boolean updateRide(Document updatedRide){
     String idString = updatedRide.getString("_id");
-    Document filter = new Document("_id", new ObjectId(updatedRide.getString("_id")));
+    Document filter = new Document("_id", new ObjectId(idString));
     filter.append("ownerId", updatedRide.get("ownerId"));
     updatedRide.remove("_id");
     Document updateDoc = new Document("$set", updatedRide);
@@ -210,9 +208,11 @@ public class RideController {
         //As well as future implementation
         if(rideExists(idString)){
           //The ride exists, ideally we would return 403
+          System.out.println(403);
           return false;
         }else{
           //The ride does not exist, ideally we would return 404
+          System.out.println(404);
           return false;
         }
 
