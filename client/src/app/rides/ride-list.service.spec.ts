@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {Ride} from "./ride";
 import {RideListService} from "./ride-list.service";
 import {User} from "../users/user";
+import {AuthService} from "../auth.service";
 
 describe( 'Ride list service: ', () => {
   const testRides: Ride[] = [
@@ -95,8 +96,8 @@ describe( 'Ride list service: ', () => {
   //let searchUrl: string;
 
   let httpClient: HttpClient;
+  let authService: AuthService;
   let httpTestingController: HttpTestingController;
-
 
   beforeEach(() => {
 
@@ -107,7 +108,7 @@ describe( 'Ride list service: ', () => {
     httpClient = TestBed.get(HttpClient);
     httpTestingController = TestBed.get(HttpTestingController);
 
-    rideListService = new RideListService(httpClient);
+    rideListService = new RideListService(httpClient, authService);
   });
 
   afterEach(() => {
