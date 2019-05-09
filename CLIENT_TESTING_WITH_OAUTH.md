@@ -124,6 +124,16 @@ Additionally, the following may need to be in some of the beforeEach() clauses f
       }};
 ```
 
+In `ride-list-service.spec.ts`:
+```typescript
+    httpClient = TestBed.get(HttpClient);
+    authService = TestBed.get(AuthService);
+    httpTestingController = TestBed.get(HttpTestingController);
+
+    rideListService = new RideListService(httpClient, authService);
+```
+
+
 
 
 
