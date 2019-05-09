@@ -30,22 +30,16 @@ You can do this now, or save it for after you have brought a domain name.
 After you add a site, it will ask you to select a plan. Choose the Free one, $0/month. Then they will show a DNS table 
 (type, name, value, etc.) with three entries. You probably want to delete these. Then you should add an entry like this: 
 
-Type: A
- 
-Name: yourdomain.com 
-
-Value: your droplet IP address without a port 
-
-TTL: Automatic 
+Type: A  
+Name: yourdomain.com  
+Value: your droplet IP address without a port  
+TTL: Automatic
 
 ALSO: Add another record with these settings:
 
-Type: A 
-
-Name: www
-
-Value: your droplet IP address without a port 
-
+Type: A  
+Name: www  
+Value: your droplet IP address without a port   
 TTL: Automatic  
 
 Now CloudFlare will suggest that you change the pointers to your nameservers. 
