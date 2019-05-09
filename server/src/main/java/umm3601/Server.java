@@ -6,6 +6,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.util.JSON;
+import org.bson.Document;
 import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
@@ -20,6 +21,7 @@ import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
 import java.io.InputStream;
+import java.util.Collections;
 
 
 public class Server {
@@ -34,10 +36,11 @@ public class Server {
     MongoClient mongoClient = new MongoClient();
     MongoDatabase database = mongoClient.getDatabase(databaseName);
 
+    GoogleAuth gauth = new GoogleAuth(database);
     RideController rideController = new RideController(database);
-    RideRequestHandler rideRequestHandler = new RideRequestHandler(rideController);
+    RideRequestHandler rideRequestHandler = new RideRequestHandler(rideController, gauth);
     UserController userController = new UserController(database);
-    UserRequestHandler userRequestHandler = new UserRequestHandler(userController);
+    UserRequestHandler userRequestHandler = new UserRequestHandler(userController, gauth);
 
     //Configure Spark
     port(serverPort);
@@ -86,6 +89,8 @@ public class Server {
 
     // User Endpoints ///////////////////////////////////
     /////////////////////////////////////////////////////
+    //These user endpoints have not been secured.
+
     get("api/users", userRequestHandler::getUsers);
     get("api/user/:id", userRequestHandler::getUserJSON);
     post("api/user/editProfile", userRequestHandler::editUserProfile);
@@ -120,6 +125,8 @@ public class Server {
       return "Sorry, we couldn't find that!";
     });
   }
+
+
 
   // Enable GZIP for all responses
   private static void addGzipHeader(Request request, Response response) {

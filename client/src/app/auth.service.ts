@@ -30,6 +30,10 @@ export class AuthService implements CanActivate, OnInit{
     return gapi.auth2.getAuthInstance().currentUser.get().getId();
   }
 
+  getIdToken(): string {
+    return gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token;
+  }
+
   signIn() {
     console.log("Signing in");
     console.log("gapi " + gapi.toString());

@@ -1,18 +1,22 @@
 package umm3601.ride;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import spark.Request;
 import spark.Response;
+import umm3601.GoogleAuth;
 
 import java.util.List;
 
 public class RideRequestHandler {
 
   private final RideController rideController;
+  private final GoogleAuth gauth;
 
-  public RideRequestHandler(RideController rideController) {
+  public RideRequestHandler(RideController rideController, GoogleAuth gauth) {
     this.rideController = rideController;
+    this.gauth = gauth;
   }
 
   /**
@@ -93,73 +97,98 @@ public class RideRequestHandler {
   public String addNewRide(Request req, Response res) {
     res.type("application/json");
 
+    GoogleIdToken token = gauth.auth(req);
+
     Document newRide = Document.parse(req.body());
 
-    String driver = newRide.getString("driver");
-    String destination = newRide.getString("destination");
-    String origin = newRide.getString("origin");
-    Boolean roundTrip = newRide.getBoolean("roundTrip");
-    Boolean driving = newRide.getBoolean("driving");
-    String departureDate = newRide.getString("departureDate");
-    String departureTime = newRide.getString("departureTime");
-    String mpg = newRide.getString("mpg");
-    String notes = newRide.getString("notes");
-    List<String> riderList = newRide.getList("riderList", String.class);
-    String numSeats = newRide.getString("numSeats");
-    String ownerId;
-    if(newRide.containsKey("ownerId")){
-      ownerId = newRide.getString("ownerId");
-    }else{
-      ownerId = new ObjectId().toHexString();
+    Document rideInfo = new Document();
+
+    rideInfo.append("destination", newRide.getString("destination"));
+    rideInfo.append("origin", newRide.getString("origin"));
+    rideInfo.append("roundTrip", newRide.getBoolean("roundTrip"));
+    rideInfo.append("departureDate", newRide.getString("departureDate"));
+    rideInfo.append("departureTime", newRide.getString("departureTime"));
+    String seats = newRide.getString("numSeats");
+    if (seats != null && ! seats.isEmpty()) {
+      int numSeats = Integer.parseInt(seats);
+      rideInfo.append("numSeats", numSeats);
+    } else {
+      newRide.append("numSeats", null);
     }
+    String mpg = newRide.getString("mpg");
+    if (mpg != null && ! mpg.isEmpty()) {
+      int mpgInt = Integer.parseInt(mpg);
+      rideInfo.append("mpg", mpgInt);
+    } else {
+      newRide.append("mpg", null);
+    }
+    rideInfo.append("notes", newRide.getString("notes"));
+    rideInfo.append("riderList", newRide.getList("riderList", String.class));
+    rideInfo.append("ownerId", gauth.getUserMongoId(token));
 
-
-    System.err.println("Adding new ride [driver=" + driver + " ownerId=" + ownerId + " destination=" + destination + " origin=" + origin + " roundTrip=" + roundTrip + " driving=" + driving + " departureDate=" + departureDate + " departureTime=" + departureTime + " mpg=" + mpg + " notes=" + notes + ']');
-    return rideController.addNewRide(driver, destination, origin, roundTrip, driving, departureDate, departureTime, mpg, notes, ownerId, riderList, numSeats);
+    return rideController.addNewRide(rideInfo);
   }
 
   public Boolean updateRide(Request req, Response res) {
     res.type("application/json");
-
-    Document editRide = Document.parse(req.body());
-
-    String id = editRide.getObjectId("_id").toHexString();
-    String driver = editRide.getString("driver");
-    String destination = editRide.getString("destination");
-    String origin = editRide.getString("origin");
-    Boolean roundTrip = editRide.getBoolean("roundTrip");
-    Boolean driving = editRide.getBoolean("driving");
-    String departureDate = editRide.getString("departureDate");
-    String departureTime = editRide.getString("departureTime");
-    String mpg = editRide.getString("mpg");
-    String notes = editRide.getString("notes");
-    String numSeats = editRide.getString("numSeats");
-
-
-    System.err.println("Editing ride [id=" + id + " driver=" + driver + " destination=" + destination + " origin=" + origin + " roundTrip=" + roundTrip + " driving=" + driving + " departureDate=" + departureDate + " departureTime=" + departureTime + " notes=" + notes + ']');
-    return rideController.updateRide(id, driver, destination, origin, roundTrip, driving, departureDate, departureTime, mpg, notes, numSeats);
+    System.out.println(req.body());
+    GoogleIdToken token = gauth.auth(req);
+    Document updatedRide = Document.parse(req.body());
+    System.out.println(updatedRide);
+    Document rideInfo = new Document();
+    rideInfo.append("_id", updatedRide.getObjectId("_id").toHexString());
+    rideInfo.append("destination", updatedRide.getString("destination"));
+    rideInfo.append("origin", updatedRide.getString("origin"));
+    rideInfo.append("roundTrip", updatedRide.getBoolean("roundTrip"));
+    rideInfo.append("departureDate", updatedRide.getString("departureDate"));
+    rideInfo.append("departureTime", updatedRide.getString("departureTime"));
+    String seats = updatedRide.getString("numSeats");
+    if (seats != null && ! seats.isEmpty()) {
+      int numSeats = Integer.parseInt(seats);
+      rideInfo.append("numSeats", numSeats);
+    } else {
+      updatedRide.append("numSeats", null);
+    }
+    String mpg = updatedRide.getString("mpg");
+    if (mpg != null && ! mpg.isEmpty() && ! mpg.equals("undefined")) {
+      int mpgInt = Integer.parseInt(mpg);
+      rideInfo.append("mpg", mpgInt);
+    } else {
+      updatedRide.append("mpg", null);
+    }
+    rideInfo.append("notes", updatedRide.getString("notes"));
+    rideInfo.append("riderList", updatedRide.getList("riderList", String.class));
+    rideInfo.append("ownerId", gauth.getUserMongoId(token));
+    System.err.println("Editing ride [id="+ updatedRide.getObjectId("_id").toHexString() + ']');
+    return rideController.updateRide(rideInfo);
   }
 
   public Boolean deleteRide(Request req, Response res){
     res.type("application/json");
+    GoogleIdToken token = gauth.auth(req);
+    if(token == null){
+      return false;
+    } else {
+      String userId = token.getPayload().getSubject();
+      String userMongoId = gauth.getUserMongoId(userId);
+      if(userMongoId == null){ //Will this ever happen? Given that access tokens are unique to our app, if an access token is not null, we should have a user (and associated mongo id) that goes with it
+        return false;
+      }
 
-    Document deleteRide = Document.parse(req.body());
-
-    String id = deleteRide.getString("_id");
-    System.err.println("Deleting ride id=" + id);
-    return rideController.deleteRide(id);
+      Document deleteRide = Document.parse(req.body());
+      String rideId = deleteRide.getString("_id");
+      System.err.println("Deleting ride id=" + rideId);
+      return rideController.deleteRide(rideId, userMongoId);
+    }
   }
 
   public Boolean addRider(Request req, Response res) {
     res.type("application/json");
-
-    Document addedRider = Document.parse(req.body());
-
-    String id = addedRider.getObjectId("_id").toHexString();
-    List<String> riderList = addedRider.getList("riderList", String.class);
-    String newRider = riderList.get(riderList.size() - 1);
-    Integer numSeats = addedRider.getInteger("numSeats");
-    System.out.println("ride id: " + id + " riderList: " + riderList + " newRiderUserId: " + newRider + " numSeats: " + numSeats);
-    return rideController.addRider(id, riderList, newRider, numSeats);
+    Document body = Document.parse(req.body());
+    System.out.println(body);
+    GoogleIdToken token = gauth.auth(body);
+    String name = gauth.getName(body);
+    String id = gauth.getUserMongoId(token);
+    return rideController.addRider(body.getString("rideId"), id,name);
   }
 }

@@ -4,13 +4,16 @@ import {Observable} from 'rxjs/Observable';
 import {environment} from '../../environments/environment';
 import {Ride} from "./ride";
 import {User} from "../users/user"
+import {AuthService} from "../auth.service";
 
 @Injectable()
 export class RideListService {
   readonly baseUrl: string = environment.API_URL + 'rides';
   private rideUrl: string = this.baseUrl;
+  private auth: AuthService;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService) {
+    this.auth = authService;
   }
 
   getRides(rideDriving?: string): Observable<Ride[]> {
@@ -71,7 +74,7 @@ export class RideListService {
     this.rideUrl = this.rideUrl.substring(0, start) + this.rideUrl.substring(end);
   }
 
-  addNewRide(newRide: Ride): Observable<string> {
+  addNewRide(newRide: any): Observable<string> {
     const httpOptions = {
       headers: new HttpHeaders({
         // We're sending JSON
@@ -82,31 +85,34 @@ export class RideListService {
       // so we know how to find/access that ride again later.
       responseType: 'text' as 'json'
     };
+    newRide.idtoken = this.auth.getIdToken();
 
     // Send post request to add a new ride with the ride data as the body with specified headers.
     return this.http.post<string>(this.rideUrl + '/new', newRide, httpOptions);
   }
 
-  editRide(editedRide: Ride): Observable<string> {
+  editRide(editedRide: any): Observable<string> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
       responseType: 'text' as 'json'
     };
-
+    editedRide.idtoken = this.auth.getIdToken();
     return this.http.post<string>(this.rideUrl + '/update', editedRide, httpOptions);
   }
 
-  joinRide(joinedRide: Ride): Observable<string> {
+  joinRide(joinedRide: any): Observable<string> { //is there a less janky way of putting idtoken in the request than letting joinedRide: any?
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
       responseType: 'text' as 'json'
     };
-
-    return this.http.post<string>(this.rideUrl + '/addRider', joinedRide, httpOptions);
+    let document: any = {};
+    document.rideId = joinedRide;
+    document.idtoken = this.auth.getIdToken();
+    return this.http.post<string>(this.rideUrl + '/addRider', document, httpOptions);
   }
 
   deleteRide(deleteId: String): Observable<string> {
@@ -116,8 +122,10 @@ export class RideListService {
       }),
       responseType: 'text' as 'json'
     };
-    let deleteDoc: string = "{ \"_id\": \"" + deleteId + "\"}";
-
+    let deleteDoc: Object = new Object({
+      _id: deleteId,
+      idtoken: this.auth.getIdToken(),
+    });
     return this.http.post<string>(this.rideUrl + '/remove', deleteDoc, httpOptions);
   }
 
