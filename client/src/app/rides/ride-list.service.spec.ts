@@ -6,7 +6,6 @@ import {Ride} from "./ride";
 import {RideListService} from "./ride-list.service";
 import {User} from "../users/user";
 import {AuthService} from "../auth.service";
-import {Router} from "@angular/router";
 
 describe( 'Ride list service: ', () => {
   let authServiceStub: {
@@ -108,7 +107,7 @@ describe( 'Ride list service: ', () => {
   beforeEach(() => {
 
     authServiceStub = {
-      getIdToken: () => "111111",
+      getIdToken: () => "abc123",
       gapi: ""
     };
 
