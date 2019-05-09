@@ -171,7 +171,7 @@ public class RideRequestHandler {
     } else {
       String userId = token.getPayload().getSubject();
       String userMongoId = gauth.getUserMongoId(userId);
-      if(userMongoId == null){
+      if(userMongoId == null){ //Will this ever happen? Given that access tokens are unique to our app, if an access token is not null, we should have a user (and associated mongo id) that goes with it
         return false;
       }
 
@@ -184,14 +184,11 @@ public class RideRequestHandler {
 
   public Boolean addRider(Request req, Response res) {
     res.type("application/json");
-
-    Document addedRider = Document.parse(req.body());
-
-    String id = addedRider.getObjectId("_id").toHexString();
-    List<String> riderList = addedRider.getList("riderList", String.class);
-    String newRider = riderList.get(riderList.size() - 1);
-    Integer numSeats = addedRider.getInteger("numSeats");
-    System.out.println("ride id: " + id + " riderList: " + riderList + " newRiderUserId: " + newRider + " numSeats: " + numSeats);
-    return rideController.addRider(id, riderList, newRider, numSeats);
+    Document body = Document.parse(req.body());
+    System.out.println(body);
+    GoogleIdToken token = gauth.auth(body);
+    String name = gauth.getName(body);
+    String id = gauth.getUserMongoId(token);
+    return rideController.addRider(body.getString("rideId"), id,name);
   }
 }

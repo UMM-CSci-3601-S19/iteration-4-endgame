@@ -5,8 +5,14 @@ import {HttpClient} from '@angular/common/http';
 import {Ride} from "./ride";
 import {RideListService} from "./ride-list.service";
 import {User} from "../users/user";
+import {AuthService} from "../auth.service";
 
 describe( 'Ride list service: ', () => {
+  let authServiceStub: {
+    getIdToken: () => String,
+    gapi: any,
+  };
+
   const testRides: Ride[] = [
     {
       driver: 'Hagrid',
@@ -95,19 +101,28 @@ describe( 'Ride list service: ', () => {
   //let searchUrl: string;
 
   let httpClient: HttpClient;
+  let authService: AuthService;
   let httpTestingController: HttpTestingController;
-
 
   beforeEach(() => {
 
+    authServiceStub = {
+      getIdToken: () => "abc123",
+      gapi: ""
+    };
+
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule]
+      imports: [HttpClientTestingModule],
+      providers: [
+        {provide: AuthService, useValue: authServiceStub},
+      ]
     });
 
     httpClient = TestBed.get(HttpClient);
+    authService = TestBed.get(AuthService);
     httpTestingController = TestBed.get(HttpTestingController);
 
-    rideListService = new RideListService(httpClient);
+    rideListService = new RideListService(httpClient, authService);
   });
 
   afterEach(() => {

@@ -102,15 +102,17 @@ export class RideListService {
     return this.http.post<string>(this.rideUrl + '/update', editedRide, httpOptions);
   }
 
-  joinRide(joinedRide: Ride): Observable<string> {
+  joinRide(joinedRide: any): Observable<string> { //is there a less janky way of putting idtoken in the request than letting joinedRide: any?
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
       responseType: 'text' as 'json'
     };
-
-    return this.http.post<string>(this.rideUrl + '/addRider', joinedRide, httpOptions);
+    let document: any = {};
+    document.rideId = joinedRide;
+    document.idtoken = this.auth.getIdToken();
+    return this.http.post<string>(this.rideUrl + '/addRider', document, httpOptions);
   }
 
   deleteRide(deleteId: String): Observable<string> {

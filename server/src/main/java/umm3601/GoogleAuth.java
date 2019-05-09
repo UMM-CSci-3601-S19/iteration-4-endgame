@@ -55,6 +55,11 @@ public class GoogleAuth {
   public String getEmail(String token){
     return auth(token).getPayload().getEmail();
   }
+
+  public String getName(Request req){
+    return getName(Document.parse(req.body()));
+  }
+  public String getName(Document body) { return getName(body.getString("idtoken"));}
   public String getName(String token){
     return (String) auth(token).getPayload().get("name");
   }

@@ -33,13 +33,42 @@ public class RideController {
     userCollection = database.getCollection("Users");
 
   }
+  //This code isn't used, but could be useful. We aren't going to test it (it is out of scope for our current project)
+  //We want to leave it here so you, dear contributor, can utilize it in ways we could not.
+  //Or so you can delete it later. That would be fine too.
+  /*
+  Boolean userExists(String id){ //may not be useful at all, given that checking for the nullity of the access token should tell us whether the user exists
+    FindIterable<Document> userDocs = userCollection.find(new Document("_id", id));
+    Iterator<Document> iterator = userDocs.iterator();
+    if (iterator.hasNext()) {
+      //The user exists
+      return true;
+    }else {
+      //The user doesn't exist
+      return false;
+    }
+  }
 
+  Boolean userMatchesRide(String rideId, String userId){
+    Document matchDoc = new Document();
+    matchDoc.append("_id", new ObjectId(rideId));
+    matchDoc.append("ownderId", userId);
+    FindIterable<Document> matchDocs = rideCollection.find(matchDoc);
+    Iterator<Document> iterator = matchDocs.iterator();
+    if (iterator.hasNext()){
+      return true;
+    } else {
+      return false;
+    }
+  }
+  */
   Boolean rideExists(String id){
-    FindIterable<Document> rideDocs = rideCollection.find(new Document("_id", id));
+    FindIterable<Document> rideDocs = rideCollection.find(new Document("_id", new ObjectId(id)));
     Iterator<Document> iterator = rideDocs.iterator();
+
     if (iterator.hasNext()) {
       //The ride exists
-      System.out.println("User unauthorized to delete");
+      System.out.println("Ride does exist");
       return true;
     }else {
       //The ride doesn't exist
@@ -65,14 +94,6 @@ public class RideController {
 
     Document filterDoc = new Document();
 
-    if (queryParams.containsKey("driver")) {
-      String targetContent = (queryParams.get("driver")[0]);
-      Document contentRegQuery = new Document();
-      contentRegQuery.append("$regex", targetContent);
-      contentRegQuery.append("$options", "i");
-      filterDoc = filterDoc.append("driver", contentRegQuery);
-    }
-
     if (queryParams.containsKey("driving")) {
       Boolean targetBool = Boolean.parseBoolean(queryParams.get("driving")[0]);
       filterDoc = filterDoc.append("driving", targetBool);
@@ -84,12 +105,14 @@ public class RideController {
     return serializeIterable(ridesWithUsers);
   }
 
+  //This code is untested because it is a part of user profiles, which we decided was out of scope for our security group's iteration
   String getUserRides(String userId) {
 
     System.out.println("We are attempting to gather results");
 
     BasicDBObject orQuery = new BasicDBObject();
     List<BasicDBObject> params = new ArrayList<BasicDBObject>();
+
     params.add(new BasicDBObject("ownerId", getStringField(userId, "_id")));
     params.add(new BasicDBObject("riderList", getStringField(userId, "name")));
     orQuery.put("$or", params);
@@ -148,9 +171,11 @@ public class RideController {
         //As well as future implementation
         if (rideExists(objId.toHexString())) {
           //The ride exists, ideally we would return 403
+          System.out.println(403);
           return false;
         } else {
           //The ride does not exist, ideally we would return 404
+          System.out.println(404);
           return false;
         }
       }
@@ -165,7 +190,7 @@ public class RideController {
 
   Boolean updateRide(Document updatedRide){
     String idString = updatedRide.getString("_id");
-    Document filter = new Document("_id", new ObjectId(updatedRide.getString("_id")));
+    Document filter = new Document("_id", new ObjectId(idString));
     filter.append("ownerId", updatedRide.get("ownerId"));
     updatedRide.remove("_id");
     Document updateDoc = new Document("$set", updatedRide);
@@ -185,9 +210,11 @@ public class RideController {
         //As well as future implementation
         if(rideExists(idString)){
           //The ride exists, ideally we would return 403
+          System.out.println(403);
           return false;
         }else{
           //The ride does not exist, ideally we would return 404
+          System.out.println(404);
           return false;
         }
 
@@ -214,9 +241,9 @@ public class RideController {
     return ridesWithUsers;
   }
 
+  //This code is untested because it is a part of user profiles, which we decided was out of scope for our security group's iteration
   private String getStringField(String userId, String field) {
     FindIterable<Document> jsonRides = userCollection.find(eq("userId", userId)); //this userId is probably a mongo object id and not a google subject thing
-
     Iterator<Document> iterator = jsonRides.iterator();
     if (iterator.hasNext()) {
       String fieldInfo;
@@ -233,25 +260,19 @@ public class RideController {
     return "User Not Found";
   }
 
-  Boolean addRider(String id, List<String> riderList, String newRider, Integer numSeats) {
-    ObjectId objId = new ObjectId(id);
+  Boolean addRider(String rideId, String riderId, String riderName) {
+    ObjectId objId = new ObjectId(rideId);
     Document filter = new Document("_id", objId);
-    Document updateFields = new Document();
-
-    newRider = getStringField(newRider, "name");
-    System.out.println("adding " + newRider + " to the ride");
-
-    riderList.set(riderList.size()-1, newRider);
-
-    System.out.println(riderList);
-
-    updateFields.append("riderList", riderList);
-    updateFields.append("numSeats", numSeats);
-
-    Document updateDoc = new Document("$set", updateFields);
-
+    //Cannot check this because the riderList only stores names.
+    //filter.append("riderList", "{$not: '" + newRiderId +"' }");
+    filter.append("ownerId", new Document("$not", new Document("$eq", riderId)));
+    Document updateDoc = new Document();
+    updateDoc.append("$push", new Document("riderList", riderName));
     try{
+      System.out.println(filter);
+      System.out.println(updateDoc);
       UpdateResult out = rideCollection.updateOne(filter, updateDoc);
+      System.out.println(out);
       //returns false if no documents were modified, true otherwise
       return out.getModifiedCount() != 0;
     }catch(MongoException e){
