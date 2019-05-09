@@ -1,4 +1,3 @@
-/*
 import {AppPage} from './app.po';
 
 describe('Mo-Ride', () => {
@@ -12,4 +11,3 @@ describe('Mo-Ride', () => {
     page.navigateTo();
   });
 });
-*/
