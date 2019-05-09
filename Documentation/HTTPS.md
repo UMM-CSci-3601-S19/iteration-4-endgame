@@ -8,6 +8,7 @@ There are multiple options, and differing levels of involvement for you as a dev
 
 HyperText Transfer Protocol(HTTP) is how information is sent between the user’s browser and the website they are visiting. 
 HTTPS is simply, HyperText Transfer Protocol Secure, encrypts the information making a user’s visit to your website more secure.
+
 ![httpsURLPop](./images/httpsURLPop.png)
 
 #### CloudFlare
