@@ -1,3 +1,4 @@
+/*
 import {UserPage} from './user-profile.po';
 import {browser, protractor, element, by} from 'protractor';
 import {Key} from 'selenium-webdriver';
@@ -98,3 +99,4 @@ describe('User List', () => {
     return exp1 && exp2 && exp3;
   });
 });
+*/
