@@ -26,9 +26,9 @@ Search for your desired domain name and buy one. This domain might not be used b
 
 Create a CloudFlare account. After entering your email and password, they will ask you for your website name. 
 You can do this now, or save it for after you have brought a domain name. 
-(If you choose to do this step later, you can add a site to your cloudflare account by clicking the blue “Add site button” on the homage page after logging in).  
+(If you choose to do this step later, you can add a site to your CloudFlare account by clicking ![addSite](./images/addSite.png) on the homage page after logging in).  
 After you add a site, it will ask you to select a plan. Choose the Free one, $0/month. Then they will show a DNS table 
-(type, name, value, etc.) with three entries. You probably want to delete these. Then you should add an entry like this: 
+(type, name, value, etc.) with three entries. You  want to delete these. Then you should add an entry like this: 
 
 *Type: A*  
 *Name: yourdomain.com*  
@@ -47,35 +47,38 @@ Please take note of the values suggested, as you will need these in the near fut
 
 Our’s looked like this:
 
-graham.ns.cloudflare.com
-zita.ns.cloudflare.com
+*graham.ns.cloudflare.com*  
+*zita.ns.cloudflare.com*
 
-If you use GoDaddy, Cloudflare should walk you through the process of replacing the nameservers on your domain host with Cloudflare nameservers. 
-If you use another domainhost (like NameCheap, HostGator, etc), go to their website, log in, and look under Custom DNS, usually under Domain or DNS tabs. 
-Proceed to replace the default values with the cloudflare one above.
+**You can always find all these in the ![DNSTab](./images/DNSTab.png) from CloudFlare Home Page**
+
+
+If you use GoDaddy, CloudFlare should walk you through the process of replacing the name servers on your domain host with CloudFlare name servers. 
+If you use another domain host (like NameCheap, HostGator, etc), go to their website, log in, and look under Custom DNS, usually under Domain or DNS tabs. 
+Proceed to replace the default values with the CloudFlare one above.
 
 Add your website, https://yourdomain.com, to Google Developer console under Authorized JavaScript origins and Authorized redirect URIs. 
 Notice, it’s https not http.
 
-Go to the Crypto tab on CloudFlare and scroll down to “always use HTTPS” and turn it on. 
+Go to the ![CryptoTab](./images/Cryptotab.png) on CloudFlare and scroll down to “always use HTTPS” and turn it on. 
 Normally, just typing in your website will redirect to the http version of the website which Google Login Button is not a fan of, but turning this on redirects all traffic to your website to the https version.
-This is important, so customers don’t accidently visit your http version of website and have trouble with the google sign in object.
+This is important, so customers don’t accidentally visit your http version of website and have trouble with the google sign in object.
 
 
 #### Drawbacks of using CloudFlare
 
 
-CloudFlare encrypts the connection between your client and cloudflare, but the information going between Cloudflare and your server is NOT ENCRYPTED. 
-This might not be a big deal, since this connection is probably hard to find and exploit (our project used Cloudflare). However, this is still a weakness. 
+CloudFlare encrypts the connection between your client and CloudFlare, but the information going between CloudFlare and your server is NOT ENCRYPTED. 
+This might not be a big deal, since this connection is probably hard to find and exploit (our project used CloudFlare). However, this is still a weakness. 
 No matter how remote or difficult to exploit the connection, this problem still means the information is not secure.
 
 
 CloudFlare does have a Full SSL option (in contrast to the previously described implementation, which uses the Flexible SSL), but this requires you to configure your own web server for SSL instead of just making a DNS change. 
-Other problems include slower loading times (User have to go through Cloudflare before they get to your site). 
+Other problems include slower loading times (User have to go through CloudFlare before they get to your site). 
 
 
 
-Other problems include slower loading times (User have to go through Cloudflare before they get to your site). 
+Other problems include slower loading times (User have to go through CloudFlare before they get to your site). 
 
 ……………………..
 
