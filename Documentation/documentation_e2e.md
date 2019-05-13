@@ -29,7 +29,7 @@ Most of the work is performed by two methods inside of our 'ride-list.po.ts' tes
 1. get_username_and_password()... and
 2. logIn()
 
-Let's take a look at get_username_and_password() first.
+First, let's take a look at get_username_and_password().
 
 ##### ride-list.po.ts (get_username_and_password)
 ```javascript
@@ -64,7 +64,7 @@ export class RidePage {
 
 There's alot happening here. First, notice the 'let' variables declared before the export class block. The 'fs' library allows us to get the information we need from our .json file. We also declared a 'secretObject' (which will be used soon), as well as 'username' and 'password'... (can you guess what we're using those for?)
 
-Going into the export class block, we have our first method 'get_username_and_password()'. It uses 'fs' immediately to access the file containing our login information. The readFile method takes two arguments: The first is the *directory* (may be different in your case), and the second argument is a function to execute on the the returned 'data'. 
+Going into the export class block, we have our first method 'get_username_and_password()'. It uses 'fs' immediately to access the file containing our login information. The readFile method takes two arguments: The first is the *directory containing the credentials file* (may be different in your case), and the second argument is a function to execute on the 'data' retrieved from the file. 
 
 ##### ride-list.po.ts (get_username_and_password)
 ```javascript
@@ -125,7 +125,7 @@ this.get_username_and_password();
     this.click("signIn");
     ...
 ```
-Notice that the previously described function get_username_and_password() is called within*this*function. The next thing is browser.get('/') which just navigates to the home page, where the Google sign-in button is located. 
+Notice that the previously described function get_username_and_password() is called within*this*function. The next thing is browser.get('/') which just navigates Protractor to the home page, where the Google sign-in button is located. 
 
 We then call this.click("signIn"). You might not have this function in your corresponding po.ts test file. Feel free to 'steal' this function from our ride-list.po.ts file. Basically this function just highlights the button being pressed (in our case, it's a button with the id of "signIn"), so you get some helpful feedback about what the test code is doing while you watch the test. 
 
@@ -148,9 +148,9 @@ let handlesPromise = browser.driver.getAllWindowHandles();
             ...
 ```
 
-Clicking the Google sign-in button SHOULD open a separate window for you to enter your username and password. The problem is that our e2e test is focused on the first window. We can change that with browser.driver.getAllWindowHandles(). It returns a promise of all the windows that the test has opened, and the sign-in window should be handles[1]. We then call switchTo.window(signInHandle) to focus the test on the new window.
+Clicking the Google sign-in button SHOULD open a separate window for you to enter your username and password. The problem is that our e2e test is focused on the first window. We can change that with browser.driver.getAllWindowHandles(). It returns a Promise of all the windows that the test has opened, and the sign-in window should be handles[1]. We then call switchTo.window(signInHandle) to focus the test on the new window.
 
-If your Google sign-in is NOT opening a popup window, but redirecting the main window instead, you can change this (if you want). The gapi.auth.init method can take a configuration parameter called 'ux_mode'. Without explicitly specifying this parameter, the default value is 'popup'. You can change this using "ux_mode" = "redirect". If you're using redirect, just remove any code that has "browser.driver.switchTo()."
+*Note: If your Google sign-in is NOT opening a popup window, but redirecting the main window instead, you can change this (if you want). The gapi.auth.init method can take a configuration parameter called 'ux_mode'. Without explicitly specifying this parameter, the default value is 'popup'. You can change this using "ux_mode" = "redirect". If you're using redirect, just remove any code that has "browser.driver.switchTo()."*
 
 The next thing is small but very important:
 
@@ -191,7 +191,7 @@ browser.driver.switchTo().window(handles[0]);
 ````
 Again, if you're using ux_mode = redirect in the gapi.auth.init(), you should remove this code. 
 
-Now that you are succesfully signed in, you *should*  be able to interact with parts of the application that are gated behind the sign-in. In our implementation, there are couple things that might need to be explained. Let's take a look at the corresponding file that does the actual testing (near the top of the file).
+At the point the tests *should*  be able to interact with parts of the application that are gated behind the sign-in. In our implementation, there are couple things that might need to be explained. Let's take a look at the corresponding file that does the actual testing (near the top of the file).
 
 ##### ride-list.e2e-spec.ts 
 ```javascript
@@ -210,9 +210,9 @@ describe('Ride List', () => {
 ```
 The first 'describe' codeblock has a function called 'beforeAll'. This is similar to 'beforeEach', except that it only runs once for the 'describe' code block. This is so we don't try to log-in each time we run a test (since this should already be done) For additional information,[Brezeal is a good source](http://breazeal.com/blog/jasmineBefore.html).
 
-We create a new RidePage() (the object that has all of our important testing functions), and then we do logIn(). Recall that this function also calls the get_username_and_password function, so it's all rolled into one. 
+We create a new RidePage() (the object that has all of our important testing functions), and then we do logIn(). Recall that this function also calls the get_username_and_password function, so that get's done as well. 
 
-In our project, clicking on the 'MoRide' element was necessary before we could click on the 'meuButton' element to navigate around the app. In this case, your situation is likely different, so feel free to remove those two lines of code.
+In our project, clicking on the 'MoRide' element was necessary before we could click on the 'menuButton' element to navigate around the app. Your situation is likely different, so feel free to remove those two lines of code and replace it with something else.
 
 The browser.driver.sleep() code is just used to slow down the tests while we are watching at certain points. It may not be necessary in your case, but you may find it handy.
 
