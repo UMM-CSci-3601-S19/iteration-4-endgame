@@ -19,7 +19,7 @@ The test files need access to the test account’s username and password to log-
 }
 ```
 
-**Add this file to your gitIgnore!** If you accidentally push this file up to your repo, your credentials are not out there. Even if you delete that from the repo, the commit history will still have the file and its contents to show.
+**Add this file to your gitIgnore!** If you accidentally push this file up to your repo, your credentials are now out there for the world to see. Even if you delete that from the repo, the commit history will still have the file and its contents to show.
 
 Now that you've created a file containing your credentials, we will walk through the process that our e2e tests use to login via Google on our app. It may be helpful to have the actual files open while you read this documentation (they are all inside client/e2e). For your sake, each code block in this documentation will be introduced with the file name.
 
