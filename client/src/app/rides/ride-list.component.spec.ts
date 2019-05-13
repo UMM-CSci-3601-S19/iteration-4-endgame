@@ -407,7 +407,6 @@ describe('Adding a ride',()=> {
   let authServiceStub: {
     getUserId: () => String,
     getUserName: () => String,
-    // loadClient: () => null;
   };
 
   let mockMatDialog: {
@@ -432,7 +431,6 @@ describe('Adding a ride',()=> {
     authServiceStub = {
       getUserId: () => "MI6007",
       getUserName: () => "James Bond",
-      // loadClient: () => null
     };
 
     mockMatDialog = {
