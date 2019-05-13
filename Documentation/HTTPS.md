@@ -1,9 +1,5 @@
 ### Securing Your Website with HTTPS
 
-#### Options for Setting Up Encrypted Connections
-
-There are multiple options, and differing levels of involvement for you as a developer. While it is possible to set up HTTPS with your Spark server, you can also use CloudFlare.
-
 #### HTTP vs HTTPS
 
 HyperText Transfer Protocol(HTTP) is how information is sent between the user’s browser and the website they are visiting. 
@@ -11,11 +7,13 @@ HTTPS is simply, HyperText Transfer Protocol Secure, encrypts the information ma
 
 ![httpsURLPop](./images/httpsURLPop.png)
 
+#### Options for Setting Up Encrypted Connections
+
+There are multiple options, and differing levels of involvement for you as a developer. While it is possible to set up HTTPS with your Spark server, you can also use CloudFlare.
+
 #### CloudFlare
 
-Cloudflare is a content delivery network that secures your website (or web-app) with HTTPS for free. When the user makes a request on your site, that information
-has to make it to your servers, and back to the user. Cloudflare sits in the middle between the user and your servers, and ensures that the information between the user
-and Cloudflare is encrypted. 
+Cloudflare is a content delivery network that secures your website (or web-app) with HTTPS for free. When the user makes a request on your site, that information has to make it to your servers, and back to the user. Cloudflare sits in the middle between the user and your servers, and ensures that the information between the user and Cloudflare is encrypted. 
 
 #### Buying a Domain Name:
 
@@ -52,7 +50,6 @@ Our’s looked like this:
 
 **You can always find all these in the ![DNSTab](./images/DNSTab.png) from CloudFlare Home Page**
 
-
 If you use GoDaddy, CloudFlare should walk you through the process of replacing the name servers on your domain host with CloudFlare name servers. 
 If you use another domain host (like NameCheap, HostGator, etc), go to their website, log in, and look under Custom DNS, usually under Domain or DNS tabs. 
 Proceed to replace the default values with the CloudFlare one above.
@@ -82,14 +79,13 @@ Other problems include slower loading times (User have to go through CloudFlare 
 
 ……………………..
 
-####Spark Server and HTTPS
+#### Spark Server and HTTPS
 
-The current server we are using is Apache Spark 2.7.2… though Apache doesn’t keep documentation of previous versions of Spark. 
+If you wish to manually set up HTTPS between Cloudflare and your servier, it's possible. As of writing this documentation, the current server we are using is Apache Spark 2.7. Unfortunately, Apache only keeps documentation of it's current version of Spark (our's is outdated). 
+
 As of writing this, here are the current docs:
 
-
 http://sparkjava.com/documentation#secure
-
 
 And more….
 
@@ -103,7 +99,7 @@ From the second link…
 
 
 
-And for those who are lazy, some pseudo-code from the server…
+And for those who are lazy, some pseudo-code from the server file on GitHub…
 
 ```java
 Import static spark.SparkStuff;
