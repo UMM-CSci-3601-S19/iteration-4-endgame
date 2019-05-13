@@ -132,6 +132,9 @@ In `ride-list-service.spec.ts`:
 
     rideListService = new RideListService(httpClient, authService);
 ```
+Note that HttpClient and AuthService are wrapped in Testbed.get(), rather than being declared like a normal field without the 
+Testbed syntax. This is to ensure everything that everything your tests use are mocked, rather than your unit tests actually 
+instantiating a real component or service and subsequently mixing mocked and real methods together. 
 
 
 
