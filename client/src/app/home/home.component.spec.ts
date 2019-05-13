@@ -16,6 +16,11 @@ describe('Home', () => {
 
   beforeEach(() => {
 
+    window['gapi'] = {  //it will throw 'gapi is not defined' without this
+      load() {
+        return null;
+      }};
+
     TestBed.configureTestingModule({
       imports: [CustomModule, HttpClientModule, RouterTestingModule],
       declarations: [HomeComponent],
