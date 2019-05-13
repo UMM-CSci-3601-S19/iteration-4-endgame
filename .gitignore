@@ -76,4 +76,7 @@ gradle-app.setting
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
 
+# Where the refresh token will be stored for end to end testing Google OAuth
+googleSecrets.json
+
 # End of https://www.gitignore.io/api/java,angular,intellij+all,gradle

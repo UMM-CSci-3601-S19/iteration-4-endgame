@@ -98,24 +98,23 @@ export class RideListComponent implements OnInit {
     };
 
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = {ride: currentRide};
+    dialogConfig.data = {rideId: currentRide._id.$oid};
     dialogConfig.width = '500px';
 
     const dialogRef = this.dialog.open(JoinRideComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe(currentRide => {
-      if (currentRide != null) {//RideListComponent
-        currentRide.mpg = "" + currentRide.mpg;
-        this.rideListService.joinRide(currentRide._id.$oid).subscribe(
+    dialogRef.afterClosed().subscribe(rideId => {
+      if (rideId != null) {//RideListComponent
+        this.rideListService.joinRide(rideId).subscribe(
           result => {
-            this.highlightedDestination = result;
-            console.log("The result is " + result);
+
             this.refreshRides();
           },
           err => {
             console.log('There was an error joining the ride.');
-            console.log('The currentRide or dialogResult was ' + JSON.stringify(currentRide));
+            console.log('The currentRide or dialogResult was ' + JSON.stringify(rideId));
             console.log('The error was ' + JSON.stringify(err));
+            this.refreshRides();
           });
       }
     });

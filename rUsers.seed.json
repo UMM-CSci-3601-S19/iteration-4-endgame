@@ -1,6 +1,17 @@
 [
   {
     "_id": {
+      "$oid": "5cd3860d763e94452ea84c3f"
+    },
+    "userId": "105928423510576396374",
+    "name": "Dale Gribble",
+    "bio": "This user has not written anything",
+    "email": "testummcsci@gmail.com",
+    "totalReviewScore": 0,
+    "numReviews": 0
+  },
+  {
+    "_id": {
       "$oid": "5cb8bee09ab85ac5f581b03a"
     },
     "userId": "",

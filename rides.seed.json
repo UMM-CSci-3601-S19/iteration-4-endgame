@@ -1,5 +1,18 @@
 [
   {
+    "ownerId": "5cd3860d763e94452ea84c3f",
+    "destination": "Maplegrove",
+    "origin": "Debevoise Avenue",
+    "roundTrip": false,
+    "departureDate": "2020-05-08T05:00:00.000Z",
+    "departureTime": "01:00",
+    "driving": false,
+    "notes": "No pet allowed",
+    "mpg": 30,
+    "numSeats": 4,
+    "riderList": []
+  },
+  {
     "ownerId": "5cb8bee01dcce624e181efca",
     "destination": "Alexandria",
     "origin": "Debevoise Avenue",
