@@ -37,17 +37,20 @@ can be found ___ here ___.
 Once you've implemented Google authentication in your GoogleAuth class, you can use the same method to get a user's profile before
 handling other API requests from them. 
 
-__ auth photo somewhere __ 
 
 The same auth method used to authenticate logged in users can be called to turn their id token strings into GoogleIdToken objects.
 This is important as the object contains all of the information that we need, and the process of turning the string into a GoogleIdToken
 only succeeds if the request contains a truly logged in user.
 
+![auth Photo](./images/auth.png)
+
+
 In some cases, it will be enough to know the user is logged in, and your authentication is complete, such as when you're adding a new ride to the database.
 However, when editing or deleting rides, you will need to know that the user not only exists, but owns the ride they are trying to change. To do this, we have the 
 getUserMongoId Method in our GoogleAuth class. This allows us to turn the userId in the GoogleIdToken object into a mongo user id to make that comparison. 
 
-__ usermongoid photo __
+![userMongoId Photo](./images/userMongoId.png)
+
 
 You can see this whole process through our delete ride endpoint.
 
@@ -55,6 +58,8 @@ When the request comes to the api/rides/remove endpoint, we expect a body contai
 We start by passing the request to the deleteRide method in our rideRequestHandler. There it first confirms the request contains a valid idtoken by verifying it through
 the aforementioned auth method in our GoogleAuth object, named gauth. if that token is valid, we then get the mongo userId associated with the user's idtoken though gauth.getUserMongoId(userId).
 We then pass these two things (the rideId and the user's MongoId) to the rideController.
+
+![deleteRequestHandler Photo](./images/reqhandler.png)
 
 The ride controller tries to find a ride with both the provided id and owner. If it does this, it deletes it, and returns a successful message (200) to the client.
 If it doesn't do this, it could have failed due to one of two reasons.
@@ -67,7 +72,7 @@ Our code does not do this, and instead returns a generic 500 error, but we have 
 
 Additionally, if the user's idtoken is invalid, the server should return a 401, unauthorized. This also doesn't happen, as status codes was out of scope for our iteration.
 
-
+![deleteController Photo](./images/controller.png)
 
 
 
