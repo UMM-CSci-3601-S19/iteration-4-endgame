@@ -24,7 +24,6 @@ export class AuthService implements CanActivate, OnInit{
 
   constructor(private client: HttpClient, public router: Router) {
     this.http = client;
-    this.loadClient();
   }
 
   getUserName(): string {

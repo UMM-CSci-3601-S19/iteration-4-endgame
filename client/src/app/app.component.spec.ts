@@ -12,6 +12,12 @@ describe('AppComponent', () => {
   let debugElement: DebugElement;
 
   beforeEach(() => {
+
+    window['gapi'] = {
+      load() {
+        return null;
+      }};
+
     TestBed.configureTestingModule({
       imports: [
         CustomModule,
