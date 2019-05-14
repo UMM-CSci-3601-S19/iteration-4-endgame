@@ -141,7 +141,7 @@ Note that HttpClient and AuthService are wrapped in Testbed.get(), rather than b
 Testbed syntax. This is to ensure everything that everything your tests use are mocked, rather than your unit tests actually 
 instantiating a real component or service and subsequently mixing mocked and real methods together. 
 
-If `'gapi is not defined'` is thrown by a test, it may need the following. The only time we have had an issue with it is in home.component.spec.ts, as home.component initializes gapi. [Credit to timray on Stack Overflow.](https://stackoverflow.com/a/52744361) 
+If `'gapi is not defined'` is thrown by a test, it may need the following. [Credit to timray on Stack Overflow.](https://stackoverflow.com/a/52744361) 
 
 ```typescript
     window['gapi'] = {
@@ -150,6 +150,19 @@ If `'gapi is not defined'` is thrown by a test, it may need the following. The o
       }};
 ```
 
+As they say on that thread, it adds gapi as a global variable to tests. Most tests have gapi included in some way or the other. Either
+they have loadClient() included in the stub or have gapi in the stub itself. Where it is slightly complicated at times is in home
+and app component tests.
+
+The only time we have had an issue with it and knew for sure it was needed in a test was is in home.component.spec.ts, as 
+home.component initializes gapi. It failed consistently without it. It would make sense that its tests would need gapi, and the 
+StackOverflow solution adds gapi to the tests without needing to import an entire AuthService stub. 
+
+The other place that it may questionably be needed is in app.component.spec.ts. One of our [builds failed](https://travis-ci.org/UMM-CSci-3601-S19/iteration-4-endgame/builds/532333200#L628) on the last day we had to make changes and it was related to that file. Since 
+then, a [commit](https://github.com/UMM-CSci-3601-S19/iteration-4-endgame/commit/a332e726d01a3d49779feff15f0aefe22c161182) changed 
+auth.service.ts by removing loadClient() from the constructor. That seemed to fix the tests in app.component.spec.ts, so much that 20 
+times the test ran in a row and they were consistent without needing the window trick. We deemed this as consistent enough. However, to 
+be safe we included the window['gapi'] solution too because app.component.ts also constructs AuthService. 
 
 
 
