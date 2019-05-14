@@ -1,4 +1,5 @@
-##Before we begin
+## Before we begin
+
 ![Client-Server](images/client-server.png)
 
 The above diagram gives us a rough outline of the process.
@@ -172,4 +173,4 @@ all of the user's information from Google, including their subject, which as an 
 These are three examples of how we get properties from the GoogleIdToken.
 
 
-To actually secure your endpoints and ensure that only the correct users can make requests, read the api lockdown documentation, also in this folder.
+To actually secure your endpoints and ensure that only the correct users can make requests, read the endpoint lockdown documentation, also in this folder.
