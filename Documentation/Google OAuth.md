@@ -1,7 +1,3 @@
-1. Getting Gapi
-2. Making a request to the server
-3. Handling the request
-
 ##Before we begin
 ![Client-Server](images/client-server.png)
 
