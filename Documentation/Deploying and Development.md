@@ -1,12 +1,40 @@
-# Google OAUTH: Deploying on Droplet
+# Google OAUTH: Deploying on Droplet and Running in Development
 
-## The Problem
+This document is about the neccisary steps to make your project work in deployment or development. This first part about modifying 
+`GoogleAuth.java` so it is relevant to both environments. Once that is done, only the remaining part of this document is relevant to 
+deployment.
+
+## Modifying `GoogleAuth.java`
+`GoogleAuth.java` needs your Google Developer Console's client_id. It already has ours, but you won't be using our credentials. Place your own client_id like so in the file:
+
+>cd ~     
+>cd your-repos-name-here/server/src/main/java/umm3601/    
+>nano GoogleAuth.java
+
+#### `GoogleAuth.java`
+```java
+public class GoogleAuth {
+  private static final String CLIENT_ID = "your_client_id_here";
+```  
+It is safe for this client_id to be published on GitHub. You can push up your `GoogleAuth.java` with this change to your repo and not have to change it ever again in either development or deployment.
+
+If you are the group member that set up your project's OUATH API, make sure you go to the "IAM & admin" panel in the Developer 
+Console and add all your group members as project owners so that anyone can retrieve this information or make changes as needed. 
+If you are reading this as a deploying member without access, bug your project's owner for this permission; in the meantime if you 
+really need to hit the ground running without the owner, nothing is stopping you from making your own Google API version of your 
+project for the moment. And whoever you are, ensure your next iteration group does all this sharing before any new code is written.
+
+## The Problem with Deployment
 Setting up Google OATH to work on localhost is already one big learning process, but using documentation from previous classes 
 ("Assumptions/Prerequisites") makes it viable. That said, that documentation is missing key steps to make Google OAUTH work on a Droplet. This guide builds upon the previous documentation and supplements it. 
 
-That said, there are two major issues with deploying to a Droplet. 
+That said, there are three major issues with deploying to a Droplet. 
 1. Megabittron's documentation is set as is for localhost information and not top level domain information.
-2. This version of Google OAuth as we implement it does not have a `credentials.json` file. This project only needs a client_id field one file.
+2. Megabittron's documentation constructs Google OAuth in `Server.java` but our implementation uses `Google Oauth.java`
+3. This version of Google OAuth as we implement it does not have a `credentials.json` file. This project only needs a client_id field one file.
+
+This documentation assumes you are using our exact setup of files as is. The following documentation is about things that need to be
+changed in deployment or when a new group with new Google OAuth credentials adopts the project. 
 
 ## Assumptions/Prerequisites
 * [Megabittron's Google OATH tutorial](https://github.com/UMM-CSci-3601-S18/iteration-4-megabittron/blob/master/Documentation/Secure%20Google%20Login/DocumentationForGoogleLogin.md)
@@ -32,20 +60,3 @@ Additionally, contrary to the Droplet Setup instructions, ssh into root@[your_ip
 ```java
   private static final int serverPort = 80;
 ```
-## Modifying `GoogleAuth.java`
-`GoogleAuth.java` needs your Google Developer Console's client_id. Place it like so in the file:
-
->cd ~     
->cd your-repos-name-here/server/src/main/java/umm3601/    
->nano GoogleAuth.java
-
-#### `GoogleAuth.java`
-```java
-public class GoogleAuth {
-  private static final String CLIENT_ID = "your_client_id_here";
-```  
-If you are the group member that set up your project's OUATH API, make sure you go to the "IAM & admin" panel in the Developer 
-Console and add all your group members as project owners so that anyone can retrieve this information or make changes as needed. 
-If you are reading this as a deploying member without access, bug your project's owner for this permission; in the meantime if you 
-really need to hit the ground running without the owner, nothing is stopping you from making your own Google API version of your 
-project for the moment. And whoever you are, ensure your next iteration group does all this sharing before any new code is written.
