@@ -3,35 +3,29 @@
 End-to-end tests are possible, even with the Google authentication implemented on your application. It seems intuitive that it should be against Google’s terms of service to use automated software to log-in and do things gated behind the authentication. We were not able to find evidence to support this, though an absence of evidence does NOT prove anything. However, there are two additional things that lead us to believe this is allowed.
 
 - There are plenty of people using automated software to login. 
-- On the GitHub forum, a Google employee responds to users who are trying to implement something similar to this. He basically uses puppeteer (which is similar to Protractor) to type a user and password (from a hidden json file) into the Google sign-in.  
+- On the GitHub forum, [a Google employee responds to users who are trying to implement something similar to this.](https://github.com/googleapis/google-auth-library-nodejs/issues/225) He basically uses puppeteer (which is similar to Protractor) [to type a user and password (from a hidden json file) into the Google sign-in.](https://github.com/googleapis/google-auth-library-nodejs/pull/265/commits/6ac5d70c63ecc9ef22879fc7065671e9a436fb29#diff-5bf166de4727438cac7ca358547c5212R30)  
 
-[here's the original thread](https://github.com/googleapis/google-auth-library-nodejs/issues/225)  
-[and here's the Google employee's code example](https://github.com/googleapis/google-auth-library-nodejs/pull/265)
+The test files need access to the test account’s (DO NOT USE ANY PERSON'S REAL GOOGLE ACCOUNT AS A TEST ACCOUNT) username and password to log-in. These need to be sent to the appropriate input fields on the Google log-in page. **DO NOT PLACE YOUR USERNAME AND PASSWORD INTO THE CODE!** Instead, you should have these inside a seperate file. **Add this file to your gitIgnore!** If you accidentally push this file up to your repo, your credentials are now out there for the world to see. Even if you delete that from the repo, the commit history will still have the file and its contents to show. You may wish to make this a JSON file to match our exmample. We put the file directly into our e2e test directory and it looks like this:
 
-
-The test files need access to the test account’s username and password to log-in. These need to be sent to the appropriate input fields on the Google log-in page. **DO NOT PLACE YOUR USERNAME AND PASSWORD INTO THE CODE!!** Instead, you should have these inside a seperate file. You may wish to make this a JSON file to match our exmample. We put the file directly into our e2e test directory and it looks like this:
-
-##### googleSecrets.json
+#### `googleSecrets.json`
 ```
 {
-  "username": "ourGoogleUserName",
-  "password": "thisIsOurExamplePassWord"
+  "username": "ourTestGoogleUserName",
+  "password": "thisIsOurTestUsersExamplePassWord"
 }
 ```
 
-**Add this file to your gitIgnore!** If you accidentally push this file up to your repo, your credentials are now out there for the world to see. Even if you delete that from the repo, the commit history will still have the file and its contents to show.
-
-Now that you've created a file containing your credentials, we will walk through the process that our e2e tests use to login via Google on our app. It may be helpful to have the actual files open while you read this documentation (they are all inside client/e2e). For your sake, each code block in this documentation will be introduced with the file name.
+Now that you've created a file containing your test user's credentials, we will walk through the process that our e2e tests use to login via Google on our app. It may be helpful to have the actual files open while you read this documentation (they are all inside client/e2e). For your sake, each code block in this documentation will be introduced with the file name.
 
 
-Most of the work is performed by two methods inside of our 'ride-list.po.ts' test file. There are two important methods to know about: 
+Most of the work is performed by two methods inside of our `ride-list.po.ts` test file. There are two important methods to know about: 
 
-1. get_username_and_password()... and
+1. get_username_and_password()
 2. logIn()
 
 First, let's take a look at get_username_and_password().
 
-##### ride-list.po.ts (get_username_and_password)
+#### `ride-list.po.ts (get_username_and_password)`
 ```javascript
 
 let fs = require('fs');
@@ -66,7 +60,7 @@ There's alot happening here. First, notice the 'let' variables declared before t
 
 Going into the export class block, we have our first method 'get_username_and_password()'. It uses 'fs' immediately to access the file containing our login information. The readFile method takes two arguments: The first is the *directory containing the credentials file* (may be different in your case), and the second argument is a function to execute on the 'data' retrieved from the file. 
 
-##### ride-list.po.ts (get_username_and_password)
+#### `ride-list.po.ts (get_username_and_password)`
 ```javascript
 
 secretObject = data;
@@ -80,7 +74,7 @@ Inside THAT function, we assign the returned data to 'secretObject', and then us
 
 At this point we have our username and password ready to be used by the logIn() function.
 
-##### ride-list.po.ts (logIn)
+#### `ride-list.po.ts (logIn)`
 ```javascript
 
 logIn(): void {
@@ -116,7 +110,7 @@ logIn(): void {
 
 Once again, there is alot happening. Let's break it down. 
 
-##### ride-list.po.ts (logIn)
+##### `ride-list.po.ts (logIn)`
 ```javascript
 ...
 this.get_username_and_password();
@@ -125,7 +119,7 @@ this.get_username_and_password();
     this.click("signIn");
     ...
 ```
-Notice that the previously described function get_username_and_password() is called within*this*function. The next thing is browser.get('/') which just navigates Protractor to the home page, where the Google sign-in button is located. 
+Notice that the previously described function get_username_and_password() is called within *this* function. The next thing is browser.get('/') which just navigates Protractor to the home page, where the Google sign-in button is located. 
 
 We then call this.click("signIn"). You might not have this function in your corresponding po.ts test file. Feel free to 'steal' this function from our ride-list.po.ts file. Basically this function just highlights the button being pressed (in our case, it's a button with the id of "signIn"), so you get some helpful feedback about what the test code is doing while you watch the test. 
 
@@ -137,7 +131,7 @@ element(by.id("signIn")).click()
 
 Moving forward now...
 
-##### ride-list.po.ts (logIn)
+#### `ride-list.po.ts (logIn)`
 ```javascript
 ...
 let handlesPromise = browser.driver.getAllWindowHandles();
@@ -154,7 +148,7 @@ Clicking the Google sign-in button SHOULD open a separate window for you to ente
 
 The next thing is small but very important:
 
-##### ride-list.po.ts (logIn)
+#### `ride-list.po.ts (logIn)`
 ```javascript
 ...
     browser.waitForAngularEnabled(false);
@@ -164,7 +158,7 @@ The next thing is small but very important:
 When the e2e navigates away to something that isn't Angular related, it stops itself and breaks. We can prevent this behavior with the above line of code. This needs to be done before the test interacts with anything foreign.
 
 Now we can start interacting with the sign-in window.
-##### ride-list.po.ts (logIn)
+#### `ride-list.po.ts (logIn)`
 ```javascript
 ...
    element(by.id("identifierId")).sendKeys(username);
@@ -183,7 +177,7 @@ Again, this should come from a secret file. The 'username' and 'password' variab
 
 Finally, we switch back to our default window since we don't need the sign-in window anymore.
 
-##### ride-list.po.ts (logIn)
+#### `ride-list.po.ts (logIn)`
 ```javascript
 ...
 browser.driver.switchTo().window(handles[0]);
@@ -193,7 +187,7 @@ Again, if you're using ux_mode = redirect in the gapi.auth.init(), you should re
 
 At the point the tests *should*  be able to interact with parts of the application that are gated behind the sign-in. In our implementation, there are couple things that might need to be explained. Let's take a look at the corresponding file that does the actual testing (near the top of the file).
 
-##### ride-list.e2e-spec.ts 
+#### `ride-list.e2e-spec.ts`
 ```javascript
 ...
 describe('Ride List', () => {
@@ -208,21 +202,16 @@ describe('Ride List', () => {
   });
   ...
 ```
-The first 'describe' codeblock has a function called 'beforeAll'. This is similar to 'beforeEach', except that it only runs once for the 'describe' code block. This is so we don't try to log-in each time we run a test (since this should already be done) For additional information,[Brezeal is a good source](http://breazeal.com/blog/jasmineBefore.html).
+The first 'describe' codeblock has a function called 'beforeAll'. This is similar to 'beforeEach', except that it only runs once for the
+'describe' code block. This is so we don't try to log-in each time we run a test since this should already be done. For additional 
+information, [Brezeal is a good source.](http://breazeal.com/blog/jasmineBefore.html)
 
-We create a new RidePage() (the object that has all of our important testing functions), and then we do logIn(). Recall that this function also calls the get_username_and_password function, so that get's done as well. 
+We create a new RidePage() (the object that has all of our important testing functions), and then we do logIn(). Recall that this 
+function also calls the get_username_and_password function, so that get's done as well. 
 
-In our project, clicking on the 'MoRide' element was necessary before we could click on the 'menuButton' element to navigate around the app. Your situation is likely different, so feel free to remove those two lines of code and replace it with something else.
+In our project, clicking on the 'MoRide' element was necessary before we could click on the 'menuButton' element to navigate around the
+app. Your situation is likely different, so feel free to remove those two lines of code and replace it with something else.
 
-The browser.driver.sleep() code is just used to slow down the tests while we are watching at certain points. It may not be necessary in your case, but you may find it handy.
-
-
-
-
-
-
-
-
-
-
-
+The browser.driver.sleep() code is just used to slow down the tests while we are watching at certain points. This is sometimes necessary 
+as the e2e tests may at times work faster than a page can load certain elements that the tests are expecting. It may not be necessary 
+in your case, but you may find it handy.

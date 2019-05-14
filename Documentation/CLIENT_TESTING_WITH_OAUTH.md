@@ -127,14 +127,7 @@ and then use the values provided by the stub
   };
 ```
 
-Additionally, the following may need to be in some of the beforeEach() clauses for some tests. 
-
-```typescript
-    window['gapi'] = {
-      load() {
-        return null;
-      }};
-```
+Additionally, the following *may* need to be in some of the beforeEach() clauses for some tests:
 
 In `ride-list-service.spec.ts`:
 ```typescript
@@ -147,6 +140,15 @@ In `ride-list-service.spec.ts`:
 Note that HttpClient and AuthService are wrapped in Testbed.get(), rather than being declared like a normal field without the 
 Testbed syntax. This is to ensure everything that everything your tests use are mocked, rather than your unit tests actually 
 instantiating a real component or service and subsequently mixing mocked and real methods together. 
+
+If `'gapi is not defined'` is thrown by a test, it may need the following. The only time we have had an issue with it is in home.component.spec.ts, as home.component initializes gapi. [Credit to timray on Stack Overflow.](https://stackoverflow.com/a/52744361) 
+
+```typescript
+    window['gapi'] = {
+      load() {
+        return null;
+      }};
+```
 
 
 

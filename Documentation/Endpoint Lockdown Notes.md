@@ -1,6 +1,6 @@
-#Secruing API Endpoints
+# Secruing API Endpoints
 
-##The Problem
+## The Problem
 
 One source of security vulnerabilities in this project was the ability to send requests to the api without authentication.
 While the client would restrict activities that a user should not be able to do, such as not displaying the "delete ride"
@@ -22,7 +22,7 @@ To fix this, we will need to ensure two things
 
 2. The user is authorized to perform this action
 
-##The Solution
+## The Solution
 
 First, we will address the issue with knowing that the user is logged in. This is done through communications with Google.
 We do this in the GoogleAuth.java class. Because we will be doing this in many different requests, it was a good idea to

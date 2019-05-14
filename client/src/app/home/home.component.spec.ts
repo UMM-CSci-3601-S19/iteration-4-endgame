@@ -16,12 +16,10 @@ describe('Home', () => {
 
   beforeEach(() => {
 
-    //Aymeric on Nov28,17 @ https://stackoverflow.com/questions/47540706/how-to-stub-google-gapi-global-variable-in-component-tests-using-karma?rq=1
-    window['gapi'] = {
+    window['gapi'] = {  //it will throw 'gapi is not defined' without this
       load() {
         return null;
-      }
-    };
+      }};
 
     TestBed.configureTestingModule({
       imports: [CustomModule, HttpClientModule, RouterTestingModule],

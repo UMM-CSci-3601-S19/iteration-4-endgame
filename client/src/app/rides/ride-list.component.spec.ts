@@ -191,10 +191,6 @@ describe('Ride list', () => {
       fixture = TestBed.createComponent(RideListComponent);
       rideList = fixture.componentInstance;
       fixture.detectChanges();
-      // window['gapi'] = {
-      //   load() {
-      //     return null;
-      //   }};
     });
   }));
 
@@ -376,10 +372,6 @@ describe('Misbehaving Ride List',() => {
       rideList = fixture.componentInstance;
       fixture.detectChanges();
     });
-    window['gapi'] = {
-      load() {
-        return null;
-      }};
   }));
 
   it('generates an error if we don\'t set up a RideListService',() => {
@@ -415,7 +407,6 @@ describe('Adding a ride',()=> {
   let authServiceStub: {
     getUserId: () => String,
     getUserName: () => String,
-    loadClient: () => null;
   };
 
   let mockMatDialog: {
@@ -440,7 +431,6 @@ describe('Adding a ride',()=> {
     authServiceStub = {
       getUserId: () => "MI6007",
       getUserName: () => "James Bond",
-      loadClient: () => null,
     };
 
     mockMatDialog = {
@@ -471,10 +461,6 @@ describe('Adding a ride',()=> {
       rideList = fixture.componentInstance;
       fixture.detectChanges();
     });
-    window['gapi'] = {
-      load() {
-        return null;
-      }};
   }));
 
   it('calls RideListService.addNewRide', () => {
@@ -577,17 +563,13 @@ describe('Editing a ride',()=> {
       rideList = fixture.componentInstance;
       fixture.detectChanges();
     });
-    window['gapi'] = {
-      load() {
-        return null;
-      }};
   }));
 
   it('calls RideListService.editRide', () => {
     let exp1 = expect(calledRide).toBeNull();
 
     rideList.openEditDialog(currentRide._id.$oid, currentRide.driver, currentRide.destination, currentRide.origin, currentRide.roundTrip, currentRide.driving, currentRide.departureDate, currentRide.departureTime, currentRide.mpg, currentRide.notes, currentRide.numSeats, currentRide.riderList);
-    
+
     let exp2 = expect(calledRide).toEqual(currentRide);
     return exp1 && exp2;
 
@@ -622,7 +604,6 @@ describe('Deleting a ride',()=> {
   let authServiceStub: {
     getUserId: () => String,
     getUserName: () => String,
-    loadClient: () => null;
   };
   let mockMatDialog: {
     open: (DeleteRideComponent, any) => {
@@ -655,7 +636,6 @@ describe('Deleting a ride',()=> {
     authServiceStub = {
       getUserId: () => "MI6007",
       getUserName: () => "James Bond",
-      loadClient: () => null,
     };
     mockMatDialog = {
       open: () => {
@@ -685,11 +665,6 @@ describe('Deleting a ride',()=> {
       rideList = fixture.componentInstance;
       fixture.detectChanges();
     });
-    window['gapi'] = {
-      load() {
-        return
-      }
-    };
   }));
 
   it('calls RideListService.deleteRide', () => {
