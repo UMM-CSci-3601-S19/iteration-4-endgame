@@ -1,6 +1,6 @@
 # Google OAUTH: Deploying on Droplet and Running in Development
 
-This document is about the neccisary steps to make your project work in deployment or development. This first part about modifying 
+This document is about the necessary steps to make your project work in deployment or development. This first part about modifying 
 `GoogleAuth.java` so it is relevant to both environments. Once that is done, only the remaining part of this document is relevant to 
 deployment.
 
@@ -30,7 +30,7 @@ Setting up Google OATH to work on localhost is already one big learning process,
 
 That said, there are three major issues with deploying to a Droplet. 
 1. Megabittron's documentation is set as is for localhost information and not top level domain information.
-2. Megabittron's documentation constructs Google OAuth in `Server.java` but our implementation uses `Google Oauth.java`
+2. Megabittron's documentation constructs Google OAuth in `Server.java` but our implementation uses `GoogleAuth.java`
 3. This version of Google OAuth as we implement it does not have a `credentials.json` file. This project only needs a client_id field one file.
 
 This documentation assumes you are using our exact setup of files as is. The following documentation is about things that need to be
