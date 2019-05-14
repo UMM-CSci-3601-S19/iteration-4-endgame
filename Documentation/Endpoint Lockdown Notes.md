@@ -32,7 +32,7 @@ maintainable, as any changes that have to be made can be made in only one place 
 On to the code!
 
 First, you will have had to implement Google's authentication on both your client and server. The documentation for how to do that
-can be found ___ here ___.
+can be found in the Google OAuth documentation, also in this folder.
 
 Once you've implemented Google authentication in your GoogleAuth class, you can use the same method to get a user's profile before
 handling other API requests from them. 
@@ -75,7 +75,7 @@ Additionally, if the user's idtoken is invalid, the server should return a 401, 
 ![deleteController Photo](./images/controller.png)
 
 
+In case something changes, or just because it's good to have multiple sources, here is the link to Google's official documentation.
 
-
-__ Link to  google's documentation somewhere __
+https://developers.google.com/identity/sign-in/web/sign-in
 

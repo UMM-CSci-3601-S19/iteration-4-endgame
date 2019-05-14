@@ -8,7 +8,6 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
-import org.bson.types.ObjectId;
 import spark.Request;
 
 import java.util.Collections;
@@ -16,8 +15,6 @@ import java.util.Iterator;
 
 public class GoogleAuth {
   private static final String CLIENT_ID = "375549452265-kpv6ds6lpfc0ibasgeqcgq1r6t6t6sth.apps.googleusercontent.com";
-
-  private static final String CLIENT_SECRET_FILE = "../secret.json";
 
   private static final NetHttpTransport transport = new NetHttpTransport();
 

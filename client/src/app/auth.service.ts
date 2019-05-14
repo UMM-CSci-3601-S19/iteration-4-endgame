@@ -5,13 +5,17 @@ import {environment} from "../environments/environment";
 import {CanActivate, Router} from "@angular/router";
 
 //Declare pulls the variable from the html/js environment, so our gapi we declared in index gets pulled here.
+
 declare let gapi: any;
+
+//Basic descriptions about some of the objects we work with
 //Gapi: The google api thing
 //Auth2: Has to be initialized first (done in index.html), then contains a lot of useful things.
 //gapi.auth2.getAuthInstance(). Type: gapi.auth2.GoogleAuth object. This is what is used to call most of the methods.
 //authInstance.currentUser.get(). Type: GoogleUser. Gets all of the user's information as well as authenticating info.
 
-//The google oauth biblé https://developers.google.com/identity/sign-in/web/reference
+//The google oauth bible (Where this information comes from) https://developers.google.com/identity/sign-in/web/reference
+//Documentation written by students in a hopefully easier to apply form can be found in the documentation folder.
 
 @Injectable()
 export class AuthService implements CanActivate, OnInit{
@@ -20,6 +24,7 @@ export class AuthService implements CanActivate, OnInit{
 
   constructor(private client: HttpClient, public router: Router) {
     this.http = client;
+    this.loadClient();
   }
 
   getUserName(): string {
@@ -39,9 +44,6 @@ export class AuthService implements CanActivate, OnInit{
   }
 
   signIn() {
-    console.log("Signing in");
-    console.log("gapi " + gapi.toString());
-    console.log("gapi.auth2 " + gapi.auth2);
     let authInstance = gapi.auth2.getAuthInstance();
     authInstance.signIn()
       .then((data) => {
@@ -55,7 +57,6 @@ export class AuthService implements CanActivate, OnInit{
 
         this.http.post<string>(environment.API_URL + 'login', {idtoken: idtoken}, httpOptions)
           .subscribe((data) => {
-            console.log(data);
           });
         this.signedInFlag = true;
       });
@@ -82,8 +83,6 @@ export class AuthService implements CanActivate, OnInit{
   }
 
   loadClient() {
-    console.log("gapi follows:");
-    console.log(gapi);
     gapi.load('auth2', function() {
       gapi.auth2.init({
         'clientId': '375549452265-kpv6ds6lpfc0ibasgeqcgq1r6t6t6sth.apps.googleusercontent.com'
@@ -92,6 +91,5 @@ export class AuthService implements CanActivate, OnInit{
   }
 
   ngOnInit() {
-    this.loadClient();
   }
 }
