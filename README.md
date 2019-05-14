@@ -22,12 +22,11 @@ Feel free to poke around in our repo. Key files that differ from other groups is
 ride-list, `Server.java`, `GoogleAuth.java`, and `auth.service.ts`. However, the key takeaways from this iteration are in our documentation:
 
 ## DOCUMENTATION
-1. [API_LOCKDOWN: Tools for testing the securirity of the API](https://github.com/UMM-CSci-3601-S19/iteration-4-endgame/blob/master/Documentation/API_LOCKDOWN)
-2. [CLIENT_TESTING_WITH_OAUTH: How to structure client tests](https://github.com/UMM-CSci-3601-S19/iteration-4-endgame/blob/master/Documentation/CLIENT_TESTING_WITH_OAUTH.md)
-3. [Deploying and Development: How to set up your development and deployment environments](https://github.com/UMM-CSci-3601-S19/iteration-4-endgame/blob/master/Documentation/Deploying%20and%20Development.md)
-4. [Endpoint Lockdown Notes: How to lock down the API](https://github.com/UMM-CSci-3601-S19/iteration-4-endgame/blob/master/Documentation/Endpoint%20Lockdown%20Notes.md)
-5. [HTTPS: How to secure your connection between client and Cloudflare as HTTPS, with notes on what may be done to secure Cloudflare to server](https://github.com/UMM-CSci-3601-S19/iteration-4-endgame/blob/master/Documentation/HTTPS.md)
-6. [documentation_e2e: How to set up end to end testing](https://github.com/UMM-CSci-3601-S19/iteration-4-endgame/blob/master/Documentation/documentation_e2e.md)
+1. [CLIENT_TESTING_WITH_OAUTH: How to structure client tests](https://github.com/UMM-CSci-3601-S19/iteration-4-endgame/blob/master/Documentation/CLIENT_TESTING_WITH_OAUTH.md)
+2. [Deploying and Development: How to set up your development and deployment environments](https://github.com/UMM-CSci-3601-S19/iteration-4-endgame/blob/master/Documentation/Deploying%20and%20Development.md)
+3. [Endpoint Lockdown Notes: How to lock down the API](https://github.com/UMM-CSci-3601-S19/iteration-4-endgame/blob/master/Documentation/Endpoint%20Lockdown%20Notes.md)
+4. [HTTPS: How to secure your connection between client and Cloudflare as HTTPS, with notes on what may be done to secure Cloudflare to server](https://github.com/UMM-CSci-3601-S19/iteration-4-endgame/blob/master/Documentation/HTTPS.md)
+5. [documentation_e2e: How to set up end to end testing](https://github.com/UMM-CSci-3601-S19/iteration-4-endgame/blob/master/Documentation/documentation_e2e.md)
 
 ## ToDo List & Known Issues: 
 See our issues and ZenHub for known issues and ToDo list. In particular, the New Issues and Out of Scope pipelines. Each issue or epic 
