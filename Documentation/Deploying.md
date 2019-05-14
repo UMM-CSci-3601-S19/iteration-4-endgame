@@ -35,6 +35,10 @@ Additionally, contrary to the Droplet Setup instructions, ssh into root@[your_ip
 ## Modifying `GoogleAuth.java`
 `GoogleAuth.java` needs your Google Developer Console's client_id. Place it like so in the file:
 
+>cd ~     
+>cd your-repos-name-here/server/src/main/java/umm3601/    
+>nano GoogleAuth.java
+
 #### `GoogleAuth.java`
 ```java
 public class GoogleAuth {
